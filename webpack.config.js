@@ -10,11 +10,11 @@ module.exports = {
 	],
 	output: {
 		filename: '[name]-[hash].js',
-		path: path.resolve(__dirname, 'docs')
+		path: path.resolve(__dirname, 'dist')
 	},
 	plugins: [
 		new CleanWebpackPlugin([
-			path.resolve(__dirname, 'docs')
+			path.resolve(__dirname, 'dist')
 		], {
 			watch: true
 		}),
@@ -23,7 +23,7 @@ module.exports = {
 		}),
 		new HtmlWebpackPlugin({
 			template: path.resolve(__dirname, './src/index.html'),
-			filename: path.resolve(__dirname, './docs/index.html'),
+			filename: path.resolve(__dirname, './index.html'),
 			inject: false
 		}),
 	],

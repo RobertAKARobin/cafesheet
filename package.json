@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode=production",
-    "start": "webpack --mode=production --watch & npx http-server ./docs",
-    "serve": "npx http-server ./docs"
+    "start": "webpack --mode=production --watch & npx http-server .",
+    "serve": "npx http-server ."
   },
   "repository": {
     "type": "git",
