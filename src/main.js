@@ -1,3 +1,9 @@
+const m = require('mithril')
+
 window.addEventListener('DOMContentLoaded', ()=>{
-	document.getElementById('app-output').textContent = 'Hello, Javascript!'
+	m.mount(document.getElementById('app-output'), {
+		view: ()=>{
+			return m('p', 'Hello, Mithril!')
+		}
+	})
 })
