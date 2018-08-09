@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "npx mocha",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production",
     "serve": "npx http-server .",
