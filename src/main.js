@@ -1,4 +1,5 @@
-const m = require('mithril')
+import m from 'mithril'
+import Coffeesheet from './coffeesheet'
 
 window.addEventListener('DOMContentLoaded', ()=>{
 	m.mount(document.getElementById('app-output'), {
