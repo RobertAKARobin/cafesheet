@@ -1,5 +1,5 @@
-import m from 'mithril'
-import {Coffeesheet} from './coffeesheet'
+const m = require('mithril')
+const {Coffeesheet} = require('./coffeesheet')
 
 window.addEventListener('DOMContentLoaded', ()=>{
 	let coffeesheet = new Coffeesheet()

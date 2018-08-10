@@ -1,4 +1,4 @@
-import m from 'mithril'
+const m = require('mithril')
 
 const CFS_DEFAULT_ROW_CELLS = 5
 
@@ -88,6 +88,10 @@ class Cell{
 	}
 }
 
-export {
-	Coffeesheet
+module.exports = {
+	Coffeesheet,
+	Table,
+	Section,
+	Row,
+	Cell
 }

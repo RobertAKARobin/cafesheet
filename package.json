@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx mocha",
+    "test": "ospec",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production",
     "serve": "npx http-server .",
@@ -27,7 +27,6 @@
     "html-webpack-plugin": "3.2.0",
     "http-server": "0.11.1",
     "mini-css-extract-plugin": "0.4.0",
-    "mocha": "^5.2.0",
     "node-sass": "^4.9.2",
     "sass-loader": "7.0.1",
     "webpack": "4.12.2",
