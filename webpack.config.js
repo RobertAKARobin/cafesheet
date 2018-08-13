@@ -23,7 +23,7 @@ module.exports = {
 		}),
 		new HtmlWebpackPlugin({
 			template: path.resolve(__dirname, './src/index.html'),
-			filename: path.resolve(__dirname, './index.html'),
+			filename: path.resolve(__dirname, './dist/index.html'),
 			inject: false
 		}),
 	],
