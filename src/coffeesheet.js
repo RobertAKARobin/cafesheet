@@ -1,5 +1,3 @@
-const m = require('mithril')
-
 const CFS_DEFAULT_ROW_CELLS = 5
 
 class Coffeesheet{
@@ -10,12 +8,6 @@ class Coffeesheet{
 	createTable(){
 		this.tables.push(new Table())
 	}
-
-	view(){
-		return this.tables.map((table)=>{
-			return table.view()
-		})
-	}
 }
 
 class Table{
@@ -25,12 +17,6 @@ class Table{
 	}
 	createSection(){
 		this.sections.push(new Section())
-	}
-
-	view(){
-		return m('table', this.sections.map((section)=>{
-			return section.view()
-		}))
 	}
 }
 
@@ -46,12 +32,6 @@ class Section{
 	// createColumn(){
 	// 	this.columns.push(new Column())
 	// }
-
-	view(){
-		return m('tbody', this.rows.map((row)=>{
-			return row.view()
-		}))
-	}
 }
 
 class Row{
@@ -64,12 +44,6 @@ class Row{
 	createCell(datum){
 		this.cells.push(new Cell(datum))
 	}
-
-	view(){
-		return m('tr', this.cells.map((cell)=>{
-			return cell.view()
-		}))
-	}
 }
 
 // class Column{
@@ -81,10 +55,6 @@ class Row{
 class Cell{
 	constructor(datum){
 		this.datum = datum
-	}
-
-	view(){
-		return m('td', this.datum)
 	}
 }
 

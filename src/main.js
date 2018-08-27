@@ -1,5 +1,5 @@
 const m = require('mithril')
-const {Coffeesheet} = require('./coffeesheet')
+const {Coffeesheet} = require('./coffeesheet.views')
 
 window.addEventListener('DOMContentLoaded', ()=>{
 	let coffeesheet = new Coffeesheet()
