@@ -6,7 +6,9 @@ class Coffeesheet{
 		this.createTable()
 	}
 	createTable(){
-		this.tables.push(new Table())
+		let table = new Table()
+		this.tables.push(table)
+		return table
 	}
 }
 
@@ -16,7 +18,9 @@ class Table{
 		this.createSection()
 	}
 	createSection(){
-		this.sections.push(new Section())
+		let section = new Section()
+		this.sections.push(section)
+		return section
 	}
 }
 
@@ -27,7 +31,9 @@ class Section{
 		this.createRow()
 	}
 	createRow(){
-		this.rows.push(new Row())
+		let row = new Row()
+		this.rows.push(row)
+		return row
 	}
 	// createColumn(){
 	// 	this.columns.push(new Column())
@@ -42,7 +48,9 @@ class Row{
 		}
 	}
 	createCell(datum){
-		this.cells.push(new Cell(datum))
+		let cell = new Cell(datum)
+		this.cells.push(cell)
+		return cell
 	}
 }
 

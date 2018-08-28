@@ -1,4 +1,4 @@
-const o = require("mithril/ospec/ospec")
+const o = require('mithril/ospec/ospec')
 const {Coffeesheet, Table, Section, Row, Cell} = require('../src/coffeesheet')
 
 o.spec('Coffeesheet', ()=>{
@@ -18,24 +18,31 @@ o.spec('Coffeesheet', ()=>{
 			o(coffeesheet.tables.length).equals(2)
 		})
 	})
-})
-
-o.spec('Coffeesheet.tables, each', ()=>{
-	let coffeesheet
-
-	o.before(()=>{
-		coffeesheet = new Coffeesheet()
-		coffeesheet.createTable()
-		coffeesheet.createTable()
-	})
-	o('it is a Table', ()=>{
-		coffeesheet.tables.forEach((table)=>{
-			o(table.constructor).equals(Table)
+	o.spec('.tables, each', ()=>{
+		o('it is a Table', ()=>{
+			coffeesheet.tables.forEach((table)=>{
+				o(table.constructor).equals(Table)
+			})
+		})
+		o('it has at least one section', ()=>{
+			coffeesheet.tables.forEach((table)=>{
+				o(table.sections.length >= 1).equals(true)
+			})
 		})
 	})
-	o('has at least one section', ()=>{
-		coffeesheet.tables.forEach((table)=>{
-			o(table.sections.length >= 1).equals(true)
+})
+
+o.spec('Table', ()=>{
+	let coffeesheet,
+		table
+	
+	o.before(()=>{
+		coffeesheet = new Coffeesheet()
+		table = coffeesheet.createTable()
+	})
+	o.spec('#constructor', ()=>{
+		o('creates one section', ()=>{
+			o(table.sections.length).equals(1)
 		})
 	})
 })
