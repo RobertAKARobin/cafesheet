@@ -8,14 +8,15 @@ o.spec('Coffeesheet', ()=>{
 		coffeesheet = new Coffeesheet()
 	})
 	o.spec('#constructor', ()=>{
-		o('creates one table', ()=>{
-			o(coffeesheet.tables.length).equals(1)
+		o('creates at least one table', ()=>{
+			o(coffeesheet.tables.length >= 1).equals(true)
 		})
 	})
 	o.spec('#createTable', ()=>{
 		o('increases the coffeesheet\'s tables by 1', ()=>{
+			let numberOfTables = coffeesheet.tables.length
 			coffeesheet.createTable()
-			o(coffeesheet.tables.length).equals(2)
+			o(coffeesheet.tables.length).equals(numberOfTables + 1)
 		})
 	})
 	o.spec('.tables, each', ()=>{
@@ -41,14 +42,15 @@ o.spec('Table', ()=>{
 		table = coffeesheet.createTable()
 	})
 	o.spec('#constructor', ()=>{
-		o('creates one section', ()=>{
-			o(table.sections.length).equals(1)
+		o('creates at least one section', ()=>{
+			o(table.sections.length >= 1).equals(true)
 		})
 	})
 	o.spec('#createSection', ()=>{
 		o('increases the table\'s sections by 1', ()=>{
+			let numberOfSections = table.sections.length
 			table.createSection()
-			o(table.sections.length).equals(2)
+			o(table.sections.length).equals(numberOfSections + 1)
 		})
 	})
 	o.spec('.sections, each', ()=>{
@@ -76,14 +78,15 @@ o.spec('Section', ()=>{
 		section = table.createSection()
 	})
 	o.spec('#constructor', ()=>{
-		o('creates one row', ()=>{
-			o(section.rows.length).equals(1)
+		o('creates at least one row', ()=>{
+			o(section.rows.length >= 1).equals(true)
 		})
 	})
 	o.spec('#createRow', ()=>{
 		o('increases the section\'s rows by 1', ()=>{
+			let numberOfRows = section.rows.length
 			section.createRow()
-			o(section.rows.length).equals(2)
+			o(section.rows.length).equals(numberOfRows + 1)
 		})
 	})
 	o.spec('.rows, each', ()=>{
