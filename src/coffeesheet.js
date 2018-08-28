@@ -5,6 +5,14 @@ class Coffeesheet{
 		this.tables = []
 		this.createTable()
 	}
+
+	get sections(){
+		return this.tables.reduce((sections, table)=>{
+			sections = sections.concat(table.sections)
+			return sections
+		}, [])
+	}
+
 	createTable(){
 		let table = new Table(this)
 		this.tables.push(table)
