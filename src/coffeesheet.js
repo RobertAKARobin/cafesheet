@@ -6,38 +6,35 @@ class Coffeesheet{
 		this.createTable()
 	}
 	createTable(){
-		let table = new Table()
-		table.coffeesheet = this
+		let table = new Table(this)
 		this.tables.push(table)
 		return table
 	}
 }
 
 class Table{
-	constructor(){
+	constructor(coffeesheet){
+		this.coffeesheet = coffeesheet
 		this.sections = []
 		this.createSection()
 	}
 	createSection(){
-		let section = new Section()
-		section.table = this
-		section.coffeesheet = this.coffeesheet
+		let section = new Section(this)
 		this.sections.push(section)
 		return section
 	}
 }
 
 class Section{
-	constructor(){
+	constructor(table){
+		this.table = table
+		this.coffeesheet = table.coffeesheet
 		this.rows = []
 		// this.columns = []
 		this.createRow()
 	}
 	createRow(){
-		let row = new Row()
-		row.section = this
-		row.table = this.table
-		row.coffeesheet = this.coffeesheet
+		let row = new Row(this)
 		this.rows.push(row)
 		return row
 	}
@@ -47,18 +44,17 @@ class Section{
 }
 
 class Row{
-	constructor(){
+	constructor(section){
+		this.section = section
+		this.table = section.table
+		this.coffeesheet = section.coffeesheet
 		this.cells = []
 		for(let i = 0; i < CFS_DEFAULT_ROW_CELLS; i++){
 			this.createCell(i)
 		}
 	}
 	createCell(datum){
-		let cell = new Cell(datum)
-		cell.row = this
-		cell.section = this.section
-		cell.table = this.table
-		cell.coffeesheet = this.coffeesheet
+		let cell = new Cell(this, datum)
 		this.cells.push(cell)
 		return cell
 	}
@@ -71,7 +67,11 @@ class Row{
 // }
 
 class Cell{
-	constructor(datum){
+	constructor(row, datum){
+		this.row = row
+		this.section = row.section
+		this.table = row.table
+		this.coffeesheet = row.coffeesheet
 		this.datum = datum
 	}
 }

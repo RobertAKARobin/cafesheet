@@ -30,7 +30,7 @@ o.spec('Coffeesheet', ()=>{
 				o(table.sections.length >= 1).equals(true)
 			})
 		})
-		o('it has a reference to the parent Coffeesheet', ()=>{
+		o('it has a reference to the ancestor Coffeesheet', ()=>{
 			coffeesheet.tables.forEach((table)=>{
 				o(table.coffeesheet).equals(coffeesheet)
 			})
@@ -69,12 +69,12 @@ o.spec('Table', ()=>{
 				o(section.rows.length >= 1).equals(true)
 			})
 		})
-		o('it has a reference to the parent table', ()=>{
+		o('it has a reference to the ancestor Table', ()=>{
 			table.sections.forEach((section)=>{
 				o(section.table).equals(table)
 			})
 		})
-		o('it has a reference to the grandparent Coffeesheet', ()=>{
+		o('it has a reference to the ancestor Coffeesheet', ()=>{
 			table.sections.forEach((section)=>{
 				o(section.coffeesheet).equals(coffeesheet)
 			})
@@ -115,6 +115,21 @@ o.spec('Section', ()=>{
 				o(row.cells.length >= 1).equals(true)
 			})
 		})
+		o('it has a reference to the ancestor Section', ()=>{
+			section.rows.forEach((row)=>{
+				o(row.section).equals(section)
+			})
+		})
+		o('it has a reference to the ancestor Table', ()=>{
+			section.rows.forEach((row)=>{
+				o(row.table).equals(table)
+			})
+		})
+		o('it has a reference to the ancestor Coffeesheet', ()=>{
+			section.rows.forEach((row)=>{
+				o(row.coffeesheet).equals(coffeesheet)
+			})
+		})
 	})
 })
 
@@ -146,6 +161,26 @@ o.spec('Row', ()=>{
 		o('it is a Cell', ()=>{
 			row.cells.forEach((cell)=>{
 				o(cell.constructor).equals(Cell)
+			})
+		})
+		o('it has a reference to the ancestor Row', ()=>{
+			row.cells.forEach((cell)=>{
+				o(cell.row).equals(row)
+			})
+		})
+		o('it has a reference to the ancestor Section', ()=>{
+			row.cells.forEach((cell)=>{
+				o(cell.section).equals(section)
+			})
+		})
+		o('it has a reference to the ancestor Table', ()=>{
+			row.cells.forEach((cell)=>{
+				o(cell.table).equals(table)
+			})
+		})
+		o('it has a reference to the ancestor Coffeesheet', ()=>{
+			row.cells.forEach((cell)=>{
+				o(cell.coffeesheet).equals(coffeesheet)
 			})
 		})
 	})
