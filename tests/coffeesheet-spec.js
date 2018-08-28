@@ -13,7 +13,7 @@ o.spec('Coffeesheet', ()=>{
 		})
 	})
 	o.spec('#createTable', ()=>{
-		o('increases the instance\'s tables by 1', ()=>{
+		o('increases the coffeesheet\'s tables by 1', ()=>{
 			coffeesheet.createTable()
 			o(coffeesheet.tables.length).equals(2)
 		})
@@ -43,6 +43,24 @@ o.spec('Table', ()=>{
 	o.spec('#constructor', ()=>{
 		o('creates one section', ()=>{
 			o(table.sections.length).equals(1)
+		})
+	})
+	o.spec('#createSection', ()=>{
+		o('increases the table\'s sections by 1', ()=>{
+			table.createSection()
+			o(table.sections.length).equals(2)
+		})
+	})
+	o.spec('.sections, each', ()=>{
+		o('it is a Section', ()=>{
+			table.sections.forEach((section)=>{
+				o(section.constructor).equals(Section)
+			})
+		})
+		o('it has at least one row', ()=>{
+			table.sections.forEach((section)=>{
+				o(section.rows.length >= 1).equals(true)
+			})
 		})
 	})
 })
