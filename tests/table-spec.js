@@ -21,6 +21,18 @@ o.spec('Table', ()=>{
 			o(table.sections.length).equals(numberOfSections + 1)
 		})
 	})
+	o.spec('.rows', ()=>{
+		o('contains all rows of sub-sections', ()=>{
+			let rows = []
+			table.sections.forEach((section)=>{
+				rows = rows.concat(section.rows)
+			})
+			o(table.rows.length).equals(rows.length)
+			table.rows.forEach((row, index)=>{
+				o(row).equals(rows[index])
+			})
+		})
+	})
 	o.spec('.sections, each', ()=>{
 		o('it is a Section', ()=>{
 			table.sections.forEach((section)=>{

@@ -26,6 +26,14 @@ class Table{
 		this.sections = []
 		this.createSection()
 	}
+
+	get rows(){
+		return this.sections.reduce((rows, section)=>{
+			rows = rows.concat(section.rows)
+			return rows
+		}, [])
+	}
+
 	createSection(){
 		let section = new Section(this)
 		this.sections.push(section)
