@@ -64,3 +64,38 @@ o.spec('Table', ()=>{
 		})
 	})
 })
+
+o.spec('Section', ()=>{
+	let coffeesheet,
+		table,
+		section
+	
+	o.before(()=>{
+		coffeesheet = new Coffeesheet()
+		table = coffeesheet.createTable()
+		section = table.createSection()
+	})
+	o.spec('#constructor', ()=>{
+		o('creates one row', ()=>{
+			o(section.rows.length).equals(1)
+		})
+	})
+	o.spec('#createRow', ()=>{
+		o('increases the section\'s rows by 1', ()=>{
+			section.createRow()
+			o(section.rows.length).equals(2)
+		})
+	})
+	o.spec('.rows, each', ()=>{
+		o('it is a Row', ()=>{
+			section.rows.forEach((row)=>{
+				o(row.constructor).equals(Row)
+			})
+		})
+		o('it has at least one cell', ()=>{
+			section.rows.forEach((row)=>{
+				o(row.cells.length >= 1).equals(true)
+			})
+		})
+	})
+})
