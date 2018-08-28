@@ -11,17 +11,13 @@ o.spec('Section', ()=>{
 		table = coffeesheet.tables[0]
 		section = table.sections[0]
 	})
-	o.spec('#constructor', ()=>{
-		o('creates at least one row', ()=>{
-			o(section.rows.length >= 1).equals(true)
-		})
+	o('#constructor creates at least one row', ()=>{
+		o(section.rows.length >= 1).equals(true)
 	})
-	o.spec('#createRow', ()=>{
-		o('increases the section\'s rows by 1', ()=>{
-			let numberOfRows = section.rows.length
-			section.createRow()
-			o(section.rows.length).equals(numberOfRows + 1)
-		})
+	o('#createRow increases the section\'s rows by 1', ()=>{
+		let numberOfRows = section.rows.length
+		section.createRow()
+		o(section.rows.length).equals(numberOfRows + 1)
 	})
 	o.spec('.rows, each', ()=>{
 		o('it is a Row', ()=>{

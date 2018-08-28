@@ -9,28 +9,22 @@ o.spec('Table', ()=>{
 		coffeesheet = new Coffeesheet()
 		table = coffeesheet.tables[0]
 	})
-	o.spec('#constructor', ()=>{
-		o('creates at least one section', ()=>{
-			o(table.sections.length >= 1).equals(true)
-		})
+	o('#constructor creates at least one section', ()=>{
+		o(table.sections.length >= 1).equals(true)
 	})
-	o.spec('#createSection', ()=>{
-		o('increases the table\'s sections by 1', ()=>{
-			let numberOfSections = table.sections.length
-			table.createSection()
-			o(table.sections.length).equals(numberOfSections + 1)
-		})
+	o('#createSection increases the table\'s sections by 1', ()=>{
+		let numberOfSections = table.sections.length
+		table.createSection()
+		o(table.sections.length).equals(numberOfSections + 1)
 	})
-	o.spec('.rows', ()=>{
-		o('contains all rows of sub-sections', ()=>{
-			let rows = []
-			table.sections.forEach((section)=>{
-				rows = rows.concat(section.rows)
-			})
-			o(table.rows.length).equals(rows.length)
-			table.rows.forEach((row, index)=>{
-				o(row).equals(rows[index])
-			})
+	o('.rows contains all rows of sub-sections', ()=>{
+		let rows = []
+		table.sections.forEach((section)=>{
+			rows = rows.concat(section.rows)
+		})
+		o(table.rows.length).equals(rows.length)
+		table.rows.forEach((row, index)=>{
+			o(row).equals(rows[index])
 		})
 	})
 	o.spec('.sections, each', ()=>{

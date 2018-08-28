@@ -7,28 +7,22 @@ o.spec('Coffeesheet', ()=>{
 	o.before(()=>{
 		coffeesheet = new Coffeesheet()
 	})
-	o.spec('#constructor', ()=>{
-		o('creates at least one table', ()=>{
-			o(coffeesheet.tables.length >= 1).equals(true)
-		})
+	o('#constructor creates at least one table', ()=>{
+		o(coffeesheet.tables.length >= 1).equals(true)
 	})
-	o.spec('#createTable', ()=>{
-		o('increases the coffeesheet\'s tables by 1', ()=>{
-			let numberOfTables = coffeesheet.tables.length
-			coffeesheet.createTable()
-			o(coffeesheet.tables.length).equals(numberOfTables + 1)
-		})
+	o('#createTable increases the coffeesheet\'s tables by 1', ()=>{
+		let numberOfTables = coffeesheet.tables.length
+		coffeesheet.createTable()
+		o(coffeesheet.tables.length).equals(numberOfTables + 1)
 	})
-	o.spec('.sections', ()=>{
-		o('contains all sections of sub-tables', ()=>{
-			let sections = []
-			coffeesheet.tables.forEach((table)=>{
-				sections = sections.concat(table.sections)
-			})
-			o(coffeesheet.sections.length).equals(sections.length)
-			coffeesheet.sections.forEach((section, index)=>{
-				o(section).equals(sections[index])
-			})
+	o('.sections contains all sections of sub-tables', ()=>{
+		let sections = []
+		coffeesheet.tables.forEach((table)=>{
+			sections = sections.concat(table.sections)
+		})
+		o(coffeesheet.sections.length).equals(sections.length)
+		coffeesheet.sections.forEach((section, index)=>{
+			o(section).equals(sections[index])
 		})
 	})
 	o.spec('.tables, each', ()=>{

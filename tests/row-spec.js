@@ -13,17 +13,13 @@ o.spec('Row', ()=>{
 		section = table.sections[0]
 		row = section.rows[0]
 	})
-	o.spec('#constructor', ()=>{
-		o('creates at least one cell', ()=>{
-			o(row.cells.length >= 1).equals(true)
-		})
+	o('#constructor creates at least one cell', ()=>{
+		o(row.cells.length >= 1).equals(true)
 	})
-	o.spec('#createCell', ()=>{
-		o('increases the row\'s cells by 1', ()=>{
-			let numberOfCells = row.cells.length
-			row.createCell()
-			o(row.cells.length).equals(numberOfCells + 1)
-		})
+	o('#createCell increases the row\'s cells by 1', ()=>{
+		let numberOfCells = row.cells.length
+		row.createCell()
+		o(row.cells.length).equals(numberOfCells + 1)
 	})
 	o.spec('.cells, each', ()=>{
 		o('it is a Cell', ()=>{
