@@ -30,6 +30,11 @@ o.spec('Coffeesheet', ()=>{
 				o(table.sections.length >= 1).equals(true)
 			})
 		})
+		o('it has a reference to the parent Coffeesheet', ()=>{
+			coffeesheet.tables.forEach((table)=>{
+				o(table.coffeesheet).equals(coffeesheet)
+			})
+		})
 	})
 })
 
@@ -39,7 +44,7 @@ o.spec('Table', ()=>{
 	
 	o.before(()=>{
 		coffeesheet = new Coffeesheet()
-		table = coffeesheet.createTable()
+		table = coffeesheet.tables[0]
 	})
 	o.spec('#constructor', ()=>{
 		o('creates at least one section', ()=>{
@@ -64,6 +69,16 @@ o.spec('Table', ()=>{
 				o(section.rows.length >= 1).equals(true)
 			})
 		})
+		o('it has a reference to the parent table', ()=>{
+			table.sections.forEach((section)=>{
+				o(section.table).equals(table)
+			})
+		})
+		o('it has a reference to the grandparent Coffeesheet', ()=>{
+			table.sections.forEach((section)=>{
+				o(section.coffeesheet).equals(coffeesheet)
+			})
+		})
 	})
 })
 
@@ -74,8 +89,8 @@ o.spec('Section', ()=>{
 	
 	o.before(()=>{
 		coffeesheet = new Coffeesheet()
-		table = coffeesheet.createTable()
-		section = table.createSection()
+		table = coffeesheet.tables[0]
+		section = table.sections[0]
 	})
 	o.spec('#constructor', ()=>{
 		o('creates at least one row', ()=>{
@@ -111,9 +126,9 @@ o.spec('Row', ()=>{
 	
 	o.before(()=>{
 		coffeesheet = new Coffeesheet()
-		table = coffeesheet.createTable()
-		section = table.createSection()
-		row = section.createRow()
+		table = coffeesheet.tables[0]
+		section = table.sections[0]
+		row = section.rows[0]
 	})
 	o.spec('#constructor', ()=>{
 		o('creates at least one cell', ()=>{

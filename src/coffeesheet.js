@@ -7,6 +7,7 @@ class Coffeesheet{
 	}
 	createTable(){
 		let table = new Table()
+		table.coffeesheet = this
 		this.tables.push(table)
 		return table
 	}
@@ -19,6 +20,8 @@ class Table{
 	}
 	createSection(){
 		let section = new Section()
+		section.table = this
+		section.coffeesheet = this.coffeesheet
 		this.sections.push(section)
 		return section
 	}
@@ -32,6 +35,9 @@ class Section{
 	}
 	createRow(){
 		let row = new Row()
+		row.section = this
+		row.table = this.table
+		row.coffeesheet = this.coffeesheet
 		this.rows.push(row)
 		return row
 	}
@@ -49,6 +55,10 @@ class Row{
 	}
 	createCell(datum){
 		let cell = new Cell(datum)
+		cell.row = this
+		cell.section = this.section
+		cell.table = this.table
+		cell.coffeesheet = this.coffeesheet
 		this.cells.push(cell)
 		return cell
 	}
