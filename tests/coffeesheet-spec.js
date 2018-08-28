@@ -3,33 +3,39 @@ const {Coffeesheet, Table, Section, Row, Cell} = require('../src/coffeesheet')
 
 o.spec('Coffeesheet', ()=>{
 	let coffeesheet
-	o.spec('#constructor', ()=>{
+
+	o.before(()=>{
 		coffeesheet = new Coffeesheet()
-		o('creates one table', (done)=>{
+	})
+	o.spec('#constructor', ()=>{
+		o('creates one table', ()=>{
 			o(coffeesheet.tables.length).equals(1)
-			done()
 		})
 	})
 	o.spec('#createTable', ()=>{
-		o('increases the instance\'s tables by 1', (done)=>{
-			let numTables = coffeesheet.tables.length
+		o('increases the instance\'s tables by 1', ()=>{
 			coffeesheet.createTable()
 			o(coffeesheet.tables.length).equals(2)
-			done()
 		})
 	})
-	o.spec('.tables, each', ()=>{
-		o('is a Table', (done)=>{
-			coffeesheet.tables.forEach((table)=>{
-				o(table.constructor).equals(Table)
-			})
-			done()
+})
+
+o.spec('Coffeesheet.tables, each', ()=>{
+	let coffeesheet
+
+	o.before(()=>{
+		coffeesheet = new Coffeesheet()
+		coffeesheet.createTable()
+		coffeesheet.createTable()
+	})
+	o('it is a Table', ()=>{
+		coffeesheet.tables.forEach((table)=>{
+			o(table.constructor).equals(Table)
 		})
-		o('has at least one section', (done)=>{
-			coffeesheet.tables.forEach((table)=>{
-				o(table.sections.length >= 1).equals(true)
-			})
-			done()
+	})
+	o('has at least one section', ()=>{
+		coffeesheet.tables.forEach((table)=>{
+			o(table.sections.length >= 1).equals(true)
 		})
 	})
 })
