@@ -24,6 +24,12 @@ o.spec('Row', ()=>{
 	o('.index returns the row\'s place in its section', ()=>{
 		o(row.index).equals(row.section.rows.indexOf(row))
 	})
+	o('.next returns the next row in the section', ()=>{
+		o(row.next).equals(row.section.rows[row.index + 1])
+	})
+	o('.prev returns the previous row in the section', ()=>{
+		o(row.prev).equals(row.section.rows[row.index - 1])
+	})
 	o.spec('.cells, each', ()=>{
 		o('it is a Cell', ()=>{
 			row.cells.forEach((cell)=>{

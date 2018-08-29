@@ -72,6 +72,12 @@ class Row{
 	get index(){
 		return this.section.rows.indexOf(this)
 	}
+	get next(){
+		return this.section.rows[this.index + 1]
+	}
+	get prev(){
+		return this.section.rows[this.index - 1]
+	}
 	createCell(datum){
 		let cell = new Cell(this, datum)
 		this.cells.push(cell)
