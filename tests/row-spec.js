@@ -21,6 +21,9 @@ o.spec('Row', ()=>{
 		row.createCell()
 		o(row.cells.length).equals(numberOfCells + 1)
 	})
+	o('.index returns the row\'s place in its section', ()=>{
+		o(row.index).equals(row.section.rows.indexOf(row))
+	})
 	o.spec('.cells, each', ()=>{
 		o('it is a Cell', ()=>{
 			row.cells.forEach((cell)=>{
