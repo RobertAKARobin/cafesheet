@@ -1,4 +1,4 @@
-const CFS_DEFAULT_ROW_CELLS = 5
+const ENV = require('../env')
 
 class Coffeesheet{
 	constructor(){
@@ -65,7 +65,7 @@ class Row{
 		this.table = section.table
 		this.coffeesheet = section.coffeesheet
 		this.cells = []
-		for(let i = 0; i < CFS_DEFAULT_ROW_CELLS; i++){
+		for(let i = 0; i < ENV.CFS_DEFAULT_ROW_CELLS; i++){
 			this.createCell(i)
 		}
 	}
