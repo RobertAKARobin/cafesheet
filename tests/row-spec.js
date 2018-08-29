@@ -33,12 +33,12 @@ o.spec('Row', ()=>{
 			o(lastRow.next).equals(undefined)
 		})
 	})
-	o.spec('.prev', ()=>{
+	o.spec('.previous', ()=>{
 		o('returns the previous row in the section', ()=>{
-			o(row.prev).equals(row.section.rows[row.index - 1])
+			o(row.previous).equals(row.section.rows[row.index - 1])
 		})
 		o('returns undefined if the first row in the section', ()=>{
-			o(row.section.rows[0].prev).equals(undefined)
+			o(row.section.rows[0].previous).equals(undefined)
 		})
 	})
 	o.spec('.cells, each', ()=>{

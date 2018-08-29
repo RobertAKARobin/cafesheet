@@ -75,7 +75,7 @@ class Row{
 	get next(){
 		return this.section.rows[this.index + 1]
 	}
-	get prev(){
+	get previous(){
 		return this.section.rows[this.index - 1]
 	}
 	createCell(datum){
