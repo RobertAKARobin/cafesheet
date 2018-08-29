@@ -49,9 +49,9 @@ class Section{
 		// this.columns = []
 		this.createRow()
 	}
-	createRow(){
+	createRow(afterIndex = 0){
 		let row = new Row(this)
-		this.rows.push(row)
+		this.rows.splice(afterIndex, 0, row)
 		return row
 	}
 	// createColumn(){
