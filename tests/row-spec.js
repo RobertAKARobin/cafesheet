@@ -24,11 +24,22 @@ o.spec('Row', ()=>{
 	o('.index returns the row\'s place in its section', ()=>{
 		o(row.index).equals(row.section.rows.indexOf(row))
 	})
-	o('.next returns the next row in the section', ()=>{
-		o(row.next).equals(row.section.rows[row.index + 1])
+	o.spec('.next', ()=>{
+		o('returns the next row in the section', ()=>{
+			o(row.next).equals(row.section.rows[row.index + 1])
+		})
+		o('returns undefined if the last row in the section', ()=>{
+			let lastRow = row.section.rows[row.section.rows.length - 1]
+			o(lastRow.next).equals(undefined)
+		})
 	})
-	o('.prev returns the previous row in the section', ()=>{
-		o(row.prev).equals(row.section.rows[row.index - 1])
+	o.spec('.prev', ()=>{
+		o('returns the previous row in the section', ()=>{
+			o(row.prev).equals(row.section.rows[row.index - 1])
+		})
+		o('returns undefined if the first row in the section', ()=>{
+			o(row.section.rows[0].prev).equals(undefined)
+		})
 	})
 	o.spec('.cells, each', ()=>{
 		o('it is a Cell', ()=>{
