@@ -1,5 +1,20 @@
 const ENV = require('../env')
 
+class CSNode{
+	constructor(parent){
+		this[this.parentType.name.toLowerCase()] = parent
+		this[`${this.childType.name.toLowerCase()}s`] = []
+		this[`create${this.childType.name}`] = this.add
+		this.add()
+	}
+
+	add(){
+		let child = new this.childType(this)
+		this[`${this.childType.name.toLowerCase()}s`].push(child)
+		return child
+	}
+}
+
 class Coffeesheet{
 	constructor(){
 		this.tables = []
@@ -20,11 +35,12 @@ class Coffeesheet{
 	}
 }
 
-class Table{
-	constructor(coffeesheet){
-		this.coffeesheet = coffeesheet
-		this.sections = []
-		this.createSection()
+class Table extends CSNode{
+	get childType(){
+		return Section
+	}
+	get parentType(){
+		return Coffeesheet
 	}
 
 	get rows(){
@@ -32,12 +48,6 @@ class Table{
 			rows = rows.concat(section.rows)
 			return rows
 		}, [])
-	}
-
-	createSection(){
-		let section = new Section(this)
-		this.sections.push(section)
-		return section
 	}
 }
 
