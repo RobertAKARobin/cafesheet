@@ -2,15 +2,10 @@ const o = require('mithril/ospec/ospec')
 const {Coffeesheet, Table, Section, Row, Cell} = require('../src/coffeesheet')
 
 o.spec('Section', ()=>{
-	let coffeesheet,
-		table,
-		section
-	
-	o.before(()=>{
-		coffeesheet = new Coffeesheet()
-		table = coffeesheet.tables[0]
+	let coffeesheet = new Coffeesheet(),
+		table = coffeesheet.tables[0],
 		section = table.sections[0]
-	})
+	
 	o('inheritance is correct', ()=>{
 		o(section.class).equals(Section)
 		o(Section.parentType).equals(Table)
@@ -39,50 +34,32 @@ o.spec('Section', ()=>{
 				o(section.rows.length).equals(numberOfRows + 1)
 			})
 		})
+		o('.next returns undefined if the last row in the section', ()=>{
+			let lastRow = section.rows[section.rows.length - 1]
+			o(lastRow.next).equals(undefined)
+		})
+		o('.previous returns undefined if the first row in the section', ()=>{
+			o(section.rows[0].previous).equals(undefined)
+		})
 		o.spec('each', ()=>{
-			o('it is a Row', ()=>{
-				section.rows.forEach((row)=>{
-					o(row.constructor).equals(Row)
+			section.rows.forEach((row)=>{
+				o('it is a Row', ()=>{
+					o(row.class).equals(Row)
 				})
-			})
-			o('it has at least one cell', ()=>{
-				section.rows.forEach((row)=>{
+				o('it has at least one cell', ()=>{
 					o(row.cells.length >= 1).equals(true)
 				})
-			})
-			o('it has a reference to the ancestor Section', ()=>{
-				section.rows.forEach((row)=>{
+				o('it has a reference to the ancestor Section', ()=>{
 					o(row.section).equals(section)
 				})
-			})
-			o('.index returns the row\'s place in its section', ()=>{
-				section.rows.forEach((row)=>{
+				o('.index returns the row\'s place in its section', ()=>{
 					o(row.index).equals(section.rows.indexOf(row))
 				})
-			})
-			o.spec('.next', ()=>{
-				o('returns the next row in the section', ()=>{
-					section.rows.forEach((row)=>{
-						o(row.next).equals(section.rows[row.index + 1])
-					})
+				o('.next returns the next row in the section', ()=>{
+					o(row.next).equals(section.rows[row.index + 1])
 				})
-				o('returns undefined if the last row in the section', ()=>{
-					let lastRow = section.rows[section.rows.length - 1]
-					section.rows.forEach((row)=>{
-						o(lastRow.next).equals(undefined)
-					})
-				})
-			})
-			o.spec('.previous', ()=>{
-				o('returns the previous row in the section', ()=>{
-					section.rows.forEach((row)=>{
-						o(row.previous).equals(section.rows[row.index - 1])
-					})
-				})
-				o('returns undefined if the first row in the section', ()=>{
-					section.rows.forEach((row)=>{
-						o(section.rows[0].previous).equals(undefined)
-					})
+				o('.previous returns the previous row in the section', ()=>{
+					o(row.previous).equals(section.rows[row.index - 1])
 				})
 			})
 			// o('it has a reference to the ancestor Table', ()=>{
