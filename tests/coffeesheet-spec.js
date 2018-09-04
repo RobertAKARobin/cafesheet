@@ -17,9 +17,9 @@ o.spec('Coffeesheet', ()=>{
 	o('#constructor creates at least one table', ()=>{
 		o(coffeesheet.tables.length >= 1).equals(true)
 	})
-	o('#createTable increases the coffeesheet\'s tables by 1', ()=>{
+	o('#add increases the coffeesheet\'s tables by 1', ()=>{
 		let numberOfTables = coffeesheet.tables.length
-		coffeesheet.createTable()
+		coffeesheet.add()
 		o(coffeesheet.tables.length).equals(numberOfTables + 1)
 	})
 	// o('.sections contains all sections of sub-tables', ()=>{

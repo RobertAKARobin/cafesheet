@@ -25,7 +25,7 @@ o.spec('Row', ()=>{
 	})
 	o('#createCell increases the row\'s cells by 1', ()=>{
 		let numberOfCells = row.cells.length
-		row.createCell()
+		row.add()
 		o(row.cells.length).equals(numberOfCells + 1)
 	})
 	o('.index returns the row\'s place in its section', ()=>{

@@ -21,22 +21,22 @@ o.spec('Section', ()=>{
 	o('#constructor creates at least one row', ()=>{
 		o(section.rows.length >= 1).equals(true)
 	})
-	o.spec('#createRow', ()=>{
+	o.spec('#add', ()=>{
 		o('increases the section\'s rows by 1', ()=>{
 			let numberOfRows = section.rows.length
-			section.createRow()
+			section.add()
 			o(section.rows.length).equals(numberOfRows + 1)
 		})
-		o('(afterIndex) inserts row after specified index', ()=>{
-			let targetIndex = 1,
-				rowBefore = section.rows[targetIndex - 1],
-				rowAfter = section.rows[targetIndex],
-				newRow = section.createRow(targetIndex),
-				actualIndex = section.rows.indexOf(newRow)
-			o(actualIndex).equals(targetIndex)
-			o(section.rows[targetIndex - 1]).equals(rowBefore)
-			o(section.rows[targetIndex + 1]).equals(rowAfter)
-		})
+		// o('(afterIndex) inserts row after specified index', ()=>{
+		// 	let targetIndex = 1,
+		// 		rowBefore = section.rows[targetIndex - 1],
+		// 		rowAfter = section.rows[targetIndex],
+		// 		newRow = section.add(targetIndex),
+		// 		actualIndex = section.rows.indexOf(newRow)
+		// 	o(actualIndex).equals(targetIndex)
+		// 	o(section.rows[targetIndex - 1]).equals(rowBefore)
+		// 	o(section.rows[targetIndex + 1]).equals(rowAfter)
+		// })
 	})
 	o.spec('.rows, each', ()=>{
 		o('it is a Row', ()=>{

@@ -19,9 +19,9 @@ o.spec('Table', ()=>{
 	o('#constructor creates at least one section', ()=>{
 		o(table.sections.length >= 1).equals(true)
 	})
-	o('#createSection increases the table\'s sections by 1', ()=>{
+	o('#add increases the table\'s sections by 1', ()=>{
 		let numberOfSections = table.sections.length
-		table.createSection()
+		table.add()
 		o(table.sections.length).equals(numberOfSections + 1)
 	})
 	// o('.rows contains all rows of sub-sections', ()=>{

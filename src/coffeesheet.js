@@ -10,9 +10,10 @@ class CSNode{
 		}
 		if(this.class.childType){
 			this[`${this.class.childType.name.toLowerCase()}s`] = []
-			this[`create${this.class.childType.name}`] = this.add
 		}
-		this.add()
+		if(this.onCreate){
+			this.onCreate()
+		}
 	}
 
 	add(afterIndex = 0){
@@ -26,6 +27,10 @@ class Coffeesheet extends CSNode{
 	static get childType(){
 		return Table
 	}
+
+	onCreate(){
+		this.add()
+	}
 }
 
 class Table extends CSNode{
@@ -34,6 +39,10 @@ class Table extends CSNode{
 	}
 	static get parentType(){
 		return Coffeesheet
+	}
+
+	onCreate(){
+		this.add()
 	}
 }
 
@@ -47,6 +56,10 @@ class Section extends CSNode{
 	// createColumn(){
 	// 	this.columns.push(new Column())
 	// }
+
+	onCreate(){
+		this.add()
+	}
 }
 
 class Row extends CSNode{
@@ -64,6 +77,12 @@ class Row extends CSNode{
 	}
 	get previous(){
 		return this.section.rows[this.index - 1]
+	}
+
+	onCreate(){
+		for(let i = 0; i < ENV.CFS_DEFAULT_ROW_CELLS; i++){
+			this.createCell(i)
+		}
 	}
 	createCell(datum){
 		let cell = new Cell(this, datum)
