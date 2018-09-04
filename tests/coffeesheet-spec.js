@@ -15,16 +15,16 @@ o.spec('Coffeesheet', ()=>{
 		coffeesheet.createTable()
 		o(coffeesheet.tables.length).equals(numberOfTables + 1)
 	})
-	o('.sections contains all sections of sub-tables', ()=>{
-		let sections = []
-		coffeesheet.tables.forEach((table)=>{
-			sections = sections.concat(table.sections)
-		})
-		o(coffeesheet.sections.length).equals(sections.length)
-		coffeesheet.sections.forEach((section, index)=>{
-			o(section).equals(sections[index])
-		})
-	})
+	// o('.sections contains all sections of sub-tables', ()=>{
+	// 	let sections = []
+	// 	coffeesheet.tables.forEach((table)=>{
+	// 		sections = sections.concat(table.sections)
+	// 	})
+	// 	o(coffeesheet.sections.length).equals(sections.length)
+	// 	coffeesheet.sections.forEach((section, index)=>{
+	// 		o(section).equals(sections[index])
+	// 	})
+	// })
 	o.spec('.tables, each', ()=>{
 		o('it is a Table', ()=>{
 			coffeesheet.tables.forEach((table)=>{

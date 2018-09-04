@@ -8,30 +8,19 @@ class CSNode{
 		this.add()
 	}
 
-	add(){
+	add(afterIndex = 0){
 		let child = new this.childType(this)
-		this[`${this.childType.name.toLowerCase()}s`].push(child)
+		this[`${this.childType.name.toLowerCase()}s`].splice(afterIndex, 0, child)
 		return child
 	}
 }
 
-class Coffeesheet{
-	constructor(){
-		this.tables = []
-		this.createTable()
+class Coffeesheet extends CSNode{
+	get childType(){
+		return Table
 	}
-
-	get sections(){
-		return this.tables.reduce((sections, table)=>{
-			sections = sections.concat(table.sections)
-			return sections
-		}, [])
-	}
-
-	createTable(){
-		let table = new Table(this)
-		this.tables.push(table)
-		return table
+	get parentType(){
+		return Coffeesheet
 	}
 }
 
@@ -42,42 +31,26 @@ class Table extends CSNode{
 	get parentType(){
 		return Coffeesheet
 	}
-
-	get rows(){
-		return this.sections.reduce((rows, section)=>{
-			rows = rows.concat(section.rows)
-			return rows
-		}, [])
-	}
 }
 
-class Section{
-	constructor(table){
-		this.table = table
-		this.coffeesheet = table.coffeesheet
-		this.rows = []
-		// this.columns = []
-		this.createRow()
+class Section extends CSNode{
+	get childType(){
+		return Row
 	}
-	createRow(afterIndex = 0){
-		let row = new Row(this)
-		this.rows.splice(afterIndex, 0, row)
-		return row
+	get parentType(){
+		return Table
 	}
 	// createColumn(){
 	// 	this.columns.push(new Column())
 	// }
 }
 
-class Row{
-	constructor(section){
-		this.section = section
-		this.table = section.table
-		this.coffeesheet = section.coffeesheet
-		this.cells = []
-		for(let i = 0; i < ENV.CFS_DEFAULT_ROW_CELLS; i++){
-			this.createCell(i)
-		}
+class Row extends CSNode{
+	get childType(){
+		return Cell
+	}
+	get parentType(){
+		return Section
 	}
 	get index(){
 		return this.section.rows.indexOf(this)

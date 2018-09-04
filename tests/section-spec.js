@@ -47,15 +47,15 @@ o.spec('Section', ()=>{
 				o(row.section).equals(section)
 			})
 		})
-		o('it has a reference to the ancestor Table', ()=>{
-			section.rows.forEach((row)=>{
-				o(row.table).equals(table)
-			})
-		})
-		o('it has a reference to the ancestor Coffeesheet', ()=>{
-			section.rows.forEach((row)=>{
-				o(row.coffeesheet).equals(coffeesheet)
-			})
-		})
+		// o('it has a reference to the ancestor Table', ()=>{
+		// 	section.rows.forEach((row)=>{
+		// 		o(row.table).equals(table)
+		// 	})
+		// })
+		// o('it has a reference to the ancestor Coffeesheet', ()=>{
+		// 	section.rows.forEach((row)=>{
+		// 		o(row.coffeesheet).equals(coffeesheet)
+		// 	})
+		// })
 	})
 })

@@ -17,16 +17,16 @@ o.spec('Table', ()=>{
 		table.createSection()
 		o(table.sections.length).equals(numberOfSections + 1)
 	})
-	o('.rows contains all rows of sub-sections', ()=>{
-		let rows = []
-		table.sections.forEach((section)=>{
-			rows = rows.concat(section.rows)
-		})
-		o(table.rows.length).equals(rows.length)
-		table.rows.forEach((row, index)=>{
-			o(row).equals(rows[index])
-		})
-	})
+	// o('.rows contains all rows of sub-sections', ()=>{
+	// 	let rows = []
+	// 	table.sections.forEach((section)=>{
+	// 		rows = rows.concat(section.rows)
+	// 	})
+	// 	o(table.rows.length).equals(rows.length)
+	// 	table.rows.forEach((row, index)=>{
+	// 		o(row).equals(rows[index])
+	// 	})
+	// })
 	o.spec('.sections, each', ()=>{
 		o('it is a Section', ()=>{
 			table.sections.forEach((section)=>{
@@ -43,10 +43,10 @@ o.spec('Table', ()=>{
 				o(section.table).equals(table)
 			})
 		})
-		o('it has a reference to the ancestor Coffeesheet', ()=>{
-			table.sections.forEach((section)=>{
-				o(section.coffeesheet).equals(coffeesheet)
-			})
-		})
+		// o('it has a reference to the ancestor Coffeesheet', ()=>{
+		// 	table.sections.forEach((section)=>{
+		// 		o(section.coffeesheet).equals(coffeesheet)
+		// 	})
+		// })
 	})
 })
