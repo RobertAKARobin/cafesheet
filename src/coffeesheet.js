@@ -2,42 +2,46 @@ const ENV = require('../env')
 
 class CSNode{
 	constructor(parent){
-		this[this.parentType.name.toLowerCase()] = parent
-		this[`${this.childType.name.toLowerCase()}s`] = []
-		this[`create${this.childType.name}`] = this.add
+		this.class = this.constructor
+		this.childType = this.class.childType
+		this.parentType = this.class.parentType
+		if(this.class.parentType){
+			this[this.class.parentType.name.toLowerCase()] = parent
+		}
+		if(this.class.childType){
+			this[`${this.class.childType.name.toLowerCase()}s`] = []
+			this[`create${this.class.childType.name}`] = this.add
+		}
 		this.add()
 	}
 
 	add(afterIndex = 0){
-		let child = new this.childType(this)
-		this[`${this.childType.name.toLowerCase()}s`].splice(afterIndex, 0, child)
+		let child = new this.class.childType(this)
+		this[`${this.class.childType.name.toLowerCase()}s`].splice(afterIndex, 0, child)
 		return child
 	}
 }
 
 class Coffeesheet extends CSNode{
-	get childType(){
+	static get childType(){
 		return Table
-	}
-	get parentType(){
-		return Coffeesheet
 	}
 }
 
 class Table extends CSNode{
-	get childType(){
+	static get childType(){
 		return Section
 	}
-	get parentType(){
+	static get parentType(){
 		return Coffeesheet
 	}
 }
 
 class Section extends CSNode{
-	get childType(){
+	static get childType(){
 		return Row
 	}
-	get parentType(){
+	static get parentType(){
 		return Table
 	}
 	// createColumn(){
@@ -46,10 +50,10 @@ class Section extends CSNode{
 }
 
 class Row extends CSNode{
-	get childType(){
+	static get childType(){
 		return Cell
 	}
-	get parentType(){
+	static get parentType(){
 		return Section
 	}
 	get index(){

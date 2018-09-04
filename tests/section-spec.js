@@ -11,6 +11,13 @@ o.spec('Section', ()=>{
 		table = coffeesheet.tables[0]
 		section = table.sections[0]
 	})
+	o('inheritance is correct', ()=>{
+		o(section.class).equals(Section)
+		o(Section.parentType).equals(Table)
+		o(section.parentType).equals(Table)
+		o(Section.childType).equals(Row)
+		o(section.childType).equals(Row)
+	})
 	o('#constructor creates at least one row', ()=>{
 		o(section.rows.length >= 1).equals(true)
 	})

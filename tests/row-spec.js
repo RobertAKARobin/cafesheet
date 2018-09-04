@@ -13,6 +13,13 @@ o.spec('Row', ()=>{
 		section = table.sections[0]
 		row = section.rows[0]
 	})
+	o('inheritance is correct', ()=>{
+		o(row.class).equals(Row)
+		o(Row.parentType).equals(Section)
+		o(row.parentType).equals(Section)
+		o(Row.childType).equals(Cell)
+		o(row.childType).equals(Cell)
+	})
 	o('#constructor creates at least one cell', ()=>{
 		o(row.cells.length >= 1).equals(true)
 	})
