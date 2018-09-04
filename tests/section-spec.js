@@ -27,12 +27,10 @@ o.spec('Section', ()=>{
 		// 	o(section.rows[targetIndex + 1]).equals(rowAfter)
 		// })
 	o.spec('.rows', ()=>{
-		o.spec('.add', ()=>{
-			o('increases the section\'s rows by 1', ()=>{
-				let numberOfRows = section.rows.length
-				section.rows.add()
-				o(section.rows.length).equals(numberOfRows + 1)
-			})
+		o('.add increases the section\'s rows by 1', ()=>{
+			let numberOfRows = section.rows.length
+			section.rows.add()
+			o(section.rows.length).equals(numberOfRows + 1)
 		})
 		o('.next returns undefined if the last row in the section', ()=>{
 			let lastRow = section.rows[section.rows.length - 1]
@@ -49,7 +47,7 @@ o.spec('Section', ()=>{
 				o('it has at least one cell', ()=>{
 					o(row.cells.length >= 1).equals(true)
 				})
-				o('it has a reference to the ancestor Section', ()=>{
+				o('it has a reference to the parent Section', ()=>{
 					o(row.section).equals(section)
 				})
 				o('.index returns the row\'s place in its section', ()=>{
