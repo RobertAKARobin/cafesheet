@@ -16,6 +16,10 @@ class CSNode{
 			this.onCreate()
 		}
 	}
+
+	onCreate(){
+		this.children.add()
+	}
 }
 
 class CSSiblings extends Array{
@@ -36,10 +40,6 @@ class Coffeesheet extends CSNode{
 	static get childType(){
 		return Table
 	}
-
-	onCreate(){
-		this.children.add()
-	}
 }
 
 class Table extends CSNode{
@@ -48,10 +48,6 @@ class Table extends CSNode{
 	}
 	static get parentType(){
 		return Coffeesheet
-	}
-
-	onCreate(){
-		this.children.add()
 	}
 }
 
@@ -65,10 +61,6 @@ class Section extends CSNode{
 	// createColumn(){
 	// 	this.columns.push(new Column())
 	// }
-
-	onCreate(){
-		this.children.add()
-	}
 }
 
 class Row extends CSNode{
