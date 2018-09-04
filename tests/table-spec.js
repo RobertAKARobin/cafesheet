@@ -19,11 +19,6 @@ o.spec('Table', ()=>{
 	o('#constructor creates at least one section', ()=>{
 		o(table.sections.length >= 1).equals(true)
 	})
-	o('#add increases the table\'s sections by 1', ()=>{
-		let numberOfSections = table.sections.length
-		table.add()
-		o(table.sections.length).equals(numberOfSections + 1)
-	})
 	// o('.rows contains all rows of sub-sections', ()=>{
 	// 	let rows = []
 	// 	table.sections.forEach((section)=>{
@@ -34,26 +29,33 @@ o.spec('Table', ()=>{
 	// 		o(row).equals(rows[index])
 	// 	})
 	// })
-	o.spec('.sections, each', ()=>{
-		o('it is a Section', ()=>{
-			table.sections.forEach((section)=>{
-				o(section.constructor).equals(Section)
-			})
+	o.spec('.sections', ()=>{
+		o('.add', ()=>{
+			let numberOfSections = table.sections.length
+			table.sections.add()
+			o(table.sections.length).equals(numberOfSections + 1)
 		})
-		o('it has at least one row', ()=>{
-			table.sections.forEach((section)=>{
-				o(section.rows.length >= 1).equals(true)
+		o.spec('each', ()=>{
+			o('it is a Section', ()=>{
+				table.sections.forEach((section)=>{
+					o(section.constructor).equals(Section)
+				})
 			})
-		})
-		o('it has a reference to the ancestor Table', ()=>{
-			table.sections.forEach((section)=>{
-				o(section.table).equals(table)
+			o('it has at least one row', ()=>{
+				table.sections.forEach((section)=>{
+					o(section.rows.length >= 1).equals(true)
+				})
 			})
+			o('it has a reference to the ancestor Table', ()=>{
+				table.sections.forEach((section)=>{
+					o(section.table).equals(table)
+				})
+			})
+			// o('it has a reference to the ancestor Coffeesheet', ()=>{
+			// 	table.sections.forEach((section)=>{
+			// 		o(section.coffeesheet).equals(coffeesheet)
+			// 	})
+			// })
 		})
-		// o('it has a reference to the ancestor Coffeesheet', ()=>{
-		// 	table.sections.forEach((section)=>{
-		// 		o(section.coffeesheet).equals(coffeesheet)
-		// 	})
-		// })
 	})
 })

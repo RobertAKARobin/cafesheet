@@ -21,12 +21,6 @@ o.spec('Section', ()=>{
 	o('#constructor creates at least one row', ()=>{
 		o(section.rows.length >= 1).equals(true)
 	})
-	o.spec('#add', ()=>{
-		o('increases the section\'s rows by 1', ()=>{
-			let numberOfRows = section.rows.length
-			section.add()
-			o(section.rows.length).equals(numberOfRows + 1)
-		})
 		// o('(afterIndex) inserts row after specified index', ()=>{
 		// 	let targetIndex = 1,
 		// 		rowBefore = section.rows[targetIndex - 1],
@@ -37,32 +31,40 @@ o.spec('Section', ()=>{
 		// 	o(section.rows[targetIndex - 1]).equals(rowBefore)
 		// 	o(section.rows[targetIndex + 1]).equals(rowAfter)
 		// })
-	})
-	o.spec('.rows, each', ()=>{
-		o('it is a Row', ()=>{
-			section.rows.forEach((row)=>{
-				o(row.constructor).equals(Row)
+	o.spec('.rows', ()=>{
+		o.spec('.add', ()=>{
+			o('increases the section\'s rows by 1', ()=>{
+				let numberOfRows = section.rows.length
+				section.rows.add()
+				o(section.rows.length).equals(numberOfRows + 1)
 			})
 		})
-		o('it has at least one cell', ()=>{
-			section.rows.forEach((row)=>{
-				o(row.cells.length >= 1).equals(true)
+		o.spec('each', ()=>{
+			o('it is a Row', ()=>{
+				section.rows.forEach((row)=>{
+					o(row.constructor).equals(Row)
+				})
 			})
-		})
-		o('it has a reference to the ancestor Section', ()=>{
-			section.rows.forEach((row)=>{
-				o(row.section).equals(section)
+			o('it has at least one cell', ()=>{
+				section.rows.forEach((row)=>{
+					o(row.cells.length >= 1).equals(true)
+				})
 			})
+			o('it has a reference to the ancestor Section', ()=>{
+				section.rows.forEach((row)=>{
+					o(row.section).equals(section)
+				})
+			})
+			// o('it has a reference to the ancestor Table', ()=>{
+			// 	section.rows.forEach((row)=>{
+			// 		o(row.table).equals(table)
+			// 	})
+			// })
+			// o('it has a reference to the ancestor Coffeesheet', ()=>{
+			// 	section.rows.forEach((row)=>{
+			// 		o(row.coffeesheet).equals(coffeesheet)
+			// 	})
+			// })
 		})
-		// o('it has a reference to the ancestor Table', ()=>{
-		// 	section.rows.forEach((row)=>{
-		// 		o(row.table).equals(table)
-		// 	})
-		// })
-		// o('it has a reference to the ancestor Coffeesheet', ()=>{
-		// 	section.rows.forEach((row)=>{
-		// 		o(row.coffeesheet).equals(coffeesheet)
-		// 	})
-		// })
 	})
 })

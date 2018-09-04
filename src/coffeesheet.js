@@ -9,16 +9,25 @@ class CSNode{
 			this[this.class.parentType.name.toLowerCase()] = parent
 		}
 		if(this.class.childType){
-			this[`${this.class.childType.name.toLowerCase()}s`] = []
+			this.children = new CSSiblings(this)
+			this[`${this.class.childType.name.toLowerCase()}s`] = this.children
 		}
 		if(this.onCreate){
 			this.onCreate()
 		}
 	}
+}
 
-	add(afterIndex = 0){
-		let child = new this.class.childType(this)
-		this[`${this.class.childType.name.toLowerCase()}s`].splice(afterIndex, 0, child)
+class CSSiblings extends Array{
+	constructor(parent){
+		super()
+		this.parent = parent
+		this.class = parent.childType
+	}
+
+	add(options){
+		let child = new this.class(this.parent, options)
+		this.push(child)
 		return child
 	}
 }
@@ -29,7 +38,7 @@ class Coffeesheet extends CSNode{
 	}
 
 	onCreate(){
-		this.add()
+		this.children.add()
 	}
 }
 
@@ -42,7 +51,7 @@ class Table extends CSNode{
 	}
 
 	onCreate(){
-		this.add()
+		this.children.add()
 	}
 }
 
@@ -58,7 +67,7 @@ class Section extends CSNode{
 	// }
 
 	onCreate(){
-		this.add()
+		this.children.add()
 	}
 }
 
@@ -81,13 +90,8 @@ class Row extends CSNode{
 
 	onCreate(){
 		for(let i = 0; i < ENV.CFS_DEFAULT_ROW_CELLS; i++){
-			this.createCell(i)
+			this.children.add(i)
 		}
-	}
-	createCell(datum){
-		let cell = new Cell(this, datum)
-		this.cells.push(cell)
-		return cell
 	}
 }
 
@@ -100,9 +104,6 @@ class Row extends CSNode{
 class Cell{
 	constructor(row, datum){
 		this.row = row
-		this.section = row.section
-		this.table = row.table
-		this.coffeesheet = row.coffeesheet
 		this.datum = datum
 	}
 }

@@ -23,11 +23,6 @@ o.spec('Row', ()=>{
 	o('#constructor creates at least one cell', ()=>{
 		o(row.cells.length >= 1).equals(true)
 	})
-	o('#createCell increases the row\'s cells by 1', ()=>{
-		let numberOfCells = row.cells.length
-		row.add()
-		o(row.cells.length).equals(numberOfCells + 1)
-	})
 	o('.index returns the row\'s place in its section', ()=>{
 		o(row.index).equals(row.section.rows.indexOf(row))
 	})
@@ -48,15 +43,22 @@ o.spec('Row', ()=>{
 			o(row.section.rows[0].previous).equals(undefined)
 		})
 	})
-	o.spec('.cells, each', ()=>{
-		o('it is a Cell', ()=>{
-			row.cells.forEach((cell)=>{
-				o(cell.constructor).equals(Cell)
-			})
+	o.spec('.cells', ()=>{
+		o('.add increases the row\'s cells by 1', ()=>{
+			let numberOfCells = row.cells.length
+			row.cells.add()
+			o(row.cells.length).equals(numberOfCells + 1)
 		})
-		o('it has a reference to the ancestor Row', ()=>{
-			row.cells.forEach((cell)=>{
-				o(cell.row).equals(row)
+		o.spec('each', ()=>{
+			o('it is a Cell', ()=>{
+				row.cells.forEach((cell)=>{
+					o(cell.constructor).equals(Cell)
+				})
+			})
+			o('it has a reference to the ancestor Row', ()=>{
+				row.cells.forEach((cell)=>{
+					o(cell.row).equals(row)
+				})
 			})
 		})
 		// o('it has a reference to the ancestor Section', ()=>{

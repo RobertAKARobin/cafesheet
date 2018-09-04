@@ -17,10 +17,29 @@ o.spec('Coffeesheet', ()=>{
 	o('#constructor creates at least one table', ()=>{
 		o(coffeesheet.tables.length >= 1).equals(true)
 	})
-	o('#add increases the coffeesheet\'s tables by 1', ()=>{
-		let numberOfTables = coffeesheet.tables.length
-		coffeesheet.add()
-		o(coffeesheet.tables.length).equals(numberOfTables + 1)
+	o.spec('.tables', ()=>{
+		o('.add increases the coffeesheet\'s tables by 1', ()=>{
+			let numberOfTables = coffeesheet.tables.length
+			coffeesheet.tables.add()
+			o(coffeesheet.tables.length).equals(numberOfTables + 1)
+		})
+		o.spec('each', ()=>{
+			o('it is a Table', ()=>{
+				coffeesheet.tables.forEach((table)=>{
+					o(table.constructor).equals(Table)
+				})
+			})
+			o('it has at least one section', ()=>{
+				coffeesheet.tables.forEach((table)=>{
+					o(table.sections.length >= 1).equals(true)
+				})
+			})
+			o('it has a reference to the ancestor Coffeesheet', ()=>{
+				coffeesheet.tables.forEach((table)=>{
+					o(table.coffeesheet).equals(coffeesheet)
+				})
+			})
+		})
 	})
 	// o('.sections contains all sections of sub-tables', ()=>{
 	// 	let sections = []
@@ -32,21 +51,4 @@ o.spec('Coffeesheet', ()=>{
 	// 		o(section).equals(sections[index])
 	// 	})
 	// })
-	o.spec('.tables, each', ()=>{
-		o('it is a Table', ()=>{
-			coffeesheet.tables.forEach((table)=>{
-				o(table.constructor).equals(Table)
-			})
-		})
-		o('it has at least one section', ()=>{
-			coffeesheet.tables.forEach((table)=>{
-				o(table.sections.length >= 1).equals(true)
-			})
-		})
-		o('it has a reference to the ancestor Coffeesheet', ()=>{
-			coffeesheet.tables.forEach((table)=>{
-				o(table.coffeesheet).equals(coffeesheet)
-			})
-		})
-	})
 })
