@@ -6,6 +6,8 @@ class CSNode{
 		this.childType = this.class.childType
 		this.parentType = this.class.parentType
 		if(this.class.parentType){
+			this.parent = parent
+			this.siblings = parent.children
 			this[this.class.parentType.name.toLowerCase()] = parent
 		}
 		if(this.class.childType){
@@ -15,6 +17,16 @@ class CSNode{
 		if(this.onCreate){
 			this.onCreate()
 		}
+	}
+
+	get index(){
+		return this.siblings.indexOf(this)
+	}
+	get next(){
+		return this.siblings[this.index + 1]
+	}
+	get previous(){
+		return this.siblings[this.index - 1]
 	}
 
 	onCreate(){
@@ -69,15 +81,6 @@ class Row extends CSNode{
 	}
 	static get parentType(){
 		return Section
-	}
-	get index(){
-		return this.section.rows.indexOf(this)
-	}
-	get next(){
-		return this.section.rows[this.index + 1]
-	}
-	get previous(){
-		return this.section.rows[this.index - 1]
 	}
 
 	onCreate(){

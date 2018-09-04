@@ -55,6 +55,36 @@ o.spec('Section', ()=>{
 					o(row.section).equals(section)
 				})
 			})
+			o('.index returns the row\'s place in its section', ()=>{
+				section.rows.forEach((row)=>{
+					o(row.index).equals(section.rows.indexOf(row))
+				})
+			})
+			o.spec('.next', ()=>{
+				o('returns the next row in the section', ()=>{
+					section.rows.forEach((row)=>{
+						o(row.next).equals(section.rows[row.index + 1])
+					})
+				})
+				o('returns undefined if the last row in the section', ()=>{
+					let lastRow = section.rows[section.rows.length - 1]
+					section.rows.forEach((row)=>{
+						o(lastRow.next).equals(undefined)
+					})
+				})
+			})
+			o.spec('.previous', ()=>{
+				o('returns the previous row in the section', ()=>{
+					section.rows.forEach((row)=>{
+						o(row.previous).equals(section.rows[row.index - 1])
+					})
+				})
+				o('returns undefined if the first row in the section', ()=>{
+					section.rows.forEach((row)=>{
+						o(section.rows[0].previous).equals(undefined)
+					})
+				})
+			})
 			// o('it has a reference to the ancestor Table', ()=>{
 			// 	section.rows.forEach((row)=>{
 			// 		o(row.table).equals(table)
