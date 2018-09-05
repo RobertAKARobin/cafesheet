@@ -11,43 +11,48 @@ o.spec('Table', ()=>{
 		o(table.parentType).equals(Coffeesheet)
 		o(Table.childType).equals(Section)
 		o(table.childType).equals(Section)
+		o(table.parent).equals(coffeesheet)
+		o(table.coffeesheet).equals(coffeesheet)
 	})
 	o('#constructor creates at least one section', ()=>{
 		o(table.sections.length >= 1).equals(true)
 	})
-	o.spec('.sections', ()=>{
-		o('.add increases the table\'s sections by 1', ()=>{
+	o.spec('#createSection', ()=>{
+		o('increases the table\'s sections by 1', ()=>{
 			let numberOfSections = table.sections.length
-			table.sections.add()
+			table.createSection()
 			o(table.sections.length).equals(numberOfSections + 1)
 		})
-		o.spec('each', ()=>{
-			table.sections.forEach((section)=>{
-				o('it is a Section', ()=>{
-					o(section.constructor).equals(Section)
-				})
-				o('it has at least one row', ()=>{
-					o(section.rows.length >= 1).equals(true)
-				})
-				o('it has a reference to the parent Table', ()=>{
-					o(section.table).equals(table)
-				})
-				o('it has a reference to the ancestor Coffeesheet', ()=>{
-					o(section.coffeesheet).equals(coffeesheet)
-				})
-			})
+		o('returns a Section', ()=>{
+			o(table.createSection().class).equals(Section)
 		})
 	})
-	o.spec('.descendants', ()=>{
-		o('.rows contains all rows of sub-sections', ()=>{
-			let rows = []
-			table.sections.forEach((section)=>{
-				rows = rows.concat(section.rows)
+	o.spec('.sections, each', ()=>{
+		table.sections.forEach((section)=>{
+			o('it is a Section', ()=>{
+				o(section.constructor).equals(Section)
 			})
-			o(table.descendants.rows.length).equals(rows.length)
-			table.descendants.rows.forEach((row, index)=>{
-				o(row).equals(rows[index])
+			o('it has at least one row', ()=>{
+				o(section.rows.length >= 1).equals(true)
 			})
+			o('it has a reference to the parent Table', ()=>{
+				o(section.table).equals(table)
+			})
+			// o('it has a reference to the ancestor Coffeesheet', ()=>{
+			// 	o(section.coffeesheet).equals(coffeesheet)
+			// })
 		})
 	})
+	// o.spec('.descendants', ()=>{
+	// 	o('.rows contains all rows of sub-sections', ()=>{
+	// 		let rows = []
+	// 		table.sections.forEach((section)=>{
+	// 			rows = rows.concat(section.rows)
+	// 		})
+	// 		o(table.descendants.rows.length).equals(rows.length)
+	// 		table.descendants.rows.forEach((row, index)=>{
+	// 			o(row).equals(rows[index])
+	// 		})
+	// 	})
+	// })
 })

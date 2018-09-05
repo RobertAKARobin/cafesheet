@@ -13,33 +13,31 @@ o.spec('Row', ()=>{
 		o(row.parentType).equals(Section)
 		o(Row.childType).equals(Cell)
 		o(row.childType).equals(Cell)
+		o(row.parent).equals(section)
+		o(row.section).equals(section)
+		o(row.table).equals(table)
+		o(row.coffeesheet).equals(coffeesheet)
 	})
 	o('#constructor creates at least one cell', ()=>{
 		o(row.cells.length >= 1).equals(true)
 	})
-	o.spec('.cells', ()=>{
-		o('.add increases the row\'s cells by 1', ()=>{
+	o.spec('#createCell', ()=>{
+		o('increases the row\'s cells by 1', ()=>{
 			let numberOfCells = row.cells.length
-			row.cells.add()
+			row.createCell()
 			o(row.cells.length).equals(numberOfCells + 1)
 		})
-		o.spec('each', ()=>{
-			row.cells.forEach((cell)=>{
-				o('it is a Cell', ()=>{
-					o(cell.constructor).equals(Cell)
-				})
-				o('it has a reference to the parent Row', ()=>{
-					o(cell.row).equals(row)
-				})
-				o('it has a reference to the ancestor Section', ()=>{
-					o(cell.section).equals(section)
-				})
-				o('it has a reference to the ancestor Table', ()=>{
-					o(cell.table).equals(table)
-				})
-				o('it has a reference to the ancestor Coffeesheet', ()=>{
-					o(cell.coffeesheet).equals(coffeesheet)
-				})
+		o('returns a Cell', ()=>{
+			o(row.createCell().class).equals(Cell)
+		})
+	})
+	o.spec('.cells, each', ()=>{
+		row.cells.forEach((cell)=>{
+			o('it is a Cell', ()=>{
+				o(cell.constructor).equals(Cell)
+			})
+			o('it has a reference to the parent Row', ()=>{
+				o(cell.row).equals(row)
 			})
 		})
 	})
