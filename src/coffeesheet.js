@@ -1,7 +1,7 @@
 const ENV = require('../env')
 
 class CSNode{
-	constructor(parent){
+	constructor(parent, options){
 		this.class = this.constructor
 		this.childType = this.class.childType
 		this.parentType = this.class.parentType
@@ -14,9 +14,7 @@ class CSNode{
 			this.children = new CSSiblings(this)
 			this[`${this.class.childType.name.toLowerCase()}s`] = this.children
 		}
-		if(this.onCreate){
-			this.onCreate()
-		}
+		this.onCreate(options)
 		
 		let ancestors = []
 		let child = this
@@ -110,10 +108,13 @@ class Row extends CSNode{
 // 	}
 // }
 
-class Cell{
-	constructor(row, datum){
-		this.row = row
-		this.datum = datum
+class Cell extends CSNode{
+	static get parentType(){
+		return Row
+	}
+
+	onCreate(options){
+		this.datum = options
 	}
 }
 
