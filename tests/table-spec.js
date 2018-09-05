@@ -39,15 +39,13 @@ o.spec('Table', ()=>{
 				o('it has at least one row', ()=>{
 					o(section.rows.length >= 1).equals(true)
 				})
+				o('it has a reference to the parent Table', ()=>{
+					o(section.table).equals(table)
+				})
+				o('it has a reference to the ancestor Coffeesheet', ()=>{
+					o(section.coffeesheet).equals(coffeesheet)
+				})
 			})
-			// o('it has a reference to the ancestor Table', ()=>{
-			// 	o(section.table).equals(table)
-			// })
-			// o('it has a reference to the ancestor Coffeesheet', ()=>{
-			// 	table.sections.forEach((section)=>{
-			// 		o(section.coffeesheet).equals(coffeesheet)
-			// 	})
-			// })
 		})
 	})
 })

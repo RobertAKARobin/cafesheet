@@ -28,7 +28,7 @@ o.spec('Coffeesheet', ()=>{
 				o('it has at least one section', ()=>{
 					o(table.sections.length >= 1).equals(true)
 				})
-				o('it has a reference to the ancestor Coffeesheet', ()=>{
+				o('it has a reference to the parent Coffeesheet', ()=>{
 					o(table.coffeesheet).equals(coffeesheet)
 				})
 			})

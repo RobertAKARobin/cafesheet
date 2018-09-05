@@ -59,17 +59,13 @@ o.spec('Section', ()=>{
 				o('.previous returns the previous row in the section', ()=>{
 					o(row.previous).equals(section.rows[row.index - 1])
 				})
+				o('it has a reference to the ancestor Table', ()=>{
+					o(row.table).equals(table)
+				})
+				o('it has a reference to the ancestor Coffeesheet', ()=>{
+					o(row.coffeesheet).equals(coffeesheet)
+				})
 			})
-			// o('it has a reference to the ancestor Table', ()=>{
-			// 	section.rows.forEach((row)=>{
-			// 		o(row.table).equals(table)
-			// 	})
-			// })
-			// o('it has a reference to the ancestor Coffeesheet', ()=>{
-			// 	section.rows.forEach((row)=>{
-			// 		o(row.coffeesheet).equals(coffeesheet)
-			// 	})
-			// })
 		})
 	})
 })

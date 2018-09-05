@@ -28,7 +28,7 @@ o.spec('Row', ()=>{
 				o('it is a Cell', ()=>{
 					o(cell.constructor).equals(Cell)
 				})
-				o('it has a reference to the ancestor Row', ()=>{
+				o('it has a reference to the parent Row', ()=>{
 					o(cell.row).equals(row)
 				})
 			})

@@ -17,6 +17,20 @@ class CSNode{
 		if(this.onCreate){
 			this.onCreate()
 		}
+		
+		let ancestors = []
+		let child = this
+		let ancestor
+		while(true){
+			ancestor = child.parent
+			if(!ancestor){
+				break
+			}else{
+				ancestors.push(ancestor)
+				this[ancestor.class.name.toLowerCase()] = ancestor
+				child = ancestor
+			}
+		}
 	}
 
 	get index(){
