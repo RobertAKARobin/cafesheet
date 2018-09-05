@@ -31,6 +31,21 @@ class CSNode{
 		}
 	}
 
+	get descendants(){
+		let descendants = {}
+		let getDescendants = function(parent){
+			let children = parent.children
+			if(!children){
+				return
+			}else{
+				let childClassName = `${children.class.name.toLowerCase()}s`
+				descendants[childClassName] = (descendants[childClassName] || []).concat(children)
+				children.forEach(getDescendants)
+			}
+		}
+		getDescendants(this)
+		return descendants
+	}
 	get index(){
 		return this.siblings.indexOf(this)
 	}

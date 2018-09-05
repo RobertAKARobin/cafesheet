@@ -15,18 +15,8 @@ o.spec('Table', ()=>{
 	o('#constructor creates at least one section', ()=>{
 		o(table.sections.length >= 1).equals(true)
 	})
-	// o('.rows contains all rows of sub-sections', ()=>{
-	// 	let rows = []
-	// 	table.sections.forEach((section)=>{
-	// 		rows = rows.concat(section.rows)
-	// 	})
-	// 	o(table.rows.length).equals(rows.length)
-	// 	table.rows.forEach((row, index)=>{
-	// 		o(row).equals(rows[index])
-	// 	})
-	// })
 	o.spec('.sections', ()=>{
-		o('.add increases the number of sections by 1', ()=>{
+		o('.add increases the table\'s sections by 1', ()=>{
 			let numberOfSections = table.sections.length
 			table.sections.add()
 			o(table.sections.length).equals(numberOfSections + 1)
@@ -45,6 +35,18 @@ o.spec('Table', ()=>{
 				o('it has a reference to the ancestor Coffeesheet', ()=>{
 					o(section.coffeesheet).equals(coffeesheet)
 				})
+			})
+		})
+	})
+	o.spec('.descendants', ()=>{
+		o('.rows contains all rows of sub-sections', ()=>{
+			let rows = []
+			table.sections.forEach((section)=>{
+				rows = rows.concat(section.rows)
+			})
+			o(table.descendants.rows.length).equals(rows.length)
+			table.descendants.rows.forEach((row, index)=>{
+				o(row).equals(rows[index])
 			})
 		})
 	})

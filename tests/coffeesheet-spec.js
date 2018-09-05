@@ -34,14 +34,18 @@ o.spec('Coffeesheet', ()=>{
 			})
 		})
 	})
-	// o('.sections contains all sections of sub-tables', ()=>{
-	// 	let sections = []
-	// 	coffeesheet.tables.forEach((table)=>{
-	// 		sections = sections.concat(table.sections)
-	// 	})
-	// 	o(coffeesheet.sections.length).equals(sections.length)
-	// 	coffeesheet.sections.forEach((section, index)=>{
-	// 		o(section).equals(sections[index])
-	// 	})
-	// })
+	o.spec('.descendants', ()=>{
+		o('.sections contains all sections of sub-tables', ()=>{
+			let sections = []
+			coffeesheet.tables[0].sections.add()
+			coffeesheet.tables[0].sections.add()
+			coffeesheet.tables.forEach((table)=>{
+				sections = sections.concat(table.sections)
+			})
+			o(coffeesheet.descendants.sections.length).equals(sections.length)
+			coffeesheet.descendants.sections.forEach((section, index)=>{
+				o(section).equals(sections[index])
+			})
+		})
+	})
 })
