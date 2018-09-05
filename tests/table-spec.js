@@ -2,13 +2,9 @@ const o = require('mithril/ospec/ospec')
 const {Coffeesheet, Table, Section, Row, Cell} = require('../src/coffeesheet')
 
 o.spec('Table', ()=>{
-	let coffeesheet,
-		table
-	
-	o.before(()=>{
-		coffeesheet = new Coffeesheet()
+	let coffeesheet = new Coffeesheet(),
 		table = coffeesheet.tables[0]
-	})
+
 	o('inheritance is correct', ()=>{
 		o(table.class).equals(Table)
 		o(Table.parentType).equals(Coffeesheet)
@@ -30,27 +26,23 @@ o.spec('Table', ()=>{
 	// 	})
 	// })
 	o.spec('.sections', ()=>{
-		o('.add', ()=>{
+		o('.add increases the number of sections by 1', ()=>{
 			let numberOfSections = table.sections.length
 			table.sections.add()
 			o(table.sections.length).equals(numberOfSections + 1)
 		})
 		o.spec('each', ()=>{
-			o('it is a Section', ()=>{
-				table.sections.forEach((section)=>{
+			table.sections.forEach((section)=>{
+				o('it is a Section', ()=>{
 					o(section.constructor).equals(Section)
 				})
-			})
-			o('it has at least one row', ()=>{
-				table.sections.forEach((section)=>{
+				o('it has at least one row', ()=>{
 					o(section.rows.length >= 1).equals(true)
 				})
 			})
-			o('it has a reference to the ancestor Table', ()=>{
-				table.sections.forEach((section)=>{
-					o(section.table).equals(table)
-				})
-			})
+			// o('it has a reference to the ancestor Table', ()=>{
+			// 	o(section.table).equals(table)
+			// })
 			// o('it has a reference to the ancestor Coffeesheet', ()=>{
 			// 	table.sections.forEach((section)=>{
 			// 		o(section.coffeesheet).equals(coffeesheet)
