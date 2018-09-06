@@ -2,10 +2,15 @@ const o = require('mithril/ospec/ospec')
 const {Coffeesheet, Table, Section, Row, Cell} = require('../src/js/coffeesheet')
 
 o.spec('Section', ()=>{
-	let coffeesheet = new Coffeesheet(),
-		table = coffeesheet.tables[0],
+	let coffeesheet,
+		table,
+		section
+
+	o.before(()=>{
+		coffeesheet = new Coffeesheet()
+		table = coffeesheet.tables[0]
 		section = table.sections[0]
-	
+	})
 	o('inheritance is correct', ()=>{
 		o(section.class).equals(Section)
 		o(Section.parentClass).equals(Table)
@@ -30,18 +35,23 @@ o.spec('Section', ()=>{
 		})
 	})
 	o.spec('.rows, each', ()=>{
-		section.rows.forEach((row)=>{
-			o('it is a Row', ()=>{
+		o('it is a Row', ()=>{
+			section.rows.forEach((row)=>{
 				o(row.class).equals(Row)
 			})
-			o('it has at least one cell', ()=>{
+		})
+		o('it has at least one cell', ()=>{
+			section.rows.forEach((row)=>{
 				o(row.cells.length >= 1).equals(true)
 			})
-			o('it has a reference to the parent Section', ()=>{
+		})
+		o('it has a reference to the parent Section', ()=>{
+			section.rows.forEach((row)=>{
 				o(row.section).equals(section)
 			})
 		})
 	})
+
 	// o('(afterIndex) inserts row after specified index', ()=>{
 	// 	let targetIndex = 1,
 	// 		rowBefore = section.rows[targetIndex - 1],

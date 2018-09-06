@@ -3,3 +3,5 @@
 - Made everything possible a getter method because it's easier to track that way
 - Stopped doing `.create$Child()` in base class constructor because child classes may have different behavior on create
 - Having a getter for `CSNode().children` caused a stack overflow
+- Have to use o.before to populate suite-wide variables. ospec runs through the whole script first, then runs through each test, so if a variable is populated outside of a test, unexpected things happen.
+- Have to put .forEach inside tests, can't put tests inside .forEach, for similar reason to above

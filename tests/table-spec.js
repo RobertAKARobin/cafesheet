@@ -2,9 +2,13 @@ const o = require('mithril/ospec/ospec')
 const {Coffeesheet, Table, Section, Row, Cell} = require('../src/js/coffeesheet')
 
 o.spec('Table', ()=>{
-	let coffeesheet = new Coffeesheet(),
-		table = coffeesheet.tables[0]
+	let coffeesheet,
+		table
 
+	o.before(()=>{
+		coffeesheet = new Coffeesheet()
+		table = coffeesheet.tables[0]
+	})
 	o('inheritance is correct', ()=>{
 		o(table.class).equals(Table)
 		o(Table.parentClass).equals(Coffeesheet)
@@ -28,14 +32,18 @@ o.spec('Table', ()=>{
 		})
 	})
 	o.spec('.sections, each', ()=>{
-		table.sections.forEach((section)=>{
-			o('it is a Section', ()=>{
+		o('it is a Section', ()=>{
+			table.sections.forEach((section)=>{
 				o(section.constructor).equals(Section)
 			})
-			o('it has at least one row', ()=>{
+		})
+		o('it has at least one row', ()=>{
+			table.sections.forEach((section)=>{
 				o(section.rows.length >= 1).equals(true)
 			})
-			o('it has a reference to the parent Table', ()=>{
+		})
+		o('it has a reference to the parent Table', ()=>{
+			table.sections.forEach((section)=>{
 				o(section.table).equals(table)
 			})
 		})
