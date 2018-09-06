@@ -4,24 +4,54 @@ class CSNode{
 	constructor(parent){
 		if(parent){
 			this.parent = parent
-			for(let key in this.ancestors){
-				this[key] = this.ancestors[key]
-			}
+			this.ancestorClasses.forEach((ancestorClass)=>{
+				Object.defineProperty(this, ancestorClass.singularName, {
+					get: function(){
+						return this.ancestors[ancestorClass.singularName]
+					}
+				})
+			})
 		}
 		if(this.childClass){
-			this[this.childClass.pluralName] = []
+			this.children = []
 			this[`create${this.childClass.name}`] = this.createChild
-			for(let key in this.descendants){
-				this[key] = this.descendants[key]
-			}
+			this.descendantClasses.forEach((descendantClass)=>{
+				Object.defineProperty(this, descendantClass.pluralName, {
+					get: function(){
+						return this.descendants[descendantClass.pluralName]
+					}
+				})
+			})
 		}
 	}
 	
-	static get singularName(){
-		return `${this.name.toLowerCase()}`
+	static get ancestorClasses(){
+		let ancestorClasses = []
+		let getNextGeneration = function(childClass){
+			if(childClass.parentClass){
+				ancestorClasses.push(childClass.parentClass)
+				getNextGeneration(childClass.parentClass)
+			}
+		}
+		getNextGeneration(this)
+		return ancestorClasses
+	}
+	static get descendantClasses(){
+		let descendantClasses = []
+		let getNextGeneration = function(parentClass){
+			if(parentClass.childClass){
+				descendantClasses.push(parentClass.childClass)
+				getNextGeneration(parentClass.childClass)
+			}
+		}
+		getNextGeneration(this)
+		return descendantClasses
 	}
 	static get pluralName(){
 		return `${this.name.toLowerCase()}s`
+	}
+	static get singularName(){
+		return `${this.name.toLowerCase()}`
 	}
 
 	get ancestors(){
@@ -35,10 +65,8 @@ class CSNode{
 		getAncestor(this)
 		return ancestors
 	}
-	get children(){
-		if(this.childClass){
-			return this[this.childClass.pluralName]
-		}
+	get ancestorClasses(){
+		return this.class.ancestorClasses
 	}
 	get childClass(){
 		return this.class.childClass
@@ -49,13 +77,16 @@ class CSNode{
 	get descendants(){
 		let descendants = {}
 		let getDescendants = function(parent){
-			if(parent.children){
+			if(parent.childClass){
 				descendants[parent.childClass.pluralName] = (descendants[parent.childClass.pluralName] || []).concat(parent.children)
 				parent.children.forEach(getDescendants)
 			}
 		}
 		getDescendants(this)
 		return descendants
+	}
+	get descendantClasses(){
+		return this.class.descendantClasses
 	}
 	get index(){
 		return this.siblings.indexOf(this)
