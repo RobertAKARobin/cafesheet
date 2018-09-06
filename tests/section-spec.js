@@ -21,6 +21,18 @@ o.spec('Section', ()=>{
 		o(section.table).equals(table)
 		o(section.coffeesheet).equals(coffeesheet)
 	})
+	o('.cells contains all cells of sub-rows', ()=>{
+		let cells = []
+		section.rows[0].createCell()
+		section.rows[0].createCell()
+		section.rows.forEach((row)=>{
+			cells = cells.concat(row.cells)
+		})
+		o(section.cells.length).equals(cells.length)
+		section.cells.forEach((cell, index)=>{
+			o(cell).equals(cells[index])
+		})
+	})
 	o('#constructor creates at least one row', ()=>{
 		o(section.rows.length >= 1).equals(true)
 	})
@@ -76,5 +88,25 @@ o.spec('Section', ()=>{
 				o(row.section).equals(section)
 			})
 		})
+	})
+	o.spec('.next', ()=>{
+		o('.next returns the next section in the table', ()=>{
+			o(section.next).equals(table.sections[section.index + 1])
+		})
+		o('returns undefined if the last section in the table', ()=>{
+			let lastSection = table.sections[table.sections.length - 1]
+			o(lastSection.next).equals(undefined)
+		})
+	})
+	o.spec('.pevious', ()=>{
+		o('returns the previous section in the table', ()=>{
+			o(section.previous).equals(table.sections[section.index - 1])
+		})
+		o('returns undefined if the first section in the table', ()=>{
+			o(table.sections[0].previous).equals(undefined)
+		})
+	})
+	o('.index returns the section\'s place in its table', ()=>{
+		o(section.index).equals(table.sections.indexOf(section))
 	})
 })

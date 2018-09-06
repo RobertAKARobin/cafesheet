@@ -48,24 +48,4 @@ o.spec('Row', ()=>{
 			})
 		})
 	})
-	o.spec('.next', ()=>{
-		o('.next returns the next row in the section', ()=>{
-			o(row.next).equals(section.rows[row.index + 1])
-		})
-		o('returns undefined if the last row in the section', ()=>{
-			let lastRow = section.rows[section.rows.length - 1]
-			o(lastRow.next).equals(undefined)
-		})
-	})
-	o.spec('.pevious', ()=>{
-		o('returns the previous row in the section', ()=>{
-			o(row.previous).equals(section.rows[row.index - 1])
-		})
-		o('returns undefined if the first row in the section', ()=>{
-			o(section.rows[0].previous).equals(undefined)
-		})
-	})
-	o('.index returns the row\'s place in its section', ()=>{
-		o(row.index).equals(section.rows.indexOf(row))
-	})
 })

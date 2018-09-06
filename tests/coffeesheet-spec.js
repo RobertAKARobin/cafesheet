@@ -33,27 +33,10 @@ o.spec('Coffeesheet', ()=>{
 				o(table.constructor).equals(Table)
 			})
 		})
-		o('it has at least one section', ()=>{
-			coffeesheet.tables.forEach((table)=>{
-				o(table.sections.length >= 1).equals(true)
-			})
-		})
 		o('it has a reference to the parent Coffeesheet', ()=>{
 			coffeesheet.tables.forEach((table)=>{
 				o(table.coffeesheet).equals(coffeesheet)
 			})
-		})
-	})
-	o('.sections contains all sections of sub-tables', ()=>{
-		let sections = []
-		coffeesheet.tables[0].createSection()
-		coffeesheet.tables[0].createSection()
-		coffeesheet.tables.forEach((table)=>{
-			sections = sections.concat(table.sections)
-		})
-		o(coffeesheet.sections.length).equals(sections.length)
-		coffeesheet.sections.forEach((section, index)=>{
-			o(section).equals(sections[index])
 		})
 	})
 })

@@ -37,25 +37,10 @@ o.spec('Table', ()=>{
 				o(section.constructor).equals(Section)
 			})
 		})
-		o('it has at least one row', ()=>{
-			table.sections.forEach((section)=>{
-				o(section.rows.length >= 1).equals(true)
-			})
-		})
 		o('it has a reference to the parent Table', ()=>{
 			table.sections.forEach((section)=>{
 				o(section.table).equals(table)
 			})
-		})
-	})
-	o('.rows contains all rows of sub-sections', ()=>{
-		let rows = []
-		table.sections.forEach((section)=>{
-			rows = rows.concat(section.rows)
-		})
-		o(table.rows.length).equals(rows.length)
-		table.rows.forEach((row, index)=>{
-			o(row).equals(rows[index])
 		})
 	})
 })
