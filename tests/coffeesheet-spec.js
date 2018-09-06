@@ -6,10 +6,10 @@ o.spec('Coffeesheet', ()=>{
 
 	o('inheritance is correct', ()=>{
 		o(coffeesheet.class).equals(Coffeesheet)
-		o(Coffeesheet.parentType).equals(undefined)
-		o(coffeesheet.parentType).equals(undefined)
-		o(Coffeesheet.childType).equals(Table)
-		o(coffeesheet.childType).equals(Table)
+		o(Coffeesheet.parentClass).equals(undefined)
+		o(coffeesheet.parentClass).equals(undefined)
+		o(Coffeesheet.childClass).equals(Table)
+		o(coffeesheet.childClass).equals(Table)
 	})
 	o('#constructor creates at least one table', ()=>{
 		o(coffeesheet.tables.length >= 1).equals(true)

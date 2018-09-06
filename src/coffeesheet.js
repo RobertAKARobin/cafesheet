@@ -1,46 +1,57 @@
 const ENV = require('../env')
 
 class CSNode{
-	constructor(parent, options){
-		this.class = this.constructor
-		this.childType = this.class.childType
-		this.parentType = this.class.parentType
-		if(this.class.parentType){
+	constructor(parent){
+		if(parent){
 			this.parent = parent
-			this.siblings = parent.children
-			this[this.class.parentType.name.toLowerCase()] = parent
+			for(let key in this.ancestors){
+				this[key] = this.ancestors[key]
+			}
 		}
-		if(this.class.childType){
-			this.children = new CSSiblings(this)
-			this[`${this.class.childType.name.toLowerCase()}s`] = this.children
-		}
-		this.onCreate(options)
-		
-		let ancestors = []
-		let child = this
-		let ancestor
-		while(true){
-			ancestor = child.parent
-			if(!ancestor){
-				break
-			}else{
-				ancestors.push(ancestor)
-				this[ancestor.class.name.toLowerCase()] = ancestor
-				child = ancestor
+		if(this.childClass){
+			this[this.childClass.pluralName] = []
+			this[`create${this.childClass.name}`] = this.createChild
+			for(let key in this.descendants){
+				this[key] = this.descendants[key]
 			}
 		}
 	}
+	
+	static get singularName(){
+		return `${this.name.toLowerCase()}`
+	}
+	static get pluralName(){
+		return `${this.name.toLowerCase()}s`
+	}
 
+	get ancestors(){
+		let ancestors = {}
+		let getAncestor = function(child){
+			if(child.parent){
+				ancestors[child.parentClass.singularName] = child.parent
+				getAncestor(child.parent)
+			}
+		}
+		getAncestor(this)
+		return ancestors
+	}
+	get children(){
+		if(this.childClass){
+			return this[this.childClass.pluralName]
+		}
+	}
+	get childClass(){
+		return this.class.childClass
+	}
+	get class(){
+		return this.constructor
+	}
 	get descendants(){
 		let descendants = {}
 		let getDescendants = function(parent){
-			let children = parent.children
-			if(!children){
-				return
-			}else{
-				let childClassName = `${children.class.name.toLowerCase()}s`
-				descendants[childClassName] = (descendants[childClassName] || []).concat(children)
-				children.forEach(getDescendants)
+			if(parent.children){
+				descendants[parent.childClass.pluralName] = (descendants[parent.childClass.pluralName] || []).concat(parent.children)
+				parent.children.forEach(getDescendants)
 			}
 		}
 		getDescendants(this)
@@ -52,49 +63,60 @@ class CSNode{
 	get next(){
 		return this.siblings[this.index + 1]
 	}
+	get parentClass(){
+		return this.class.parentClass
+	}
 	get previous(){
 		return this.siblings[this.index - 1]
 	}
-
-	onCreate(){
-		this.children.add()
-	}
-}
-
-class CSSiblings extends Array{
-	constructor(parent){
-		super()
-		this.parent = parent
-		this.class = parent.childType
+	get siblings(){
+		if(this.parent){
+			return this.parent.children
+		}
 	}
 
-	add(options){
-		let child = new this.class(this.parent, options)
-		this.push(child)
+	createChild(options){
+		let child = new this.childClass(this, options)
+		this.children.push(child)
 		return child
 	}
 }
 
 class Coffeesheet extends CSNode{
-	static get childType(){
+	constructor(parent){
+		super(parent)
+		this.createTable()
+	}
+
+	static get childClass(){
 		return Table
 	}
 }
 
 class Table extends CSNode{
-	static get childType(){
+	constructor(parent){
+		super(parent)
+		this.createSection()
+	}
+
+	static get childClass(){
 		return Section
 	}
-	static get parentType(){
+	static get parentClass(){
 		return Coffeesheet
 	}
 }
 
 class Section extends CSNode{
-	static get childType(){
+	constructor(parent){
+		super(parent)
+		this.createRow()
+	}
+
+	static get childClass(){
 		return Row
 	}
-	static get parentType(){
+	static get parentClass(){
 		return Table
 	}
 	// createColumn(){
@@ -103,18 +125,20 @@ class Section extends CSNode{
 }
 
 class Row extends CSNode{
-	static get childType(){
+	constructor(parent){
+		super(parent)
+		for(let i = 0; i < ENV.CFS_DEFAULT_ROW_CELLS; i++){
+			this.createCell(i)
+		}
+	}
+
+	static get childClass(){
 		return Cell
 	}
-	static get parentType(){
+	static get parentClass(){
 		return Section
 	}
 
-	onCreate(){
-		for(let i = 0; i < ENV.CFS_DEFAULT_ROW_CELLS; i++){
-			this.children.add(i)
-		}
-	}
 }
 
 // class Column{
@@ -124,12 +148,13 @@ class Row extends CSNode{
 // }
 
 class Cell extends CSNode{
-	static get parentType(){
-		return Row
+	constructor(parent, datum){
+		super(parent)
+		this.datum = datum
 	}
 
-	onCreate(options){
-		this.datum = options
+	static get parentClass(){
+		return Row
 	}
 }
 

@@ -9,10 +9,10 @@ o.spec('Row', ()=>{
 	
 	o('inheritance is correct', ()=>{
 		o(row.class).equals(Row)
-		o(Row.parentType).equals(Section)
-		o(row.parentType).equals(Section)
-		o(Row.childType).equals(Cell)
-		o(row.childType).equals(Cell)
+		o(Row.parentClass).equals(Section)
+		o(row.parentClass).equals(Section)
+		o(Row.childClass).equals(Cell)
+		o(row.childClass).equals(Cell)
 		o(row.parent).equals(section)
 		o(row.section).equals(section)
 		o(row.table).equals(table)

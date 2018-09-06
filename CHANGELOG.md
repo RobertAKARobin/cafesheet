@@ -1,0 +1,4 @@
+- Stopped having a `CSNodeSiblings` class because no use for it yet
+	- Switched from `CSNodeSiblings().add()` to `CSNode().create$Child()`
+- Made everything possible a getter method because it's easier to track that way
+- Stopped doing `.create$Child()` in base class constructor because child classes may have different behavior on create

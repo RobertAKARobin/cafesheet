@@ -8,10 +8,10 @@ o.spec('Section', ()=>{
 	
 	o('inheritance is correct', ()=>{
 		o(section.class).equals(Section)
-		o(Section.parentType).equals(Table)
-		o(section.parentType).equals(Table)
-		o(Section.childType).equals(Row)
-		o(section.childType).equals(Row)
+		o(Section.parentClass).equals(Table)
+		o(section.parentClass).equals(Table)
+		o(Section.childClass).equals(Row)
+		o(section.childClass).equals(Row)
 		o(section.parent).equals(table)
 		o(section.table).equals(table)
 		o(section.coffeesheet).equals(coffeesheet)
