@@ -40,15 +40,6 @@ o.spec('Section', ()=>{
 			o('it has a reference to the parent Section', ()=>{
 				o(row.section).equals(section)
 			})
-			// o('.index returns the row\'s place in its section', ()=>{
-			// 	o(row.index).equals(section.rows.indexOf(row))
-			// })
-			// o('.next returns the next row in the section', ()=>{
-			// 	o(row.next).equals(section.rows[row.index + 1])
-			// })
-			// o('.previous returns the previous row in the section', ()=>{
-			// 	o(row.previous).equals(section.rows[row.index - 1])
-			// })
 		})
 	})
 	// o('(afterIndex) inserts row after specified index', ()=>{
@@ -60,12 +51,5 @@ o.spec('Section', ()=>{
 	// 	o(actualIndex).equals(targetIndex)
 	// 	o(section.rows[targetIndex - 1]).equals(rowBefore)
 	// 	o(section.rows[targetIndex + 1]).equals(rowAfter)
-	// })
-	// o('.next returns undefined if the last row in the section', ()=>{
-	// 	let lastRow = section.rows[section.rows.length - 1]
-	// 	o(lastRow.next).equals(undefined)
-	// })
-	// o('.previous returns undefined if the first row in the section', ()=>{
-	// 	o(section.rows[0].previous).equals(undefined)
 	// })
 })
