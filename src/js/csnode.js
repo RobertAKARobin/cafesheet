@@ -106,12 +106,13 @@ class CSNode{
 
 	createChild(options){
 		let child = new this.childClass(this, options)
-		if(options && options.index){
-			this.children.splice(options.index, 0, child)
-		}else{
-			this.children.push(child)
-		}
+		this.children.push(child)
 		return child
+	}
+	place(index){
+		this.siblings.splice(this.index, 1)
+		this.siblings.splice(index, 0, this)
+		return this
 	}
 }
 
