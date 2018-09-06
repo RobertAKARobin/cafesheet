@@ -1,4 +1,4 @@
-const ENV = require('../env')
+const ENV = require('../../env')
 
 class CSNode{
 	constructor(parent){

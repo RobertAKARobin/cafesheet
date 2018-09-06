@@ -1,5 +1,5 @@
 const o = require('mithril/ospec/ospec')
-const {Coffeesheet, Table, Section, Row, Cell} = require('../src/coffeesheet')
+const {Coffeesheet, Table, Section, Row, Cell} = require('../src/js/coffeesheet')
 
 o.spec('Section', ()=>{
 	let coffeesheet = new Coffeesheet(),
