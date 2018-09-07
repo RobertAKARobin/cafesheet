@@ -114,8 +114,12 @@ class CSNode{
 		return this.parent.createChild(options).place(this.index + 1)
 	}
 	place(index){
-		this.siblings.splice(this.index, 1)
+		this.remove()
 		this.siblings.splice(index, 0, this)
+		return this
+	}
+	remove(){
+		this.siblings.splice(this.index, 1)
 		return this
 	}
 }

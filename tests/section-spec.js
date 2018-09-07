@@ -53,6 +53,27 @@ o.spec('Section', ()=>{
 			o(section.createSection().index).equals(section.index + 1)
 		})
 	})
+	o.spec('#remove', ()=>{
+		let removedSection,
+			removedSectionIndex = 0
+		o.before(()=>{
+			removedSection = table.createSection()
+			originalRemovedSectionParent = removedSection.parent
+			removedSection.place(removedSectionIndex).remove()
+		})
+		o('does not change the section\'s parent', ()=>{
+			o(removedSection.parent).equals(originalRemovedSectionParent)
+		})
+		o('removes the section from its siblings', ()=>{
+			o(removedSection.siblings.indexOf(removedSection)).equals(-1)
+		})
+		o('makes the section no longer a child of its parent', ()=>{
+			o(removedSection.parent.children.indexOf(removedSection)).equals(-1)
+		})
+		o('makes the section no longer a descendant of its ancestor Coffeesheet', ()=>{
+			o(coffeesheet.sections.indexOf(removedSection)).equals(-1)
+		})
+	})
 	o.spec('#place', ()=>{
 		let coffeesheet,
 			table,

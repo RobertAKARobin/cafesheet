@@ -23,7 +23,11 @@ Row.prototype.view = function(){
 	const row = this
 	return m('tr', [
 		m('th', [
-			row.index,
+			m('button', {
+				onclick: ()=>{
+					row.remove()
+				}
+			}, row.index),
 			m('button', {
 				onclick: ()=>{
 					row.createRow()
