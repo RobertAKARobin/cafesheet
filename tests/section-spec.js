@@ -48,6 +48,11 @@ o.spec('Section', ()=>{
 			o(section.createRow().class).equals(Row)
 		})
 	})
+	o.spec('#createSection', ()=>{
+		o('inserts section after current one', ()=>{
+			o(section.createSection().index).equals(section.index + 1)
+		})
+	})
 	o.spec('#place', ()=>{
 		let coffeesheet,
 			table,

@@ -13,6 +13,7 @@ class CSNode{
 		if(this.childClass){
 			this.children = []
 			this[`create${this.childClass.name}`] = this.createChild
+			this[`create${this.class.name}`] = this.createSibling
 			this.descendantClasses.forEach((descendantClass)=>{
 				Object.defineProperty(this, descendantClass.pluralName, {
 					get: function(){
@@ -108,6 +109,9 @@ class CSNode{
 		let child = new this.childClass(this, options)
 		this.children.push(child)
 		return child
+	}
+	createSibling(options){
+		return this.parent.createChild(options).place(this.index + 1)
 	}
 	place(index){
 		this.siblings.splice(this.index, 1)

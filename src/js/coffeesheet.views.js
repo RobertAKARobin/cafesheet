@@ -23,12 +23,12 @@ Row.prototype.view = function(){
 	const row = this
 	return m('tr', [
 		m('th', [
+			row.index,
 			m('button', {
 				onclick: ()=>{
-					row.parent.createChild().place(row.index)
+					row.createRow()
 				}
-			}, '+'),
-			row.index
+			}, '+')
 		]),
 		row.cells.map((cell)=>{
 			return cell.view()
