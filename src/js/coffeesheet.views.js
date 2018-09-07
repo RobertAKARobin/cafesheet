@@ -26,7 +26,16 @@ Row.prototype.view = function(){
 }
 
 Cell.prototype.view = function(){
-	return m('td', this.datum)
+	let cell = this
+	return m('td', [
+		m('textarea', {
+			value: cell.datum,
+			oninput: (event)=>{
+				event.redraw = false
+				cell.datum = event.target.value
+			}
+		})
+	])
 }
 
 module.exports = {
