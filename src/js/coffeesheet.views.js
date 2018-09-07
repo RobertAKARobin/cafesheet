@@ -14,9 +14,19 @@ Table.prototype.view = function(){
 }
 
 Section.prototype.view = function(){
-	return m('tbody', this.rows.map((row)=>{
-		return row.view()
-	}))
+	const section = this
+	return m('tbody', [
+		m('tr', [
+			m('th', {
+				onclick: ()=>{
+					section.createRow().place(0)
+				}
+			}, '+')
+		]),
+		section.rows.map((row)=>{
+			return row.view()
+		})
+	])
 }
 
 Row.prototype.view = function(){
