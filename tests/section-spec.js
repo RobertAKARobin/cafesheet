@@ -74,19 +74,13 @@ o.spec('Section', ()=>{
 	})
 	o.spec('.rows, each', ()=>{
 		o('it is a Row', ()=>{
-			section.rows.forEach((row)=>{
-				o(row.class).equals(Row)
-			})
+			section.rows.forEach(row => o(row.class).equals(Row))
 		})
 		o('it has at least one cell', ()=>{
-			section.rows.forEach((row)=>{
-				o(row.cells.length >= 1).equals(true)
-			})
+			section.rows.forEach(row => o(row.cells.length >= 1).equals(true))
 		})
 		o('it has a reference to the parent Section', ()=>{
-			section.rows.forEach((row)=>{
-				o(row.section).equals(section)
-			})
+			section.rows.forEach(row => o(row.section).equals(section))
 		})
 	})
 	o.spec('.next', ()=>{

@@ -33,14 +33,10 @@ o.spec('Table', ()=>{
 	})
 	o.spec('.sections, each', ()=>{
 		o('it is a Section', ()=>{
-			table.sections.forEach((section)=>{
-				o(section.constructor).equals(Section)
-			})
+			table.sections.forEach(section => o(section.constructor).equals(Section))
 		})
 		o('it has a reference to the parent Table', ()=>{
-			table.sections.forEach((section)=>{
-				o(section.table).equals(table)
-			})
+			table.sections.forEach(section => o(section.table).equals(table))
 		})
 	})
 })

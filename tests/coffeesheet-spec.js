@@ -29,14 +29,10 @@ o.spec('Coffeesheet', ()=>{
 	})
 	o.spec('.tables, each', ()=>{
 		o('it is a Table', ()=>{
-			coffeesheet.tables.forEach((table)=>{
-				o(table.constructor).equals(Table)
-			})
+			coffeesheet.tables.forEach(table => o(table.constructor).equals(Table))
 		})
 		o('it has a reference to the parent Coffeesheet', ()=>{
-			coffeesheet.tables.forEach((table)=>{
-				o(table.coffeesheet).equals(coffeesheet)
-			})
+			coffeesheet.tables.forEach(table => o(table.coffeesheet).equals(coffeesheet))
 		})
 	})
 })

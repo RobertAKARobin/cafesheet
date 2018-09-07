@@ -38,14 +38,10 @@ o.spec('Row', ()=>{
 	})
 	o.spec('.cells, each', ()=>{
 		o('it is a Cell', ()=>{
-			row.cells.forEach((cell)=>{
-				o(cell.constructor).equals(Cell)
-			})
+			row.cells.forEach(cell => o(cell.constructor).equals(Cell))
 		})
 		o('it has a reference to the parent Row', ()=>{
-			row.cells.forEach((cell)=>{
-				o(cell.row).equals(row)
-			})
+			row.cells.forEach(cell => o(cell.row).equals(row))
 		})
 	})
 })
