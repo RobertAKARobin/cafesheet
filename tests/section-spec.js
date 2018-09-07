@@ -35,6 +35,14 @@ o.spec('Section', ()=>{
 			o(cell).equals(cells[index])
 		})
 	})
+	o.spec('.columns', ()=>{
+		o('.length is equal to the max row length of the section\'s rows', ()=>{
+			let maxRowLength = section.rows.reduce((maxRowLength, row)=>{
+				return (maxRowLength = Math.max(maxRowLength, row.size))
+			}, 0)
+			o(section.columns.length).equals(maxRowLength)
+		})
+	})
 	o('#constructor creates at least one row', ()=>{
 		o(section.rows.length >= 1).equals(true)
 	})

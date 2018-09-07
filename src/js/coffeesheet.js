@@ -38,9 +38,17 @@ class Section extends CSNode{
 	static get parentClass(){
 		return Table
 	}
-	// createColumn(){
-	// 	this.columns.push(new Column())
-	// }
+	
+	get columns(){
+		let columns = []
+		this.rows.forEach((row)=>{
+			row.cells.forEach((cell, index)=>{
+				columns[index] = (columns[index] || [])
+				columns[index].push(cell)
+			})
+		})
+		return columns
+	}
 }
 
 class Row extends CSNode{
@@ -57,14 +65,7 @@ class Row extends CSNode{
 	static get parentClass(){
 		return Section
 	}
-
 }
-
-// class Column{
-// 	constructor(){
-// 		this.cells = []
-// 	}
-// }
 
 class Cell extends CSNode{
 	constructor(parent, datum){
