@@ -20,9 +20,20 @@ Section.prototype.view = function(){
 }
 
 Row.prototype.view = function(){
-	return m('tr', this.cells.map((cell)=>{
-		return cell.view()
-	}))
+	const row = this
+	return m('tr', [
+		m('th', [
+			m('button', {
+				onclick: ()=>{
+					row.parent.createChild().place(row.index)
+				}
+			}, '+'),
+			row.index
+		]),
+		row.cells.map((cell)=>{
+			return cell.view()
+		})
+	])
 }
 
 Cell.prototype.view = function(){
