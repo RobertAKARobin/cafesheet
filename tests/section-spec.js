@@ -22,9 +22,11 @@ o.spec('Section', ()=>{
 		o(section.coffeesheet).equals(coffeesheet)
 	})
 	o('.cells contains all cells of sub-rows', ()=>{
-		let cells = []
-		section.rows[0].createCell()
-		section.rows[0].createCell()
+		let cells = [],
+			firstRow = section.rows[0],
+			secondRow = section.createRow()
+		firstRow.createCell()
+		secondRow.createCell()
 		section.rows.forEach((row)=>{
 			cells = cells.concat(row.cells)
 		})
