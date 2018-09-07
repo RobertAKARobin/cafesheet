@@ -131,4 +131,7 @@ o.spec('Section', ()=>{
 	o('.index returns the section\'s place in its table', ()=>{
 		o(section.index).equals(table.sections.indexOf(section))
 	})
+	o('.size returns the number of rows', ()=>{
+		o(section.size).equals(section.rows.length)
+	})
 })

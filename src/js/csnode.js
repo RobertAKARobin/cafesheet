@@ -104,6 +104,9 @@ class CSNode{
 			return this.parent.children
 		}
 	}
+	get size(){
+		return this.children.length
+	}
 
 	createChild(options){
 		let child = new this.childClass(this, options)

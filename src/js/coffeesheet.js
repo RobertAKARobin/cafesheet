@@ -75,6 +75,9 @@ class Cell extends CSNode{
 	static get parentClass(){
 		return Row
 	}
+
+	get size(){
+	}
 }
 
 module.exports = {
