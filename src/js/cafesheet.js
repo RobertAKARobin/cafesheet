@@ -107,8 +107,8 @@ class Cell extends CSNode{
 		return Row
 	}
 
-	get size(){
-		return []
+	get length(){
+		return undefined
 	}
 }
 

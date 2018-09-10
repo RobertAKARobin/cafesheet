@@ -38,7 +38,7 @@ o.spec('Section', ()=>{
 	o.spec('.columns', ()=>{
 		o('.length is equal to the max row length of the section\'s rows', ()=>{
 			let maxRowLength = section.rows.reduce((maxRowLength, row)=>{
-				return (maxRowLength = Math.max(maxRowLength, row.size))
+				return (maxRowLength = Math.max(maxRowLength, row.length))
 			}, 0)
 			o(section.columns.length).equals(maxRowLength)
 		})
@@ -144,7 +144,7 @@ o.spec('Section', ()=>{
 	o('.index returns the section\'s place in its table', ()=>{
 		o(section.index).equals(table.sections.indexOf(section))
 	})
-	o('.size returns the number of rows', ()=>{
-		o(section.size).equals(section.rows.length)
+	o('.length returns the number of rows', ()=>{
+		o(section.length).equals(section.rows.length)
 	})
 })

@@ -104,7 +104,7 @@ class CSNode{
 			return this.parent.children
 		}
 	}
-	get size(){
+	get length(){
 		return this.children.length
 	}
 
