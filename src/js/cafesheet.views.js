@@ -1,7 +1,7 @@
 const m = require('mithril')
-const {Coffeesheet, Table, Section, Row, Cell} = require('./coffeesheet')
+const {Cafesheet, Table, Section, Row, Cell} = require('./cafesheet')
 
-Coffeesheet.prototype.view = function(){
+Cafesheet.prototype.view = function(){
 	return this.tables.map((table)=>{
 		return table.view()
 	})
@@ -64,7 +64,7 @@ Cell.prototype.view = function(){
 }
 
 module.exports = {
-	Coffeesheet,
+	Cafesheet,
 	Table,
 	Section,
 	Row,

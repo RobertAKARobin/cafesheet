@@ -1,14 +1,14 @@
 const o = require('mithril/ospec/ospec')
-const {Coffeesheet, Table, Section, Row, Cell} = require('../src/js/coffeesheet')
+const {Cafesheet, Table, Section, Row, Cell} = require('../src/js/cafesheet')
 
 o.spec('Section', ()=>{
-	let coffeesheet,
+	let cafesheet,
 		table,
 		section
 
 	o.before(()=>{
-		coffeesheet = new Coffeesheet()
-		table = coffeesheet.tables[0]
+		cafesheet = new Cafesheet()
+		table = cafesheet.tables[0]
 		section = table.sections[0]
 	})
 	o('inheritance is correct', ()=>{
@@ -19,7 +19,7 @@ o.spec('Section', ()=>{
 		o(section.childClass).equals(Row)
 		o(section.parent).equals(table)
 		o(section.table).equals(table)
-		o(section.coffeesheet).equals(coffeesheet)
+		o(section.cafesheet).equals(cafesheet)
 	})
 	o('.cells contains all cells of sub-rows', ()=>{
 		let cells = [],
@@ -78,12 +78,12 @@ o.spec('Section', ()=>{
 		o('makes the section no longer a child of its parent', ()=>{
 			o(removedSection.parent.children.indexOf(removedSection)).equals(-1)
 		})
-		o('makes the section no longer a descendant of its ancestor Coffeesheet', ()=>{
-			o(coffeesheet.sections.indexOf(removedSection)).equals(-1)
+		o('makes the section no longer a descendant of its ancestor Cafesheet', ()=>{
+			o(cafesheet.sections.indexOf(removedSection)).equals(-1)
 		})
 	})
 	o.spec('#place', ()=>{
-		let coffeesheet,
+		let cafesheet,
 			table,
 			destinationIndex = 5,
 			originIndex = (destinationIndex * 2),
@@ -91,8 +91,8 @@ o.spec('Section', ()=>{
 			section,
 			sectionAtDestination
 		o.before(()=>{
-			coffeesheet = new Coffeesheet()
-			table = coffeesheet.tables[0]
+			cafesheet = new Cafesheet()
+			table = cafesheet.tables[0]
 			for(let i = 0; i < numSectionsToCreate; i++){
 				table.createSection()
 			}

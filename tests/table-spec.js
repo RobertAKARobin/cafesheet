@@ -1,22 +1,22 @@
 const o = require('mithril/ospec/ospec')
-const {Coffeesheet, Table, Section, Row, Cell} = require('../src/js/coffeesheet')
+const {Cafesheet, Table, Section, Row, Cell} = require('../src/js/cafesheet')
 
 o.spec('Table', ()=>{
-	let coffeesheet,
+	let cafesheet,
 		table
 
 	o.before(()=>{
-		coffeesheet = new Coffeesheet()
-		table = coffeesheet.tables[0]
+		cafesheet = new Cafesheet()
+		table = cafesheet.tables[0]
 	})
 	o('inheritance is correct', ()=>{
 		o(table.class).equals(Table)
-		o(Table.parentClass).equals(Coffeesheet)
-		o(table.parentClass).equals(Coffeesheet)
+		o(Table.parentClass).equals(Cafesheet)
+		o(table.parentClass).equals(Cafesheet)
 		o(Table.childClass).equals(Section)
 		o(table.childClass).equals(Section)
-		o(table.parent).equals(coffeesheet)
-		o(table.coffeesheet).equals(coffeesheet)
+		o(table.parent).equals(cafesheet)
+		o(table.cafesheet).equals(cafesheet)
 	})
 	o('#constructor creates at least one section', ()=>{
 		o(table.sections.length >= 1).equals(true)

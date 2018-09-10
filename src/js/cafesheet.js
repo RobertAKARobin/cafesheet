@@ -1,7 +1,7 @@
 const ENV = require('../../env')
 const CSNode = require('./csnode')
 
-class Coffeesheet extends CSNode{
+class Cafesheet extends CSNode{
 	constructor(parent){
 		super(parent)
 		this.createTable()
@@ -22,7 +22,7 @@ class Table extends CSNode{
 		return Section
 	}
 	static get parentClass(){
-		return Coffeesheet
+		return Cafesheet
 	}
 }
 
@@ -82,7 +82,7 @@ class Cell extends CSNode{
 }
 
 module.exports = {
-	Coffeesheet,
+	Cafesheet,
 	Table,
 	Section,
 	Row,

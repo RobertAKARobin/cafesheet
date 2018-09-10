@@ -1,7 +1,7 @@
 const m = require('mithril')
-const {Coffeesheet} = require('./coffeesheet.views')
+const {Cafesheet} = require('./cafesheet.views')
 
 window.addEventListener('DOMContentLoaded', ()=>{
-	let coffeesheet = new Coffeesheet()
-	m.mount(document.getElementById('app-output'), coffeesheet)
+	let cafesheet = new Cafesheet()
+	m.mount(document.getElementById('app-output'), cafesheet)
 })
