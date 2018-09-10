@@ -93,6 +93,7 @@ class Cell extends CSNode{
 	}
 
 	get size(){
+		return []
 	}
 }
 
