@@ -6,3 +6,4 @@
 - Have to use o.before to populate suite-wide variables. ospec runs through the whole script first, then runs through each test, so if a variable is populated outside of a test, unexpected things happen.
 - Have to put .forEach inside tests, can't put tests inside .forEach, for similar reason to above
 - `.length` instead of `.size` because Columns inherit from ARrays, so may as well be consistent
+- `Column` must have `.index` set on creation because `Section.columns` generates a new array each time
