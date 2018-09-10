@@ -49,29 +49,34 @@ class Section extends CSNode{
 	}
 	
 	get columns(){
+		let maxRowLength = this.rows.reduce((maxRowLength, row)=>{
+			return (maxRowLength = Math.max(maxRowLength, row.length))
+		}, 0)
 		let columns = []
-		this.rows.forEach((row)=>{
-			row.cells.forEach((cell, index)=>{
-				columns[index] = (columns[index] || new Column())
-				columns[index].push(cell)
-			})
-		})
+		for (let i = 0; i < maxRowLength; i++){
+			columns.push(new Column(this, i))
+		}
 		return columns
 	}
 }
 
-class Column extends Array{
-	constructor(parent){
-		super()
+class Column{
+	constructor(parent, index){
 		this.parent = parent
+		this.index = index
 	}
 
 	static get name(){
 		return 'Column'
 	}
 
-	get index(){
-		return this.parent.columns.indexOf(this)
+	get cells(){
+		return this.parent.rows.map((row)=>{
+			return row.cells[this.index]
+		})
+	}
+	get class(){
+		return this.constructor
 	}
 }
 
@@ -116,6 +121,7 @@ module.exports = {
 	Cafesheet,
 	Table,
 	Section,
+	Column,
 	Row,
 	Cell
 }

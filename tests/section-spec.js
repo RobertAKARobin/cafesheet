@@ -46,6 +46,13 @@ o.spec('Section', ()=>{
 			o('is a Column', ()=>{
 				section.columns.forEach(column => o(column.class).equals(Column))
 			})
+			o('contains each row\'s cells at the column\'s index', ()=>{
+				section.columns.forEach((column)=>{
+					column.cells.forEach((cell)=>{
+						o(cell).equals(section.rows[cell.row.index].cells[column.index])
+					})
+				})
+			})
 		})
 	})
 	o('#constructor creates at least one row', ()=>{
