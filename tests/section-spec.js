@@ -37,10 +37,7 @@ o.spec('Section', ()=>{
 	})
 	o.spec('.columns', ()=>{
 		o('.length is equal to the max row length of the section\'s rows', ()=>{
-			let maxRowLength = section.rows.reduce((maxRowLength, row)=>{
-				return (maxRowLength = Math.max(maxRowLength, row.length))
-			}, 0)
-			o(section.columns.length).equals(maxRowLength)
+			o(section.columns.length).equals(section.width)
 		})
 		o.spec('.each', ()=>{
 			o('is a Column', ()=>{
@@ -54,6 +51,12 @@ o.spec('Section', ()=>{
 				})
 			})
 		})
+	})
+	o('.width returns the max length of the section\'s rows', ()=>{
+		let maxRowLength = section.rows.reduce((maxRowLength, row)=>{
+			return (maxRowLength = Math.max(maxRowLength, row.length))
+		}, 0)
+		o(section.width).equals(maxRowLength)
 	})
 	o('#constructor creates at least one row', ()=>{
 		o(section.rows.length >= 1).equals(true)

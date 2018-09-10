@@ -49,14 +49,16 @@ class Section extends CSNode{
 	}
 	
 	get columns(){
-		let maxRowLength = this.rows.reduce((maxRowLength, row)=>{
-			return (maxRowLength = Math.max(maxRowLength, row.length))
-		}, 0)
 		let columns = []
-		for (let i = 0; i < maxRowLength; i++){
+		for (let i = 0; i < this.width; i++){
 			columns.push(new Column(this, i))
 		}
 		return columns
+	}
+	get width(){
+		return this.rows.reduce((maxRowLength, row)=>{
+			return (maxRowLength = Math.max(maxRowLength, row.length))
+		}, 0)
 	}
 }
 
