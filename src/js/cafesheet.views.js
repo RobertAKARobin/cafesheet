@@ -23,7 +23,14 @@ Section.prototype.view = function(){
 				}
 			}, '+'),
 			section.columns.map((column)=>{
-				return m('th', column.index)
+				return m('th', [
+					m('button', column.index),
+					m('button', {
+						onclick: ()=>{
+							section.createColumn().place(column.index)
+						}
+					}, '+')
+				])
 			})
 		]),
 		section.rows.map((row)=>{
