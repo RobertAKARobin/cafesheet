@@ -61,6 +61,21 @@ o.spec('Section', ()=>{
 	o('#constructor creates at least one row', ()=>{
 		o(section.rows.length >= 1).equals(true)
 	})
+	o.spec('#createColumn', ()=>{
+		o('increases the section\'s width by 1', ()=>{
+			let originalSectionWidth = section.width
+			section.createColumn()
+			o(section.width).equals(originalSectionWidth + 1)
+		})
+		o('increases the section\'s number of columns by 1', ()=>{
+			let originalNumColumns = section.columns.length
+			section.createColumn()
+			o(section.columns.length).equals(originalNumColumns + 1)
+		})
+		o('returns a Column', ()=>{
+			o(section.createColumn().class).equals(Column)
+		})
+	})
 	o.spec('#createRow', ()=>{
 		o('increases the section\'s rows by 1', ()=>{
 			let numberOfRows = section.rows.length

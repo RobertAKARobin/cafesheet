@@ -60,6 +60,13 @@ class Section extends CSNode{
 			return (maxRowLength = Math.max(maxRowLength, row.length))
 		}, 0)
 	}
+
+	createColumn(){
+		this.rows.forEach((row)=>{
+			row.createCell()
+		})
+		return this.columns[this.width - 1]
+	}
 }
 
 class Column{
