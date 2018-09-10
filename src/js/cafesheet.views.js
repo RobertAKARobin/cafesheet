@@ -21,7 +21,10 @@ Section.prototype.view = function(){
 				onclick: ()=>{
 					section.createRow().place(0)
 				}
-			}, '+')
+			}, '+'),
+			section.columns.map((column)=>{
+				return m('th', column.index)
+			})
 		]),
 		section.rows.map((row)=>{
 			return row.view()
