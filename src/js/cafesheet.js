@@ -7,6 +7,9 @@ class Cafesheet extends CSNode{
 		this.createTable()
 	}
 
+	static get name(){
+		return 'Cafesheet'
+	}
 	static get childClass(){
 		return Table
 	}
@@ -18,6 +21,9 @@ class Table extends CSNode{
 		this.createSection()
 	}
 
+	static get name(){
+		return 'Table'
+	}
 	static get childClass(){
 		return Section
 	}
@@ -32,6 +38,9 @@ class Section extends CSNode{
 		this.createRow()
 	}
 
+	static get name(){
+		return 'Section'
+	}
 	static get childClass(){
 		return Row
 	}
@@ -59,6 +68,9 @@ class Row extends CSNode{
 		}
 	}
 
+	static get name(){
+		return 'Row'
+	}
 	static get childClass(){
 		return Cell
 	}
@@ -73,6 +85,9 @@ class Cell extends CSNode{
 		this.datum = datum
 	}
 
+	static get name(){
+		return 'Cell'
+	}
 	static get parentClass(){
 		return Row
 	}
