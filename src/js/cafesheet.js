@@ -87,6 +87,13 @@ class Column{
 	get class(){
 		return this.constructor
 	}
+
+	place(index){
+		this.index = index
+		this.cells.forEach((cell)=>{
+			cell.place(index)
+		})
+	}
 }
 
 class Row extends CSNode{
