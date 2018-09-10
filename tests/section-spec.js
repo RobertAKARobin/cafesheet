@@ -1,5 +1,5 @@
 const o = require('mithril/ospec/ospec')
-const {Cafesheet, Table, Section, Row, Cell} = require('../src/js/cafesheet')
+const {Cafesheet, Table, Section, Column, Row, Cell} = require('../src/js/cafesheet')
 
 o.spec('Section', ()=>{
 	let cafesheet,
@@ -41,6 +41,11 @@ o.spec('Section', ()=>{
 				return (maxRowLength = Math.max(maxRowLength, row.size))
 			}, 0)
 			o(section.columns.length).equals(maxRowLength)
+		})
+		o.spec('.each', ()=>{
+			o('is a Column', ()=>{
+				section.columns.forEach(column => o(column.class).equals(Column))
+			})
 		})
 	})
 	o('#constructor creates at least one row', ()=>{

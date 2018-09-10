@@ -52,11 +52,26 @@ class Section extends CSNode{
 		let columns = []
 		this.rows.forEach((row)=>{
 			row.cells.forEach((cell, index)=>{
-				columns[index] = (columns[index] || [])
+				columns[index] = (columns[index] || new Column())
 				columns[index].push(cell)
 			})
 		})
 		return columns
+	}
+}
+
+class Column extends Array{
+	constructor(parent){
+		super()
+		this.parent = parent
+	}
+
+	static get name(){
+		return 'Column'
+	}
+
+	get index(){
+		return this.parent.columns.indexOf(this)
 	}
 }
 
