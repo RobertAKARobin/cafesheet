@@ -9,7 +9,7 @@ module.exports = {
 		path.resolve(__dirname, './src/styles.scss')
 	],
 	output: {
-		filename: '[name]-[hash].js',
+		filename: '[name]-[contenthash].js',
 		path: path.resolve(__dirname, 'dist')
 	},
 	plugins: [
@@ -19,12 +19,17 @@ module.exports = {
 			watch: true
 		}),
 		new MiniCssExtractPlugin({
-			filename: '[name]-[hash].css'
+			filename: '[name]-[contenthash].css'
 		}),
 		new HtmlWebpackPlugin({
 			template: path.resolve(__dirname, './src/index.html'),
 			filename: path.resolve(__dirname, './dist/index.html'),
-			inject: false
+			inject: false,
+			templateParameters: (compilation, assets, options)=>{
+				return {
+					files: assets
+				}
+			}
 		}),
 	],
 	module: {
