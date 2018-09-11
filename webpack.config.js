@@ -1,7 +1,8 @@
 const path = require('path')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
 
 module.exports = {
 	entry: [
@@ -31,6 +32,15 @@ module.exports = {
 				}
 			}
 		}),
+		new HtmlWebpackExternalsPlugin({
+			externals: [
+				{
+					entry: 'mithril.min.js',
+					module: 'mithril',
+					global: 'm'
+				}
+			]
+		})
 	],
 	module: {
 		rules: [
