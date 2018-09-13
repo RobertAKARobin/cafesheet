@@ -7,3 +7,4 @@
 - Have to put .forEach inside tests, can't put tests inside .forEach, for similar reason to above
 - `.length` instead of `.size` because Columns inherit from ARrays, so may as well be consistent
 - `Column` must have `.index` set on creation because `Section.columns` generates a new array each time
+- Webpack is a PITA when all you want to do is concat static assets. Switching to Gulp, which is much easier to config.
