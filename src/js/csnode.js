@@ -126,5 +126,3 @@ class CSNode{
 		return this
 	}
 }
-
-module.exports = CSNode

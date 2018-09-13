@@ -1,6 +1,3 @@
-const m = require('mithril')
-const {Cafesheet, Table, Section, Row, Cell} = require('./cafesheet')
-
 Cafesheet.prototype.view = function(){
 	return this.tables.map((table)=>{
 		return table.view()
@@ -71,12 +68,4 @@ Cell.prototype.view = function(){
 			}
 		})
 	])
-}
-
-module.exports = {
-	Cafesheet,
-	Table,
-	Section,
-	Row,
-	Cell
 }

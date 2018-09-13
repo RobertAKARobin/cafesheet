@@ -1,6 +1,3 @@
-const ENV = require('../../env')
-const CSNode = require('./csnode')
-
 class Cafesheet extends CSNode{
 	constructor(parent){
 		super(parent)
@@ -99,7 +96,7 @@ class Column{
 class Row extends CSNode{
 	constructor(parent){
 		super(parent)
-		for(let i = 0; i < ENV.CFS_DEFAULT_ROW_CELLS; i++){
+		for(let i = 0; i < 5; i++){
 			this.createCell(i)
 		}
 	}
@@ -131,13 +128,4 @@ class Cell extends CSNode{
 	get length(){
 		return undefined
 	}
-}
-
-module.exports = {
-	Cafesheet,
-	Table,
-	Section,
-	Column,
-	Row,
-	Cell
 }

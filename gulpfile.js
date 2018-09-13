@@ -18,6 +18,13 @@ gulp.task('build-js', ()=>{
 	.pipe(gulp.dest('./dist'))
 })
 
+gulp.task('build-modules', ()=>{
+	return gulp.src([
+		'./node_modules/mithril/mithril.min.js'
+	])
+	.pipe(gulp.dest('./dist'))
+})
+
 gulp.task('build-css', ()=>{
 	return gulp.src([
 		'./src/styles.scss'
@@ -38,6 +45,7 @@ gulp.task('build-html', ()=>{
 
 gulp.task('build', gulp.series([
 	'clean',
+	'build-modules',
 	'build-js',
 	'build-css',
 	'build-html'
