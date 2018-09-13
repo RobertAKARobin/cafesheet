@@ -5,11 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "ospec",
-    "build:dev": "webpack --mode=development",
-    "build:prod": "webpack --mode=production",
+    "build": "npx gulp build",
+    "build:watch": "npx gulp watch",
     "serve": "npx http-server dist",
-    "start:dev": "npm run build:dev -- --watch & npm run serve",
-    "start": "npm run build:prod -- --watch & npm run serve"
+    "start": "npm run build:watch & npm run serve"
   },
   "repository": {
     "type": "git",
@@ -22,9 +21,11 @@
   },
   "homepage": "https://github.com/RobertAKARobin/robertakarobin.github.io#readme",
   "devDependencies": {
+    "del": "^3.0.0",
     "gulp": "^4.0.0",
-    "http-server": "0.11.1",
-    "node-sass": "^4.9.2"
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "^4.0.1",
+    "http-server": "0.11.1"
   },
   "dependencies": {
     "mithril": "^1.1.6"
