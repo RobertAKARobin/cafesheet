@@ -7,7 +7,7 @@
     "test": "ospec",
     "build": "npx gulp build",
     "build:watch": "npx gulp watch",
-    "serve": "npx http-server dist",
+    "serve": "npx http-server dist -s",
     "start": "npm run build:watch & npm run serve"
   },
   "repository": {
