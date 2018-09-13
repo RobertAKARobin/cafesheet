@@ -1,6 +1,3 @@
-const o = require('mithril/ospec/ospec')
-const {Cafesheet, Table, Section, Row, Cell} = require('../src/js/cafesheet')
-
 o.spec('Row', ()=>{
 	let cafesheet,
 		table,

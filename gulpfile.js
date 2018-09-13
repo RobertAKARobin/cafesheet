@@ -7,10 +7,17 @@ gulp.task('clean', ()=>{
 	return del(['./dist'])
 })
 
-gulp.task('build-js', ()=>{
+gulp.task('build-cafesheet', ()=>{
 	return gulp.src([
 		'./src/js/csnode.js',
-		'./src/js/cafesheet.js',
+		'./src/js/cafesheet.js'
+	])
+	.pipe(concat('cafesheet.js'))
+	.pipe(gulp.dest('./dist'))
+})
+
+gulp.task('build-main', ()=>{
+	return gulp.src([
 		'./src/js/cafesheet.views.js',
 		'./src/js/main.js'
 	])
@@ -18,9 +25,18 @@ gulp.task('build-js', ()=>{
 	.pipe(gulp.dest('./dist'))
 })
 
+gulp.task('build-tests', ()=>{
+	return gulp.src([
+		'./tests/*.js'	
+	])
+	.pipe(concat('tests.js'))
+	.pipe(gulp.dest('./dist'))
+})
+
 gulp.task('build-modules', ()=>{
 	return gulp.src([
-		'./node_modules/mithril/mithril.min.js'
+		'./node_modules/mithril/mithril.min.js',
+		'./node_modules/mithril/ospec/ospec.js'
 	])
 	.pipe(gulp.dest('./dist'))
 })
@@ -38,7 +54,7 @@ gulp.task('build-css', ()=>{
 
 gulp.task('build-html', ()=>{
 	return gulp.src([
-		'./src/index.html'
+		'./src/*.html'
 	])
 	.pipe(gulp.dest('./dist'))
 })
@@ -46,7 +62,9 @@ gulp.task('build-html', ()=>{
 gulp.task('build', gulp.series([
 	'clean',
 	'build-modules',
-	'build-js',
+	'build-cafesheet',
+	'build-main',
+	'build-tests',
 	'build-css',
 	'build-html'
 ]))
