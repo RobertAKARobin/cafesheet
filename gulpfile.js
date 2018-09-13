@@ -6,7 +6,6 @@ const dateformat = require('dateformat')
 const del = require('del')
 const ENV = require('./env')
 
-let cachebuster = ''
 const updateCachebuster = function(){
 	ENV.cachebuster = dateformat(new Date(), 'yymmddHHMMssl')
 }
