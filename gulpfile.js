@@ -4,13 +4,16 @@ const concat = require('gulp-concat')
 const replace = require('gulp-replace')
 const dateformat = require('dateformat')
 const del = require('del')
+const ENV = require('./env')
 
 let cachebuster = ''
 const updateCachebuster = function(){
-	cachebuster = dateformat(new Date(), 'yymmddHHMMssl')
+	ENV.cachebuster = dateformat(new Date(), 'yymmddHHMMssl')
 }
-const insertCachebuster = function(stream){
-	return replace(/%CACHEBUSTER%/g, cachebuster)
+const insertEnv = function(stream){
+	return replace(/\$([a-zA-Z0-9_-]+)\$/g, (nil, varname)=>{
+		return ENV[varname]
+	})
 }
 updateCachebuster()
 
@@ -23,7 +26,8 @@ gulp.task('build-cafesheet', ()=>{
 		'./src/js/csnode.js',
 		'./src/js/cafesheet.js'
 	])
-	.pipe(concat(`cafesheet-${cachebuster}.js`))
+	.pipe(insertEnv())
+	.pipe(concat(`cafesheet-${ENV.cachebuster}.js`))
 	.pipe(gulp.dest('./dist'))
 })
 
@@ -32,7 +36,8 @@ gulp.task('build-main', ()=>{
 		'./src/js/cafesheet.views.js',
 		'./src/js/main.js'
 	])
-	.pipe(concat(`main-${cachebuster}.js`))
+	.pipe(insertEnv())
+	.pipe(concat(`main-${ENV.cachebuster}.js`))
 	.pipe(gulp.dest('./dist'))
 })
 
@@ -60,7 +65,8 @@ gulp.task('build-css', ()=>{
 		outputStyle: 'expanded',
 		sourceMap: 'non'
 	}))
-	.pipe(concat(`styles-${cachebuster}.css`))
+	.pipe(insertEnv())
+	.pipe(concat(`styles-${ENV.cachebuster}.css`))
 	.pipe(gulp.dest('./dist'))
 })
 
@@ -68,7 +74,7 @@ gulp.task('build-html', ()=>{
 	return gulp.src([
 		'./src/*.html'
 	])
-	.pipe(insertCachebuster())
+	.pipe(insertEnv())
 	.pipe(gulp.dest('./dist'))
 })
 

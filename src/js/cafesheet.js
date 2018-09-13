@@ -96,7 +96,7 @@ class Column{
 class Row extends CSNode{
 	constructor(parent){
 		super(parent)
-		for(let i = 0; i < 5; i++){
+		for(let i = 0; i < $CFS_DEFAULT_ROW_CELLS$; i++){
 			this.createCell(i)
 		}
 	}
