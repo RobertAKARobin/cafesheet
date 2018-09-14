@@ -106,13 +106,9 @@ o.spec('Section', ()=>{
 		})
 	})
 	o.spec('#remove', ()=>{
-		let section,
-			sectionIndex,
-			sectionParent
+		let sectionParent
 
 		o.beforeEach(()=>{
-			section = table.createSection()
-			sectionIndex = section.index
 			sectionParent = section.parent
 			section.remove()
 		})
@@ -130,16 +126,12 @@ o.spec('Section', ()=>{
 		})
 	})
 	o.spec('#place', ()=>{
-		let cafesheet,
-			table,
-			destinationIndex = 5,
+		let destinationIndex = 5,
 			originIndex = (destinationIndex * 2),
 			numSectionsToCreate = (destinationIndex * 4),
-			section,
 			sectionAtDestination
+
 		o.beforeEach(()=>{
-			cafesheet = new Cafesheet()
-			table = cafesheet.tables[0]
 			for(let i = 0; i < numSectionsToCreate; i++){
 				table.createSection()
 			}
