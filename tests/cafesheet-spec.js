@@ -1,4 +1,6 @@
 o.spec('Cafesheet', ()=>{
+	'use strict'
+	
 	let cafesheet
 
 	o.beforeEach(()=>{

@@ -1,4 +1,6 @@
 o.spec('Row', ()=>{
+	'use strict'
+	
 	let cafesheet,
 		table,
 		section,
