@@ -1,5 +1,7 @@
+let ids = 0
 class CSNode{
 	constructor(parent){
+		this.id = ids++
 		if(parent){
 			this.parent = parent
 			this.ancestorClasses.forEach((ancestorClass)=>{
