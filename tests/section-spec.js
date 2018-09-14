@@ -63,7 +63,7 @@ o.spec('Section', ()=>{
 			originalNumColumns,
 			column
 
-		o.before(()=>{
+		o.beforeEach(()=>{
 			originalSectionWidth = section.width
 			originalNumColumns = section.columns.length
 			column = section.createColumn()
@@ -82,7 +82,7 @@ o.spec('Section', ()=>{
 		let originalNumberOfRows,
 			row
 		
-		o.before(()=>{
+		o.beforeEach(()=>{
 			originalNumberOfRows = section.rows.length
 			row = section.createRow()
 		})
@@ -94,13 +94,13 @@ o.spec('Section', ()=>{
 		})
 	})
 	o.spec('#createSection', ()=>{
-		let section
+		let newSection
 
-		o.before(()=>{
-			section = section.createSection()
+		o.beforeEach(()=>{
+			newSection = section.createSection()
 		})
 		o('inserts section after current one', ()=>{
-			o(section.index).equals(section.index + 1)
+			o(newSection.index).equals(section.index + 1)
 		})
 	})
 	o.spec('#remove', ()=>{
@@ -108,7 +108,7 @@ o.spec('Section', ()=>{
 			sectionIndex,
 			sectionParent
 
-		o.before(()=>{
+		o.beforeEach(()=>{
 			section = table.createSection()
 			sectionIndex = section.index
 			sectionParent = section.parent
@@ -135,7 +135,7 @@ o.spec('Section', ()=>{
 			numSectionsToCreate = (destinationIndex * 4),
 			section,
 			sectionAtDestination
-		o.before(()=>{
+		o.beforeEach(()=>{
 			cafesheet = new Cafesheet()
 			table = cafesheet.tables[0]
 			for(let i = 0; i < numSectionsToCreate; i++){

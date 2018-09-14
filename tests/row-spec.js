@@ -3,7 +3,8 @@ o.spec('Row', ()=>{
 		table,
 		section,
 		row
-	o.before(()=>{
+
+	o.beforeEach(()=>{
 		cafesheet = new Cafesheet()
 		table = cafesheet.tables[0]
 		section = table.sections[0]
@@ -24,13 +25,18 @@ o.spec('Row', ()=>{
 		o(row.cells.length >= 1).equals(true)
 	})
 	o.spec('#createCell', ()=>{
+		let originalNumberOfCells,
+			cell
+
+		o.beforeEach(()=>{
+			originalNumberOfCells = row.cells.length
+			cell = row.createCell()
+		})
 		o('increases the row\'s cells by 1', ()=>{
-			let numberOfCells = row.cells.length
-			row.createCell()
-			o(row.cells.length).equals(numberOfCells + 1)
+			o(row.cells.length).equals(originalNumberOfCells + 1)
 		})
 		o('returns a Cell', ()=>{
-			o(row.createCell().class).equals(Cell)
+			o(cell.class).equals(Cell)
 		})
 	})
 	o.spec('.cells, each', ()=>{

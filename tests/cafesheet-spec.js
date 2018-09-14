@@ -1,7 +1,7 @@
 o.spec('Cafesheet', ()=>{
 	let cafesheet
 
-	o.before(()=>{
+	o.beforeEach(()=>{
 		cafesheet = new Cafesheet()
 	})
 	o('inheritance is correct', ()=>{
@@ -15,13 +15,18 @@ o.spec('Cafesheet', ()=>{
 		o(cafesheet.tables.length >= 1).equals(true)
 	})
 	o.spec('#createTable', ()=>{
+		let originalNumberOfTables,
+			table
+
+		o.beforeEach(()=>{
+			originalNumberOfTables = cafesheet.tables.length
+			table = cafesheet.createTable()
+		})
 		o('increases the cafesheet\'s tables by 1', ()=>{
-			let numberOfTables = cafesheet.tables.length
-			cafesheet.createTable()
-			o(cafesheet.tables.length).equals(numberOfTables + 1)
+			o(cafesheet.tables.length).equals(originalNumberOfTables + 1)
 		})
 		o('returns a Table', ()=>{
-			o(cafesheet.createTable().class).equals(Table)
+			o(table.class).equals(Table)
 		})
 	})
 	o.spec('.tables, each', ()=>{

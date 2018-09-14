@@ -2,7 +2,7 @@ o.spec('Table', ()=>{
 	let cafesheet,
 		table
 
-	o.before(()=>{
+	o.beforeEach(()=>{
 		cafesheet = new Cafesheet()
 		table = cafesheet.tables[0]
 	})
@@ -19,13 +19,18 @@ o.spec('Table', ()=>{
 		o(table.sections.length >= 1).equals(true)
 	})
 	o.spec('#createSection', ()=>{
+		let originalNumberOfSections,
+			section
+		
+		o.beforeEach(()=>{
+			originalNumberOfSections = table.sections.length
+			section = table.createSection()
+		})
 		o('increases the table\'s sections by 1', ()=>{
-			let numberOfSections = table.sections.length
-			table.createSection()
-			o(table.sections.length).equals(numberOfSections + 1)
+			o(table.sections.length).equals(originalNumberOfSections + 1)
 		})
 		o('returns a Section', ()=>{
-			o(table.createSection().class).equals(Section)
+			o(section.class).equals(Section)
 		})
 	})
 	o.spec('.sections, each', ()=>{
