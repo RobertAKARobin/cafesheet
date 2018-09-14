@@ -14,11 +14,18 @@ Section.prototype.view = function(){
 	const section = this
 	return m('tbody', [
 		m('tr', [
-			m('th', {
-				onclick: ()=>{
-					section.createRow().place(0)
-				}
-			}, '+'),
+			m('th', [
+				m('button', {
+					onclick: ()=>{
+						section.createColumn().place(0)
+					}
+				}, '+'),
+				m('button',{
+					onclick: ()=>{
+						section.createRow().place(0)
+					}
+				}, '+')
+			]),
 			section.columns.map((column)=>{
 				return m('th', [
 					m('button', column.index),
