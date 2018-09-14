@@ -51,6 +51,15 @@ o.spec('Section', ()=>{
 			})
 		})
 	})
+	o('.siblings returns the other sections that are children of the parent table', ()=>{
+		table.createSection()
+		table.createSection()
+		table.createSection()
+		o(table.sections.length).equals(section.siblings.length)
+		section.siblings.forEach((sibling)=>{
+			o(table.sections.includes(sibling)).equals(true)
+		})
+	})
 	o('.width returns the max length of the section\'s rows', ()=>{
 		let maxRowLength = section.rows.reduce((maxRowLength, row)=>{
 			return (maxRowLength = Math.max(maxRowLength, row.length))
