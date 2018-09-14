@@ -3,7 +3,7 @@ o.spec('Section', ()=>{
 		table,
 		section
 
-	o.before(()=>{
+	o.beforeEach(()=>{
 		cafesheet = new Cafesheet()
 		table = cafesheet.tables[0]
 		section = table.sections[0]
@@ -59,54 +59,72 @@ o.spec('Section', ()=>{
 		o(section.rows.length >= 1).equals(true)
 	})
 	o.spec('#createColumn', ()=>{
+		let originalSectionWidth,
+			originalNumColumns,
+			column
+
+		o.before(()=>{
+			originalSectionWidth = section.width
+			originalNumColumns = section.columns.length
+			column = section.createColumn()
+		})
 		o('increases the section\'s width by 1', ()=>{
-			let originalSectionWidth = section.width
-			section.createColumn()
 			o(section.width).equals(originalSectionWidth + 1)
 		})
 		o('increases the section\'s number of columns by 1', ()=>{
-			let originalNumColumns = section.columns.length
-			section.createColumn()
 			o(section.columns.length).equals(originalNumColumns + 1)
 		})
 		o('returns a Column', ()=>{
-			o(section.createColumn().class).equals(Column)
+			o(column.class).equals(Column)
 		})
 	})
 	o.spec('#createRow', ()=>{
+		let originalNumberOfRows,
+			row
+		
+		o.before(()=>{
+			originalNumberOfRows = section.rows.length
+			row = section.createRow()
+		})
 		o('increases the section\'s rows by 1', ()=>{
-			let numberOfRows = section.rows.length
-			section.createRow()
-			o(section.rows.length).equals(numberOfRows + 1)
+			o(section.rows.length).equals(originalNumberOfRows + 1)
 		})
 		o('returns a Row', ()=>{
-			o(section.createRow().class).equals(Row)
+			o(row.class).equals(Row)
 		})
 	})
 	o.spec('#createSection', ()=>{
+		let section
+
+		o.before(()=>{
+			section = section.createSection()
+		})
 		o('inserts section after current one', ()=>{
-			o(section.createSection().index).equals(section.index + 1)
+			o(section.index).equals(section.index + 1)
 		})
 	})
 	o.spec('#remove', ()=>{
-		let removedSection,
-			removedSectionIndex = 0
+		let section,
+			sectionIndex,
+			sectionParent
+
 		o.before(()=>{
-			removedSection = table.createSection()
-			originalRemovedSectionParent = removedSection.parent
-			removedSection.place(removedSectionIndex).remove()
+			section = table.createSection()
+			sectionIndex = section.index
+			sectionParent = section.parent
+			section.remove()
 		})
 		o('does not change the section\'s parent', ()=>{
-			o(removedSection.parent).equals(originalRemovedSectionParent)
+			o(section.parent).equals(sectionParent)
 		})
 		o('removes the section from its siblings', ()=>{
-			o(removedSection.siblings.indexOf(removedSection)).equals(-1)
+			o(section.siblings.indexOf(section)).equals(-1)
 		})
 		o('makes the section no longer a child of its parent', ()=>{
-			o(removedSection.parent.children.indexOf(removedSection)).equals(-1)
+			o(section.parent.children.indexOf(section)).equals(-1)
 		})
 		o('makes the section no longer a descendant of its ancestor Cafesheet', ()=>{
-			o(cafesheet.sections.indexOf(removedSection)).equals(-1)
+			o(cafesheet.sections.indexOf(section)).equals(-1)
 		})
 	})
 	o.spec('#place', ()=>{
