@@ -13,14 +13,16 @@ o.spec('Column', ()=>{
 		column = section.columns[0]
 	})
 	o.spec('#place', ()=>{
-		let originalIndex
+		let originalIndex,
+			cells
 
 		o.beforeEach(()=>{
+			cells = column.cells
 			originalIndex = column.cells[0].index
 			column.place(column.index + 1)
 		})
 		o('updates the indexes of all cells in the column', ()=>{
-			column.cells.forEach(cell => o(cell.index).equals(originalIndex + 1))
+			cells.forEach(cell => o(cell.index).equals(originalIndex + 1))
 		})
 	})
 })

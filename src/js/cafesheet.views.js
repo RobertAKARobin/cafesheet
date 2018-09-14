@@ -24,7 +24,7 @@ Section.prototype.view = function(){
 					m('button', column.index),
 					m('button', {
 						onclick: ()=>{
-							section.createColumn().place(column.index)
+							column.createColumn()
 						}
 					}, '+')
 				])
