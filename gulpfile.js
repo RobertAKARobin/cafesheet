@@ -89,5 +89,5 @@ gulp.task('build', gulp.series([
 
 gulp.task('watch', ()=>{
 	updateCachebuster()
-	gulp.watch('./src/**/*', {ignoreInitial: false}, gulp.task('build'))
+	gulp.watch(['./src/**/*', './tests/**/*'], {ignoreInitial: false}, gulp.task('build'))
 })
