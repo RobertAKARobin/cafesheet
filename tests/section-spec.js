@@ -60,11 +60,18 @@ o.spec('Section', ()=>{
 			o(table.sections.includes(sibling)).equals(true)
 		})
 	})
-	o('.width returns the max length of the section\'s rows', ()=>{
-		let maxRowLength = section.rows.reduce((maxRowLength, row)=>{
-			return (maxRowLength = Math.max(maxRowLength, row.length))
-		}, 0)
-		o(section.width).equals(maxRowLength)
+	o.spec('.width', ()=>{
+		o('returns the max length of the section\'s rows', ()=>{
+			let maxRowLength = section.rows.reduce((maxRowLength, row)=>{
+				return (maxRowLength = Math.max(maxRowLength, row.length))
+			}, 0)
+			o(section.width).equals(maxRowLength)
+		})
+		o('equals width of all the section\'s rows', ()=>{
+			section.rows.forEach((row)=>{
+				o(row.width).equals(section.width)
+			})
+		})
 	})
 	o('#constructor creates at least one row', ()=>{
 		o(section.rows.length >= 1).equals(true)
@@ -102,6 +109,9 @@ o.spec('Section', ()=>{
 		})
 		o('returns a Row', ()=>{
 			o(row.class).equals(Row)
+		})
+		o('returns a Row with a length equal to the section\'s width', ()=>{
+			o(row.length).equals(section.width)
 		})
 	})
 	o.spec('#createSection', ()=>{

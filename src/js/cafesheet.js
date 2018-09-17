@@ -117,7 +117,7 @@ class Column{
 class Row extends CSNode{
 	constructor(parent){
 		super(parent)
-		for(let i = 0; i < $CFS_DEFAULT_ROW_CELLS$; i++){
+		for(let i = 0; i < (parent.width || $CFS_DEFAULT_ROW_CELLS$); i++){
 			this.createCell(i)
 		}
 	}
@@ -130,6 +130,10 @@ class Row extends CSNode{
 	}
 	static get parentClass(){
 		return Section
+	}
+
+	get width(){
+		return this.length
 	}
 
 	createCell(){

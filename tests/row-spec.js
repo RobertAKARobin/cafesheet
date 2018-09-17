@@ -49,4 +49,7 @@ o.spec('Row', ()=>{
 			row.cells.forEach(cell => o(cell.row).equals(row))
 		})
 	})
+	o('.width returns the number of cells', ()=>{
+		o(row.width).equals(row.cells.length)
+	})
 })
