@@ -10,6 +10,13 @@ class Cafesheet extends CSNode{
 	static get childClass(){
 		return Table
 	}
+
+	createCafesheet(){
+		return this.createSibling.apply(this, arguments)
+	}
+	createTable(){
+		return this.createChild.apply(this, arguments)
+	}
 }
 
 class Table extends CSNode{
@@ -26,6 +33,13 @@ class Table extends CSNode{
 	}
 	static get parentClass(){
 		return Cafesheet
+	}
+
+	createSection(){
+		return this.createChild.apply(this, arguments)
+	}
+	createTable(){
+		return this.createSibling.apply(this, arguments)
 	}
 }
 
@@ -63,6 +77,12 @@ class Section extends CSNode{
 			row.createCell()
 		})
 		return this.columns[this.width - 1]
+	}
+	createRow(){
+		return this.createChild.apply(this, arguments)
+	}
+	createSection(){
+		return this.createSibling.apply(this, arguments)
 	}
 }
 
@@ -110,6 +130,13 @@ class Row extends CSNode{
 	}
 	static get parentClass(){
 		return Section
+	}
+
+	createCell(){
+		return this.createChild.apply(this, arguments)
+	}
+	createRow(){
+		return this.createSibling.apply(this, arguments)
 	}
 }
 

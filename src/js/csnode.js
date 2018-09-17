@@ -14,8 +14,6 @@ class CSNode{
 		}
 		if(this.childClass){
 			this.children = []
-			this[`create${this.childClass.name}`] = this.createChild
-			this[`create${this.class.name}`] = this.createSibling
 			this.descendantClasses.forEach((descendantClass)=>{
 				Object.defineProperty(this, descendantClass.pluralName, {
 					get: function(){
