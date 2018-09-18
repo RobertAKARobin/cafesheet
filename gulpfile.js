@@ -4,10 +4,12 @@ const concat = require('gulp-concat')
 const replace = require('gulp-replace')
 const dateformat = require('dateformat')
 const del = require('del')
-const ENV = require('./env')
-ENV.CSData = JSON.stringify(require('./data'))
+const fs = require('fs')
+let ENV
 
-const updateCachebuster = function(done){
+const loadEnv = function(done){
+	ENV = JSON.parse(fs.readFileSync('./env.json'))
+	ENV.CSData = fs.readFileSync('./data.json')
 	ENV.cachebuster = dateformat(new Date(), 'yymmddHHMMssl')
 	done()
 }
@@ -80,7 +82,7 @@ gulp.task('build-html', ()=>{
 
 gulp.task('build', gulp.series([
 	'clean',
-	updateCachebuster,
+	loadEnv,
 	'build-modules',
 	'build-cafesheet',
 	'build-main',
@@ -90,5 +92,9 @@ gulp.task('build', gulp.series([
 ]))
 
 gulp.task('watch', ()=>{
-	gulp.watch(['./src/**/*', './tests/**/*'], {ignoreInitial: false}, gulp.task('build'))
+	gulp.watch([
+		'./*.js*',
+		'./src/**/*',
+		'./tests/**/*'
+	], {ignoreInitial: false}, gulp.task('build'))
 })
