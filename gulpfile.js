@@ -6,15 +6,15 @@ const dateformat = require('dateformat')
 const del = require('del')
 const ENV = require('./env')
 
-const updateCachebuster = function(){
+const updateCachebuster = function(done){
 	ENV.cachebuster = dateformat(new Date(), 'yymmddHHMMssl')
+	done()
 }
 const insertEnv = function(stream){
 	return replace(/\$([a-zA-Z0-9_-]+)\$/g, (nil, varname)=>{
 		return ENV[varname]
 	})
 }
-updateCachebuster()
 
 gulp.task('clean', ()=>{
 	return del(['./dist'])
@@ -79,6 +79,7 @@ gulp.task('build-html', ()=>{
 
 gulp.task('build', gulp.series([
 	'clean',
+	updateCachebuster,
 	'build-modules',
 	'build-cafesheet',
 	'build-main',
@@ -88,6 +89,5 @@ gulp.task('build', gulp.series([
 ]))
 
 gulp.task('watch', ()=>{
-	updateCachebuster()
 	gulp.watch(['./src/**/*', './tests/**/*'], {ignoreInitial: false}, gulp.task('build'))
 })
