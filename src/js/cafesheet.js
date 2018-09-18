@@ -112,6 +112,11 @@ class Column{
 			cell.place(index)
 		})
 	}
+	remove(){
+		this.cells.forEach((cell)=>{
+			cell.remove()
+		})
+	}
 }
 
 class Row extends CSNode{

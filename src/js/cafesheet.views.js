@@ -28,7 +28,11 @@ Section.prototype.view = function(){
 			]),
 			section.columns.map((column)=>{
 				return m('th', [
-					m('button', column.index),
+					m('button', {
+						onclick: ()=>{
+							column.remove()
+						},
+					}, column.index),
 					m('button', {
 						onclick: ()=>{
 							column.createColumn()
