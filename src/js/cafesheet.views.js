@@ -1,11 +1,13 @@
 Cafesheet.prototype.view = function(){
-	return this.tables.map((table)=>{
+	const cafesheet = this
+	return cafesheet.tables.map((table)=>{
 		return table.view()
 	})
 }
 
 Table.prototype.view = function(){
-	return m('table', this.sections.map((section)=>{
+	const table = this
+	return m('table', table.sections.map((section)=>{
 		return section.view()
 	}))
 }
@@ -27,23 +29,28 @@ Section.prototype.view = function(){
 				}, '+')
 			]),
 			section.columns.map((column)=>{
-				return m('th', [
-					m('button', {
-						onclick: ()=>{
-							column.remove()
-						},
-					}, column.index),
-					m('button', {
-						onclick: ()=>{
-							column.createColumn()
-						}
-					}, '+')
-				])
+				return column.view()
 			})
 		]),
 		section.rows.map((row)=>{
 			return row.view()
 		})
+	])
+}
+
+Column.prototype.view = function(){
+	const column = this
+	return m('th', [
+		m('button', {
+			onclick: ()=>{
+				column.remove()
+			},
+		}, column.index),
+		m('button', {
+			onclick: ()=>{
+				column.createColumn()
+			}
+		}, '+')
 	])
 }
 
