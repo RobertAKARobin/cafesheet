@@ -5,6 +5,7 @@ const replace = require('gulp-replace')
 const dateformat = require('dateformat')
 const del = require('del')
 const ENV = require('./env')
+ENV.CSData = JSON.stringify(require('./data'))
 
 const updateCachebuster = function(done){
 	ENV.cachebuster = dateformat(new Date(), 'yymmddHHMMssl')
