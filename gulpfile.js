@@ -25,7 +25,7 @@ gulp.task('clean', ()=>{
 })
 
 gulp.task('build-cafesheet', ()=>{
-	return gulp.src(['csnode'].concat(CSComponents).map((component)=>{
+	return gulp.src(['_csnode'].concat(CSComponents).map((component)=>{
 		return `./src/${component}.js`
 	}))
 	.pipe(insertEnv())
