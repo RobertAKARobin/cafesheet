@@ -26,7 +26,7 @@ gulp.task('clean', ()=>{
 
 gulp.task('build-cafesheet', ()=>{
 	return gulp.src(['csnode'].concat(CSComponents).map((component)=>{
-		return `./src/js/cafesheet/${component}.js`
+		return `./src/${component}.js`
 	}))
 	.pipe(insertEnv())
 	.pipe(concat(`cafesheet-${ENV.cachebuster}.js`))
@@ -34,11 +34,11 @@ gulp.task('build-cafesheet', ()=>{
 })
 
 gulp.task('build-main', ()=>{
-	return gulp.src([
-		'./src/js/main.js'
-	].concat(CSComponents.map((component)=>{
-		return `./src/js/cafesheet/${component}.views.js`
-	})))
+	return gulp.src(CSComponents.map((component)=>{
+		return `./src/${component}.views.js`
+	}).concat([
+		'./web/main.js'
+	]))
 	.pipe(insertEnv())
 	.pipe(concat(`main-${ENV.cachebuster}.js`))
 	.pipe(gulp.dest('./dist'))
@@ -46,7 +46,7 @@ gulp.task('build-main', ()=>{
 
 gulp.task('build-tests', ()=>{
 	return gulp.src(CSComponents.map((component)=>{
-		return `./src/js/cafesheet/${component}.spec.js`
+		return `./src/${component}.spec.js`
 	}))
 	.pipe(concat('tests.js'))
 	.pipe(gulp.dest('./dist'))
@@ -62,7 +62,7 @@ gulp.task('build-modules', ()=>{
 
 gulp.task('build-css', ()=>{
 	return gulp.src([
-		'./src/styles.scss'
+		'./web/styles.scss'
 	])
 	.pipe(sass({
 		outputStyle: 'expanded',
@@ -75,7 +75,7 @@ gulp.task('build-css', ()=>{
 
 gulp.task('build-html', ()=>{
 	return gulp.src([
-		'./src/*.html'
+		'./web/*.html'
 	])
 	.pipe(insertEnv())
 	.pipe(gulp.dest('./dist'))
@@ -96,6 +96,6 @@ gulp.task('watch', ()=>{
 	gulp.watch([
 		'./*.js*',
 		'./src/**/*',
-		'./tests/**/*'
+		'./web/**/*'
 	], {ignoreInitial: false}, gulp.task('build'))
 })
