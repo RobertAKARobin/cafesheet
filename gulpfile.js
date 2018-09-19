@@ -25,8 +25,8 @@ gulp.task('clean', ()=>{
 })
 
 gulp.task('build-cafesheet', ()=>{
-	return gulp.src(['csnode'].concat(CSComponents).map((source)=>{
-		return `./src/js/cafesheet/${source}.js`
+	return gulp.src(['csnode'].concat(CSComponents).map((component)=>{
+		return `./src/js/cafesheet/${component}.js`
 	}))
 	.pipe(insertEnv())
 	.pipe(concat(`cafesheet-${ENV.cachebuster}.js`))
@@ -45,9 +45,9 @@ gulp.task('build-main', ()=>{
 })
 
 gulp.task('build-tests', ()=>{
-	return gulp.src([
-		'./tests/*.js'	
-	])
+	return gulp.src(CSComponents.map((component)=>{
+		return `./src/js/cafesheet/${component}.spec.js`
+	}))
 	.pipe(concat('tests.js'))
 	.pipe(gulp.dest('./dist'))
 })
