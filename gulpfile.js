@@ -25,8 +25,13 @@ gulp.task('clean', ()=>{
 
 gulp.task('build-cafesheet', ()=>{
 	return gulp.src([
-		'./src/js/csnode.js',
-		'./src/js/cafesheet.js'
+		'./src/js/cafesheet/csnode.js',
+		'./src/js/cafesheet/sheet.js',
+		'./src/js/cafesheet/table.js',
+		'./src/js/cafesheet/section.js',
+		'./src/js/cafesheet/column.js',
+		'./src/js/cafesheet/row.js',
+		'./src/js/cafesheet/cell.js'
 	])
 	.pipe(insertEnv())
 	.pipe(concat(`cafesheet-${ENV.cachebuster}.js`))
@@ -35,7 +40,7 @@ gulp.task('build-cafesheet', ()=>{
 
 gulp.task('build-main', ()=>{
 	return gulp.src([
-		'./src/js/cafesheet.views.js',
+		'./src/js/views.js',
 		'./src/js/main.js'
 	])
 	.pipe(insertEnv())
