@@ -1,6 +1,8 @@
 const Classes = [Sheet, Table, Section, Row, Cell]
 
 Classes.forEach((Class) => {
+	'use strict'
+	
 	const parentClass = Classes[Classes.indexOf(Class) - 1],
 		childClass = Classes[Classes.indexOf(Class) + 1],
 		ancestorClasses = Classes.slice(0, Classes.indexOf(Class)).reverse(),
