@@ -1,21 +1,21 @@
 o.spec('Table', ()=>{
 	'use strict'
 
-	let cafesheet,
+	let sheet,
 		table
 
 	o.beforeEach(()=>{
-		cafesheet = new Cafesheet()
-		table = cafesheet.tables[0]
+		sheet = new Sheet()
+		table = sheet.tables[0]
 	})
 	o('inheritance is correct', ()=>{
 		o(table.class).equals(Table)
-		o(Table.parentClass).equals(Cafesheet)
-		o(table.parentClass).equals(Cafesheet)
+		o(Table.parentClass).equals(Sheet)
+		o(table.parentClass).equals(Sheet)
 		o(Table.childClass).equals(Section)
 		o(table.childClass).equals(Section)
-		o(table.parent).equals(cafesheet)
-		o(table.cafesheet).equals(cafesheet)
+		o(table.parent).equals(sheet)
+		o(table.sheet).equals(sheet)
 	})
 	o('#constructor creates at least one section', ()=>{
 		o(table.sections.length >= 1).equals(true)

@@ -1,14 +1,14 @@
 o.spec('Row', ()=>{
 	'use strict'
 	
-	let cafesheet,
+	let sheet,
 		table,
 		section,
 		row
 
 	o.beforeEach(()=>{
-		cafesheet = new Cafesheet()
-		table = cafesheet.tables[0]
+		sheet = new Sheet()
+		table = sheet.tables[0]
 		section = table.sections[0]
 		row = section.rows[0]
 	})
@@ -21,7 +21,7 @@ o.spec('Row', ()=>{
 		o(row.parent).equals(section)
 		o(row.section).equals(section)
 		o(row.table).equals(table)
-		o(row.cafesheet).equals(cafesheet)
+		o(row.sheet).equals(sheet)
 	})
 	o('#constructor creates at least one cell', ()=>{
 		o(row.cells.length >= 1).equals(true)

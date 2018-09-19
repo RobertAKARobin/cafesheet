@@ -1,17 +1,17 @@
-class Cafesheet extends CSNode{
+class Sheet extends CSNode{
 	constructor(parent){
 		super(parent)
 		this.createTable()
 	}
 
 	static get name(){
-		return 'Cafesheet'
+		return 'Sheet'
 	}
 	static get childClass(){
 		return Table
 	}
 
-	createCafesheet(){
+	createSheet(){
 		return this.createSibling.apply(this, arguments)
 	}
 	createTable(){
@@ -32,7 +32,7 @@ class Table extends CSNode{
 		return Section
 	}
 	static get parentClass(){
-		return Cafesheet
+		return Sheet
 	}
 
 	createSection(){

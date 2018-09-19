@@ -1,14 +1,14 @@
 o.spec('Column', ()=>{
 	'use strict'
 	
-	let cafesheet,
+	let sheet,
 		table,
 		section,
 		column
 
 	o.beforeEach(()=>{
-		cafesheet = new Cafesheet()
-		table = cafesheet.tables[0]
+		sheet = new Sheet()
+		table = sheet.tables[0]
 		section = table.sections[0]
 		column = section.columns[0]
 	})

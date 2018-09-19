@@ -1,13 +1,13 @@
 o.spec('Section', ()=>{
 	'use strict'
 	
-	let cafesheet,
+	let sheet,
 		table,
 		section
 
 	o.beforeEach(()=>{
-		cafesheet = new Cafesheet()
-		table = cafesheet.tables[0]
+		sheet = new Sheet()
+		table = sheet.tables[0]
 		section = table.sections[0]
 	})
 	o('inheritance is correct', ()=>{
@@ -18,7 +18,7 @@ o.spec('Section', ()=>{
 		o(section.childClass).equals(Row)
 		o(section.parent).equals(table)
 		o(section.table).equals(table)
-		o(section.cafesheet).equals(cafesheet)
+		o(section.sheet).equals(sheet)
 	})
 	o('.cells contains all cells of sub-rows', ()=>{
 		let cells = [],
@@ -140,8 +140,8 @@ o.spec('Section', ()=>{
 		o('makes the section no longer a child of its parent', ()=>{
 			o(section.parent.children.indexOf(section)).equals(-1)
 		})
-		o('makes the section no longer a descendant of its ancestor Cafesheet', ()=>{
-			o(cafesheet.sections.indexOf(section)).equals(-1)
+		o('makes the section no longer a descendant of its ancestor Sheet', ()=>{
+			o(sheet.sections.indexOf(section)).equals(-1)
 		})
 	})
 	o.spec('#place', ()=>{
