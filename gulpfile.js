@@ -33,12 +33,19 @@ gulp.task('build-cafesheet', ()=>{
 	.pipe(gulp.dest('./dist'))
 })
 
-gulp.task('build-main', ()=>{
+gulp.task('build-views', ()=>{
 	return gulp.src(CSComponents.map((component)=>{
 		return `./src/${component}.views.js`
-	}).concat([
+	}))
+	.pipe(insertEnv())
+	.pipe(concat(`cafesheet.views-${ENV.cachebuster}.js`))
+	.pipe(gulp.dest('./dist'))
+})
+
+gulp.task('build-main', ()=>{
+	return gulp.src([
 		'./web/main.js'
-	]))
+	])
 	.pipe(insertEnv())
 	.pipe(concat(`main-${ENV.cachebuster}.js`))
 	.pipe(gulp.dest('./dist'))
@@ -86,6 +93,7 @@ gulp.task('build', gulp.series([
 	loadEnv,
 	'build-modules',
 	'build-cafesheet',
+	'build-views',
 	'build-main',
 	'build-tests',
 	'build-css',
