@@ -5,6 +5,7 @@ const replace = require('gulp-replace')
 const dateformat = require('dateformat')
 const del = require('del')
 const fs = require('fs')
+const CSComponents = ['sheet', 'table', 'section', 'column', 'row', 'cell']
 let ENV
 
 const loadEnv = function(done){
@@ -24,15 +25,9 @@ gulp.task('clean', ()=>{
 })
 
 gulp.task('build-cafesheet', ()=>{
-	return gulp.src([
-		'./src/js/cafesheet/csnode.js',
-		'./src/js/cafesheet/sheet.js',
-		'./src/js/cafesheet/table.js',
-		'./src/js/cafesheet/section.js',
-		'./src/js/cafesheet/column.js',
-		'./src/js/cafesheet/row.js',
-		'./src/js/cafesheet/cell.js'
-	])
+	return gulp.src(['csnode'].concat(CSComponents).map((source)=>{
+		return `./src/js/cafesheet/${source}.js`
+	}))
 	.pipe(insertEnv())
 	.pipe(concat(`cafesheet-${ENV.cachebuster}.js`))
 	.pipe(gulp.dest('./dist'))
@@ -40,9 +35,10 @@ gulp.task('build-cafesheet', ()=>{
 
 gulp.task('build-main', ()=>{
 	return gulp.src([
-		'./src/js/views.js',
 		'./src/js/main.js'
-	])
+	].concat(CSComponents.map((component)=>{
+		return `./src/js/cafesheet/${component}.views.js`
+	})))
 	.pipe(insertEnv())
 	.pipe(concat(`main-${ENV.cachebuster}.js`))
 	.pipe(gulp.dest('./dist'))
