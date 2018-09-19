@@ -94,7 +94,7 @@ gulp.task('build', gulp.series([
 
 gulp.task('watch', ()=>{
 	gulp.watch([
-		'./*.js*',
+		'./*.json',
 		'./src/**/*',
 		'./web/**/*'
 	], {ignoreInitial: false}, gulp.task('build'))
