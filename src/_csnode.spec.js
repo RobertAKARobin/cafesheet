@@ -11,11 +11,6 @@ Classes.forEach((Class) => {
 	o.spec(`${Class.name}`, ()=>{
 		let $
 
-		o.beforeEach(()=>{
-			$ = {}
-			// $.instance = new Class()
-		})
-
 		o.spec(`class`, ()=>{
 			o(`.parentClass`, ()=>{
 				o(Class.parentClass).equals(parentClass)
@@ -36,15 +31,27 @@ Classes.forEach((Class) => {
 		})
 
 		o.spec(`instance`, ()=>{
-			// o(`.class is ${Class.name}`, ()=>{
-			// 	o($.instance.class).equals(Class)
-			// })
-			// o(`.parentClass is ${parentClassName}`, ()=>{
-			// 	o($.instance.parentClass).equals(parentClass)
-			// })
-			// o(`.childClass is ${childClassName}`, ()=>{
-			// 	o($.instance.childClass).equals(childClass)
-			// })
+			let instance
+
+			o.beforeEach(()=>{
+				$ = {}
+				$.sheet = new Sheet()
+				$.table = $.sheet.tables[0]
+				$.section = $.table.sections[0]
+				$.row = $.section.rows[0]
+				$.cell = $.row.cells[0]
+				instance = $[Class.singularName]
+			})
+
+			o(`.class`, ()=>{
+				o(instance.class).equals(Class)
+			})
+			o(`.parentClass`, ()=>{
+				o(instance.parentClass).equals(parentClass)
+			})
+			o(`.childClass`, ()=>{
+				o(instance.childClass).equals(childClass)
+			})
 		})
 	})
 
