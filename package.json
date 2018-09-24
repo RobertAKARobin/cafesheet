@@ -6,7 +6,7 @@
   "scripts": {
     "test": "ospec",
     "build": "npx gulp build",
-    "build:watch": "npx gulp watch",
+    "build:watch": "npx gulp --silent watch",
     "serve": "npx http-server dist -s",
     "start": "npm run build:watch & npm run serve"
   },
