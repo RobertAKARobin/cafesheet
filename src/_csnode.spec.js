@@ -28,6 +28,12 @@ $Classes.forEach(($Class) => {
 					actual = $Class.descendantClasses.map(C=>C.name).join(',')
 				o(actual).equals(expected)
 			})
+			o(`.singularName`, ()=>{
+				o($Class.singularName).equals(`${$Class.name.toLowerCase()}`)
+			})
+			o(`.pluralName`, ()=>{
+				o($Class.pluralName).equals(`${$Class.name.toLowerCase()}s`)
+			})
 		})
 
 		o.spec(`instance`, ()=>{

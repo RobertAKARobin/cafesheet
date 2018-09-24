@@ -47,7 +47,7 @@ class CSNode{
 		return descendantClasses
 	}
 	static get pluralName(){
-		return `${this.name.toLowerCase()}s`
+		return `${this.singularName}s`
 	}
 	static get singularName(){
 		return `${this.name.toLowerCase()}`
