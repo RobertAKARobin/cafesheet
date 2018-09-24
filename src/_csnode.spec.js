@@ -52,6 +52,14 @@ Classes.forEach((Class) => {
 			o(`.childClass`, ()=>{
 				o(instance.childClass).equals(childClass)
 			})
+			o(`.parent`, ()=>{
+				o(instance.parent).equals(parentClass ? $[parentClass.singularName] : undefined)
+			})
+			if(parentClass){
+				o(`.${parentClass.singularName}`, ()=>{
+					o(instance.parent).equals($[parentClass.singularName])
+				})
+			}
 		})
 	})
 
