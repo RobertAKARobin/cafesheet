@@ -107,22 +107,23 @@ $Classes.forEach(($Class) => {
 				o(`.${$parentClass.singularName}`, ()=>{
 					o(instance.parent).equals(_[$parentClass.singularName])
 				})
-				$ancestorClasses.forEach((ancestorClass)=>{
-					o(`.${ancestorClass}`, ()=>{
-
-					})
-				})
 			}
+			$ancestorClasses.forEach(($ancestorClass)=>{
+				let ancestorName = $ancestorClass.singularName
+				o(`${$Class.singularName}.${ancestorName}`, ()=>{
+					o(instance[ancestorName]).equals(_[ancestorName])
+				})
+			})
 			if($childClass){
 				o(`.${$childClass.singularName}`, ()=>{
 
 				})
-				$descendantClasses.forEach((descendantClass)=>{
-					o(`.${descendantClass}`, ()=>{
-	
-					})
-				})
 			}
+			$descendantClasses.forEach((descendantClass)=>{
+				o(`.${descendantClass}`, ()=>{
+
+				})
+			})
 
 			o(`#createChild`, ()=>{
 
