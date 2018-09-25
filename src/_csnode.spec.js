@@ -92,9 +92,13 @@ $Classes.forEach(($Class) => {
 			o(`.previous`, ()=>{
 
 			})
-			o(`.siblings`, ()=>{
-
-			})
+			if($parentClass){
+				o(`.siblings`, ()=>{
+					instance.parent.children.forEach((child)=>{
+						o(instance.siblings.includes(child)).equals(true)
+					})
+				})
+			}
 			o(`.width`, ()=>{
 
 			})
