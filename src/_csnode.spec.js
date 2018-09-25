@@ -49,23 +49,82 @@ $Classes.forEach(($Class) => {
 				instance = _[$Class.singularName]
 			})
 
-			o(`.class`, ()=>{
-				o(instance.class).equals($Class)
+			o(`.ancestors`, ()=>{
+
 			})
-			o(`.parentClass`, ()=>{
-				o(instance.parentClass).equals($parentClass)
+			o(`.ancestorClasses`, ()=>{
+
 			})
 			o(`.childClass`, ()=>{
 				o(instance.childClass).equals($childClass)
 			})
+			o(`.class`, ()=>{
+				o(instance.class).equals($Class)
+			})
+			o(`.descendants`, ()=>{
+
+			})
+			o(`.descendantClasses`, ()=>{
+
+			})
+			o(`.index`, ()=>{
+
+			})
+			o(`.length`, ()=>{
+
+			})
+			o(`.next`, ()=>{
+
+			})
+			o(`.parentClass`, ()=>{
+				o(instance.parentClass).equals($parentClass)
+			})
 			o(`.parent`, ()=>{
 				o(instance.parent).equals($parentClass ? _[$parentClass.singularName] : undefined)
 			})
+			o(`.previous`, ()=>{
+
+			})
+			o(`.siblings`, ()=>{
+
+			})
+			o(`.width`, ()=>{
+
+			})
+
 			if($parentClass){
 				o(`.${$parentClass.singularName}`, ()=>{
 					o(instance.parent).equals(_[$parentClass.singularName])
 				})
+				$ancestorClasses.forEach((ancestorClass)=>{
+					o(`.${ancestorClass}`, ()=>{
+
+					})
+				})
 			}
+			if($childClass){
+				o(`.${$childClass.singularName}`, ()=>{
+
+				})
+				$descendantClasses.forEach((descendantClass)=>{
+					o(`.${descendantClass}`, ()=>{
+	
+					})
+				})
+			}
+
+			o(`#createChild`, ()=>{
+
+			})
+			o(`#createSiblings`, ()=>{
+
+			})
+			o(`#place`, ()=>{
+
+			})
+			o(`#remove`, ()=>{
+
+			})
 		})
 	})
 
