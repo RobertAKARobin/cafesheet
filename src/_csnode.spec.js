@@ -19,14 +19,10 @@ $Classes.forEach(($Class) => {
 				o($Class.childClass).equals($childClass)
 			})
 			o(`.ancestorClasses`, ()=>{
-				let expected = $ancestorClasses.map(C=>C.name).join(','),
-					actual = $Class.ancestorClasses.map(C=>C.name).join(',')
-				o(actual).equals(expected)
+				o($Class.ancestorClasses).deepEquals($ancestorClasses)
 			})
 			o(`.descendantClasses`, ()=>{
-				let expected = $descendantClasses.map(C=>C.name).join(','),
-					actual = $Class.descendantClasses.map(C=>C.name).join(',')
-				o(actual).equals(expected)
+				o($Class.descendantClasses).deepEquals($descendantClasses)
 			})
 			o(`.singularName`, ()=>{
 				o($Class.singularName).equals(`${$Class.name.toLowerCase()}`)
@@ -56,9 +52,7 @@ $Classes.forEach(($Class) => {
 				})
 			})
 			o(`.ancestorClasses`, ()=>{
-				$ancestorClasses.forEach(($ancestorClass, index)=>{
-					o(instance.ancestorClasses[index]).equals($ancestorClass)
-				})
+				o(instance.ancestorClasses).deepEquals($ancestorClasses)
 			})
 			o(`.childClass`, ()=>{
 				o(instance.childClass).equals($childClass)
@@ -70,9 +64,7 @@ $Classes.forEach(($Class) => {
 
 			})
 			o(`.descendantClasses`, ()=>{
-				$descendantClasses.forEach(($descendantClass, index)=>{
-					o(instance.descendantClasses[index]).equals($descendantClass)
-				})
+				o(instance.descendantClasses).deepEquals($descendantClasses)
 			})
 			o(`.index`, ()=>{
 
@@ -93,13 +85,7 @@ $Classes.forEach(($Class) => {
 
 			})
 			o(`.siblings`, ()=>{
-				if($parentClass){
-					instance.parent.children.forEach((child)=>{
-						o(instance.siblings.includes(child)).equals(true)
-					})
-				}else{
-					o(instance.siblings).deepEquals([])
-				}
+				o(instance.siblings).deepEquals($parentClass ? instance.parent.children : [])
 			})
 			o(`.width`, ()=>{
 
