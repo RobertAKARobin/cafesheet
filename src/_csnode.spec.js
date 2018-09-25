@@ -50,7 +50,7 @@ $Classes.forEach(($Class) => {
 			})
 
 			o(`.ancestors`, ()=>{
-				$ancestorClasses.forEach(($ancestorClass, index)=>{
+				$ancestorClasses.forEach(($ancestorClass)=>{
 					let ancestorName = $ancestorClass.singularName
 					o(instance.ancestors[ancestorName]).equals(_[ancestorName])
 				})
@@ -70,7 +70,9 @@ $Classes.forEach(($Class) => {
 
 			})
 			o(`.descendantClasses`, ()=>{
-
+				$descendantClasses.forEach(($descendantClass, index)=>{
+					o(instance.descendantClasses[index]).equals($descendantClass)
+				})
 			})
 			o(`.index`, ()=>{
 
