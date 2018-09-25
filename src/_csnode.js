@@ -102,6 +102,8 @@ class CSNode{
 	get siblings(){
 		if(this.parent){
 			return this.parent.children
+		}else{
+			return []
 		}
 	}
 	get length(){
