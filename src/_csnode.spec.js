@@ -67,13 +67,17 @@ $Classes.forEach(($Class) => {
 				o(instance.descendantClasses).deepEquals($descendantClasses)
 			})
 			o(`.index`, ()=>{
-
+				o(instance.index).equals($parentClass ? 0 : -1)
 			})
 			o(`.length`, ()=>{
 
 			})
 			o(`.next`, ()=>{
-
+				if($parentClass && instance.parent.children.length > 1){
+					o(instance.next).equals(instance.parent.children[1])
+				}else{
+					o(instance.next).equals(undefined)
+				}
 			})
 			o(`.parentClass`, ()=>{
 				o(instance.parentClass).equals($parentClass)
@@ -82,10 +86,19 @@ $Classes.forEach(($Class) => {
 				o(instance.parent).equals($parentClass ? _[$parentClass.singularName] : undefined)
 			})
 			o(`.previous`, ()=>{
-
+				if($parentClass && instance.parent.children.length > 1){
+					o(instance.parent.children[1].previous).equals(instance)
+				}else{
+					o(instance.previous).equals(undefined)
+				}
 			})
 			o(`.siblings`, ()=>{
-				o(instance.siblings).deepEquals($parentClass ? instance.parent.children : [])
+				if($parentClass && instance.parent.children.length > 1){
+					o(instance.siblings.length).equals(instance.parent.children.length - 1)
+					o(instance.siblings.indexOf(instance)).equals(-1)
+				}else{
+					o(instance.siblings).deepEquals([])
+				}
 			})
 			o(`.width`, ()=>{
 

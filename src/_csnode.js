@@ -88,20 +88,32 @@ class CSNode{
 		return this.class.descendantClasses
 	}
 	get index(){
-		return this.siblings.indexOf(this)
+		if(this.parent){
+			return this.parent.children.indexOf(this)
+		}else{
+			return -1
+		}
 	}
 	get next(){
-		return this.siblings[this.index + 1]
+		if(this.parent){
+			return this.parent.children[this.parent.children.indexOf(this) + 1]
+		}else{
+			return undefined
+		}
 	}
 	get parentClass(){
 		return this.class.parentClass
 	}
 	get previous(){
-		return this.siblings[this.index - 1]
+		if(this.parent){
+			return this.parent.children[this.parent.children.indexOf(this) - 1]
+		}else{
+			return undefined
+		}
 	}
 	get siblings(){
 		if(this.parent){
-			return this.parent.children
+			return this.parent.children.filter(child => child != this)
 		}else{
 			return []
 		}
