@@ -1,41 +1,75 @@
 {
-	"cafesheet": {
-		"tables": [
-			{
-				"sections": [
-					{
-						"head": {
-							"rows": [
-								[
-									"ColA",
-									"ColB",
-									"ColC",
-									"ColD",
-									"ColE"
+	"tables": [
+		{
+			"sections": [
+				{
+					"head": {
+						"rows": [
+							{
+								"cells": [
+									{
+										"datum": "ColA"
+									},
+									{
+										"datum": "ColB"
+									},
+									{
+										"datum": "ColC"
+									},
+									{
+										"datum": "ColD"
+									},
+									{
+										"datum": "ColE"
+									}
 								]
-							]
-						},
-						"body": {
-							"rows": [
-								[
-									"aaa",
-									"bbb",
-									"ccc",
-									"ddd",
-									"eee"
-								],
-								[
-									"fff",
-									"ggg",
-									"hhh",
-									"iii",
-									"jjj"
+							}
+						]
+					},
+					"body": {
+						"rows": [
+							{
+								"cells": [
+									{
+										"datum": "aaa"
+									},
+									{
+										"datum": "bbb"
+									},
+									{
+										"datum": "ccc"
+									},
+									{
+										"datum": "ddd"
+									},
+									{
+										"datum": "eee"
+									}
 								]
-							]
-						}
+							},
+							{
+								"cells": [
+									{
+										"datum": "fff"
+									},
+									{
+										"datum": "ggg"
+									},
+									{
+										"datum": "hhh"
+									},
+									{
+										"datum": "iii"
+									},
+									{
+										"datum": "jjj"
+									}
+								]
+							}
+						]
 					}
-				]
-			}
-		]
-	}
+				}
+			]
+		}
+	]
 }
