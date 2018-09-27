@@ -26,7 +26,7 @@ class CSNode{
 	
 	static get ancestorClasses(){
 		let ancestorClasses = []
-		let getNextGeneration = function(childClass){
+		const getNextGeneration = function(childClass){
 			if(childClass.parentClass){
 				ancestorClasses.push(childClass.parentClass)
 				getNextGeneration(childClass.parentClass)
@@ -37,7 +37,7 @@ class CSNode{
 	}
 	static get descendantClasses(){
 		let descendantClasses = []
-		let getNextGeneration = function(parentClass){
+		const getNextGeneration = function(parentClass){
 			if(parentClass.childClass){
 				descendantClasses.push(parentClass.childClass)
 				getNextGeneration(parentClass.childClass)
@@ -55,7 +55,7 @@ class CSNode{
 
 	get ancestors(){
 		let ancestors = {}
-		let getAncestor = function(child){
+		const getAncestor = function(child){
 			if(child.parent){
 				ancestors[child.parentClass.singularName] = child.parent
 				getAncestor(child.parent)
@@ -75,7 +75,7 @@ class CSNode{
 	}
 	get descendants(){
 		let descendants = {}
-		let getDescendants = function(parent){
+		const getDescendants = function(parent){
 			if(parent.childClass){
 				descendants[parent.childClass.pluralName] = (descendants[parent.childClass.pluralName] || []).concat(parent.children)
 				parent.children.forEach(getDescendants)
