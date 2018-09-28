@@ -93,12 +93,10 @@ $Classes.forEach(($Class) => {
 				}
 			})
 			o(`.siblings`, ()=>{
-				if($parentClass && instance.parent.children.length > 1){
-					o(instance.siblings.length).equals(_[$parentClass.singularName].children.length - 1)
-					o(instance.siblings.indexOf(instance)).equals(-1)
-				}else{
-					o(instance.siblings).deepEquals([])
-				}
+				const $siblings = Object.values($Class.allById).filter(($item)=>{
+					return ($item != instance && $item.parent == instance.parent)
+				})
+				o(instance.siblings).deepEquals($siblings)
 			})
 			o(`.width`, ()=>{
 
