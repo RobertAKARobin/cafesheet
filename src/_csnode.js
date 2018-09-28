@@ -1,7 +1,7 @@
 let ids = 0
 class CSNode{
-	constructor(parent, id){
-		this.id = (id || ids++)
+	constructor(parent, input = {}){
+		this.id = (input.id || ids++)
 		if(parent){
 			this.parent = parent
 			this.ancestorClasses.forEach((ancestorClass)=>{
@@ -122,13 +122,13 @@ class CSNode{
 		return this.children.length
 	}
 
-	createChild(options){
-		let child = new this.childClass(this, options)
+	createChild(input){
+		let child = new this.childClass(this, input)
 		this.children.push(child)
 		return child
 	}
-	createSibling(options){
-		return this.parent.createChild(options).place(this.index + 1)
+	createSibling(input){
+		return this.parent.createChild(input).place(this.index + 1)
 	}
 	place(index){
 		this.remove()

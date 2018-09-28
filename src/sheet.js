@@ -1,6 +1,6 @@
 class Sheet extends CSNode{
-	constructor(input){
-		super(null, input.id)
+	constructor(input = {}){
+		super(null, input)
 		if(input && input.tables){
 			input.tables.forEach((table)=>{
 				this.createTable(table)

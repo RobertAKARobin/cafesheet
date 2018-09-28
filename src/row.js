@@ -1,6 +1,6 @@
 class Row extends CSNode{
-	constructor(parent, input){
-		super(parent, input.id)
+	constructor(parent, input = {}){
+		super(parent, input)
 		if(input && input.cells){
 			input.cells.forEach((cell)=>{
 				this.createCell(cell)
