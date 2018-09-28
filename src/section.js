@@ -1,6 +1,6 @@
 class Section extends CSNode{
 	constructor(parent, input){
-		super(parent)
+		super(parent, input.id)
 		if(input && input.rows){
 			input.rows.forEach((row)=>{
 				this.createRow(row)

@@ -1,6 +1,6 @@
 class Table extends CSNode{
 	constructor(parent, input){
-		super(parent)
+		super(parent, input.id)
 		if(input && input.sections){
 			input.sections.forEach((section)=>{
 				this.createSection(section)

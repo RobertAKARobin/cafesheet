@@ -1,6 +1,6 @@
 class Cell extends CSNode{
 	constructor(parent, input){
-		super(parent)
+		super(parent, input.id)
 		if(input && input.datum){
 			this.datum = input.datum
 		}else{
