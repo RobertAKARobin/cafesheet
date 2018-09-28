@@ -139,6 +139,14 @@ $Classes.forEach(($Class) => {
 					}
 				}
 			})
+			if($childClass){
+				o(`#create${$childClass.name}`, ()=>{
+					const originalNumberOfChildren = instance.children.length
+					const child = instance[`create${$childClass.name}`]()
+					o(instance.children.length).equals(originalNumberOfChildren + 1)
+					o(child.parent).equals(instance)
+				})
+			}
 			o(`#createSiblings`, ()=>{
 
 			})
