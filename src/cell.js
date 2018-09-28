@@ -18,5 +18,9 @@ class Cell extends CSNode{
 	get length(){
 		return undefined
 	}
+
+	createChild(){
+		throw new Error('Cells have no children.')
+	}
 }
 Cell.allById = {}

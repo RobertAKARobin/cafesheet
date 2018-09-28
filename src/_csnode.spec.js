@@ -128,6 +128,15 @@ $Classes.forEach(($Class) => {
 					const child = instance.createChild()
 					o(instance.children.length).equals(originalNumberOfChildren + 1)
 					o(child.parent).equals(instance)
+				}else{
+					let error
+					try{
+						instance.createChild()
+					}catch(e){
+						error = e
+					}finally{
+						o(!!error).equals(true)
+					}
 				}
 			})
 			o(`#createSiblings`, ()=>{
