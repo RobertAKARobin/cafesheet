@@ -24,6 +24,10 @@ class CSNode{
 			})
 		}
 	}
+
+	static get all(){
+		return Object.values(this.allById)
+	}
 	
 	static get ancestorClasses(){
 		let ancestorClasses = []

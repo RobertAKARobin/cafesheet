@@ -93,7 +93,7 @@ $Classes.forEach(($Class) => {
 				}
 			})
 			o(`.siblings`, ()=>{
-				const $siblings = Object.values($Class.allById).filter(($item)=>{
+				const $siblings = $Class.all.filter(($item)=>{
 					return ($item != instance && $item.parent == instance.parent)
 				})
 				o(instance.siblings).deepEquals($siblings)
