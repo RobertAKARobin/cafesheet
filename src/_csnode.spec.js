@@ -123,7 +123,12 @@ $Classes.forEach(($Class) => {
 			})
 
 			o(`#createChild`, ()=>{
-
+				if($Class.childClass){
+					const originalNumberOfChildren = instance.children.length
+					const child = instance.createChild()
+					o(instance.children.length).equals(originalNumberOfChildren + 1)
+					o(child.parent).equals(instance)
+				}
 			})
 			o(`#createSiblings`, ()=>{
 
