@@ -2,6 +2,7 @@ let ids = 0
 class CSNode{
 	constructor(parent, input = {}){
 		this.id = (input.id || ids++)
+		this.class.allById[this.id] = this
 		if(parent){
 			this.parent = parent
 			this.ancestorClasses.forEach((ancestorClass)=>{

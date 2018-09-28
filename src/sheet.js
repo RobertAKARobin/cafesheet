@@ -24,3 +24,4 @@ class Sheet extends CSNode{
 		return this.createChild.apply(this, arguments)
 	}
 }
+Sheet.allById = {}

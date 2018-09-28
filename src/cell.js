@@ -19,3 +19,4 @@ class Cell extends CSNode{
 		return undefined
 	}
 }
+Cell.allById = {}

@@ -37,7 +37,7 @@ $Classes.forEach(($Class) => {
 
 			o.beforeEach(()=>{
 				_ = {}
-				_.sheet = new Sheet()
+				_.sheet = new Sheet(CSData)
 				_.table = _.sheet.tables[0]
 				_.section = _.table.sections[0]
 				_.row = _.section.rows[0]

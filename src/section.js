@@ -46,3 +46,4 @@ class Section extends CSNode{
 		return this.createSibling.apply(this, arguments)
 	}
 }
+Section.allById = {}

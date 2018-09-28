@@ -27,3 +27,4 @@ class Table extends CSNode{
 		return this.createSibling.apply(this, arguments)
 	}
 }
+Table.allById = {}
