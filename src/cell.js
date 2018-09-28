@@ -1,7 +1,11 @@
 class Cell extends CSNode{
-	constructor(parent, datum){
+	constructor(parent, input){
 		super(parent)
-		this.datum = datum
+		if(input && input.datum){
+			this.datum = input.datum
+		}else{
+			this.datum = input
+		}
 	}
 
 	static get name(){

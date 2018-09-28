@@ -1,7 +1,13 @@
 class Section extends CSNode{
-	constructor(parent){
+	constructor(parent, input){
 		super(parent)
-		this.createRow()
+		if(input && input.rows){
+			input.rows.forEach((row)=>{
+				this.createRow(row)
+			})
+		}else{
+			this.createRow()
+		}
 	}
 
 	static get name(){

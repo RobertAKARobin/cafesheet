@@ -1,8 +1,14 @@
 class Row extends CSNode{
-	constructor(parent){
+	constructor(parent, input){
 		super(parent)
-		for(let i = 0; i < (parent.width || $CFS_DEFAULT_ROW_CELLS$); i++){
-			this.createCell(i)
+		if(input && input.cells){
+			input.cells.forEach((cell)=>{
+				this.createCell(cell)
+			})
+		}else{
+			for(let i = 0; i < (parent.width || $CFS_DEFAULT_ROW_CELLS$); i++){
+				this.createCell(i)
+			}
 		}
 	}
 

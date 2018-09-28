@@ -3,71 +3,65 @@
 		{
 			"sections": [
 				{
-					"head": {
-						"rows": [
-							{
-								"cells": [
-									{
-										"datum": "ColA"
-									},
-									{
-										"datum": "ColB"
-									},
-									{
-										"datum": "ColC"
-									},
-									{
-										"datum": "ColD"
-									},
-									{
-										"datum": "ColE"
-									}
-								]
-							}
-						]
-					},
-					"body": {
-						"rows": [
-							{
-								"cells": [
-									{
-										"datum": "aaa"
-									},
-									{
-										"datum": "bbb"
-									},
-									{
-										"datum": "ccc"
-									},
-									{
-										"datum": "ddd"
-									},
-									{
-										"datum": "eee"
-									}
-								]
-							},
-							{
-								"cells": [
-									{
-										"datum": "fff"
-									},
-									{
-										"datum": "ggg"
-									},
-									{
-										"datum": "hhh"
-									},
-									{
-										"datum": "iii"
-									},
-									{
-										"datum": "jjj"
-									}
-								]
-							}
-						]
-					}
+					"rows": [
+						{
+							"cells": [
+								{
+									"datum": "ColA"
+								},
+								{
+									"datum": "ColB"
+								},
+								{
+									"datum": "ColC"
+								},
+								{
+									"datum": "ColD"
+								},
+								{
+									"datum": "ColE"
+								}
+							]
+						},
+						{
+							"cells": [
+								{
+									"datum": "aaa"
+								},
+								{
+									"datum": "bbb"
+								},
+								{
+									"datum": "ccc"
+								},
+								{
+									"datum": "ddd"
+								},
+								{
+									"datum": "eee"
+								}
+							]
+						},
+						{
+							"cells": [
+								{
+									"datum": "fff"
+								},
+								{
+									"datum": "ggg"
+								},
+								{
+									"datum": "hhh"
+								},
+								{
+									"datum": "iii"
+								},
+								{
+									"datum": "jjj"
+								}
+							]
+						}
+					]
 				}
 			]
 		}

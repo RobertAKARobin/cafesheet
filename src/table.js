@@ -1,7 +1,13 @@
 class Table extends CSNode{
-	constructor(parent){
+	constructor(parent, input){
 		super(parent)
-		this.createSection()
+		if(input && input.sections){
+			input.sections.forEach((section)=>{
+				this.createSection(section)
+			})
+		}else{
+			this.createSection()
+		}
 	}
 
 	static get name(){

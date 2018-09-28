@@ -1,6 +1,4 @@
-const CSData = $CSData$
-
 window.addEventListener('DOMContentLoaded', ()=>{
-	let sheet = new Sheet(CSData)
+	let sheet = new Sheet()
 	m.mount(document.getElementById('app-output'), sheet)
 })

@@ -1,7 +1,13 @@
 class Sheet extends CSNode{
-	constructor(parent){
-		super(parent)
-		this.createTable()
+	constructor(input){
+		super()
+		if(input && input.tables){
+			input.tables.forEach((table)=>{
+				this.createTable(table)
+			})
+		}else{
+			this.createTable()
+		}
 	}
 
 	static get name(){
