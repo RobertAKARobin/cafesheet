@@ -148,7 +148,9 @@ $Classes.forEach(($Class) => {
 				})
 			}
 			o(`#createSiblings`, ()=>{
-
+				const originalAllOfClass = $Class.all
+				const newSibling = instance.createSibling()
+				o($Class.all.map(i=>i.id).sort()).deepEquals(originalAllOfClass.concat([newSibling]).map(i=>i.id).sort())
 			})
 			o(`#place`, ()=>{
 

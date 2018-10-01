@@ -20,6 +20,9 @@ class Sheet extends CSNode{
 	createSheet(){
 		return this.createSibling.apply(this, arguments)
 	}
+	createSibling(){
+		return new Sheet()
+	}
 	createTable(){
 		return this.createChild.apply(this, arguments)
 	}
