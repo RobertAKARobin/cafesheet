@@ -119,7 +119,7 @@ class CSNode{
 		return this.parent.children[this.parent.children.indexOf(this) - 1]
 	}
 	get siblings(){
-		return this.parent.children.filter(child => child != this)
+		return this.parent.children.without(this)
 	}
 	get length(){
 		return this.children.length

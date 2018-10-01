@@ -83,7 +83,7 @@ $Classes.forEach(($Class) => {
 				o(instance.descendantClasses).deepEquals($descendantClasses)
 			})
 			o(`.index`, ()=>{
-				o(instance.index).equals($parentClass ? 0 : -1)
+				o(instance.index).equals(0)
 			})
 			o(`.length`, ()=>{
 

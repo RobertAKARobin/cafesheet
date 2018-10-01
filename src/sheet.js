@@ -18,16 +18,16 @@ class Sheet extends CSNode{
 	}
 
 	get index(){
-		return -1
+		return Sheet.all.indexOf(this)
 	}
 	get next(){
-		return undefined
+		return Sheet.all[this.index + 1]
 	}
 	get previous(){
-		return undefined
+		return Sheet.all[this.index - 1]
 	}
 	get siblings(){
-		return []
+		return Sheet.all.without(this)
 	}
 
 	createSheet(){
