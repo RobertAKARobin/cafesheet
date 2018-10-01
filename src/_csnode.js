@@ -11,6 +11,10 @@ Array.prototype.without = function(item){
 	const index = this.indexOf(item)
 	return this.slice(0,index).concat(this.slice(index + 1))
 }
+Array.prototype.remove = function(item){
+	this.splice(this.indexOf(item), 1)
+	return item
+}
 
 let ids = 0
 class CSNode{
