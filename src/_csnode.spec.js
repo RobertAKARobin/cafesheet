@@ -93,7 +93,14 @@ $Classes.forEach(($Class) => {
 				o(instance.index).equals(0)
 			})
 			o(`.length`, ()=>{
-
+				const originalLength = instance.length
+				if($childClass){
+					instance.createChild()
+					o(instance.length).equals(originalLength + 1)
+					o(instance.length).equals($childClass.all.filter(i=>(i.parent == instance)).length)
+				}else{
+					o(instance.length).equals(undefined)
+				}
 			})
 			o(`.next`, ()=>{
 				if($parentClass && instance.siblings.length > 1){
