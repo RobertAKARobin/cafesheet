@@ -167,10 +167,10 @@ $Classes.forEach(($Class) => {
 			}
 			o(`#createSiblings`, ()=>{
 				const originalAllOfClass = $Class.all
-				const originalSiblings = instance.siblings.map(i=>i.id).sort()
+				const originalSiblings = instance.siblings
 				const newSibling = instance.createSibling()
 				o($Class.all.sortOn(i=>i.id)).deepEquals(originalAllOfClass.concat([newSibling]).sortOn(i=>i.id))
-				o(instance.siblings.map(i=>i.id).sort()).deepEquals(originalSiblings.concat([newSibling.id]).sort())
+				o(instance.siblings.sortOn(i=>i.id)).deepEquals(originalSiblings.concat([newSibling]).sortOn(i=>i.id))
 			})
 			o(`#place`, ()=>{
 

@@ -123,7 +123,7 @@ class CSNode{
 		return this.siblings[this.index - 1]
 	}
 	get siblings(){
-		return this.parent.children
+		return this.parent.children.slice()
 	}
 	get length(){
 		return this.children.length
