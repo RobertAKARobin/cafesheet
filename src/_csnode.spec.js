@@ -128,9 +128,6 @@ $Classes.forEach(($Class) => {
 				})
 				o(instance.siblings).deepEquals($siblings)
 			})
-			o(`.width`, ()=>{
-
-			})
 
 			$ancestorClasses.forEach(($ancestorClass)=>{
 				let ancestorName = $ancestorClass.singularName

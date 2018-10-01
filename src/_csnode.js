@@ -113,6 +113,9 @@ class CSNode{
 	get index(){
 		return this.siblings.indexOf(this)
 	}
+	get length(){
+		return this.children.length
+	}
 	get next(){
 		return this.siblings[this.index + 1]
 	}
@@ -124,9 +127,6 @@ class CSNode{
 	}
 	get siblings(){
 		return this.parent.children.slice()
-	}
-	get length(){
-		return this.children.length
 	}
 
 	createChild(input){
