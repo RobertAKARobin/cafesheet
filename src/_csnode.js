@@ -1,3 +1,14 @@
+
+Array.prototype.sortOn = function(callback){
+	return this.sort((a,b)=>{
+		const valueA = callback(a).toString()
+		const valueB = callback(b).toString()
+		if(valueA > valueB) return 1
+		else if(valueA < valueB) return -1
+		else return 0
+	})
+}
+
 let ids = 0
 class CSNode{
 	constructor(parent, input = {}){

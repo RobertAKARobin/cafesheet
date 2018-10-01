@@ -8,3 +8,4 @@
 - `.length` instead of `.size` because Columns inherit from ARrays, so may as well be consistent
 - `Column` must have `.index` set on creation because `Section.columns` generates a new array each time
 - Webpack is a PITA when all you want to do is concat static assets. Switching to Gulp, which is much easier to config.
+- Modifying Array prototype. Creating a class that extends Arrays gets all janky, since things like `.filter` and `.map` don't return the new class. Probably will do this to Objects in some way, too.
