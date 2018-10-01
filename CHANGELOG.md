@@ -9,3 +9,4 @@
 - `Column` must have `.index` set on creation because `Section.columns` generates a new array each time
 - Webpack is a PITA when all you want to do is concat static assets. Switching to Gulp, which is much easier to config.
 - Modifying Array prototype. Creating a class that extends Arrays gets all janky, since things like `.filter` and `.map` don't return the new class. Probably will do this to Objects in some way, too.
+- `.siblings` was `instance.parent.children.without(instance)`, but this got all kinds of confusing

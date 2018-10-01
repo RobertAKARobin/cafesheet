@@ -111,19 +111,19 @@ class CSNode{
 		return this.class.descendantClasses
 	}
 	get index(){
-		return this.parent.children.indexOf(this)
+		return this.siblings.indexOf(this)
 	}
 	get next(){
-		return this.parent.children[this.parent.children.indexOf(this) + 1]
+		return this.siblings[this.index + 1]
 	}
 	get parentClass(){
 		return this.class.parentClass
 	}
 	get previous(){
-		return this.parent.children[this.parent.children.indexOf(this) - 1]
+		return this.siblings[this.index - 1]
 	}
 	get siblings(){
-		return this.parent.children.without(this)
+		return this.parent.children
 	}
 	get length(){
 		return this.children.length

@@ -17,17 +17,8 @@ class Sheet extends CSNode{
 		return Table
 	}
 
-	get index(){
-		return Sheet.all.indexOf(this)
-	}
-	get next(){
-		return Sheet.all[this.index + 1]
-	}
-	get previous(){
-		return Sheet.all[this.index - 1]
-	}
 	get siblings(){
-		return Sheet.all.without(this)
+		return Sheet.all
 	}
 
 	createSheet(){

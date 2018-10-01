@@ -96,7 +96,7 @@ $Classes.forEach(($Class) => {
 
 			})
 			o(`.next`, ()=>{
-				if($parentClass && instance.parent.children.length > 1){
+				if($parentClass && instance.siblings.length > 1){
 					o(instance.next).equals(_[$parentClass.singularName].children[1])
 				}else{
 					o(instance.next).equals(undefined)
@@ -109,7 +109,7 @@ $Classes.forEach(($Class) => {
 				o(instance.parent).equals($parentClass ? _[$parentClass.singularName] : undefined)
 			})
 			o(`.previous`, ()=>{
-				if($parentClass && instance.parent.children.length > 1){
+				if($parentClass && instance.siblings.length > 1){
 					o(_[$parentClass.singularName].children[1].previous).equals(instance)
 				}else{
 					o(instance.previous).equals(undefined)
@@ -117,7 +117,7 @@ $Classes.forEach(($Class) => {
 			})
 			o(`.siblings`, ()=>{
 				const $siblings = $Class.all.filter(($item)=>{
-					return ($item != instance && $item.parent == instance.parent)
+					return ($item.parent == instance.parent)
 				})
 				o(instance.siblings).deepEquals($siblings)
 			})
@@ -167,10 +167,10 @@ $Classes.forEach(($Class) => {
 			}
 			o(`#createSiblings`, ()=>{
 				const originalAllOfClass = $Class.all
-				const originalSiblings = instance.siblings
+				const originalSiblings = instance.siblings.map(i=>i.id).sort()
 				const newSibling = instance.createSibling()
 				o($Class.all.sortOn(i=>i.id)).deepEquals(originalAllOfClass.concat([newSibling]).sortOn(i=>i.id))
-				o(instance.siblings).deepEquals(originalSiblings.concat([newSibling]))
+				o(instance.siblings.map(i=>i.id).sort()).deepEquals(originalSiblings.concat([newSibling.id]).sort())
 			})
 			o(`#place`, ()=>{
 
