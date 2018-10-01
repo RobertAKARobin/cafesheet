@@ -1,4 +1,3 @@
-
 Array.prototype.sortOn = function(callback){
 	return this.sort((a,b)=>{
 		const valueA = callback(a).toString()
@@ -7,6 +6,10 @@ Array.prototype.sortOn = function(callback){
 		else if(valueA < valueB) return -1
 		else return 0
 	})
+}
+Array.prototype.without = function(item){
+	const index = this.indexOf(item)
+	return this.slice(0,index).concat(this.slice(index + 1))
 }
 
 let ids = 0

@@ -5,6 +5,10 @@ o.spec('Array', ()=>{
 		var a = [{v: 'f'}, {v: 'c'}, {v: 'a'}, {v: '3'}, {v: 2}]
 		o(a.sortOn(i=>i.v).map(i=>i.v)).deepEquals([2,'3','a','c','f'])
 	})
+	o('#without', ()=>{
+		var a = [1, 2, 'a', 'b', 5]
+		o(a.without(2)).deepEquals([1, 'a', 'b', 5])
+	})
 })
 
 $Classes.forEach(($Class) => {
