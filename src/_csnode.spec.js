@@ -1,6 +1,6 @@
-const $Classes = [Sheet, Table, Section, Row, Cell]
-
 o.spec('Array', ()=>{
+	'use strict'
+	
 	o(`#sortOn`, ()=>{
 		var a = [{v: 'f'}, {v: 'c'}, {v: 'a'}, {v: '3'}, {v: 2}]
 		o(a.sortOn(i=>i.v).map(i=>i.v)).deepEquals([2,'3','a','c','f'])
@@ -11,6 +11,7 @@ o.spec('Array', ()=>{
 	})
 })
 
+const $Classes = [Sheet, Table, Section, Row, Cell]
 $Classes.forEach(($Class) => {
 	'use strict'
 	
