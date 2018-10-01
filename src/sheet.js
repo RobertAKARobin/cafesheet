@@ -17,6 +17,19 @@ class Sheet extends CSNode{
 		return Table
 	}
 
+	get index(){
+		return -1
+	}
+	get next(){
+		return undefined
+	}
+	get previous(){
+		return undefined
+	}
+	get siblings(){
+		return []
+	}
+
 	createSheet(){
 		return this.createSibling.apply(this, arguments)
 	}

@@ -104,35 +104,19 @@ class CSNode{
 		return this.class.descendantClasses
 	}
 	get index(){
-		if(this.parent){
-			return this.parent.children.indexOf(this)
-		}else{
-			return -1
-		}
+		return this.parent.children.indexOf(this)
 	}
 	get next(){
-		if(this.parent){
-			return this.parent.children[this.parent.children.indexOf(this) + 1]
-		}else{
-			return undefined
-		}
+		return this.parent.children[this.parent.children.indexOf(this) + 1]
 	}
 	get parentClass(){
 		return this.class.parentClass
 	}
 	get previous(){
-		if(this.parent){
-			return this.parent.children[this.parent.children.indexOf(this) - 1]
-		}else{
-			return undefined
-		}
+		return this.parent.children[this.parent.children.indexOf(this) - 1]
 	}
 	get siblings(){
-		if(this.parent){
-			return this.parent.children.filter(child => child != this)
-		}else{
-			return []
-		}
+		return this.parent.children.filter(child => child != this)
 	}
 	get length(){
 		return this.children.length
