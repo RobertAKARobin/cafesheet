@@ -32,7 +32,15 @@ class CSNode{
 			})
 		}
 		if(this.childClass){
-			this.children = []
+			const children = []
+			this.getChildren = function(){
+				return children.slice()
+			}
+			this.createChild = function(input){
+				let child = new this.childClass(this, input)
+				children.push(child)
+				return child
+			}
 			this.descendantClasses.forEach((descendantClass)=>{
 				Object.defineProperty(this, descendantClass.pluralName, {
 					get: function(){
@@ -100,8 +108,8 @@ class CSNode{
 		let descendants = {}
 		const getDescendants = function(parent){
 			if(parent.childClass){
-				descendants[parent.childClass.pluralName] = (descendants[parent.childClass.pluralName] || []).concat(parent.children)
-				parent.children.forEach(getDescendants)
+				descendants[parent.childClass.pluralName] = (descendants[parent.childClass.pluralName] || []).concat(parent.getChildren())
+				parent.getChildren().forEach(getDescendants)
 			}
 		}
 		getDescendants(this)
@@ -114,7 +122,7 @@ class CSNode{
 		return this.siblings.indexOf(this)
 	}
 	get length(){
-		return this.children.length
+		return this.getChildren().length
 	}
 	get next(){
 		return this.siblings[this.index + 1]
@@ -126,14 +134,9 @@ class CSNode{
 		return this.siblings[this.index - 1]
 	}
 	get siblings(){
-		return this.parent.children.slice()
+		return this.parent.getChildren()
 	}
 
-	createChild(input){
-		let child = new this.childClass(this, input)
-		this.children.push(child)
-		return child
-	}
 	createSibling(input){
 		return this.parent.createChild(input).place(this.index + 1)
 	}

@@ -104,7 +104,7 @@ $Classes.forEach(($Class) => {
 			})
 			o(`.next`, ()=>{
 				if($parentClass && instance.siblings.length > 1){
-					o(instance.next).equals(_[$parentClass.singularName].children[1])
+					o(instance.next).equals(_[$parentClass.singularName].getChildren()[1])
 				}else{
 					o(instance.next).equals(undefined)
 				}
@@ -117,7 +117,7 @@ $Classes.forEach(($Class) => {
 			})
 			o(`.previous`, ()=>{
 				if($parentClass && instance.siblings.length > 1){
-					o(_[$parentClass.singularName].children[1].previous).equals(instance)
+					o(_[$parentClass.singularName].getChildren()[1].previous).equals(instance)
 				}else{
 					o(instance.previous).equals(undefined)
 				}
@@ -146,9 +146,9 @@ $Classes.forEach(($Class) => {
 
 			o(`#createChild`, ()=>{
 				if($Class.childClass){
-					const originalNumberOfChildren = instance.children.length
+					const originalNumberOfChildren = instance.getChildren().length
 					const child = instance.createChild()
-					o(instance.children.length).equals(originalNumberOfChildren + 1)
+					o(instance.getChildren().length).equals(originalNumberOfChildren + 1)
 					o(child.parent).equals(instance)
 				}else{
 					let error
@@ -163,9 +163,9 @@ $Classes.forEach(($Class) => {
 			})
 			if($childClass){
 				o(`#create${$childClass.name}`, ()=>{
-					const originalNumberOfChildren = instance.children.length
+					const originalNumberOfChildren = instance.getChildren().length
 					const child = instance[`create${$childClass.name}`]()
-					o(instance.children.length).equals(originalNumberOfChildren + 1)
+					o(instance.getChildren().length).equals(originalNumberOfChildren + 1)
 					o(child.parent).equals(instance)
 				})
 			}
