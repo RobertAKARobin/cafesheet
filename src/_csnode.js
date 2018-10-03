@@ -53,7 +53,7 @@ class CSNode{
 			this.descendantClasses.forEach((descendantClass)=>{
 				Object.defineProperty(this, descendantClass.pluralName, {
 					get: function(){
-						return this.descendants[descendantClass.pluralName]
+						return this.getDescendants()[descendantClass.pluralName]
 					}
 				})
 			})
@@ -102,17 +102,6 @@ class CSNode{
 	get class(){
 		return this.constructor
 	}
-	get descendants(){
-		let descendants = {}
-		const getDescendants = function(parent){
-			if(parent.childClass){
-				descendants[parent.childClass.pluralName] = (descendants[parent.childClass.pluralName] || []).concat(parent.getChildren())
-				parent.getChildren().forEach(getDescendants)
-			}
-		}
-		getDescendants(this)
-		return descendants
-	}
 	get descendantClasses(){
 		return this.class.descendantClasses
 	}
@@ -133,6 +122,17 @@ class CSNode{
 		}
 		getAncestor(this)
 		return ancestors
+	}
+	getDescendants(){
+		let descendants = {}
+		const getDescendants = function(parent){
+			if(parent.childClass){
+				descendants[parent.childClass.pluralName] = (descendants[parent.childClass.pluralName] || []).concat(parent.getChildren())
+				parent.getChildren().forEach(getDescendants)
+			}
+		}
+		getDescendants(this)
+		return descendants
 	}
 	getIndex(){
 		return this.getSiblings().indexOf(this)

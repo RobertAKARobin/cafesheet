@@ -78,12 +78,12 @@ $Classes.forEach(($Class) => {
 			o(`.class`, ()=>{
 				o(instance.class).equals($Class)
 			})
-			o(`.descendants`, ()=>{
+			o(`.getDescendants()`, ()=>{
 				$descendantClasses.forEach(($descendantClass)=>{
 					let $descendants = $descendantClass.all.filter(($descendant)=>{
 						return($descendant[$Class.singularName] == instance)
 					})
-					o(instance.descendants[$descendantClass.pluralName]).deepEquals($descendants)
+					o(instance.getDescendants()[$descendantClass.pluralName]).deepEquals($descendants)
 				})
 			})
 			o(`.descendantClasses`, ()=>{
