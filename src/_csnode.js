@@ -44,7 +44,7 @@ class CSNode{
 			this.ancestorClasses.forEach((ancestorClass)=>{
 				Object.defineProperty(this, ancestorClass.singularName, {
 					get: function(){
-						return this.ancestors[ancestorClass.singularName]
+						return this.getAncestors()[ancestorClass.singularName]
 					}
 				})
 			})
@@ -93,17 +93,6 @@ class CSNode{
 		return `${this.name.toLowerCase()}`
 	}
 
-	get ancestors(){
-		let ancestors = {}
-		const getAncestor = function(child){
-			if(child.getParent()){
-				ancestors[child.parentClass.singularName] = child.getParent()
-				getAncestor(child.getParent())
-			}
-		}
-		getAncestor(this)
-		return ancestors
-	}
 	get ancestorClasses(){
 		return this.class.ancestorClasses
 	}
@@ -133,6 +122,17 @@ class CSNode{
 
 	createSibling(input){
 		return this.getParent().createChild(input)
+	}
+	getAncestors(){
+		let ancestors = {}
+		const getAncestor = function(child){
+			if(child.getParent()){
+				ancestors[child.parentClass.singularName] = child.getParent()
+				getAncestor(child.getParent())
+			}
+		}
+		getAncestor(this)
+		return ancestors
 	}
 	getIndex(){
 		return this.getSiblings().indexOf(this)
