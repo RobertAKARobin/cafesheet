@@ -21,8 +21,20 @@ class CSNode{
 	constructor(parent, input = {}){
 		this.id = (input.id || ids++)
 		this.class.allById[this.id] = this
+
+		const children = []
+		this.getParent = function(){
+			return (parent || undefined)
+		}
+		this.getChildren = function(){
+			return children.slice()
+		}
+		if(this.childClass) this.createChild = function(input){
+			let child = new this.childClass(this, input)
+			children.push(child)
+			return child
+		}
 		if(parent){
-			this.parent = parent
 			this.ancestorClasses.forEach((ancestorClass)=>{
 				Object.defineProperty(this, ancestorClass.singularName, {
 					get: function(){
@@ -32,15 +44,6 @@ class CSNode{
 			})
 		}
 		if(this.childClass){
-			const children = []
-			this.getChildren = function(){
-				return children.slice()
-			}
-			this.createChild = function(input){
-				let child = new this.childClass(this, input)
-				children.push(child)
-				return child
-			}
 			this.descendantClasses.forEach((descendantClass)=>{
 				Object.defineProperty(this, descendantClass.pluralName, {
 					get: function(){
@@ -87,9 +90,9 @@ class CSNode{
 	get ancestors(){
 		let ancestors = {}
 		const getAncestor = function(child){
-			if(child.parent){
-				ancestors[child.parentClass.singularName] = child.parent
-				getAncestor(child.parent)
+			if(child.getParent()){
+				ancestors[child.parentClass.singularName] = child.getParent()
+				getAncestor(child.getParent())
 			}
 		}
 		getAncestor(this)
@@ -134,11 +137,11 @@ class CSNode{
 		return this.siblings[this.index - 1]
 	}
 	get siblings(){
-		return this.parent.getChildren()
+		return this.getParent().getChildren()
 	}
 
 	createSibling(input){
-		return this.parent.createChild(input).place(this.index + 1)
+		return this.getParent().createChild(input).place(this.index + 1)
 	}
 	place(index){
 		this.remove()

@@ -97,7 +97,7 @@ $Classes.forEach(($Class) => {
 				if($childClass){
 					instance.createChild()
 					o(instance.length).equals(originalLength + 1)
-					o(instance.length).equals($childClass.all.filter(i=>(i.parent == instance)).length)
+					o(instance.length).equals($childClass.all.filter(i=>(i.getParent() == instance)).length)
 				}else{
 					o(instance.length).equals(undefined)
 				}
@@ -113,7 +113,7 @@ $Classes.forEach(($Class) => {
 				o(instance.parentClass).equals($parentClass)
 			})
 			o(`.parent`, ()=>{
-				o(instance.parent).equals($parentClass ? _[$parentClass.singularName] : undefined)
+				o(instance.getParent()).equals($parentClass ? _[$parentClass.singularName] : undefined)
 			})
 			o(`.previous`, ()=>{
 				if($parentClass && instance.siblings.length > 1){
@@ -124,7 +124,7 @@ $Classes.forEach(($Class) => {
 			})
 			o(`.siblings`, ()=>{
 				const $siblings = $Class.all.filter(($item)=>{
-					return ($item.parent == instance.parent)
+					return ($item.getParent() == instance.getParent())
 				})
 				o(instance.siblings).deepEquals($siblings)
 			})
@@ -149,7 +149,7 @@ $Classes.forEach(($Class) => {
 					const originalChildren = instance.getChildren()
 					const child = instance.createChild()
 					o(instance.getChildren().length).equals(originalChildren.length + 1)
-					o(child.parent).equals(instance)
+					o(child.getParent()).equals(instance)
 				}else{
 					let error
 					try{
@@ -166,7 +166,7 @@ $Classes.forEach(($Class) => {
 					const originalChildren = instance.getChildren()
 					const child = instance[`create${$childClass.name}`]()
 					o(instance.getChildren().length).equals(originalChildren.length + 1)
-					o(child.parent).equals(instance)
+					o(child.getParent()).equals(instance)
 				})
 			}
 			o(`#createSiblings`, ()=>{
