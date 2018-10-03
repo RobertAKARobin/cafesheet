@@ -15,12 +15,11 @@ class Cell extends CSNode{
 		return Row
 	}
 
-	get length(){
-		return undefined
-	}
-
 	createChild(){
 		throw new Error('Cells have no children.')
+	}
+	getLength(){
+		return undefined
 	}
 }
 Cell.allById = {}

@@ -127,14 +127,8 @@ class CSNode{
 	get descendantClasses(){
 		return this.class.descendantClasses
 	}
-	get length(){
-		return this.getChildren().length
-	}
 	get parentClass(){
 		return this.class.parentClass
-	}
-	get previous(){
-		return this.getSiblings()[this.getIndex() - 1]
 	}
 
 	createSibling(input){
@@ -142,6 +136,9 @@ class CSNode{
 	}
 	getIndex(){
 		return this.getSiblings().indexOf(this)
+	}
+	getLength(){
+		return this.getChildren().length
 	}
 	getNext(){
 		return this.getSiblings()[this.getIndex() + 1]
