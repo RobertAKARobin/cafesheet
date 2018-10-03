@@ -40,24 +40,16 @@ class CSNode{
 				return children.slice()
 			}
 		}
-		if(parent){
-			this.ancestorClasses.forEach((ancestorClass)=>{
-				Object.defineProperty(this, ancestorClass.singularName, {
-					get: function(){
-						return this.getAncestors()[ancestorClass.singularName]
-					}
-				})
-			})
-		}
-		if(this.childClass){
-			this.descendantClasses.forEach((descendantClass)=>{
-				Object.defineProperty(this, descendantClass.pluralName, {
-					get: function(){
-						return this.getDescendants()[descendantClass.pluralName]
-					}
-				})
-			})
-		}
+		this.ancestorClasses.forEach((ancestorClass)=>{
+			this[`get${ancestorClass.name}`] = function(){
+				return this.getAncestors()[ancestorClass.singularName]
+			}
+		})
+		this.descendantClasses.forEach((descendantClass)=>{
+			this[`get${descendantClass.name}s`] = function(){
+				return this.getDescendants()[descendantClass.pluralName]
+			}
+		})
 	}
 
 	static get all(){
@@ -127,7 +119,8 @@ class CSNode{
 		let descendants = {}
 		const getDescendants = function(parent){
 			if(parent.childClass){
-				descendants[parent.childClass.pluralName] = (descendants[parent.childClass.pluralName] || []).concat(parent.getChildren())
+				const className = parent.childClass.pluralName
+				descendants[className] = (descendants[className] || []).concat(parent.getChildren())
 				parent.getChildren().forEach(getDescendants)
 			}
 		}

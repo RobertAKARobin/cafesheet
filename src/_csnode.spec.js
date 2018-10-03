@@ -56,10 +56,10 @@ $Classes.forEach(($Class) => {
 			o.beforeEach(()=>{
 				_ = {}
 				_.sheet = new Sheet(CSData)
-				_.table = _.sheet.tables[0]
-				_.section = _.table.sections[0]
-				_.row = _.section.rows[0]
-				_.cell = _.row.cells[0]
+				_.table = _.sheet.getTables()[0]
+				_.section = _.table.getSections()[0]
+				_.row = _.section.getRows()[0]
+				_.cell = _.row.getCells()[0]
 				instance = _[$Class.singularName]
 			})
 
@@ -81,7 +81,7 @@ $Classes.forEach(($Class) => {
 			o(`.getDescendants()`, ()=>{
 				$descendantClasses.forEach(($descendantClass)=>{
 					let $descendants = $descendantClass.all.filter(($descendant)=>{
-						return($descendant[$Class.singularName] == instance)
+						return ($descendant[`get${$Class.name}`]() == instance)
 					})
 					o(instance.getDescendants()[$descendantClass.pluralName]).deepEquals($descendants)
 				})
@@ -130,17 +130,16 @@ $Classes.forEach(($Class) => {
 			})
 
 			$ancestorClasses.forEach(($ancestorClass)=>{
-				let ancestorName = $ancestorClass.singularName
-				o(`${$Class.singularName}.${ancestorName}`, ()=>{
-					o(instance[ancestorName]).equals(_[ancestorName])
+				o(`${$Class.singularName}.get${$ancestorClass.name}()`, ()=>{
+					o(instance[`get${$ancestorClass.name}`]()).equals(_[$ancestorClass.singularName])
 				})
 			})
 			$descendantClasses.forEach(($descendantClass)=>{
-				o(`${$Class.singularName}.${$descendantClass.pluralName}`, ()=>{
+				o(`${$Class.singularName}.get${$descendantClass.name}s()`, ()=>{
 					let $descendants = $descendantClass.all.filter(($descendant)=>{
-						return($descendant[$Class.singularName] == instance)
+						return($descendant[`get${$Class.name}`]() == instance)
 					})
-					o(instance[$descendantClass.pluralName]).deepEquals($descendants)
+					o(instance[`get${$descendantClass.name}s`]()).deepEquals($descendants)
 				})
 			})
 

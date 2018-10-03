@@ -20,25 +20,25 @@ class Section extends CSNode{
 		return Table
 	}
 	
-	get columns(){
-		let columns = []
-		for (let i = 0; i < this.width; i++){
-			columns.push(new Column(this, i))
-		}
-		return columns
-	}
-	get width(){
-		return this.rows.reduce((maxRowLength, row)=>{
-			return (maxRowLength = Math.max(maxRowLength, row.length))
-		}, 0)
-	}
+	// get columns(){
+	// 	let columns = []
+	// 	for (let i = 0; i < this.width; i++){
+	// 		columns.push(new Column(this, i))
+	// 	}
+	// 	return columns
+	// }
+	// get width(){
+	// 	return this.rows.reduce((maxRowLength, row)=>{
+	// 		return (maxRowLength = Math.max(maxRowLength, row.length))
+	// 	}, 0)
+	// }
 
-	createColumn(){
-		this.rows.forEach((row)=>{
-			row.createCell()
-		})
-		return this.columns[this.width - 1]
-	}
+	// createColumn(){
+	// 	this.rows.forEach((row)=>{
+	// 		row.createCell()
+	// 	})
+	// 	return this.columns[this.width - 1]
+	// }
 	createRow(){
 		return this.createChild.apply(this, arguments)
 	}
