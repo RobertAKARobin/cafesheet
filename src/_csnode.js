@@ -26,13 +26,19 @@ class CSNode{
 		this.getParent = function(){
 			return (parent || undefined)
 		}
-		this.getChildren = function(){
-			return children.slice()
-		}
-		if(this.childClass) this.createChild = function(input){
-			let child = new this.childClass(this, input)
-			children.push(child)
-			return child
+		if(this.childClass){
+			this.addChild = function(child){
+				children.push(child)
+				return child
+			}
+			this.createChild = function(input){
+				let child = new this.childClass(this, input)
+				children.push(child)
+				return child
+			}
+			this.getChildren = function(){
+				return children.slice()
+			}
 		}
 		if(parent){
 			this.ancestorClasses.forEach((ancestorClass)=>{
@@ -121,35 +127,34 @@ class CSNode{
 	get descendantClasses(){
 		return this.class.descendantClasses
 	}
-	get index(){
-		return this.siblings.indexOf(this)
-	}
 	get length(){
 		return this.getChildren().length
-	}
-	get next(){
-		return this.siblings[this.index + 1]
 	}
 	get parentClass(){
 		return this.class.parentClass
 	}
 	get previous(){
-		return this.siblings[this.index - 1]
-	}
-	get siblings(){
-		return this.getParent().getChildren()
+		return this.getSiblings()[this.getIndex() - 1]
 	}
 
 	createSibling(input){
-		return this.getParent().createChild(input).place(this.index + 1)
+		return this.getParent().createChild(input)
 	}
-	place(index){
-		this.remove()
-		this.siblings.splice(index, 0, this)
-		return this
+	getIndex(){
+		return this.getSiblings().indexOf(this)
 	}
-	remove(){
-		this.siblings.splice(this.index, 1)
-		return this
+	getNext(){
+		return this.getSiblings()[this.getIndex() + 1]
+	}
+	getPrevious(){
+		return this.getSiblings()[this.getIndex() - 1]
+	}
+	getSiblings(){
+		const parent = this.getParent()
+		if(parent){
+			return parent.getChildren()
+		}else{
+			return this.class.all
+		}
 	}
 }

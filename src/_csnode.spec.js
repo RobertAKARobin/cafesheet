@@ -89,8 +89,8 @@ $Classes.forEach(($Class) => {
 			o(`.descendantClasses`, ()=>{
 				o(instance.descendantClasses).deepEquals($descendantClasses)
 			})
-			o(`.index`, ()=>{
-				o(instance.index).equals(0)
+			o(`.getIndex()`, ()=>{
+				o(instance.getIndex()).equals(0)
 			})
 			o(`.length`, ()=>{
 				const originalLength = instance.length
@@ -102,31 +102,31 @@ $Classes.forEach(($Class) => {
 					o(instance.length).equals(undefined)
 				}
 			})
-			o(`.next`, ()=>{
-				if($parentClass && instance.siblings.length > 1){
-					o(instance.next).equals(_[$parentClass.singularName].getChildren()[1])
+			o(`.getNext()`, ()=>{
+				if($parentClass && instance.getSiblings().length > 1){
+					o(instance.getNext()).equals(_[$parentClass.singularName].getChildren()[1])
 				}else{
-					o(instance.next).equals(undefined)
+					o(instance.getNext()).equals(undefined)
 				}
 			})
 			o(`.parentClass`, ()=>{
 				o(instance.parentClass).equals($parentClass)
 			})
-			o(`.parent`, ()=>{
+			o(`.getParent()`, ()=>{
 				o(instance.getParent()).equals($parentClass ? _[$parentClass.singularName] : undefined)
 			})
-			o(`.previous`, ()=>{
-				if($parentClass && instance.siblings.length > 1){
-					o(_[$parentClass.singularName].getChildren()[1].previous).equals(instance)
+			o(`.getPrevious()`, ()=>{
+				if($parentClass && instance.getSiblings().length > 1){
+					o(_[$parentClass.singularName].getChildren()[1].getPrevious()).equals(instance)
 				}else{
-					o(instance.previous).equals(undefined)
+					o(instance.getPrevious()).equals(undefined)
 				}
 			})
-			o(`.siblings`, ()=>{
+			o(`.getSiblings()`, ()=>{
 				const $siblings = $Class.all.filter(($item)=>{
 					return ($item.getParent() == instance.getParent())
 				})
-				o(instance.siblings).deepEquals($siblings)
+				o(instance.getSiblings()).deepEquals($siblings)
 			})
 
 			$ancestorClasses.forEach(($ancestorClass)=>{
@@ -169,12 +169,12 @@ $Classes.forEach(($Class) => {
 					o(child.getParent()).equals(instance)
 				})
 			}
-			o(`#createSiblings`, ()=>{
+			o(`#createSibling`, ()=>{
 				const originalAllOfClass = $Class.all
-				const originalSiblings = instance.siblings
+				const originalSiblings = instance.getSiblings()
 				const newSibling = instance.createSibling()
 				o($Class.all.sortOn(i=>i.id)).deepEquals(originalAllOfClass.concat([newSibling]).sortOn(i=>i.id))
-				o(instance.siblings.sortOn(i=>i.id)).deepEquals(originalSiblings.concat([newSibling]).sortOn(i=>i.id))
+				o(instance.getSiblings().sortOn(i=>i.id)).deepEquals(originalSiblings.concat([newSibling]).sortOn(i=>i.id))
 			})
 			o(`#place`, ()=>{
 
