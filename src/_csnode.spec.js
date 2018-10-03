@@ -146,9 +146,9 @@ $Classes.forEach(($Class) => {
 
 			o(`#createChild`, ()=>{
 				if($Class.childClass){
-					const originalNumberOfChildren = instance.getChildren().length
+					const originalChildren = instance.getChildren()
 					const child = instance.createChild()
-					o(instance.getChildren().length).equals(originalNumberOfChildren + 1)
+					o(instance.getChildren().length).equals(originalChildren.length + 1)
 					o(child.parent).equals(instance)
 				}else{
 					let error
@@ -163,9 +163,9 @@ $Classes.forEach(($Class) => {
 			})
 			if($childClass){
 				o(`#create${$childClass.name}`, ()=>{
-					const originalNumberOfChildren = instance.getChildren().length
+					const originalChildren = instance.getChildren()
 					const child = instance[`create${$childClass.name}`]()
-					o(instance.getChildren().length).equals(originalNumberOfChildren + 1)
+					o(instance.getChildren().length).equals(originalChildren.length + 1)
 					o(child.parent).equals(instance)
 				})
 			}
