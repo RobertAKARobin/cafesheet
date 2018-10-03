@@ -15,6 +15,9 @@ Array.prototype.remove = function(item){
 	this.splice(this.indexOf(item), 1)
 	return item
 }
+String.prototype.toPlural = function(){
+	return `${this}s`
+}
 
 let ids = 0
 class CSNode{
@@ -42,12 +45,12 @@ class CSNode{
 		}
 		this.ancestorClasses.forEach((ancestorClass)=>{
 			this[`get${ancestorClass.name}`] = function(){
-				return this.getAncestors()[ancestorClass.singularName]
+				return this.getAncestors()[ancestorClass.name.toLowerCase()]
 			}
 		})
 		this.descendantClasses.forEach((descendantClass)=>{
-			this[`get${descendantClass.name}s`] = function(){
-				return this.getDescendants()[descendantClass.pluralName]
+			this[`get${descendantClass.name.toPlural()}`] = function(){
+				return this.getDescendants()[descendantClass.name.toLowerCase().toPlural()]
 			}
 		})
 	}
@@ -78,12 +81,6 @@ class CSNode{
 		getNextGeneration(this)
 		return descendantClasses
 	}
-	static get pluralName(){
-		return `${this.singularName}s`
-	}
-	static get singularName(){
-		return `${this.name.toLowerCase()}`
-	}
 
 	get ancestorClasses(){
 		return this.class.ancestorClasses
@@ -107,9 +104,10 @@ class CSNode{
 	getAncestors(){
 		let ancestors = {}
 		const getAncestor = function(child){
-			if(child.getParent()){
-				ancestors[child.parentClass.singularName] = child.getParent()
-				getAncestor(child.getParent())
+			const parent = child.getParent()
+			if(parent){
+				ancestors[parent.class.name.toLowerCase()] = parent
+				getAncestor(parent)
 			}
 		}
 		getAncestor(this)
@@ -119,7 +117,7 @@ class CSNode{
 		let descendants = {}
 		const getDescendants = function(parent){
 			if(parent.childClass){
-				const className = parent.childClass.pluralName
+				const className = parent.childClass.name.toLowerCase().toPlural()
 				descendants[className] = (descendants[className] || []).concat(parent.getChildren())
 				parent.getChildren().forEach(getDescendants)
 			}

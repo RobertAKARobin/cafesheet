@@ -42,12 +42,6 @@ $Classes.forEach(($Class) => {
 			o(`.descendantClasses`, ()=>{
 				o($Class.descendantClasses).deepEquals($descendantClasses)
 			})
-			o(`.singularName`, ()=>{
-				o($Class.singularName).equals(`${$Class.name.toLowerCase()}`)
-			})
-			o(`.pluralName`, ()=>{
-				o($Class.pluralName).equals(`${$Class.name.toLowerCase()}s`)
-			})
 		})
 
 		o.spec(`instance`, ()=>{
@@ -60,12 +54,12 @@ $Classes.forEach(($Class) => {
 				_.section = _.table.getSections()[0]
 				_.row = _.section.getRows()[0]
 				_.cell = _.row.getCells()[0]
-				instance = _[$Class.singularName]
+				instance = _[$Class.name.toLowerCase()]
 			})
 
 			o(`.getAncestors()`, ()=>{
 				$ancestorClasses.forEach(($ancestorClass)=>{
-					let ancestorName = $ancestorClass.singularName
+					let ancestorName = $ancestorClass.name.toLowerCase()
 					o(instance.getAncestors()[ancestorName]).equals(_[ancestorName])
 				})
 			})
@@ -83,7 +77,7 @@ $Classes.forEach(($Class) => {
 					let $descendants = $descendantClass.all.filter(($descendant)=>{
 						return ($descendant[`get${$Class.name}`]() == instance)
 					})
-					o(instance.getDescendants()[$descendantClass.pluralName]).deepEquals($descendants)
+					o(instance.getDescendants()[$descendantClass.name.toLowerCase().toPlural()]).deepEquals($descendants)
 				})
 			})
 			o(`.descendantClasses`, ()=>{
@@ -104,7 +98,7 @@ $Classes.forEach(($Class) => {
 			})
 			o(`.getNext()`, ()=>{
 				if($parentClass && instance.getSiblings().length > 1){
-					o(instance.getNext()).equals(_[$parentClass.singularName].getChildren()[1])
+					o(instance.getNext()).equals(_[$parentClass.name.toLowerCase()].getChildren()[1])
 				}else{
 					o(instance.getNext()).equals(undefined)
 				}
@@ -113,11 +107,11 @@ $Classes.forEach(($Class) => {
 				o(instance.parentClass).equals($parentClass)
 			})
 			o(`.getParent()`, ()=>{
-				o(instance.getParent()).equals($parentClass ? _[$parentClass.singularName] : undefined)
+				o(instance.getParent()).equals($parentClass ? _[$parentClass.name.toLowerCase()] : undefined)
 			})
 			o(`.getPrevious()`, ()=>{
 				if($parentClass && instance.getSiblings().length > 1){
-					o(_[$parentClass.singularName].getChildren()[1].getPrevious()).equals(instance)
+					o(_[$parentClass.name.toLowerCase()].getChildren()[1].getPrevious()).equals(instance)
 				}else{
 					o(instance.getPrevious()).equals(undefined)
 				}
@@ -130,16 +124,16 @@ $Classes.forEach(($Class) => {
 			})
 
 			$ancestorClasses.forEach(($ancestorClass)=>{
-				o(`${$Class.singularName}.get${$ancestorClass.name}()`, ()=>{
-					o(instance[`get${$ancestorClass.name}`]()).equals(_[$ancestorClass.singularName])
+				o(`${$Class.name}.get${$ancestorClass.name}()`, ()=>{
+					o(instance[`get${$ancestorClass.name}`]()).equals(_[$ancestorClass.name.toLowerCase()])
 				})
 			})
 			$descendantClasses.forEach(($descendantClass)=>{
-				o(`${$Class.singularName}.get${$descendantClass.name}s()`, ()=>{
+				o(`${$Class.name}.get${$descendantClass.name.toPlural()}()`, ()=>{
 					let $descendants = $descendantClass.all.filter(($descendant)=>{
 						return($descendant[`get${$Class.name}`]() == instance)
 					})
-					o(instance[`get${$descendantClass.name}s`]()).deepEquals($descendants)
+					o(instance[`get${$descendantClass.name.toPlural()}`]()).deepEquals($descendants)
 				})
 			})
 
