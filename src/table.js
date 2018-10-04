@@ -8,11 +8,7 @@ const Table = (function(){
 
 			const id = (input.id || `table${ids++}`)
 			allById[id] = this
-			Object.defineProperty(this, 'id', {
-				get: function(){
-					return id
-				}
-			})
+			Object.defineProperty(this, 'id', {get: ()=>id})
 			if(input && input.sections){
 				input.sections.forEach((section)=>{
 					this.createSection(section)

@@ -8,11 +8,7 @@ const Row = (function(){
 
 			const id = (input.id || `row${ids++}`)
 			allById[id] = this
-			Object.defineProperty(this, 'id', {
-				get: function(){
-					return id
-				}
-			})
+			Object.defineProperty(this, 'id', {get: ()=>id})
 			if(input && input.cells){
 				input.cells.forEach((cell)=>{
 					this.createCell(cell)

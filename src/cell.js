@@ -8,11 +8,7 @@ const Cell = (function(){
 
 			const id = (input.id || `cell${ids++}`)
 			allById[id] = this
-			Object.defineProperty(this, 'id', {
-				get: function(){
-					return id
-				}
-			})
+			Object.defineProperty(this, 'id', {get: ()=>id})
 			if(input && input.datum){
 				this.datum = input.datum
 			}else{

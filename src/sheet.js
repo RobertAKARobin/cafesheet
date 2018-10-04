@@ -8,11 +8,7 @@ const Sheet = (function(){
 
 			const id = (input.id || `sheet${ids++}`)
 			allById[id] = this
-			Object.defineProperty(this, 'id', {
-				get: function(){
-					return id
-				}
-			})
+			Object.defineProperty(this, 'id', {get: ()=>id})
 			if(input && input.tables){
 				input.tables.forEach((table)=>{
 					this.createTable(table)
