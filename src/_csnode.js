@@ -23,17 +23,12 @@ const CSNode = (function(){
 
 	return class{
 		constructor(parent){
-			const children = []
 			this.getParent = function(){
 				return (parent || undefined)
 			}
 			if(this.childClass){
+				const children = []
 				this.addChild = function(child){
-					children.push(child)
-					return child
-				}
-				this.createChild = function(input){
-					let child = new this.childClass(this, input)
 					children.push(child)
 					return child
 				}
@@ -92,6 +87,11 @@ const CSNode = (function(){
 			return this.class.parentClass
 		}
 	
+		createChild(input){
+			let child = new this.childClass(this, input)
+			this.addChild(child)
+			return child
+		}
 		createSibling(input){
 			return this.getParent().createChild(input)
 		}
