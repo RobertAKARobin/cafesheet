@@ -24,9 +24,6 @@ const Table = (function(){
 		static get descendantClasses(){
 			return [Section, Row, Cell]
 		}
-		static get name(){
-			return 'Table'
-		}
 		static getAll(){
 			return Object.values(allById)
 		}

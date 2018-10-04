@@ -22,9 +22,6 @@ const Cell = (function(){
 		static get descendantClasses(){
 			return []
 		}
-		static get name(){
-			return 'Cell'
-		}
 		static getAll(){
 			return Object.values(allById)
 		}
