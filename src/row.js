@@ -22,10 +22,6 @@ class Row extends CSNode{
 		return Section
 	}
 
-	get width(){
-		return this.length
-	}
-
 	createCell(){
 		return this.createChild.apply(this, arguments)
 	}

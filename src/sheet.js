@@ -17,10 +17,6 @@ class Sheet extends CSNode{
 		return Table
 	}
 
-	get siblings(){
-		return Sheet.all
-	}
-
 	createSheet(){
 		return this.createSibling.apply(this, arguments)
 	}
