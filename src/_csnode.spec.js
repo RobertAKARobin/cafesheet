@@ -107,7 +107,11 @@ $Classes.forEach(($Class) => {
 				o(instance.parentClass).equals($parentClass)
 			})
 			o(`.getParent()`, ()=>{
-				o(instance.getParent()).equals($parentClass ? _[$parentClass.name.toLowerCase()] : undefined)
+				if($parentClass){
+					o(instance.getParent()).equals($parentClass ? _[$parentClass.name.toLowerCase()] : undefined)
+				}else{
+					o(instance.getParent).equals(undefined)
+				}
 			})
 			o(`.getPrevious()`, ()=>{
 				if($parentClass && instance.getSiblings().length > 1){
@@ -117,9 +121,12 @@ $Classes.forEach(($Class) => {
 				}
 			})
 			o(`.getSiblings()`, ()=>{
-				const $siblings = $Class.getAll().filter(($item)=>{
-					return ($item.getParent() == instance.getParent())
-				})
+				let $siblings = $Class.getAll()
+				if($parentClass){
+					$siblings = $siblings.filter(($item)=>{
+						return ($item.getParent() == instance.getParent())
+					})
+				}
 				o(instance.getSiblings()).deepEquals($siblings)
 			})
 

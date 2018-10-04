@@ -23,9 +23,6 @@ const CSNode = (function(){
 
 	return class{
 		constructor(parent){
-			this.getParent = function(){
-				return (parent || undefined)
-			}
 			if(this.childClass){
 				const children = []
 				this.addChild = function(child){
@@ -34,6 +31,11 @@ const CSNode = (function(){
 				}
 				this.getChildren = function(){
 					return children.slice()
+				}
+			}
+			if(this.parentClass){
+				this.getParent = function(){
+					return (parent || undefined)
 				}
 			}
 			this.ancestorClasses.forEach((ancestorClass)=>{
@@ -98,8 +100,8 @@ const CSNode = (function(){
 		getAncestors(){
 			let ancestors = {}
 			const getAncestor = function(child){
-				const parent = child.getParent()
-				if(parent){
+				if(child.parentClass){
+					const parent = child.getParent()
 					ancestors[parent.class.name.toLowerCase()] = parent
 					getAncestor(parent)
 				}
@@ -132,8 +134,8 @@ const CSNode = (function(){
 			return this.getSiblings()[this.getIndex() - 1]
 		}
 		getSiblings(){
-			const parent = this.getParent()
-			if(parent){
+			if(this.parentClass){
+				const parent = this.getParent()
 				return parent.getChildren()
 			}else{
 				return this.class.getAll()
