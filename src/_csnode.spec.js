@@ -74,7 +74,7 @@ $Classes.forEach(($Class) => {
 			})
 			o(`.getDescendants()`, ()=>{
 				$descendantClasses.forEach(($descendantClass)=>{
-					let $descendants = $descendantClass.all.filter(($descendant)=>{
+					let $descendants = $descendantClass.getAll().filter(($descendant)=>{
 						return ($descendant[`get${$Class.name}`]() == instance)
 					})
 					o(instance.getDescendants()[$descendantClass.name.toLowerCase().toPlural()]).deepEquals($descendants)
@@ -91,7 +91,7 @@ $Classes.forEach(($Class) => {
 				if($childClass){
 					instance.createChild()
 					o(instance.getLength()).equals(originalLength + 1)
-					o(instance.getLength()).equals($childClass.all.filter(i=>(i.getParent() == instance)).length)
+					o(instance.getLength()).equals($childClass.getAll().filter(i=>(i.getParent() == instance)).length)
 				}else{
 					o(instance.getLength()).equals(undefined)
 				}
@@ -117,7 +117,7 @@ $Classes.forEach(($Class) => {
 				}
 			})
 			o(`.getSiblings()`, ()=>{
-				const $siblings = $Class.all.filter(($item)=>{
+				const $siblings = $Class.getAll().filter(($item)=>{
 					return ($item.getParent() == instance.getParent())
 				})
 				o(instance.getSiblings()).deepEquals($siblings)
@@ -130,7 +130,7 @@ $Classes.forEach(($Class) => {
 			})
 			$descendantClasses.forEach(($descendantClass)=>{
 				o(`${$Class.name}.get${$descendantClass.name.toPlural()}()`, ()=>{
-					let $descendants = $descendantClass.all.filter(($descendant)=>{
+					let $descendants = $descendantClass.getAll().filter(($descendant)=>{
 						return($descendant[`get${$Class.name}`]() == instance)
 					})
 					o(instance[`get${$descendantClass.name.toPlural()}`]()).deepEquals($descendants)
@@ -163,10 +163,10 @@ $Classes.forEach(($Class) => {
 				})
 			}
 			o(`#createSibling`, ()=>{
-				const originalAllOfClass = $Class.all
+				const originalAllOfClass = $Class.getAll()
 				const originalSiblings = instance.getSiblings()
 				const newSibling = instance.createSibling()
-				o($Class.all.sortOn(i=>i.id)).deepEquals(originalAllOfClass.concat([newSibling]).sortOn(i=>i.id))
+				o($Class.getAll().sortOn(i=>i.id)).deepEquals(originalAllOfClass.concat([newSibling]).sortOn(i=>i.id))
 				o(instance.getSiblings().sortOn(i=>i.id)).deepEquals(originalSiblings.concat([newSibling]).sortOn(i=>i.id))
 			})
 			o(`#place`, ()=>{

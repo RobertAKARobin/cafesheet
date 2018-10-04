@@ -1,32 +1,47 @@
-class Row extends CSNode{
-	constructor(parent, input = {}){
-		super(parent, input)
-		if(input && input.cells){
-			input.cells.forEach((cell)=>{
-				this.createCell(cell)
+const Row = (function(){
+
+	const allById = {}
+	let ids = 0
+	return class Row extends CSNode{
+		constructor(parent, input = {}){
+			super(parent)
+
+			const id = (input.id || `row${ids++}`)
+			allById[id] = this
+			Object.defineProperty(this, 'id', {
+				get: function(){
+					return id
+				}
 			})
-		}else{
-			for(let i = 0; i < (parent.width || $CFS_DEFAULT_ROW_CELLS$); i++){
-				this.createCell(i)
+			if(input && input.cells){
+				input.cells.forEach((cell)=>{
+					this.createCell(cell)
+				})
+			}else{
+				for(let i = 0; i < (parent.width || $CFS_DEFAULT_ROW_CELLS$); i++){
+					this.createCell(i)
+				}
 			}
 		}
-	}
 
-	static get name(){
-		return 'Row'
-	}
-	static get childClass(){
-		return Cell
-	}
-	static get parentClass(){
-		return Section
-	}
+		static get name(){
+			return 'Row'
+		}
+		static get childClass(){
+			return Cell
+		}
+		static get parentClass(){
+			return Section
+		}
+		static getAll(){
+			return Object.values(allById)
+		}
 
-	createCell(){
-		return this.createChild.apply(this, arguments)
+		createCell(){
+			return this.createChild.apply(this, arguments)
+		}
+		createRow(){
+			return this.createSibling.apply(this, arguments)
+		}
 	}
-	createRow(){
-		return this.createSibling.apply(this, arguments)
-	}
-}
-Row.allById = {}
+})()

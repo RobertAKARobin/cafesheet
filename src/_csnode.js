@@ -21,12 +21,8 @@ String.prototype.toPlural = function(){
 
 const CSNode = (function(){
 
-	let ids = 0
 	return class{
-		constructor(parent, input = {}){
-			this.id = (input.id || ids++)
-			this.class.allById[this.id] = this
-	
+		constructor(parent){
 			const children = []
 			this.getParent = function(){
 				return (parent || undefined)
@@ -55,10 +51,6 @@ const CSNode = (function(){
 					return this.getDescendants()[descendantClass.name.toLowerCase().toPlural()]
 				}
 			})
-		}
-	
-		static get all(){
-			return Object.values(this.allById)
 		}
 		
 		static get ancestorClasses(){
@@ -144,7 +136,7 @@ const CSNode = (function(){
 			if(parent){
 				return parent.getChildren()
 			}else{
-				return this.class.all
+				return this.class.getAll()
 			}
 		}
 	}
