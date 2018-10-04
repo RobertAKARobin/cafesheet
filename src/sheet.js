@@ -17,12 +17,15 @@ const Sheet = (function(){
 				this.createTable()
 			}
 		}
-	
+
+		static get ancestorClasses(){
+			return []
+		}
+		static get descendantClasses(){
+			return [Table, Section, Row, Cell]
+		}
 		static get name(){
 			return 'Sheet'
-		}
-		static get childClass(){
-			return Table
 		}
 		static getAll(){
 			return Object.values(allById)

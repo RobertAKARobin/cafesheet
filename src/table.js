@@ -18,14 +18,14 @@ const Table = (function(){
 			}
 		}
 	
+		static get ancestorClasses(){
+			return [Sheet]
+		}
+		static get descendantClasses(){
+			return [Section, Row, Cell]
+		}
 		static get name(){
 			return 'Table'
-		}
-		static get childClass(){
-			return Section
-		}
-		static get parentClass(){
-			return Sheet
 		}
 		static getAll(){
 			return Object.values(allById)

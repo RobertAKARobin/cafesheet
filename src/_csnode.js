@@ -49,28 +49,12 @@ const CSNode = (function(){
 				}
 			})
 		}
-		
-		static get ancestorClasses(){
-			let ancestorClasses = []
-			const getNextGeneration = function(childClass){
-				if(childClass.parentClass){
-					ancestorClasses.push(childClass.parentClass)
-					getNextGeneration(childClass.parentClass)
-				}
-			}
-			getNextGeneration(this)
-			return ancestorClasses
+
+		static get childClass(){
+			return this.descendantClasses[0]
 		}
-		static get descendantClasses(){
-			let descendantClasses = []
-			const getNextGeneration = function(parentClass){
-				if(parentClass.childClass){
-					descendantClasses.push(parentClass.childClass)
-					getNextGeneration(parentClass.childClass)
-				}
-			}
-			getNextGeneration(this)
-			return descendantClasses
+		static get parentClass(){
+			return this.ancestorClasses[0]
 		}
 	
 		get ancestorClasses(){

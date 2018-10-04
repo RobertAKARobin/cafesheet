@@ -16,11 +16,14 @@ const Cell = (function(){
 			}
 		}
 	
+		static get ancestorClasses(){
+			return [Row, Section, Table, Sheet]
+		}
+		static get descendantClasses(){
+			return []
+		}
 		static get name(){
 			return 'Cell'
-		}
-		static get parentClass(){
-			return Row
 		}
 		static getAll(){
 			return Object.values(allById)
