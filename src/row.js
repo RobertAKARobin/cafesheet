@@ -29,12 +29,5 @@ const Row = (function(){
 		static getAll(){
 			return Object.values(allById)
 		}
-
-		createCell(){
-			return this.createChild.apply(this, arguments)
-		}
-		createRow(){
-			return this.createSibling.apply(this, arguments)
-		}
 	}
 })()

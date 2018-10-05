@@ -28,14 +28,8 @@ const Sheet = (function(){
 			return Object.values(allById)
 		}
 	
-		createSheet(){
-			return this.createSibling.apply(this, arguments)
-		}
 		createSibling(){
 			return new Sheet()
-		}
-		createTable(){
-			return this.createChild.apply(this, arguments)
 		}
 	}
 })()

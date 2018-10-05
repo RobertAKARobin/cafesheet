@@ -50,8 +50,5 @@ const Section = (function(){
 		createRow(){
 			return this.createChild.apply(this, arguments)
 		}
-		createSection(){
-			return this.createSibling.apply(this, arguments)
-		}
 	}
 })()

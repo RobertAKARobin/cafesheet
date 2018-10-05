@@ -27,12 +27,5 @@ const Table = (function(){
 		static getAll(){
 			return Object.values(allById)
 		}
-	
-		createSection(){
-			return this.createChild.apply(this, arguments)
-		}
-		createTable(){
-			return this.createSibling.apply(this, arguments)
-		}
 	}
 })()

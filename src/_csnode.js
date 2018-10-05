@@ -32,6 +32,7 @@ const CSNode = (function(){
 				this.getChildren = function(){
 					return children.slice()
 				}
+				this[`create${this.childClass.name}`] = this.createChild
 			}
 			if(this.parentClass){
 				this.getParent = function(){
