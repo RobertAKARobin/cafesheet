@@ -30,17 +30,17 @@ $Classes.forEach(($Class) => {
 		let _ = {}
 
 		o.spec(`class`, ()=>{
-			o(`.parentClass`, ()=>{
-				o($Class.parentClass).equals($parentClass)
+			o(`.ancestorClasses`, ()=>{
+				o($Class.ancestorClasses).deepEquals($ancestorClasses)
 			})
 			o(`.childClass`, ()=>{
 				o($Class.childClass).equals($childClass)
 			})
-			o(`.ancestorClasses`, ()=>{
-				o($Class.ancestorClasses).deepEquals($ancestorClasses)
-			})
 			o(`.descendantClasses`, ()=>{
 				o($Class.descendantClasses).deepEquals($descendantClasses)
+			})
+			o(`.parentClass`, ()=>{
+				o($Class.parentClass).equals($parentClass)
 			})
 		})
 
@@ -57,12 +57,7 @@ $Classes.forEach(($Class) => {
 				instance = _[$Class.name.toLowerCase()]
 			})
 
-			o(`.getAncestors()`, ()=>{
-				$ancestorClasses.forEach(($ancestorClass)=>{
-					let ancestorName = $ancestorClass.name.toLowerCase()
-					o(instance.getAncestors()[ancestorName]).equals(_[ancestorName])
-				})
-			})
+			// Getters
 			o(`.ancestorClasses`, ()=>{
 				o(instance.ancestorClasses).deepEquals($ancestorClasses)
 			})
@@ -72,6 +67,52 @@ $Classes.forEach(($Class) => {
 			o(`.class`, ()=>{
 				o(instance.class).equals($Class)
 			})
+			o(`.descendantClasses`, ()=>{
+				o(instance.descendantClasses).deepEquals($descendantClasses)
+			})
+			o(`.parentClass`, ()=>{
+				o(instance.parentClass).equals($parentClass)
+			})
+
+			// Methods
+			o(`.createChild()`, ()=>{
+				if($Class.childClass){
+					const originalChildren = instance.getChildren()
+					const child = instance.createChild()
+					o(instance.getChildren().length).equals(originalChildren.length + 1)
+					o(child.getParent()).equals(instance)
+				}else{
+					let error
+					try{
+						instance.createChild()
+					}catch(e){
+						error = e
+					}finally{
+						o(!!error).equals(true)
+					}
+				}
+			})
+			o(`.createSibling()`, ()=>{
+				const originalAllOfClass = $Class.getAll()
+				const originalSiblings = instance.getSiblings()
+				const newSibling = instance.createSibling()
+				o($Class.getAll().sortOn(i=>i.id)).deepEquals(originalAllOfClass.concat([newSibling]).sortOn(i=>i.id))
+				o(instance.getSiblings().sortOn(i=>i.id)).deepEquals(originalSiblings.concat([newSibling]).sortOn(i=>i.id))
+			})
+			if($childClass){
+				o(`.create${$childClass.name}`, ()=>{
+					const originalChildren = instance.getChildren()
+					const child = instance[`create${$childClass.name}`]()
+					o(instance.getChildren().length).equals(originalChildren.length + 1)
+					o(child.getParent()).equals(instance)
+				})
+			}
+			o(`.getAncestors()`, ()=>{
+				$ancestorClasses.forEach(($ancestorClass)=>{
+					let ancestorName = $ancestorClass.name.toLowerCase()
+					o(instance.getAncestors()[ancestorName]).equals(_[ancestorName])
+				})
+			})
 			o(`.getDescendants()`, ()=>{
 				$descendantClasses.forEach(($descendantClass)=>{
 					let $descendants = $descendantClass.getAll().filter(($descendant)=>{
@@ -79,9 +120,6 @@ $Classes.forEach(($Class) => {
 					})
 					o(instance.getDescendants()[$descendantClass.name.toLowerCase().toPlural()]).deepEquals($descendants)
 				})
-			})
-			o(`.descendantClasses`, ()=>{
-				o(instance.descendantClasses).deepEquals($descendantClasses)
 			})
 			o(`.getIndex()`, ()=>{
 				o(instance.getIndex()).equals(0)
@@ -97,14 +135,12 @@ $Classes.forEach(($Class) => {
 				}
 			})
 			o(`.getNext()`, ()=>{
-				if($parentClass && instance.getSiblings().length > 1){
+				const $allOfClass = $Class.getAll()
+				if($parentClass){
 					o(instance.getNext()).equals(_[$parentClass.name.toLowerCase()].getChildren()[1])
 				}else{
-					o(instance.getNext()).equals(undefined)
+					o(instance.getNext()).equals($allOfClass[$allOfClass.indexOf(instance) + 1])
 				}
-			})
-			o(`.parentClass`, ()=>{
-				o(instance.parentClass).equals($parentClass)
 			})
 			o(`.getParent()`, ()=>{
 				if($parentClass){
@@ -129,7 +165,6 @@ $Classes.forEach(($Class) => {
 				}
 				o(instance.getSiblings()).deepEquals($siblings)
 			})
-
 			$ancestorClasses.forEach(($ancestorClass)=>{
 				o(`${$Class.name}.get${$ancestorClass.name}()`, ()=>{
 					o(instance[`get${$ancestorClass.name}`]()).equals(_[$ancestorClass.name.toLowerCase()])
@@ -142,45 +177,6 @@ $Classes.forEach(($Class) => {
 					})
 					o(instance[`get${$descendantClass.name.toPlural()}`]()).deepEquals($descendants)
 				})
-			})
-
-			o(`#createChild`, ()=>{
-				if($Class.childClass){
-					const originalChildren = instance.getChildren()
-					const child = instance.createChild()
-					o(instance.getChildren().length).equals(originalChildren.length + 1)
-					o(child.getParent()).equals(instance)
-				}else{
-					let error
-					try{
-						instance.createChild()
-					}catch(e){
-						error = e
-					}finally{
-						o(!!error).equals(true)
-					}
-				}
-			})
-			if($childClass){
-				o(`#create${$childClass.name}`, ()=>{
-					const originalChildren = instance.getChildren()
-					const child = instance[`create${$childClass.name}`]()
-					o(instance.getChildren().length).equals(originalChildren.length + 1)
-					o(child.getParent()).equals(instance)
-				})
-			}
-			o(`#createSibling`, ()=>{
-				const originalAllOfClass = $Class.getAll()
-				const originalSiblings = instance.getSiblings()
-				const newSibling = instance.createSibling()
-				o($Class.getAll().sortOn(i=>i.id)).deepEquals(originalAllOfClass.concat([newSibling]).sortOn(i=>i.id))
-				o(instance.getSiblings().sortOn(i=>i.id)).deepEquals(originalSiblings.concat([newSibling]).sortOn(i=>i.id))
-			})
-			o(`#place`, ()=>{
-
-			})
-			o(`#remove`, ()=>{
-
 			})
 		})
 	})
