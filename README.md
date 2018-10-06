@@ -1,3 +1,5 @@
+# Changelog
+
 - Stopped having a `CSNodeSiblings` class because no use for it yet
 	- Switched from `CSNodeSiblings().add()` to `CSNode().create$Child()`
 - Made everything possible a getter method because it's easier to track that way
@@ -10,3 +12,8 @@
 - Webpack is a PITA when all you want to do is concat static assets. Switching to Gulp, which is much easier to config.
 - Modifying Array prototype. Creating a class that extends Arrays gets all janky, since things like `.filter` and `.map` don't return the new class. Probably will do this to Objects in some way, too.
 - `.siblings` was `instance.parent.children.without(instance)`, but this got all kinds of confusing
+
+# Todo
+
+- Don't really need getAll; for now, Sheet should be singleton (?)
+- Views tests
