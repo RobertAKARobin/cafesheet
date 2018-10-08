@@ -7,10 +7,16 @@
 	<script src="./mithril.min.js"></script>
 	<script src="./ospec.js"></script>
 	<script src="./cafesheet-$cachebuster$.js"></script>
+	<script src="./cafesheet.views-$cachebuster$.js"></script>
 	<script src="./tests.js"></script>
 	<script>
 		const CSData = $CSData$
-		o.run()
+		window.addEventListener('DOMContentLoaded', ()=>{
+			o.run()
+		})
 	</script>
 </head>
+<body>
+	<div id="app-output"></div>
+</body>
 </html>
