@@ -31,7 +31,7 @@ o.spec('Cafesheet in browser', ()=>{
 		mapping.forEach((map)=>{
 			let keyName = map[0],
 				elementName = map[1]
-			DOM[keyName] = document.querySelectorAll(elementName)
+			DOM[keyName] = Array.from(document.querySelectorAll(elementName))
 		})
 	})
 	o.spec('on load', ()=>{
@@ -50,6 +50,7 @@ o.spec('Cafesheet in browser', ()=>{
 		})
 		o('celldata', ()=>{
 			o(DOM.data.length).equals(Data.cells.length)
+			o(DOM.data.map(d=>d.value)).deepEquals(Data.cells.map(c=>c.datum))
 		})
 	})
 })
