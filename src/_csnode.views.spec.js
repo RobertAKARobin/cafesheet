@@ -1,10 +1,15 @@
 o.spec('Cafesheet in browser', ()=>{
 	let DOM = {},
-		Data = {}
+		Data = {},
+		mapping = [
+			['tables', 'table'],
+			['sections', 'tbody'],
+			['rows', 'tr'],
+			['cells', 'td'],
+			['data', 'td textarea']
+		]
 
 	o.beforeEach(()=>{
-		DOM.sheet = new Sheet(CSData)
-		DOM.output = document.getElementById('app-output')
 		Data.tables = CSData.tables
 		Data.sections = Data.tables.reduce((aggregate, table)=>{
 			aggregate = aggregate.concat(table.sections)
@@ -18,21 +23,33 @@ o.spec('Cafesheet in browser', ()=>{
 			aggregate = aggregate.concat(row.cells)
 			return aggregate
 		}, [])
+
+		DOM.sheet = new Sheet(CSData)
+		DOM.output = document.getElementById('app-output')
 		m.mount(DOM.output, DOM.sheet)
+
+		mapping.forEach((map)=>{
+			let keyName = map[0],
+				elementName = map[1]
+			DOM[keyName] = document.querySelectorAll(elementName)
+		})
 	})
 	o.spec('on load', ()=>{
 		o('tables', ()=>{
 			o(DOM.output.children[0].tagName.toLowerCase()).equals('table')
-			o(document.querySelectorAll('table').length).equals(Data.tables.length)
+			o(DOM.tables.length).equals(Data.tables.length)
 		})
 		o('sections', ()=>{
-			o(document.querySelectorAll('tbody').length).equals(Data.sections.length)
+			o(DOM.sections.length).equals(Data.sections.length)
 		})
 		o('rows', ()=>{
-			o(document.querySelectorAll('tr').length).equals(Data.rows.length)
+			o(DOM.rows.length).equals(Data.rows.length)
 		})
 		o('cells', ()=>{
-			o(document.querySelectorAll('td').length).equals(Data.cells.length)
+			o(DOM.cells.length).equals(Data.cells.length)
+		})
+		o('celldata', ()=>{
+			o(DOM.data.length).equals(Data.cells.length)
 		})
 	})
 })
