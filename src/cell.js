@@ -5,7 +5,6 @@ function Cell(id){
 	))
 }
 Object.defineProperties(Cell, (function(){
-	const all = CafesheetBase.allObj()
 	return Object.assign(
 		{
 			ancestors: {
@@ -15,7 +14,7 @@ Object.defineProperties(Cell, (function(){
 				value: Row
 			}
 		},
-		CafesheetBase.static.generateIdProperties(all)
+		CafesheetBase.static.generateIdProperties()
 	)
 })())
 Object.defineProperties(Cell.prototype, Object.assign({}, 

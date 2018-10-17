@@ -32,14 +32,12 @@ Object.defineProperties(String.prototype, {
 })
 
 const CafesheetBase = {
-	allObj: function(){
-		return {
-			ids: 0,
-			byId: {}
-		}
-	},
 	static: {
-		generateIdProperties: function(all){
+		generateIdProperties: function(){
+			const all = {
+				ids: 0,
+				byId: {}
+			}
 			return {
 				getAll: {
 					value: function(){

@@ -7,7 +7,6 @@ function Sheet(id){
 	))
 }
 Object.defineProperties(Sheet, (function(){
-	const all = CafesheetBase.allObj()
 	return Object.assign(
 		{
 			child: {
@@ -18,7 +17,7 @@ Object.defineProperties(Sheet, (function(){
 				value: [Table, Section, Row, Cell]
 			}
 		},
-		CafesheetBase.static.generateIdProperties(all)
+		CafesheetBase.static.generateIdProperties()
 	)
 })())
 Object.defineProperties(Section.prototype, Object.assign({},
