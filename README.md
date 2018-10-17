@@ -12,6 +12,12 @@
 - Webpack is a PITA when all you want to do is concat static assets. Switching to Gulp, which is much easier to config.
 - Modifying Array prototype. Creating a class that extends Arrays gets all janky, since things like `.filter` and `.map` don't return the new class. Probably will do this to Objects in some way, too.
 - `.siblings` was `instance.parent.children.without(instance)`, but this got all kinds of confusing
+- To use `class` or to use an ES5-y object factory?
+- - `class` looks better / reads better?
+- - `static` methods are much faster in Chrome (http://jsbench.github.io/#69e72becc163a625fbec3f1d773ea0b7)
+- - Factory gives me more control over whether properties are included in JSON (via `.defineProperty` and `enumerable:`)
+- - Factory makes it easier to control which functions are attached to different classes, e.g. cell shouldn't have `.getChildren()`
+- - `Object.create` is just as fast as `static`
 
 # Todo
 

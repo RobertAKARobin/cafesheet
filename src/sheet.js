@@ -1,35 +1,43 @@
-const Sheet = (function(){
+function Sheet(id){
+	const instance = this
+	const children = []
+	Object.defineProperties(instance, {
+		addChild: {
+			value: CafesheetBase.instanceMethods.addChild(children)
+		},
+		getChildren: {
+			value: CafesheetBase.instanceMethods.getChildren(children)
+		},
+		id: {
+			value: id,
+			enumerable: true
+		}
+	})
+}
+Object.defineProperties(Sheet, (function(){
+	const all = CafesheetBase.allObj()
+	return {
+		child: {
+			value: Table,
+			enumerable: true
+		},
+		descendants: {
+			value: [Table, Section, Row, Cell]
+		},
 
-	const allById = {}
-	let ids = 0
-	return class Sheet extends CSNode{
-		constructor(input = {}){
-			super(null)
-
-			const id = (input.id || `sheet${ids++}`)
-			allById[id] = this
-			Object.defineProperty(this, 'id', {get: ()=>id})
-			if(input && input.tables){
-				input.tables.forEach((table)=>{
-					this.createTable(table)
-				})
-			}else{
-				this.createTable()
-			}
-		}
-
-		static get ancestorClasses(){
-			return []
-		}
-		static get descendantClasses(){
-			return [Table, Section, Row, Cell]
-		}
-		static getAll(){
-			return Object.values(allById)
-		}
-	
-		createSibling(){
-			return new Sheet()
+		getAll: {
+			value: CafesheetBase.staticMethods.getAll(all)
+		},
+		new: {
+			value: CafesheetBase.staticMethods.newWithId(all)
 		}
 	}
-})()
+})())
+Object.defineProperties(Sheet.prototype, {
+		createChild: {
+			value: CafesheetBase.prototypeMethods.createChild
+		},
+		getDescendants: {
+			value: CafesheetBase.prototypeMethods.getDescendants
+		}
+})
