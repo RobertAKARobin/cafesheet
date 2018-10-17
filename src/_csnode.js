@@ -1,23 +1,35 @@
-Array.prototype.sortOn = function(callback){
-	return this.sort((a,b)=>{
-		const valueA = callback(a).toString()
-		const valueB = callback(b).toString()
-		if(valueA > valueB) return 1
-		else if(valueA < valueB) return -1
-		else return 0
-	})
-}
-Array.prototype.without = function(item){
-	const index = this.indexOf(item)
-	return this.slice(0,index).concat(this.slice(index + 1))
-}
-Array.prototype.remove = function(item){
-	this.splice(this.indexOf(item), 1)
-	return item
-}
-String.prototype.toPlural = function(){
-	return `${this}s`
-}
+Object.defineProperties(Array.prototype, {
+	sortOn: {
+		value: function(callback){
+			return this.sort((a,b)=>{
+				const valueA = callback(a).toString()
+				const valueB = callback(b).toString()
+				if(valueA > valueB) return 1
+				else if(valueA < valueB) return -1
+				else return 0
+			})
+		}
+	},
+	without: {
+		value: function(item){
+			const index = this.indexOf(item)
+			return this.slice(0,index).concat(this.slice(index + 1))
+		}
+	},
+	remove: {
+		value: function(item){
+			this.splice(this.indexOf(item), 1)
+			return item
+		}
+	}
+})
+Object.defineProperties(String.prototype, {
+	toPlural: {
+		value: function(){
+			return `${this}s`
+		}
+	}
+})
 
 const CafesheetBase = {
 	allObj: function(){
