@@ -6,20 +6,10 @@ function Sheet(id){
 		CafesheetBase.instance.generateChildProperties(children)
 	))
 }
-Object.defineProperties(Sheet, (function(){
-	return Object.assign(
-		{
-			child: {
-				value: Table,
-				enumerable: true
-			},
-			descendants: {
-				value: [Table, Section, Row, Cell]
-			}
-		},
-		CafesheetBase.static.generateIdProperties()
-	)
-})())
+Object.defineProperties(Sheet, Object.assign(
+	CafesheetBase.static.generateFamilyTree(Sheet),
+	CafesheetBase.static.generateIdProperties()
+))
 Object.defineProperties(Section.prototype, Object.assign({},
 	CafesheetBase.prototype.descendantProperties	
 ))

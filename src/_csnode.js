@@ -33,6 +33,28 @@ Object.defineProperties(String.prototype, {
 
 const CafesheetBase = {
 	static: {
+		generateFamilyTree: function(_Class){
+			const Classes = [Sheet, Table, Section, Row, Cell]
+			const index = Classes.indexOf(_Class)
+			const tree = {}
+			if(index > 0){
+				tree.ancestors = {
+					value: Classes.slice(0, index).reverse()
+				}
+				tree.parent = {
+					value: tree.ancestors.value[0]
+				}
+			}
+			if(index < Classes.length - 1){
+				tree.descendants = {
+					value: Classes.slice(index + 1)
+				}
+				tree.child = {
+					value: tree.descendants.value[0]
+				}
+			}
+			return tree
+		},
 		generateIdProperties: function(){
 			const all = {
 				ids: 0,
