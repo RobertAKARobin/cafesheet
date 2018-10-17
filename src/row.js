@@ -1,9 +1,7 @@
 function Row(id){
-	const instance = this
-	const children = []
-	Object.defineProperties(instance, Object.assign(
+	Object.defineProperties(this, Object.assign(
 		CafesheetBase.instance.generateIdProperties(id),
-		CafesheetBase.instance.generateChildProperties(children)
+		CafesheetBase.instance.generateChildProperties()
 	))
 }
 Object.defineProperties(Row, Object.assign(

@@ -163,7 +163,8 @@ const CafesheetBase = {
 				}
 			}
 		},
-		generateChildProperties: function(children){
+		generateChildProperties: function(){
+			const children = []
 			return {
 				addChild: {
 					value: function(child){
