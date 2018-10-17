@@ -1,67 +1,33 @@
 function Section(id){
 	const instance = this
 	const children = []
-	Object.defineProperties(instance, {
-		addChild: {
-			value: CafesheetBase.instanceMethods.addChild(children)
-		},
-		getChildren: {
-			value: CafesheetBase.instanceMethods.getChildren(children)
-		},
-		id: {
-			value: id,
-			enumerable: true
-		}
-	})
+	Object.defineProperties(instance, Object.assign({},
+		CafesheetBase.instance.generateIdProperties(id),
+		CafesheetBase.instance.generateChildProperties(children)
+	))
 }
 Object.defineProperties(Section, (function(){
 	const all = CafesheetBase.allObj()
-	return {
-		ancestors: {
-			value: [Table, Sheet]
+	return Object.assign(
+		{
+			ancestors: {
+				value: [Table, Sheet]
+			},
+			child: {
+				value: Row,
+				enumerable: true
+			},
+			descendants: {
+				value: [Row, Cell]
+			},
+			parent: {
+				value: Table
+			}
 		},
-		child: {
-			value: Row,
-			enumerable: true
-		},
-		descendants: {
-			value: [Row, Cell]
-		},
-		parent: {
-			value: Table
-		},
-
-		getAll: {
-			value: CafesheetBase.staticMethods.getAll(all)
-		},
-		new: {
-			value: CafesheetBase.staticMethods.newWithId(all)
-		}
-	}
+		CafesheetBase.static.generateIdProperties(all)
+	)
 })())
-Object.defineProperties(Section.prototype, {
-	createChild: {
-		value: CafesheetBase.prototypeMethods.createChild
-	},
-	getAncestors: {
-		value: CafesheetBase.prototypeMethods.getAncestors,
-	},
-	getDescendants: {
-		value: CafesheetBase.prototypeMethods.getDescendants
-	},
-	getIndex: {
-		value: CafesheetBase.prototypeMethods.getIndex
-	},
-	getLength: {
-		value: CafesheetBase.prototypeMethods.getLength
-	},
-	getNext: {
-		value: CafesheetBase.prototypeMethods.getNext
-	},
-	getParent: {
-		value: CafesheetBase.prototypeMethods.getParent
-	},
-	getPrevious: {
-		value: CafesheetBase.prototypeMethods.getPrevious
-	}
-})
+Object.defineProperties(Section.prototype, Object.assign({},
+	CafesheetBase.prototype.ancestorPropetries,
+	CafesheetBase.prototype.descendantProperties	
+))
