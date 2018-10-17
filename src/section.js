@@ -1,7 +1,7 @@
 function Section(id){
 	const instance = this
 	const children = []
-	Object.defineProperties(instance, Object.assign({},
+	Object.defineProperties(instance, Object.assign(
 		CafesheetBase.instance.generateIdProperties(id),
 		CafesheetBase.instance.generateChildProperties(children)
 	))

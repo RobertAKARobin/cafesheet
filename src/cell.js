@@ -1,8 +1,6 @@
 function Cell(id){
 	const instance = this
-	Object.defineProperties(instance, Object.assign({},
-		CafesheetBase.instance.generateIdProperties(id)
-	))
+	Object.defineProperties(instance, CafesheetBase.instance.generateIdProperties(id))
 }
 Object.defineProperties(Cell, (function(){
 	return Object.assign(
