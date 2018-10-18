@@ -1,4 +1,10 @@
 Object.defineProperties(Array.prototype, {
+	remove: {
+		value: function(item){
+			this.splice(this.indexOf(item), 1)
+			return item
+		}
+	},
 	sortOn: {
 		value: function(callback){
 			return this.sort((a,b)=>{
@@ -14,12 +20,6 @@ Object.defineProperties(Array.prototype, {
 		value: function(item){
 			const index = this.indexOf(item)
 			return this.slice(0,index).concat(this.slice(index + 1))
-		}
-	},
-	remove: {
-		value: function(item){
-			this.splice(this.indexOf(item), 1)
-			return item
 		}
 	}
 })
