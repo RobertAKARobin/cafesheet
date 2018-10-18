@@ -55,28 +55,6 @@ const CafesheetBase = {
 				}
 			}
 			return tree
-		},
-		generateIdProperties: function(){
-			const all = {
-				ids: 0,
-				byId: {}
-			}
-			return {
-				getAll: {
-					value: function(){
-						return Object.values(all.byId)
-					}
-				},
-				new: {
-					value: function(){
-						const id = all.ids++
-						const _Class = this
-						const instance = new _Class(id)
-						all.byId[id] = instance
-						return instance
-					}
-				}
-			}
 		}
 	},
 	prototype: {
