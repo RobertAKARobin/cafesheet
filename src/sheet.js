@@ -1,13 +1,6 @@
-function Sheet(id){
-	Object.defineProperties(this, Object.assign( 
-		CafesheetBase.instance.generateIdProperties(id),
-		CafesheetBase.instance.generateChildProperties()
-	))
-}
+function Sheet(){}
 Object.defineProperties(Sheet, Object.assign(
 	CafesheetBase.static.generateFamilyTree(Sheet),
-	CafesheetBase.static.generateIdProperties()
-))
-Object.defineProperties(Sheet.prototype, Object.assign({},
-	CafesheetBase.prototype.descendantProperties	
+	CafesheetBase.instance.generateChildProperties(),
+	CafesheetBase.prototype.descendantProperties
 ))
