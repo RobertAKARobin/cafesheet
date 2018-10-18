@@ -25,7 +25,6 @@ function Sheet(){
 		}
 	}
 	Object.defineProperties(this, Object.assign({},
-		CafesheetBase.instance.generateChildProperties(),
 		{
 			tables: {
 				get: ()=>Object.values(all[Table]),
@@ -62,6 +61,3 @@ function Sheet(){
 	))
 }
 Object.defineProperties(Sheet, CafesheetBase.static.generateFamilyTree(Sheet))
-Object.defineProperties(Sheet.prototype, Object.assign({},
-	CafesheetBase.prototype.descendantProperties
-))
