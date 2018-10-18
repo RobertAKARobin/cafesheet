@@ -17,7 +17,39 @@ o.spec('Array', ()=>{
 	})
 })
 
-// const $Classes = [Sheet, Table, Section, Row, Cell]
+o.spec('Family trees', ()=>{
+	o('Sheet', ()=>{
+		o(Sheet.descendants).deepEquals([Table, Section, Row, Cell])
+		o(Sheet.child).equals(Table)
+		o(Sheet.ancestors).equals(undefined)
+		o(Sheet.parent).equals(undefined)
+	})
+	o('Table', ()=>{
+		o(Table.descendants).deepEquals([Section, Row, Cell])
+		o(Table.child).equals(Section)
+		o(Table.ancestors).deepEquals([Sheet])
+		o(Table.parent).equals(Sheet)
+	})
+	o('Section', ()=>{
+		o(Section.descendants).deepEquals([Row, Cell])
+		o(Section.child).equals(Row)
+		o(Section.ancestors).deepEquals([Table, Sheet])
+		o(Section.parent).equals(Table)
+	})
+	o('Row', ()=>{
+		o(Row.descendants).deepEquals([Cell])
+		o(Row.child).equals(Cell)
+		o(Row.ancestors).deepEquals([Section, Table, Sheet])
+		o(Row.parent).equals(Section)
+	})
+	o('Cell', ()=>{
+		o(Cell.descendants).deepEquals(undefined)
+		o(Cell.child).equals(undefined)
+		o(Cell.ancestors).deepEquals([Row, Section, Table, Sheet])
+		o(Cell.parent).equals(Row)
+	})
+})
+
 // $Classes.forEach(($Class) => {
 // 	'use strict'
 	
