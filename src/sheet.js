@@ -8,6 +8,6 @@ Object.defineProperties(Sheet, Object.assign(
 	CafesheetBase.static.generateFamilyTree(Sheet),
 	CafesheetBase.static.generateIdProperties()
 ))
-Object.defineProperties(Section.prototype, Object.assign({},
+Object.defineProperties(Sheet.prototype, Object.assign({},
 	CafesheetBase.prototype.descendantProperties	
 ))
