@@ -5,7 +5,7 @@ const replace = require('gulp-replace')
 const dateformat = require('dateformat')
 const del = require('del')
 const fs = require('fs')
-const CSComponents = ['sheet', 'table', 'section', 'column', 'row', 'cell']
+const CSComponents = ['sheet', 'table', 'section', 'row', 'cell']
 let ENV
 
 const loadEnv = function(done){
@@ -56,8 +56,7 @@ gulp.task('build-tests', ()=>{
 	// 	return `./src/${component}.spec.js`
 	// }))
 	return gulp.src([
-		'./src/_csnode.spec.js',
-		'./src/_csnode.views.spec.js'
+		'./src/_csnode.spec.js'
 	])
 	.pipe(concat('tests.js'))
 	.pipe(gulp.dest('./dist'))
