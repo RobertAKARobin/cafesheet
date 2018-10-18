@@ -32,9 +32,10 @@ Object.defineProperties(String.prototype, {
 })
 
 const CafesheetBase = {
+	classes: [Sheet, Table, Section, Row, Cell],
 	static: {
 		generateFamilyTree: function(_Class){
-			const Classes = [Sheet, Table, Section, Row, Cell]
+			const Classes = CafesheetBase.classes
 			const index = Classes.indexOf(_Class)
 			const tree = {}
 			if(index > 0){
