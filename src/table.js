@@ -1,8 +1,5 @@
-function Table(id){
-	Object.defineProperties(this, Object.assign(
-		CafesheetBase.instance.generateIdProperties(id),
-		CafesheetBase.instance.generateChildProperties()
-	))
+function Table(){
+	Object.defineProperties(this, CafesheetBase.instance.generateChildProperties())
 }
 Object.defineProperties(Table, Object.assign(
 	CafesheetBase.static.generateFamilyTree(Table),
