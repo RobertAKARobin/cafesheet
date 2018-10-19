@@ -17,6 +17,9 @@ function Sheet(){
 					if(!allOfClass){
 						throw new Error(`Cannot add items of type ${_Class.name}.`)
 					}else{
+						if(instance.sheet && instance.sheet !== this){
+							instance.sheet.remove(instance)
+						}
 						Object.defineProperties(instance, {
 							sheet: {
 								value: sheet,
@@ -47,6 +50,17 @@ function Sheet(){
 			getAll: {
 				value: function(_Class){
 					return Array.from(all[_Class])
+				}
+			},
+			remove: {
+				value: function(instance){
+					const _Class = instance.constructor
+					const allOfClass = all[_Class]
+					if(!allOfClass){
+						throw new Error(`No items exist of type ${_Class.name}`)
+					}else{
+						return allOfClass.delete(instance)
+					}
 				}
 			},
 			tables: {

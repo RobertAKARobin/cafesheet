@@ -98,6 +98,15 @@ o.spec('Sheet', ()=>{
 		o(_.sheet.tables).deepEquals([])
 		o(otherSheet.tables).deepEquals([table])
 	})
+	o('remove Table', ()=>{
+		const tableA = _.sheet.create(Table)
+		const tableB = _.sheet.create(Table)
+		o(_.sheet.tables).deepEquals([tableA, tableB])
+		_.sheet.remove(tableA)
+		o(_.sheet.tables).deepEquals([tableB])
+		_.sheet.remove(tableB)
+		o(_.sheet.tables).deepEquals([])
+	})
 })
 
 // $Classes.forEach(($Class) => {
