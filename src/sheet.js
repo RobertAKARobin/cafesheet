@@ -47,6 +47,10 @@ function Sheet(){
 				value: function(_Class){
 					return Array.from(all[_Class])
 				}
+			},
+			tables: {
+				get: ()=>this.getAll(Table),
+				enumerable: true
 			}
 		}
 	))
