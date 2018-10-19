@@ -19,7 +19,8 @@ function Sheet(){
 					}else{
 						Object.defineProperties(instance, {
 							sheet: {
-								value: sheet
+								value: sheet,
+								writable: true
 							},
 							id: {
 								value: id,

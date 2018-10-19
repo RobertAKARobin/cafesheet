@@ -58,8 +58,8 @@ o.spec('Family trees', ()=>{
 	})
 })
 
-o.spec('Create', ()=>{
-	let _ = {}
+o.spec('Sheet', ()=>{
+	const _ = {}
 	o.beforeEach(()=>{
 		_.sheet = new Sheet()
 	})
@@ -73,6 +73,7 @@ o.spec('Create', ()=>{
 		o(table.constructor).equals(Table)
 		o(_.sheet.getAll(Table)).deepEquals([table])
 		o(_.sheet.tables).deepEquals([table])
+		o(table.sheet).equals(_.sheet)
 	})
 	o('add Table', ()=>{
 		o(thrownBy(n=>_.sheet.add('new Table()'))).equals(Error)
@@ -84,6 +85,18 @@ o.spec('Create', ()=>{
 		o(_.sheet.add(table).constructor).equals(Table)
 		o(_.sheet.getAll(Table)).deepEquals([table])
 		o(_.sheet.tables).deepEquals([table])
+		o(table.sheet).equals(_.sheet)
+	})
+	o('move Table between Sheets', ()=>{
+		const otherSheet = new Sheet()
+		const table = new Table()
+
+		_.sheet.add(table)
+		o(table.sheet).equals(_.sheet)
+		otherSheet.add(table)
+		o(table.sheet).equals(otherSheet)
+		o(_.sheet.tables).deepEquals([])
+		o(otherSheet.tables).deepEquals([table])
 	})
 })
 
