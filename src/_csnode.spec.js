@@ -106,6 +106,11 @@ o.spec('Sheet', ()=>{
 		o(_.sheet.tables).deepEquals([tableB])
 		_.sheet.remove(tableB)
 		o(_.sheet.tables).deepEquals([])
+
+		const otherSheet = new Sheet()
+		otherSheet.add(tableA)
+		o(_.sheet.tables).deepEquals([])
+		o(otherSheet.tables).deepEquals([tableA])
 	})
 })
 
