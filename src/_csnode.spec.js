@@ -112,6 +112,14 @@ o.spec('Sheet', ()=>{
 		o(_.sheet.tables).deepEquals([])
 		o(otherSheet.tables).deepEquals([tableA])
 	})
+	o('to JSON', ()=>{
+		_.sheet.create(Table)
+		_.sheet.create(Table)
+
+		const json = JSON.parse(JSON.stringify(_.sheet))
+		o(Object.keys(json)).deepEquals(['tables'])
+		o(json.tables.length).equals(2)
+	})
 })
 
 // $Classes.forEach(($Class) => {
