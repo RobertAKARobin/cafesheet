@@ -17,6 +17,14 @@ o.spec('Array', ()=>{
 	})
 })
 
+function thrownBy(callback){
+	try{
+		callback()
+	}catch(e){
+		return e.constructor
+	}
+}
+
 o.spec('Family trees', ()=>{
 	o('Sheet', ()=>{
 		o(Sheet.descendants).deepEquals([Table, Section, Row, Cell])
@@ -47,6 +55,21 @@ o.spec('Family trees', ()=>{
 		o(Cell.child).equals(undefined)
 		o(Cell.ancestors).deepEquals([Row, Section, Table, Sheet])
 		o(Cell.parent).equals(Row)
+	})
+})
+
+o.spec('Create', ()=>{
+	let _ = {}
+	o.beforeEach(()=>{
+		_.sheet = new Sheet()
+	})
+	o('create Table', ()=>{
+		o(_.sheet.create(Table).constructor).equals(Table)
+		o(thrownBy(n=>_.sheet.create('new Table()'))).equals(Error)
+	})
+	o('add Table', ()=>{
+		o(_.sheet.add(new Table()).constructor).equals(Table)
+		o(thrownBy(n=>_.sheet.add('new Table()'))).equals(Error)
 	})
 })
 
