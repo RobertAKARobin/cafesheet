@@ -42,6 +42,11 @@ function Sheet(){
 						return instance
 					}
 				}
+			},
+			getAll: {
+				value: function(_Class){
+					return Array.from(all[_Class])
+				}
 			}
 		}
 	))

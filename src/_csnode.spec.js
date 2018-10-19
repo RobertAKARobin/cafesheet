@@ -64,12 +64,22 @@ o.spec('Create', ()=>{
 		_.sheet = new Sheet()
 	})
 	o('create Table', ()=>{
-		o(_.sheet.create(Table).constructor).equals(Table)
 		o(thrownBy(n=>_.sheet.create('new Table()'))).equals(Error)
+
+		o(_.sheet.getAll(Table).length).equals(0)
+
+		const table = _.sheet.create(Table)
+		o(table.constructor).equals(Table)
+		o(_.sheet.getAll(Table)).deepEquals([table])
 	})
 	o('add Table', ()=>{
-		o(_.sheet.add(new Table()).constructor).equals(Table)
 		o(thrownBy(n=>_.sheet.add('new Table()'))).equals(Error)
+
+		o(_.sheet.getAll(Table).length).equals(0)
+
+		const table = new Table()
+		o(_.sheet.add(table).constructor).equals(Table)
+		o(_.sheet.getAll(Table)).deepEquals([table])
 	})
 })
 
