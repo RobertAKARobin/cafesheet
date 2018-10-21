@@ -70,4 +70,4 @@ function Sheet(){
 		}
 	))
 }
-Object.defineProperties(Sheet, CafesheetBase.static.generateFamilyTree(Sheet))
+Object.defineProperties(Sheet, Cafesheet.nodeFactory.generateFamilyTree(Sheet))

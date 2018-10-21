@@ -1,3 +1,3 @@
 function Cell(){
 }
-Object.defineProperties(Cell, CafesheetBase.static.generateFamilyTree(Cell))
+Object.defineProperties(Cell, Cafesheet.nodeFactory.generateFamilyTree(Cell))

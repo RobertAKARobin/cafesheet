@@ -31,11 +31,11 @@ Object.defineProperties(String.prototype, {
 	}
 })
 
-const CafesheetBase = {
-	classes: [Sheet, Table, Section, Row, Cell],
-	static: {
+const Cafesheet = {
+	nodeTypes: [Sheet, Table, Section, Row, Cell],
+	nodeFactory: {
 		generateFamilyTree: function(_Class){
-			const Classes = CafesheetBase.classes
+			const Classes = Cafesheet.nodeTypes
 			const index = Classes.indexOf(_Class)
 			const tree = {}
 			if(index > 0){

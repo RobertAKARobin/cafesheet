@@ -58,12 +58,12 @@ o.spec('Family trees', ()=>{
 	})
 })
 
-o.spec('Sheet', ()=>{
+o.spec('@sheet', ()=>{
 	const _ = {}
 	o.beforeEach(()=>{
 		_.sheet = new Sheet()
 	})
-	o('create Table', ()=>{
+	o('.create(Table)', ()=>{
 		o(thrownBy(n=>_.sheet.create('new Table()'))).equals(Error)
 
 		o(_.sheet.getAll(Table)).deepEquals([])
@@ -75,7 +75,7 @@ o.spec('Sheet', ()=>{
 		o(_.sheet.tables).deepEquals([table])
 		o(table.sheet).equals(_.sheet)
 	})
-	o('add Table', ()=>{
+	o('.add(@table)', ()=>{
 		o(thrownBy(n=>_.sheet.add('new Table()'))).equals(Error)
 
 		o(_.sheet.getAll(Table).length).equals(0)
@@ -87,7 +87,7 @@ o.spec('Sheet', ()=>{
 		o(_.sheet.tables).deepEquals([table])
 		o(table.sheet).equals(_.sheet)
 	})
-	o('move Table between Sheets', ()=>{
+	o('@othersheet.add(@table)', ()=>{
 		const otherSheet = new Sheet()
 		const table = new Table()
 
@@ -98,7 +98,7 @@ o.spec('Sheet', ()=>{
 		o(_.sheet.tables).deepEquals([])
 		o(otherSheet.tables).deepEquals([table])
 	})
-	o('remove Table', ()=>{
+	o('.remove(@table)', ()=>{
 		const tableA = _.sheet.create(Table)
 		const tableB = _.sheet.create(Table)
 		o(_.sheet.tables).deepEquals([tableA, tableB])
@@ -112,7 +112,7 @@ o.spec('Sheet', ()=>{
 		o(_.sheet.tables).deepEquals([])
 		o(otherSheet.tables).deepEquals([tableA])
 	})
-	o('to JSON', ()=>{
+	o('JSON.stringify(@sheet)', ()=>{
 		_.sheet.create(Table)
 		_.sheet.create(Table)
 
@@ -121,6 +121,7 @@ o.spec('Sheet', ()=>{
 		o(json.tables.length).equals(2)
 	})
 })
+
 
 // $Classes.forEach(($Class) => {
 // 	'use strict'
