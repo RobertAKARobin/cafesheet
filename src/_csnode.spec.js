@@ -120,6 +120,25 @@ o.spec('@sheet', ()=>{
 		o(Object.keys(json)).deepEquals(['tables'])
 		o(json.tables.length).equals(2)
 	})
+	o.spec('.tables', ()=>{
+		o('.create()', ()=>{
+			const table = _.sheet.tables.create()
+
+			o(table.constructor).equals(Table)
+			o(_.sheet.getAll(Table)).deepEquals([table])
+			o(_.sheet.tables).deepEquals([table])
+			o(table.sheet).equals(_.sheet)
+		})
+		o('.add(@table)', ()=>{
+
+		})
+		o('@othersheet.tables.add(@table)', ()=>{
+
+		})
+		o('@othersheet.tables.remove(@table)', ()=>{
+
+		})
+	})
 })
 
 

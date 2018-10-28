@@ -18,8 +18,12 @@
 - - Factory gives me more control over whether properties are included in JSON (via `.defineProperty` and `enumerable:`)
 - - Factory makes it easier to control which functions are attached to different classes, e.g. cell shouldn't have `.getChildren()`
 - - `Object.create` is just as fast as `static`
+- Should `sheet.getAll()` be an aggregate of `node.children`, or should `node.children` be a filtering of `sheet.getAll()`?
+- - `.getAll()` should probably be an aggregate since there are going to be many instance of `.children`, and if each of those has to filter `.getAll()` it'll probably slow stuff down
+- - Plus that'll prevent situations where there are orphaned nodes: if a node isn't a part o a `.children` somewhere it won't be picked up by `.getAll`, and will be garbage collected
+- Should `.getAll` be its own special class?
+- - Looks like `deepEquals` won't work with it
+- - Looks like `deepEquals` also won't work if you've added custom properties to an Array with `defineProperty`
 
 # Todo
-
-- Don't really need getAll; for now, Sheet should be singleton (?)
 - Views tests
