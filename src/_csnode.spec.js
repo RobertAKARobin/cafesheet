@@ -63,246 +63,59 @@ o.spec('@sheet', ()=>{
 	o.beforeEach(()=>{
 		_.sheet = new Sheet()
 	})
-	o('.create(Table)', ()=>{
-		o(thrownBy(n=>_.sheet.create('new Table()'))).equals(Error)
 
-		o(_.sheet.getAll(Table)).deepEquals([])
-		o(_.sheet.tables).deepEquals([])
+	o.spec('.tables', ()=>{
+		o('.create()', ()=>{
+			o(_.sheet.tables).deepEquals([])
 
-		const table = _.sheet.create(Table)
-		o(table.constructor).equals(Table)
-		o(_.sheet.getAll(Table)).deepEquals([table])
-		o(_.sheet.tables).deepEquals([table])
-		o(table.sheet).equals(_.sheet)
-	})
-	o('.add(@table)', ()=>{
-		o(thrownBy(n=>_.sheet.add('new Table()'))).equals(Error)
+			const table = _.sheet.tables.create()
+			o(table.constructor).equals(Table)
+			o(_.sheet.tables).deepEquals([table])
+			o(table.sheet).equals(_.sheet)
+		})
+		o('.add(@table)', ()=>{
+			o(thrownBy(n=>_.sheet.tables.add('table'))).equals(Error)
 
-		o(_.sheet.getAll(Table).length).equals(0)
-		o(_.sheet.tables).deepEquals([])
+			o(_.sheet.tables.length).equals(0)
+			o(_.sheet.tables).deepEquals([])
 
-		const table = new Table()
-		o(_.sheet.add(table).constructor).equals(Table)
-		o(_.sheet.getAll(Table)).deepEquals([table])
-		o(_.sheet.tables).deepEquals([table])
-		o(table.sheet).equals(_.sheet)
-	})
-	o('@othersheet.add(@table)', ()=>{
-		const otherSheet = new Sheet()
-		const table = new Table()
+			const table = new Table()
+			o(_.sheet.tables.add(table).constructor).equals(Table)
+			o(_.sheet.tables).deepEquals([table])
+			o(table.sheet).equals(_.sheet)
+		})
+		o('.remove(@table)', ()=>{
+			const tableA = _.sheet.tables.create()
+			const tableB = _.sheet.tables.create()
+			o(_.sheet.tables).deepEquals([tableA, tableB])
+			_.sheet.tables.remove(tableA)
+			o(_.sheet.tables).deepEquals([tableB])
+			_.sheet.tables.remove(tableB)
+			o(_.sheet.tables).deepEquals([])
 
-		_.sheet.add(table)
-		o(table.sheet).equals(_.sheet)
-		otherSheet.add(table)
-		o(table.sheet).equals(otherSheet)
-		o(_.sheet.tables).deepEquals([])
-		o(otherSheet.tables).deepEquals([table])
-	})
-	o('.remove(@table)', ()=>{
-		const tableA = _.sheet.create(Table)
-		const tableB = _.sheet.create(Table)
-		o(_.sheet.tables).deepEquals([tableA, tableB])
-		_.sheet.remove(tableA)
-		o(_.sheet.tables).deepEquals([tableB])
-		_.sheet.remove(tableB)
-		o(_.sheet.tables).deepEquals([])
+			const otherSheet = new Sheet()
+			otherSheet.tables.add(tableA)
+			o(_.sheet.tables).deepEquals([])
+			o(otherSheet.tables).deepEquals([tableA])
+		})
+		o('@othersheet.tables.add(@table)', ()=>{
+			const otherSheet = new Sheet()
+			const table = new Table()
 
-		const otherSheet = new Sheet()
-		otherSheet.add(tableA)
-		o(_.sheet.tables).deepEquals([])
-		o(otherSheet.tables).deepEquals([tableA])
+			_.sheet.tables.add(table)
+			o(table.sheet).equals(_.sheet)
+			otherSheet.tables.add(table)
+			o(table.sheet).equals(otherSheet)
+			o(_.sheet.tables).deepEquals([])
+			o(otherSheet.tables).deepEquals([table])
+		})
 	})
 	o('JSON.stringify(@sheet)', ()=>{
-		_.sheet.create(Table)
-		_.sheet.create(Table)
+		_.sheet.tables.create()
+		_.sheet.tables.create()
 
 		const json = JSON.parse(JSON.stringify(_.sheet))
 		o(Object.keys(json)).deepEquals(['tables'])
 		o(json.tables.length).equals(2)
 	})
-	o.spec('.tables', ()=>{
-		o('.create()', ()=>{
-			const table = _.sheet.tables.create()
-
-			o(table.constructor).equals(Table)
-			o(_.sheet.getAll(Table)).deepEquals([table])
-			o(_.sheet.tables).deepEquals([table])
-			o(table.sheet).equals(_.sheet)
-		})
-		o('.add(@table)', ()=>{
-
-		})
-		o('@othersheet.tables.add(@table)', ()=>{
-
-		})
-		o('@othersheet.tables.remove(@table)', ()=>{
-
-		})
-	})
 })
-
-
-// $Classes.forEach(($Class) => {
-// 	'use strict'
-	
-// 	const $parentClass = $Classes[$Classes.indexOf($Class) - 1],
-// 		$childClass = $Classes[$Classes.indexOf($Class) + 1],
-// 		$ancestorClasses = $Classes.slice(0, $Classes.indexOf($Class)).reverse(),
-// 		$descendantClasses = $Classes.slice($Classes.indexOf($Class) + 1)
-
-// 	o.spec(`${$Class.name}`, ()=>{
-// 		let _ = {}
-
-// 		o.spec(`class`, ()=>{
-// 			o(`.ancestorClasses`, ()=>{
-// 				o($Class.ancestorClasses).deepEquals($ancestorClasses)
-// 			})
-// 			o(`.childClass`, ()=>{
-// 				o($Class.childClass).equals($childClass)
-// 			})
-// 			o(`.descendantClasses`, ()=>{
-// 				o($Class.descendantClasses).deepEquals($descendantClasses)
-// 			})
-// 			o(`.parentClass`, ()=>{
-// 				o($Class.parentClass).equals($parentClass)
-// 			})
-// 		})
-
-// 		o.spec(`instance`, ()=>{
-// 			let instance
-
-// 			o.beforeEach(()=>{
-// 				_ = {}
-// 				_.sheet = new Sheet(CSData)
-// 				_.table = _.sheet.getTables()[0]
-// 				_.section = _.table.getSections()[0]
-// 				_.row = _.section.getRows()[0]
-// 				_.cell = _.row.getCells()[0]
-// 				instance = _[$Class.name.toLowerCase()]
-// 			})
-
-// 			// Getters
-// 			o(`.ancestorClasses`, ()=>{
-// 				o(instance.ancestorClasses).deepEquals($ancestorClasses)
-// 			})
-// 			o(`.childClass`, ()=>{
-// 				o(instance.childClass).equals($childClass)
-// 			})
-// 			o(`.class`, ()=>{
-// 				o(instance.class).equals($Class)
-// 			})
-// 			o(`.descendantClasses`, ()=>{
-// 				o(instance.descendantClasses).deepEquals($descendantClasses)
-// 			})
-// 			o(`.parentClass`, ()=>{
-// 				o(instance.parentClass).equals($parentClass)
-// 			})
-
-// 			// Methods
-// 			o(`.createChild()`, ()=>{
-// 				if($Class.childClass){
-// 					const originalChildren = instance.getChildren()
-// 					const child = instance.createChild()
-// 					o(instance.getChildren().length).equals(originalChildren.length + 1)
-// 					o(child.getParent()).equals(instance)
-// 				}else{
-// 					let error
-// 					try{
-// 						instance.createChild()
-// 					}catch(e){
-// 						error = e
-// 					}finally{
-// 						o(!!error).equals(true)
-// 					}
-// 				}
-// 			})
-// 			o(`.createSibling()`, ()=>{
-// 				const originalAllOfClass = $Class.getAll()
-// 				const originalSiblings = instance.getSiblings()
-// 				const newSibling = instance.createSibling()
-// 				o($Class.getAll().sortOn(i=>i.id)).deepEquals(originalAllOfClass.concat([newSibling]).sortOn(i=>i.id))
-// 				o(instance.getSiblings().sortOn(i=>i.id)).deepEquals(originalSiblings.concat([newSibling]).sortOn(i=>i.id))
-// 			})
-// 			if($childClass){
-// 				o(`.create${$childClass.name}`, ()=>{
-// 					const originalChildren = instance.getChildren()
-// 					const child = instance[`create${$childClass.name}`]()
-// 					o(instance.getChildren().length).equals(originalChildren.length + 1)
-// 					o(child.getParent()).equals(instance)
-// 				})
-// 			}
-// 			o(`.getAncestors()`, ()=>{
-// 				$ancestorClasses.forEach(($ancestorClass)=>{
-// 					let ancestorName = $ancestorClass.name.toLowerCase()
-// 					o(instance.getAncestors()[ancestorName]).equals(_[ancestorName])
-// 				})
-// 			})
-// 			o(`.getDescendants()`, ()=>{
-// 				$descendantClasses.forEach(($descendantClass)=>{
-// 					let $descendants = $descendantClass.getAll().filter(($descendant)=>{
-// 						return ($descendant[`get${$Class.name}`]() == instance)
-// 					})
-// 					o(instance.getDescendants()[$descendantClass.name.toLowerCase().toPlural()]).deepEquals($descendants)
-// 				})
-// 			})
-// 			o(`.getIndex()`, ()=>{
-// 				o(instance.getIndex()).equals(0)
-// 			})
-// 			o(`.getLength()`, ()=>{
-// 				const originalLength = instance.getLength()
-// 				if($childClass){
-// 					instance.createChild()
-// 					o(instance.getLength()).equals(originalLength + 1)
-// 					o(instance.getLength()).equals($childClass.getAll().filter(i=>(i.getParent() == instance)).length)
-// 				}else{
-// 					o(instance.getLength()).equals(undefined)
-// 				}
-// 			})
-// 			o(`.getNext()`, ()=>{
-// 				const $allOfClass = $Class.getAll()
-// 				if($parentClass){
-// 					o(instance.getNext()).equals(_[$parentClass.name.toLowerCase()].getChildren()[1])
-// 				}else{
-// 					o(instance.getNext()).equals($allOfClass[$allOfClass.indexOf(instance) + 1])
-// 				}
-// 			})
-// 			o(`.getParent()`, ()=>{
-// 				if($parentClass){
-// 					o(instance.getParent()).equals($parentClass ? _[$parentClass.name.toLowerCase()] : undefined)
-// 				}else{
-// 					o(instance.getParent).equals(undefined)
-// 				}
-// 			})
-// 			o(`.getPrevious()`, ()=>{
-// 				if($parentClass && instance.getSiblings().length > 1){
-// 					o(_[$parentClass.name.toLowerCase()].getChildren()[1].getPrevious()).equals(instance)
-// 				}else{
-// 					o(instance.getPrevious()).equals(undefined)
-// 				}
-// 			})
-// 			o(`.getSiblings()`, ()=>{
-// 				let $siblings = $Class.getAll()
-// 				if($parentClass){
-// 					$siblings = $siblings.filter(($item)=>{
-// 						return ($item.getParent() == instance.getParent())
-// 					})
-// 				}
-// 				o(instance.getSiblings()).deepEquals($siblings)
-// 			})
-// 			$ancestorClasses.forEach(($ancestorClass)=>{
-// 				o(`${$Class.name}.get${$ancestorClass.name}()`, ()=>{
-// 					o(instance[`get${$ancestorClass.name}`]()).equals(_[$ancestorClass.name.toLowerCase()])
-// 				})
-// 			})
-// 			$descendantClasses.forEach(($descendantClass)=>{
-// 				o(`${$Class.name}.get${$descendantClass.name.toPlural()}()`, ()=>{
-// 					let $descendants = $descendantClass.getAll().filter(($descendant)=>{
-// 						return($descendant[`get${$Class.name}`]() == instance)
-// 					})
-// 					o(instance[`get${$descendantClass.name.toPlural()}`]()).deepEquals($descendants)
-// 				})
-// 			})
-// 		})
-// 	})
-
-// })
