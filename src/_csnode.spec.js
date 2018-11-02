@@ -63,56 +63,53 @@ o.spec('@sheet', ()=>{
 	o.beforeEach(()=>{
 		_.sheet = new Sheet()
 	})
+	o('.createTable()', ()=>{
+		o(_.sheet.tables).deepEquals([])
 
-	o.spec('.tables', ()=>{
-		o('.create()', ()=>{
-			o(_.sheet.tables).deepEquals([])
+		const table = _.sheet.createTable()
+		o(table.constructor).equals(Table)
+		o(_.sheet.tables).deepEquals([table])
+		o(table.sheet).equals(_.sheet)
+	})
+	o('.addTable(@table)', ()=>{
+		o(thrownBy(n=>_.sheet.addTable('table'))).equals(Error)
 
-			const table = _.sheet.tables.create()
-			o(table.constructor).equals(Table)
-			o(_.sheet.tables).deepEquals([table])
-			o(table.sheet).equals(_.sheet)
-		})
-		o('.add(@table)', ()=>{
-			o(thrownBy(n=>_.sheet.tables.add('table'))).equals(Error)
+		o(_.sheet.tables.length).equals(0)
+		o(_.sheet.tables).deepEquals([])
 
-			o(_.sheet.tables.length).equals(0)
-			o(_.sheet.tables).deepEquals([])
+		const table = new Table()
+		o(_.sheet.addTable(table).constructor).equals(Table)
+		o(_.sheet.tables).deepEquals([table])
+		o(table.sheet).equals(_.sheet)
+	})
+	o('.removeTable(@table)', ()=>{
+		const tableA = _.sheet.createTable()
+		const tableB = _.sheet.createTable()
+		o(_.sheet.tables).deepEquals([tableA, tableB])
+		_.sheet.removeTable(tableA)
+		o(_.sheet.tables).deepEquals([tableB])
+		_.sheet.removeTable(tableB)
+		o(_.sheet.tables).deepEquals([])
 
-			const table = new Table()
-			o(_.sheet.tables.add(table).constructor).equals(Table)
-			o(_.sheet.tables).deepEquals([table])
-			o(table.sheet).equals(_.sheet)
-		})
-		o('.remove(@table)', ()=>{
-			const tableA = _.sheet.tables.create()
-			const tableB = _.sheet.tables.create()
-			o(_.sheet.tables).deepEquals([tableA, tableB])
-			_.sheet.tables.remove(tableA)
-			o(_.sheet.tables).deepEquals([tableB])
-			_.sheet.tables.remove(tableB)
-			o(_.sheet.tables).deepEquals([])
+		const otherSheet = new Sheet()
+		otherSheet.addTable(tableA)
+		o(_.sheet.tables).deepEquals([])
+		o(otherSheet.tables).deepEquals([tableA])
+	})
+	o('@othersheet.addTable(@table)', ()=>{
+		const otherSheet = new Sheet()
+		const table = new Table()
 
-			const otherSheet = new Sheet()
-			otherSheet.tables.add(tableA)
-			o(_.sheet.tables).deepEquals([])
-			o(otherSheet.tables).deepEquals([tableA])
-		})
-		o('@othersheet.tables.add(@table)', ()=>{
-			const otherSheet = new Sheet()
-			const table = new Table()
-
-			_.sheet.tables.add(table)
-			o(table.sheet).equals(_.sheet)
-			otherSheet.tables.add(table)
-			o(table.sheet).equals(otherSheet)
-			o(_.sheet.tables).deepEquals([])
-			o(otherSheet.tables).deepEquals([table])
-		})
+		_.sheet.addTable(table)
+		o(table.sheet).equals(_.sheet)
+		otherSheet.addTable(table)
+		o(table.sheet).equals(otherSheet)
+		o(_.sheet.tables).deepEquals([])
+		o(otherSheet.tables).deepEquals([table])
 	})
 	o('JSON.stringify(@sheet)', ()=>{
-		_.sheet.tables.create()
-		_.sheet.tables.create()
+		_.sheet.createTable()
+		_.sheet.createTable()
 
 		const json = JSON.parse(JSON.stringify(_.sheet))
 		o(Object.keys(json)).deepEquals(['tables'])

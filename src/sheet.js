@@ -9,7 +9,7 @@ function Sheet(){
 	}
 	Object.defineProperties(this, Object.assign({},
 		{
-			add: {
+			addTable: {
 				value: function(instance){
 					const _Class = instance.constructor
 					const allOfClass = all[_Class]
@@ -18,7 +18,7 @@ function Sheet(){
 						throw new Error(`Cannot add items of type ${_Class.name}.`)
 					}else{
 						if(instance.sheet && instance.sheet !== this){
-							instance.sheet.remove(instance)
+							instance.sheet.removeTable(instance)
 						}
 						Object.defineProperties(instance, {
 							sheet: {
@@ -35,24 +35,15 @@ function Sheet(){
 					}
 				}
 			},
-			create: {
-				value: function(_Class){
-					const allOfClass = all[_Class]
-					if(!allOfClass){
-						throw new Error(`Cannot create items of type ${_Class.name}`)
-					}else{
-						const instance = new _Class()
-						this.add(instance)
-						return instance
-					}
+			createTable: {
+				value: function(){
+					const _Class = Table
+					const instance = new _Class()
+					this.addTable(instance)
+					return instance
 				}
 			},
-			getAll: {
-				value: function(_Class){
-					return Array.from(all[_Class])
-				}
-			},
-			remove: {
+			removeTable: {
 				value: function(instance){
 					const _Class = instance.constructor
 					const allOfClass = all[_Class]
@@ -64,7 +55,7 @@ function Sheet(){
 				}
 			},
 			tables: {
-				get: ()=>this.getAll(Table),
+				get: ()=>Array.from(all[Table]),
 				enumerable: true
 			}
 		}
