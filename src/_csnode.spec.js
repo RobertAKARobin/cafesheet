@@ -83,6 +83,8 @@ o.spec('@sheet', ()=>{
 		o(table.sheet).equals(_.sheet)
 	})
 	o('.removeTable(@table)', ()=>{
+		o(thrownBy(n=>_.sheet.removeTable('table'))).equals(Error)
+		
 		const tableA = _.sheet.createTable()
 		const tableB = _.sheet.createTable()
 		o(_.sheet.tables).deepEquals([tableA, tableB])
