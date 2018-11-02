@@ -1,4 +1,13 @@
 function Table(){
+	const table = this
+	Object.defineProperties(table, {
+		parent: {
+			configurable: true
+		},
+		sheet: {
+			get: ()=>table.parent
+		}
+	})
 }
 Object.defineProperties(Table, {
 	ancestors: {
