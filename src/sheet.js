@@ -61,4 +61,12 @@ function Sheet(){
 		}
 	))
 }
-Object.defineProperties(Sheet, Cafesheet.nodeFactory.generateFamilyTree(Sheet))
+Object.defineProperties(Sheet, {
+	child: {
+		value: Table,
+		enumerable: true
+	},
+	descendants: {
+		value: [Table, Section, Row, Cell]
+	}
+})
