@@ -32,7 +32,7 @@ Object.defineProperties(String.prototype, {
 })
 
 const Cafesheet = {
-	classTypes: [Sheet, Table, Section, Row, Cell],
+	classTypes: [Base, Table, Section, Row, Cell],
 	prototypeMethods: {
 		addChild: {
 			value: function(child){

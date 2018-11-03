@@ -5,7 +5,7 @@ const replace = require('gulp-replace')
 const dateformat = require('dateformat')
 const del = require('del')
 const fs = require('fs')
-const CSComponents = ['sheet', 'table', 'section', 'row', 'cell']
+const CSComponents = ['base', 'table', 'section', 'row', 'cell']
 let ENV
 
 const loadEnv = function(done){

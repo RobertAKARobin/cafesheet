@@ -1,16 +1,16 @@
-function Sheet(){
-	const sheet = this
-	Object.defineProperties(sheet, {
+function Base(){
+	const base = this
+	Object.defineProperties(base, {
 		children: {
 			value: []
 		},
 		tables: {
-			get: ()=>Array.from(sheet.children),
+			get: ()=>Array.from(base.children),
 			enumerable: true
 		}
 	})
 }
-Object.defineProperties(Sheet, {
+Object.defineProperties(Base, {
 	child: {
 		value: Table,
 		enumerable: true
@@ -19,7 +19,7 @@ Object.defineProperties(Sheet, {
 		value: [Table, Section, Row, Cell]
 	}
 })
-Object.defineProperties(Sheet.prototype, {
+Object.defineProperties(Base.prototype, {
 	addChild: Cafesheet.prototypeMethods.addChild,
 	addTable: Cafesheet.prototypeMethods.addChild,
 	createChild: Cafesheet.prototypeMethods.createChild,

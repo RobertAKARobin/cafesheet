@@ -2,7 +2,7 @@ function Section(){
 }
 Object.defineProperties(Section, {
 	ancestors: {
-		value: [Table, Sheet]
+		value: [Table, Base]
 	},
 	child: {
 		value: Row,

@@ -4,14 +4,14 @@ function Table(){
 		parent: {
 			configurable: true
 		},
-		sheet: {
+		base: {
 			get: ()=>table.parent
 		}
 	})
 }
 Object.defineProperties(Table, {
 	ancestors: {
-		value: [Sheet]
+		value: [Base]
 	},
 	child: {
 		value: Section,
@@ -21,6 +21,6 @@ Object.defineProperties(Table, {
 		value: [Section, Row, Cell]
 	},
 	parent: {
-		value: Sheet
+		value: Base
 	}
 })
