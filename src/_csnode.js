@@ -33,27 +33,41 @@ Object.defineProperties(String.prototype, {
 
 const Cafesheet = {
 	classTypes: [Base, Table, Section, Row, Cell],
-	prototypeMethods: {
-		addChild: {
-			value: function(child){
-				const instance = this
-				if(child instanceof instance.constructor.child){
-					if(child.parent && child.parent !== this){
-						child.parent.removeChild(child)
-					}
-					Object.defineProperties(child, {
-						parent: {
-							value: instance
+	instanceMethods: {
+		addChild: function(instance, children){
+			return {
+				value: function(child){
+					if(child instanceof instance.constructor.child){
+						if(child.parent && child.parent !== this){
+							child.parent.removeChild(child)
 						}
-					})
-					// child.id = instance.ids++
-					instance.children.push(child)
-					return child
-				}else{
-					throw new Error(`Cannot add items of type ${child.constructor.name}.`)
+						Object.defineProperties(child, {
+							parent: {
+								value: instance
+							}
+						})
+						// child.id = instance.ids++
+						children.push(child)
+						return child
+					}else{
+						throw new Error(`Cannot add items of type ${child.constructor.name}.`)
+					}
 				}
 			}
 		},
+		removeChild: function(instance, children){
+			return {
+				value: function(child){
+					if(child instanceof instance.constructor.child){
+						return children.remove(child)
+					}else{
+						throw new Error(`No items exist of type ${child.constructor.name}`)
+					}
+				}
+			}
+		}
+	},
+	prototypeMethods: {
 		createChild: {
 			value: function(){
 				const instance = this
@@ -61,16 +75,6 @@ const Cafesheet = {
 				const child = new childClass()
 				instance.addChild(child)
 				return child
-			}
-		},
-		removeChild: {
-			value: function(child){
-				const instance = this
-				if(child instanceof instance.constructor.child){
-					return instance.children.remove(child)
-				}else{
-					throw new Error(`No items exist of type ${child.constructor.name}`)
-				}
 			}
 		}
 	}
