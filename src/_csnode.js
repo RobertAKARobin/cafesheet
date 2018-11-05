@@ -31,51 +31,39 @@ Object.defineProperties(String.prototype, {
 	}
 })
 
-const Cafesheet = {
-	classTypes: [Base, Table, Section, Row, Cell],
-	instanceMethods: {
-		addChild: function(instance, children){
-			return {
-				value: function(child){
-					if(child instanceof instance.constructor.child){
-						if(child.parent && child.parent !== this){
-							child.parent.removeChild(child)
-						}
-						Object.defineProperties(child, {
-							parent: {
-								value: instance
-							}
-						})
-						// child.id = instance.ids++
-						children.push(child)
-						return child
-					}else{
-						throw new Error(`Cannot add items of type ${child.constructor.name}.`)
-					}
-				}
+class WeakArray extends Array{
+	constructor(parent){
+		super()
+		this.parent = parent
+	}
+	create(){
+		const childClass = this.parent.constructor.child
+		const child = new childClass()
+		this.push(child)
+		return child
+	}
+	push(child){
+		if(child instanceof this.parent.constructor.child){
+			if(child.parent && child.parent !== this.parent){
+				child.parent.children.remove(child)
 			}
-		},
-		removeChild: function(instance, children){
-			return {
-				value: function(child){
-					if(child instanceof instance.constructor.child){
-						return children.remove(child)
-					}else{
-						throw new Error(`No items exist of type ${child.constructor.name}`)
-					}
+			Object.defineProperties(child, {
+				parent: {
+					value: this.parent
 				}
-			}
+			})
+			// child.id = instance.ids++
+			Array.prototype.push.call(this, child)
+			return child
+		}else{
+			throw new Error(`Cannot add items of type ${child.constructor.name}.`)
 		}
-	},
-	prototypeMethods: {
-		createChild: {
-			value: function(){
-				const instance = this
-				const childClass = instance.constructor.child
-				const child = new childClass()
-				instance.addChild(child)
-				return child
-			}
+	}
+	remove(child){
+		if(child instanceof this.parent.constructor.child){
+			return Array.prototype.remove.call(this, child)
+		}else{
+			throw new Error(`No items exist of type ${child.constructor.name}`)
 		}
 	}
 }
