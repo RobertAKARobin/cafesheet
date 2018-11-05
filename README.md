@@ -24,6 +24,7 @@
 - Should `.getAll` be its own special class?
 - - Looks like `deepEquals` won't work with it
 - - Looks like `deepEquals` also won't work if you've added custom properties to an Array with `defineProperty`
+- - If it extends `Array`, array methods are still going to be able to called on it via `Array.prototype.method.call`
 
 # Todo
 - Views tests
