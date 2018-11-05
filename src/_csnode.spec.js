@@ -63,55 +63,55 @@ o.spec('@base', ()=>{
 	o.beforeEach(()=>{
 		_.base = new Base()
 	})
-	o('.createTable()', ()=>{
+	o('.create()', ()=>{
 		o(_.base.tables).deepEquals([])
 
-		const table = _.base.createTable()
+		const table = _.base.create()
 		o(table.constructor).equals(Table)
 		o(_.base.tables).deepEquals([table])
 		o(table.base).equals(_.base)
 	})
-	o('.addTable(@table)', ()=>{
-		o(thrownBy(n=>_.base.addTable('table'))).equals(Error)
+	o('.add(@table)', ()=>{
+		o(thrownBy(n=>_.base.add('table'))).equals(Error)
 
 		o(_.base.tables.length).equals(0)
 		o(_.base.tables).deepEquals([])
 
 		const table = new Table()
-		o(_.base.addTable(table).constructor).equals(Table)
+		o(_.base.add(table).constructor).equals(Table)
 		o(_.base.tables).deepEquals([table])
 		o(table.base).equals(_.base)
 	})
-	o('.removeTable(@table)', ()=>{
-		o(thrownBy(n=>_.base.removeTable('table'))).equals(Error)
+	o('.remove(@table)', ()=>{
+		o(thrownBy(n=>_.base.remove('table'))).equals(Error)
 		
-		const tableA = _.base.createTable()
-		const tableB = _.base.createTable()
+		const tableA = _.base.create()
+		const tableB = _.base.create()
 		o(_.base.tables).deepEquals([tableA, tableB])
-		_.base.removeTable(tableA)
+		_.base.remove(tableA)
 		o(_.base.tables).deepEquals([tableB])
-		_.base.removeTable(tableB)
+		_.base.remove(tableB)
 		o(_.base.tables).deepEquals([])
 
 		const otherBase = new Base()
-		otherBase.addTable(tableA)
+		otherBase.add(tableA)
 		o(_.base.tables).deepEquals([])
 		o(otherBase.tables).deepEquals([tableA])
 	})
-	o('@otherbase.addTable(@table)', ()=>{
+	o('@otherbase.add(@table)', ()=>{
 		const otherBase = new Base()
 		const table = new Table()
 
-		_.base.addTable(table)
+		_.base.add(table)
 		o(table.base).equals(_.base)
-		otherBase.addTable(table)
+		otherBase.add(table)
 		o(table.base).equals(otherBase)
 		o(_.base.tables).deepEquals([])
 		o(otherBase.tables).deepEquals([table])
 	})
 	o('JSON.stringify(@base)', ()=>{
-		_.base.createTable()
-		_.base.createTable()
+		_.base.create()
+		_.base.create()
 
 		const json = JSON.parse(JSON.stringify(_.base))
 		o(Object.keys(json)).deepEquals(['tables'])

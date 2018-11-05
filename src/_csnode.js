@@ -34,12 +34,12 @@ Object.defineProperties(String.prototype, {
 const Cafesheet = {
 	classTypes: [Base, Table, Section, Row, Cell],
 	instanceMethods: {
-		addChild: function(instance, children){
+		add: function(instance, children){
 			return {
 				value: function(child){
 					if(child instanceof instance.constructor.child){
 						if(child.parent && child.parent !== this){
-							child.parent.removeChild(child)
+							child.parent.remove(child)
 						}
 						Object.defineProperties(child, {
 							parent: {
@@ -55,7 +55,7 @@ const Cafesheet = {
 				}
 			}
 		},
-		removeChild: function(instance, children){
+		remove: function(instance, children){
 			return {
 				value: function(child){
 					if(child instanceof instance.constructor.child){
@@ -68,12 +68,12 @@ const Cafesheet = {
 		}
 	},
 	prototypeMethods: {
-		createChild: {
+		create: {
 			value: function(){
 				const instance = this
 				const childClass = instance.constructor.child
 				const child = new childClass()
-				instance.addChild(child)
+				instance.add(child)
 				return child
 			}
 		}
