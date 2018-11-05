@@ -36,6 +36,9 @@ class WeakArray extends Array{
 		super()
 		this.parent = parent
 	}
+	toArray(){
+		return Array.from(this)
+	}
 	create(){
 		const childClass = this.parent.constructor.child
 		const child = new childClass()

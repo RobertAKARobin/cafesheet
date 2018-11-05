@@ -64,11 +64,11 @@ o.spec('@base', ()=>{
 		_.base = new Base()
 	})
 	o('.createTable()', ()=>{
-		o(Array.from(_.base.tables)).deepEquals([])
+		o(_.base.tables.toArray()).deepEquals([])
 
 		const table = _.base.tables.create()
 		o(table.constructor).equals(Table)
-		o(Array.from(_.base.tables)).deepEquals([table])
+		o(_.base.tables.toArray()).deepEquals([table])
 		o(table.base).equals(_.base)
 	})
 	o('.addTable(@table)', ()=>{
@@ -76,12 +76,12 @@ o.spec('@base', ()=>{
 
 
 		o(_.base.tables.length).equals(0)
-		o(Array.from(_.base.tables)).deepEquals([])
+		o(_.base.tables.toArray()).deepEquals([])
 
 		const table = new Table()
 		o(_.base.tables.push(table).constructor).equals(Table)
 		o(_.base.tables.length).equals(1)
-		o(Array.from(_.base.tables)).deepEquals([table])
+		o(_.base.tables.toArray()).deepEquals([table])
 		o(table.base).equals(_.base)
 	})
 	o('.removeTable(@table)', ()=>{
@@ -89,16 +89,16 @@ o.spec('@base', ()=>{
 		
 		const tableA = _.base.tables.create()
 		const tableB = _.base.tables.create()
-		o(Array.from(_.base.tables)).deepEquals([tableA, tableB])
+		o(_.base.tables.toArray()).deepEquals([tableA, tableB])
 		_.base.tables.remove(tableA)
-		o(Array.from(_.base.tables)).deepEquals([tableB])
+		o(_.base.tables.toArray()).deepEquals([tableB])
 		_.base.tables.remove(tableB)
-		o(Array.from(_.base.tables)).deepEquals([])
+		o(_.base.tables.toArray()).deepEquals([])
 
 		const otherBase = new Base()
 		otherBase.tables.push(tableA)
-		o(Array.from(_.base.tables)).deepEquals([])
-		o(Array.from(otherBase.tables)).deepEquals([tableA])
+		o(_.base.tables.toArray()).deepEquals([])
+		o(otherBase.tables.toArray()).deepEquals([tableA])
 	})
 	o('@otherbase.addTable(@table)', ()=>{
 		const otherBase = new Base()
@@ -108,8 +108,8 @@ o.spec('@base', ()=>{
 		o(table.base).equals(_.base)
 		otherBase.tables.push(table)
 		o(table.base).equals(otherBase)
-		o(Array.from(_.base.tables)).deepEquals([])
-		o(Array.from(otherBase.tables)).deepEquals([table])
+		o(_.base.tables.toArray()).deepEquals([])
+		o(otherBase.tables.toArray()).deepEquals([table])
 	})
 	o('JSON.stringify(@base)', ()=>{
 		_.base.tables.create()
@@ -117,7 +117,6 @@ o.spec('@base', ()=>{
 
 		const json = JSON.parse(JSON.stringify(_.base))
 		o(Object.keys(json)).deepEquals(['tables'])
-		console.log(json)
 		o(json.tables.length).equals(2)
 	})
 })
