@@ -25,6 +25,11 @@
 - - Looks like `deepEquals` won't work with it
 - - Looks like `deepEquals` also won't work if you've added custom properties to an Array with `defineProperty`
 - - If it extends `Array`, array methods are still going to be able to called on it via `Array.prototype.method.call`
+- Should `base.sections` traverse through `.children`, or filter some kind of `.all`?
+- - Traversing through children will probably be faster?
+- - `.all` would just be another array to hide
+- - Traversing requires keeping both `.parent` and `.children` in sync
+- - `.parent` could also just be overwritten with `Object.defineProperty`?
 
 # Todo
 - Views tests

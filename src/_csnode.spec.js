@@ -83,8 +83,6 @@ o.spec('@base', ()=>{
 		o(table.base).equals(_.base)
 	})
 	o('.remove(@table)', ()=>{
-		o(thrownBy(n=>_.base.remove('table'))).equals(Error)
-		
 		const tableA = _.base.create()
 		const tableB = _.base.create()
 		o(_.base.tables).deepEquals([tableA, tableB])

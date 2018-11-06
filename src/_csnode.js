@@ -34,34 +34,78 @@ Object.defineProperties(String.prototype, {
 const Cafesheet = {
 	classTypes: [Base, Table, Section, Row, Cell],
 	instanceMethods: {
-		add: function(instance, children){
+		add: function(instanceChildren){
 			return {
 				value: function(child){
+					const instance = this
 					if(child instanceof instance.constructor.child){
-						if(child.parent && child.parent !== this){
-							child.parent.remove(child)
-						}
-						Object.defineProperties(child, {
-							parent: {
-								value: instance
+						const instanceHasChild = (instanceChildren.includes(child))
+						const childHasInstance = (child.parent === instance)
+						if(instanceHasChild && childHasInstance){
+							return false
+						}else{
+							if(!instanceHasChild){
+								instanceChildren.push(child)
 							}
-						})
-						// child.id = instance.ids++
-						children.push(child)
-						return child
+							if(!childHasInstance){
+								child.addTo(instance)
+							}
+							return child
+						}
 					}else{
-						throw new Error(`Cannot add items of type ${child.constructor.name}.`)
+						throw new Error(`Cannot add ${child.constructor.name} to ${instance.constructor.name}.`)
 					}
 				}
 			}
 		},
-		remove: function(instance, children){
+		addTo: function(instanceParentWrapper){
+			return {
+				value: function(parent){
+					const instance = this
+					if(parent instanceof instance.constructor.parent){
+						const instanceHasParent = (instance.parent && instance.parent == parent)
+						const parentHasInstance = (parent.children.includes(instance))
+						if(instanceHasParent && parentHasInstance){
+							return false
+						}else{
+							if(!instanceHasParent){
+								instanceParentWrapper.parent = parent
+							}
+							if(!parentHasInstance){
+								parent.add(instance)
+							}
+							return instance
+						}
+					}else{
+						throw new Error(`Cannot move ${instance.constructor.name} to ${parent.constructor.name}.`)
+					}
+				}
+			}
+		},
+		remove: function(instanceChildren){
 			return {
 				value: function(child){
-					if(child instanceof instance.constructor.child){
-						return children.remove(child)
+					const instance = this
+					const instanceHasChild = (instance.children.includes(child))
+					if(instanceHasChild){
+						instanceChildren.remove(child)
+						child.removeFromParent()
 					}else{
-						throw new Error(`No items exist of type ${child.constructor.name}`)
+						return false
+					}
+				}
+			}
+		},
+		removeFromParent: function(parentWrapper){
+			return {
+				value: function(){
+					const instance = this
+					const currentParent = instance.parent
+					if(currentParent){
+						parentWrapper.parent = undefined
+						currentParent.remove(instance)
+					}else{
+						return false
 					}
 				}
 			}

@@ -1,11 +1,14 @@
 function Base(){
-	const base = this
-	const tables = []
-	Object.defineProperties(base, {
-		add: Cafesheet.instanceMethods.add(base, tables),
-		remove: Cafesheet.instanceMethods.remove(base, tables),
+	const instance = this
+	const children = []
+	Object.defineProperties(instance, {
+		add: Cafesheet.instanceMethods.add(children),
+		children: {
+			get: ()=>instance.tables
+		},
+		remove: Cafesheet.instanceMethods.remove(children),
 		tables: {
-			get: ()=>Array.from(tables),
+			get: ()=>Array.from(children),
 			enumerable: true
 		}
 	})
