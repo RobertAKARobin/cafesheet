@@ -6,14 +6,19 @@ function Table(){
 		base: {
 			get: ()=>instance.parent
 		},
-		addTo: Cafesheet.instanceMethods.addTo(parentWrapper),
 		parent: {
 			get: ()=>parentWrapper.parent
 		},
-		removeFromParent: Cafesheet.instanceMethods.removeFromParent(parentWrapper),
 		sections: {
 			get: ()=>Array.from(children),
 			enumerable: true
+		},
+		
+		addTo: {
+			value: Cafesheet.instanceMethods.addTo(parentWrapper)
+		},
+		removeFromParent: {
+			value: Cafesheet.instanceMethods.removeFromParent(parentWrapper)
 		}
 	})
 }

@@ -1,15 +1,22 @@
 function Base(){
 	const instance = this
 	const children = []
+	const all = {}
+	all[Table] = {}
 	Object.defineProperties(instance, {
-		add: Cafesheet.instanceMethods.add(children),
 		children: {
 			get: ()=>instance.tables
 		},
-		remove: Cafesheet.instanceMethods.remove(children),
 		tables: {
 			get: ()=>Array.from(children),
 			enumerable: true
+		},
+
+		add: {
+			value: Cafesheet.instanceMethods.add(children)
+		},
+		remove: {
+			value: Cafesheet.instanceMethods.remove(children)
 		}
 	})
 }
@@ -23,5 +30,7 @@ Object.defineProperties(Base, {
 	}
 })
 Object.defineProperties(Base.prototype, {
-	create: Cafesheet.prototypeMethods.create
+	create: {
+		value: Cafesheet.prototypeMethods.create
+	}
 })
