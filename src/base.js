@@ -32,6 +32,15 @@ function ChildArray(parent, Class){
 				children.push(child)
 				return child
 			}
+		},
+		remove: {
+			value: function(child){
+				if(children.includes(child)){
+					children.remove(child)
+				}else{
+					return false
+				}
+			}
 		}
 	})
 }
@@ -54,6 +63,9 @@ function Base(){
 		},
 		createTable: {
 			value: children.create
+		},
+		removeTable: {
+			value: children.remove
 		}
 	})
 }

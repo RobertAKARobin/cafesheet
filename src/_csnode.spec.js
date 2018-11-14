@@ -75,13 +75,24 @@ o.spec('@base', ()=>{
 			o(_.base.children.get()).deepEquals([child])
 			o(child.parent).equals(_.base)
 		})
-		o('.get()', ()=>{
+		o('.get(@child)', ()=>{
 			o(_.base.children.get()).deepEquals([])
 	
 			const child = _.base.children.create()
 			o(child.constructor).equals(Table)
 			o(_.base.children.get()).deepEquals([child])
 			o(child.parent).equals(_.base)
+		})
+		o('.remove(@child)', ()=>{
+			const childA = _.base.children.create()
+			const childB = _.base.children.create()
+			o(_.base.children.get()).deepEquals([childA, childB])
+			_.base.children.remove(childA)
+			o(_.base.children.get()).deepEquals([childB])
+			_.base.children.remove(childB)
+			o(_.base.children.get()).deepEquals([])
+
+			o(_.base.children.remove(childB)).equals(false)
 		})
 	})
 	o('.addTable(@table)', ()=>{
@@ -103,20 +114,17 @@ o.spec('@base', ()=>{
 		o(_.base.tables).deepEquals([table])
 		o(table.base).equals(_.base)
 	})
-	// o('.removeTable(@table)', ()=>{
-	// 	const tableA = _.base.createTable()
-	// 	const tableB = _.base.createTable()
-	// 	o(_.base.tables).deepEquals([tableA, tableB])
-	// 	_.base.removeTable(tableA)
-	// 	o(_.base.tables).deepEquals([tableB])
-	// 	_.base.removeTable(tableB)
-	// 	o(_.base.tables).deepEquals([])
+	o('.removeTable(@table)', ()=>{
+		const tableA = _.base.createTable()
+		const tableB = _.base.createTable()
+		o(_.base.tables).deepEquals([tableA, tableB])
+		_.base.removeTable(tableA)
+		o(_.base.tables).deepEquals([tableB])
+		_.base.removeTable(tableB)
+		o(_.base.tables).deepEquals([])
 
-	// 	const otherBase = new Base()
-	// 	otherBase.addTable(tableA)
-	// 	o(_.base.tables).deepEquals([])
-	// 	o(otherBase.tables).deepEquals([tableA])
-	// })
+		o(_.base.removeTable(tableB)).equals(false)
+	})
 	// o('@otherbase.addTable(@table)', ()=>{
 	// 	const otherBase = new Base()
 	// 	const table = new Table()
