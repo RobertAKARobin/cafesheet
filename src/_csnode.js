@@ -34,28 +34,6 @@ Object.defineProperties(String.prototype, {
 const Cafesheet = {
 	classTypes: [Base, Table, Section, Row, Cell],
 	instanceMethods: {
-		add: function(instanceChildren){
-			return function(child){
-				const instance = this
-				if(child instanceof instance.constructor.child){
-					const instanceHasChild = (instanceChildren.includes(child))
-					const childHasInstance = (child.parent === instance)
-					if(instanceHasChild && childHasInstance){
-						return false
-					}else{
-						if(!instanceHasChild){
-							instanceChildren.push(child)
-						}
-						if(!childHasInstance){
-							child.addTo(instance)
-						}
-						return child
-					}
-				}else{
-					throw new Error(`Cannot add ${child.constructor.name} to ${instance.constructor.name}.`)
-				}
-			}
-		},
 		addTo: function(instanceParentWrapper){
 			return function(parent){
 				const instance = this
@@ -101,15 +79,6 @@ const Cafesheet = {
 					return false
 				}
 			}
-		}
-	},
-	prototypeMethods: {
-		create: function(){
-			const instance = this
-			const childClass = instance.constructor.child
-			const child = new childClass()
-			instance.add(child)
-			return child
 		}
 	}
 }

@@ -64,6 +64,17 @@ o.spec('@base', ()=>{
 		_.base = new Base()
 	})
 	o.spec('.children', ()=>{
+		o('.add()', ()=>{
+			o(thrownBy(n=>_.base.children.add('not a table'))).equals(Error)
+
+			o(_.base.children.get().length).equals(0)
+			o(_.base.children.get()).deepEquals([])
+
+			const child = new Table()
+			o(_.base.children.add(child).constructor).equals(Table)
+			o(_.base.children.get()).deepEquals([child])
+			o(child.parent).equals(_.base)
+		})
 		o('.get()', ()=>{
 			o(_.base.children.get()).deepEquals([])
 	
@@ -73,6 +84,17 @@ o.spec('@base', ()=>{
 			o(child.parent).equals(_.base)
 		})
 	})
+	o('.addTable(@table)', ()=>{
+		o(thrownBy(n=>_.base.addTable('not a table'))).equals(Error)
+
+		o(_.base.tables.length).equals(0)
+		o(_.base.tables).deepEquals([])
+
+		const table = new Table()
+		o(_.base.addTable(table).constructor).equals(Table)
+		o(_.base.tables).deepEquals([table])
+		o(table.base).equals(_.base)
+	})
 	o('.createTable()', ()=>{
 		o(_.base.tables).deepEquals([])
 
@@ -81,17 +103,6 @@ o.spec('@base', ()=>{
 		o(_.base.tables).deepEquals([table])
 		o(table.base).equals(_.base)
 	})
-	// o('.addTable(@table)', ()=>{
-	// 	o(thrownBy(n=>_.base.addTable('table'))).equals(Error)
-
-	// 	o(_.base.tables.length).equals(0)
-	// 	o(_.base.tables).deepEquals([])
-
-	// 	const table = new Table()
-	// 	o(_.base.addTable(table).constructor).equals(Table)
-	// 	o(_.base.tables).deepEquals([table])
-	// 	o(table.base).equals(_.base)
-	// })
 	// o('.removeTable(@table)', ()=>{
 	// 	const tableA = _.base.createTable()
 	// 	const tableB = _.base.createTable()

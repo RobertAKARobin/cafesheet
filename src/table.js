@@ -7,6 +7,16 @@ function Table(base){
 		},
 		parent: {
 			get: ()=>parentWrapper.parent
+		},
+
+		addTo: {
+			value: function(parent){
+				if(parent instanceof instance.constructor.parent){
+					parentWrapper.parent = parent
+				}else{
+					throw new Error(`Cannot move ${instance.constructor.name} to ${parent.constructor.name}.`)
+				}
+			}
 		}
 	})
 }

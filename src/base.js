@@ -10,6 +10,17 @@ function ChildArray(parent, Class){
 			value: parent
 		},
 
+		add: {
+			value: function(child){
+				if(child instanceof Class){
+					children.push(child)
+					child.addTo(parent)
+					return child
+				}else{
+					throw new Error(`Cannot add ${child.constructor.name} to ${Class.name}.`)
+				}
+			}
+		},
 		get: {
 			value: function(){
 				return Array.from(children)
@@ -38,6 +49,9 @@ function Base(){
 			enumerable: true
 		},
 
+		addTable: {
+			value: children.add
+		},
 		createTable: {
 			value: children.create
 		}
