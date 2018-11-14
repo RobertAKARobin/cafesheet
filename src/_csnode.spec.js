@@ -117,12 +117,12 @@ o.spec('@base', ()=>{
 	// 	o(_.base.tables).deepEquals([])
 	// 	o(otherBase.tables).deepEquals([table])
 	// })
-	// o('JSON.stringify(@base)', ()=>{
-	// 	_.base.createTable()
-	// 	_.base.createTable()
+	o('JSON.stringify(@base)', ()=>{
+		_.base.createTable()
+		_.base.createTable()
 
-	// 	const json = JSON.parse(JSON.stringify(_.base))
-	// 	o(Object.keys(json)).deepEquals(['tables'])
-	// 	o(json.tables.length).equals(2)
-	// })
+		const json = JSON.parse(JSON.stringify(_.base))
+		o(Object.keys(json)).deepEquals(['tables'])
+		o(json.tables.length).equals(2)
+	})
 })
