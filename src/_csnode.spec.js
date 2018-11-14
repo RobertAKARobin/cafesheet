@@ -64,35 +64,40 @@ o.spec('@base', ()=>{
 		_.base = new Base()
 	})
 	o.spec('.children', ()=>{
+		o.beforeEach(()=>{
+			_.instance = _.base
+			_.class = _.instance.constructor
+			_.childClass = _.class.child
+		})
 		o('.add()', ()=>{
-			o(thrownBy(n=>_.base.children.add('not a table'))).equals(Error)
+			o(thrownBy(n=>_.instance.children.add('wrong class'))).equals(Error)
 
-			o(_.base.children.get().length).equals(0)
-			o(_.base.children.get()).deepEquals([])
+			o(_.instance.children.get().length).equals(0)
+			o(_.instance.children.get()).deepEquals([])
 
-			const child = new Table()
-			o(_.base.children.add(child).constructor).equals(Table)
-			o(_.base.children.get()).deepEquals([child])
-			o(child.parent).equals(_.base)
+			const child = new _.childClass()
+			o(_.instance.children.add(child).constructor).equals(_.childClass)
+			o(_.instance.children.get()).deepEquals([child])
+			o(child.parent).equals(_.instance)
 		})
 		o('.get(@child)', ()=>{
-			o(_.base.children.get()).deepEquals([])
+			o(_.instance.children.get()).deepEquals([])
 	
-			const child = _.base.children.create()
-			o(child.constructor).equals(Table)
-			o(_.base.children.get()).deepEquals([child])
-			o(child.parent).equals(_.base)
+			const child = _.instance.children.create()
+			o(child.constructor).equals(_.childClass)
+			o(_.instance.children.get()).deepEquals([child])
+			o(child.parent).equals(_.instance)
 		})
 		o('.remove(@child)', ()=>{
-			const childA = _.base.children.create()
-			const childB = _.base.children.create()
-			o(_.base.children.get()).deepEquals([childA, childB])
+			const childA = _.instance.children.create()
+			const childB = _.instance.children.create()
+			o(_.instance.children.get()).deepEquals([childA, childB])
 			_.base.children.remove(childA)
-			o(_.base.children.get()).deepEquals([childB])
+			o(_.instance.children.get()).deepEquals([childB])
 			_.base.children.remove(childB)
-			o(_.base.children.get()).deepEquals([])
+			o(_.instance.children.get()).deepEquals([])
 
-			o(_.base.children.remove(childB)).equals(false)
+			o(_.instance.children.remove(childB)).equals(false)
 		})
 	})
 	o('.addTable(@table)', ()=>{
