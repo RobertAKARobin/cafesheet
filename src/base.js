@@ -1,37 +1,40 @@
-function Base(){
+function ChildArray(parent, Class){
 	const instance = this
 	const children = []
 
-	const all = new Map()
-	all.set(Table, new Set())
-	all.set(Section, new Set())
-	all.set(Row, new Set())
-	all.set(Cell, new Set())
-
 	Object.defineProperties(instance, {
-		all: {
-			get: function(){
-				return {
-					tables: Array.from(all.get(Table)),
-					sections: Array.from(all.get(Section)),
-					rows: Array.from(all.get(Row)),
-					cells: Array.from(all.get(Cell))
-				}
+		class: {
+			value: Class
+		},
+		parent: {
+			value: parent
+		},
+
+		get: {
+			value: function(){
+				return Array.from(children)
 			}
 		},
+		create: {
+			value: function(){
+				const child = new this.class(parent)
+				children.push(child)
+				return child
+			}
+		}
+	})
+}
+
+function Base(){
+	const instance = this
+
+	Object.defineProperties(instance, {
 		children: {
-			get: ()=>instance.tables
+			value: new ChildArray(instance, Table)
 		},
 		tables: {
-			get: ()=>Array.from(children),
+			get: ()=>instance.children.get(),
 			enumerable: true
-		},
-
-		add: {
-			value: Cafesheet.instanceMethods.add(children)
-		},
-		remove: {
-			value: Cafesheet.instanceMethods.remove(children)
 		}
 	})
 }
@@ -42,10 +45,5 @@ Object.defineProperties(Base, {
 	},
 	descendants: {
 		value: [Table, Section, Row, Cell]
-	}
-})
-Object.defineProperties(Base.prototype, {
-	create: {
-		value: Cafesheet.prototypeMethods.create
 	}
 })

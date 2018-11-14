@@ -1,24 +1,12 @@
-function Table(){
+function Table(base){
 	const instance = this
-	const children = []
-	const parentWrapper = {parent: {}}
+	const parentWrapper = {parent: (base || {})}
 	Object.defineProperties(instance, {
 		base: {
 			get: ()=>instance.parent
 		},
 		parent: {
 			get: ()=>parentWrapper.parent
-		},
-		sections: {
-			get: ()=>Array.from(children),
-			enumerable: true
-		},
-		
-		addTo: {
-			value: Cafesheet.instanceMethods.addTo(parentWrapper)
-		},
-		removeFromParent: {
-			value: Cafesheet.instanceMethods.removeFromParent(parentWrapper)
 		}
 	})
 }

@@ -63,56 +63,66 @@ o.spec('@base', ()=>{
 	o.beforeEach(()=>{
 		_.base = new Base()
 	})
-	o('.create()', ()=>{
-		o(_.base.tables).deepEquals([])
-
-		const table = _.base.create()
-		o(table.constructor).equals(Table)
-		o(_.base.tables).deepEquals([table])
-		o(table.base).equals(_.base)
+	o.spec('.children', ()=>{
+		o('.get()', ()=>{
+			o(_.base.children.get()).deepEquals([])
+	
+			const child = _.base.children.create()
+			o(child.constructor).equals(Table)
+			o(_.base.children.get()).deepEquals([child])
+			o(child.parent).equals(_.base)
+		})
 	})
-	o('.add(@table)', ()=>{
-		o(thrownBy(n=>_.base.add('table'))).equals(Error)
+	// o.spec('.createTable()', ()=>{
+	// 	o(_.base.tables).deepEquals([])
 
-		o(_.base.tables.length).equals(0)
-		o(_.base.tables).deepEquals([])
+	// 	const table = _.base.createTable()
+	// 	o(table.constructor).equals(Table)
+	// 	o(_.base.tables).deepEquals([table])
+	// 	o(table.base).equals(_.base)
+	// })
+	// o('.addTable(@table)', ()=>{
+	// 	o(thrownBy(n=>_.base.addTable('table'))).equals(Error)
 
-		const table = new Table()
-		o(_.base.add(table).constructor).equals(Table)
-		o(_.base.tables).deepEquals([table])
-		o(table.base).equals(_.base)
-	})
-	o('.remove(@table)', ()=>{
-		const tableA = _.base.create()
-		const tableB = _.base.create()
-		o(_.base.tables).deepEquals([tableA, tableB])
-		_.base.remove(tableA)
-		o(_.base.tables).deepEquals([tableB])
-		_.base.remove(tableB)
-		o(_.base.tables).deepEquals([])
+	// 	o(_.base.tables.length).equals(0)
+	// 	o(_.base.tables).deepEquals([])
 
-		const otherBase = new Base()
-		otherBase.add(tableA)
-		o(_.base.tables).deepEquals([])
-		o(otherBase.tables).deepEquals([tableA])
-	})
-	o('@otherbase.add(@table)', ()=>{
-		const otherBase = new Base()
-		const table = new Table()
+	// 	const table = new Table()
+	// 	o(_.base.addTable(table).constructor).equals(Table)
+	// 	o(_.base.tables).deepEquals([table])
+	// 	o(table.base).equals(_.base)
+	// })
+	// o('.removeTable(@table)', ()=>{
+	// 	const tableA = _.base.createTable()
+	// 	const tableB = _.base.createTable()
+	// 	o(_.base.tables).deepEquals([tableA, tableB])
+	// 	_.base.removeTable(tableA)
+	// 	o(_.base.tables).deepEquals([tableB])
+	// 	_.base.removeTable(tableB)
+	// 	o(_.base.tables).deepEquals([])
 
-		_.base.add(table)
-		o(table.base).equals(_.base)
-		otherBase.add(table)
-		o(table.base).equals(otherBase)
-		o(_.base.tables).deepEquals([])
-		o(otherBase.tables).deepEquals([table])
-	})
-	o('JSON.stringify(@base)', ()=>{
-		_.base.create()
-		_.base.create()
+	// 	const otherBase = new Base()
+	// 	otherBase.addTable(tableA)
+	// 	o(_.base.tables).deepEquals([])
+	// 	o(otherBase.tables).deepEquals([tableA])
+	// })
+	// o('@otherbase.addTable(@table)', ()=>{
+	// 	const otherBase = new Base()
+	// 	const table = new Table()
 
-		const json = JSON.parse(JSON.stringify(_.base))
-		o(Object.keys(json)).deepEquals(['tables'])
-		o(json.tables.length).equals(2)
-	})
+	// 	_.base.addTable(table)
+	// 	o(table.base).equals(_.base)
+	// 	otherBase.addTable(table)
+	// 	o(table.base).equals(otherBase)
+	// 	o(_.base.tables).deepEquals([])
+	// 	o(otherBase.tables).deepEquals([table])
+	// })
+	// o('JSON.stringify(@base)', ()=>{
+	// 	_.base.createTable()
+	// 	_.base.createTable()
+
+	// 	const json = JSON.parse(JSON.stringify(_.base))
+	// 	o(Object.keys(json)).deepEquals(['tables'])
+	// 	o(json.tables.length).equals(2)
+	// })
 })

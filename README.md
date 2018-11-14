@@ -21,15 +21,20 @@
 - Should `sheet.getAll()` be an aggregate of `node.children`, or should `node.children` be a filtering of `sheet.getAll()`?
 - - `.getAll()` should probably be an aggregate since there are going to be many instance of `.children`, and if each of those has to filter `.getAll()` it'll probably slow stuff down
 - - Plus that'll prevent situations where there are orphaned nodes: if a node isn't a part o a `.children` somewhere it won't be picked up by `.getAll`, and will be garbage collected
-- Should `.getAll` be its own special class?
+- Should `.getAll` or `.children` be its own special class?
 - - Looks like `deepEquals` won't work with it
 - - Looks like `deepEquals` also won't work if you've added custom properties to an Array with `defineProperty`
 - - If it extends `Array`, array methods are still going to be able to called on it via `Array.prototype.method.call`
+- - Would have to redefine all Array methods
+- - Don't want to confuse people into thinking they can use array methods
 - Should `base.sections` traverse through `.children`, or filter some kind of `.all`?
 - - Traversing through children will probably be faster?
 - - `.all` would just be another array to hide
 - - Traversing requires keeping both `.parent` and `.children` in sync
 - - `.parent` could also just be overwritten with `Object.defineProperty`?
+- `.add()` vs `.addTable()`
+- - `.add` can be reused across classes
+- - `.addTable` reads better
 
 # Todo
 - Views tests
