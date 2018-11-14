@@ -17,7 +17,7 @@ function ChildArray(parent, Class){
 		},
 		create: {
 			value: function(){
-				const child = new this.class(parent)
+				const child = new Class(parent)
 				children.push(child)
 				return child
 			}
@@ -27,14 +27,19 @@ function ChildArray(parent, Class){
 
 function Base(){
 	const instance = this
+	const children = new ChildArray(instance, Table)
 
 	Object.defineProperties(instance, {
 		children: {
-			value: new ChildArray(instance, Table)
+			value: children
 		},
 		tables: {
-			get: ()=>instance.children.get(),
+			get: children.get,
 			enumerable: true
+		},
+
+		createTable: {
+			value: children.create
 		}
 	})
 }

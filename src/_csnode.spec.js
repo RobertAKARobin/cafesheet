@@ -73,14 +73,14 @@ o.spec('@base', ()=>{
 			o(child.parent).equals(_.base)
 		})
 	})
-	// o.spec('.createTable()', ()=>{
-	// 	o(_.base.tables).deepEquals([])
+	o('.createTable()', ()=>{
+		o(_.base.tables).deepEquals([])
 
-	// 	const table = _.base.createTable()
-	// 	o(table.constructor).equals(Table)
-	// 	o(_.base.tables).deepEquals([table])
-	// 	o(table.base).equals(_.base)
-	// })
+		const table = _.base.createTable()
+		o(table.constructor).equals(Table)
+		o(_.base.tables).deepEquals([table])
+		o(table.base).equals(_.base)
+	})
 	// o('.addTable(@table)', ()=>{
 	// 	o(thrownBy(n=>_.base.addTable('table'))).equals(Error)
 
