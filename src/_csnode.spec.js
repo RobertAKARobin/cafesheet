@@ -147,6 +147,17 @@ o.spec('@base', ()=>{
 		o(_.base.tables).deepEquals([table])
 		o(table.base).equals(_.base)
 	})
+	o('@otherbase.addTable(@table)', ()=>{
+		const otherBase = new Base()
+		const table = new Table()
+
+		_.base.addTable(table)
+		o(table.base).equals(_.base)
+		otherBase.addTable(table)
+		o(table.base).equals(otherBase)
+		o(_.base.tables).deepEquals([])
+		o(otherBase.tables).deepEquals([table])
+	})
 	o('.createTable()', ()=>{
 		o(_.base.tables).deepEquals([])
 
@@ -166,17 +177,6 @@ o.spec('@base', ()=>{
 
 		o(_.base.removeTable(tableB)).equals(false)
 	})
-	// o('@otherbase.addTable(@table)', ()=>{
-	// 	const otherBase = new Base()
-	// 	const table = new Table()
-
-	// 	_.base.addTable(table)
-	// 	o(table.base).equals(_.base)
-	// 	otherBase.addTable(table)
-	// 	o(table.base).equals(otherBase)
-	// 	o(_.base.tables).deepEquals([])
-	// 	o(otherBase.tables).deepEquals([table])
-	// })
 	o('JSON.stringify(@base)', ()=>{
 		_.base.createTable()
 		_.base.createTable()
