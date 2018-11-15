@@ -23,6 +23,14 @@ function Table(base){
 					throw new Error(`Cannot move ${instance.constructor.name} to ${targetParent.constructor.name}.`)
 				}
 			}
+		},
+		removeFromParent: {
+			value: function(){
+				if(parentWrapper.parent){
+					parentWrapper.parent.children.remove(instance)
+					parentWrapper.parent = undefined
+				}
+			}
 		}
 	})
 }

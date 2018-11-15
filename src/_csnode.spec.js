@@ -69,7 +69,7 @@ o.spec('@base', ()=>{
 			_.class = _.instance.constructor
 			_.childClass = _.class.child
 		})
-		o('.add()', ()=>{
+		o('.add(@child)', ()=>{
 			o(thrownBy(n=>_.instance.children.add('wrong class'))).equals(Error)
 
 			o(_.instance.children.get().length).equals(0)
@@ -85,11 +85,16 @@ o.spec('@base', ()=>{
 			o(_.instance.children.get()).deepEquals([])
 			o(otherInstance.children.get()).deepEquals([child])
 			o(child.parent).equals(otherInstance)
+		})
+		o('@child.addTo(@parent)', ()=>{
+			const child = new _.childClass()
+			const otherInstance = new _.class()
 
 			child.addTo(_.instance)
-			o(_.instance.children.get()).deepEquals([child])
-			o(otherInstance.children.get()).deepEquals([])
-			o(child.parent).equals(_.instance)
+			child.addTo(otherInstance)
+			o(_.instance.children.get()).deepEquals([])
+			o(otherInstance.children.get()).deepEquals([child])
+			o(child.parent).equals(otherInstance)
 		})
 		o('.get()', ()=>{
 			o(_.instance.children.get()).deepEquals([])
@@ -109,6 +114,15 @@ o.spec('@base', ()=>{
 			o(_.instance.children.get()).deepEquals([])
 
 			o(_.instance.children.remove(childB)).equals(false)
+		})
+		o('@child.removeFromParent()', ()=>{
+			const childA = _.instance.children.create()
+			const childB = _.instance.children.create()
+			o(_.instance.children.get()).deepEquals([childA, childB])
+			childA.removeFromParent()
+			o(_.instance.children.get()).deepEquals([childB])
+			childB.removeFromParent()
+			o(_.instance.children.get()).deepEquals([])
 		})
 	})
 	o('.addTable(@table)', ()=>{
