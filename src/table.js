@@ -1,11 +1,15 @@
 function Table(parent){
 	const instance = this
+	const children = new Cafesheet.childCollection(instance, Section)
 	const pvt = {
 		parent: (parent || undefined)
 	}
 	Object.defineProperties(instance, {
 		base: {
 			get: ()=>pvt.parent
+		},
+		children: {
+			value: children
 		},
 		parent: {
 			get: ()=>pvt.parent

@@ -220,10 +220,15 @@ o.spec('@base', ()=>{
 })
 
 o.spec('@table', ()=>{
-	const _ = {}
-	o.beforeEach(()=>{
-		_.base = new Table()
+	o.spec('.children', ()=>{
+		specParentToChild(Table)
 	})
+	o.spec('.parent', ()=>{
+		specChildToParent(Section)
+	})
+})
+
+o.spec('@section', ()=>{
 	o.spec('.parent', ()=>{
 		specChildToParent(Table)
 	})
