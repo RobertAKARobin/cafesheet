@@ -115,28 +115,28 @@ function specChildren(Class){
 		o.beforeEach(()=>{
 			_.instance = new Class()
 		})
-		o(`.add${Class.child.name.capitalize()}(@${Class.child.name})`, ()=>{
-			o(thrownBy(n=>_.instance[`add${Class.child.name.capitalize()}`](`not a ${Class.child.name}`))).equals(Error)
+		o(`.add${Class.child.name}(@${Class.child.name.toLowerCase()})`, ()=>{
+			o(thrownBy(n=>_.instance[`add${Class.child.name}`](`not a ${Class.child.name}`))).equals(Error)
 
 			o(_.instance[Class.child.name.toLowerCase().toPlural()].length).equals(0)
 			o(_.instance[Class.child.name.toLowerCase().toPlural()]).deepEquals([])
 
 			const child = new Class.child()
-			o(_.instance[`add${Class.child.name.capitalize()}`](child).constructor).equals(Class.child)
+			o(_.instance[`add${Class.child.name}`](child).constructor).equals(Class.child)
 			o(_.instance[Class.child.name.toLowerCase().toPlural()]).deepEquals([child])
 			o(child[Class.name.toLowerCase()]).equals(_.instance)
 		})
-		// o('@otherbase.addTable(@table)', ()=>{
-		// 	const otherBase = new Base()
-		// 	const table = new Table()
+		o(`@other.add${Class.child.name}(@${Class.child.name.toLowerCase()})`, ()=>{
+			const otherInstance = new Class()
+			const child = new Class.child()
 
-		// 	_.base.addTable(table)
-		// 	o(table.base).equals(_.base)
-		// 	otherBase.addTable(table)
-		// 	o(table.base).equals(otherBase)
-		// 	o(_.base.tables).deepEquals([])
-		// 	o(otherBase.tables).deepEquals([table])
-		// })
+			_.instance[`add${Class.child.name}`](child)
+			o(child[Class.name.toLowerCase()]).equals(_.instance)
+			otherInstance[`add${Class.child.name}`](child)
+			o(child[Class.name.toLowerCase()]).equals(otherInstance)
+			o(_.instance[Class.child.name.toLowerCase().toPlural()]).deepEquals([])
+			o(otherInstance[Class.child.name.toLowerCase().toPlural()]).deepEquals([child])
+		})
 		// o('.createTable()', ()=>{
 		// 	o(_.base.tables).deepEquals([])
 
