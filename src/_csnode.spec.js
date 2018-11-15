@@ -145,17 +145,17 @@ function specChildren(Class){
 			o(_.instance[Class.child.name.toLowerCase().toPlural()]).deepEquals([child])
 			o(child[Class.name.toLowerCase()]).equals(_.instance)
 		})
-		// o('.removeTable(@table)', ()=>{
-		// 	const tableA = _.base.createTable()
-		// 	const tableB = _.base.createTable()
-		// 	o(_.base.tables).deepEquals([tableA, tableB])
-		// 	_.base.removeTable(tableA)
-		// 	o(_.base.tables).deepEquals([tableB])
-		// 	_.base.removeTable(tableB)
-		// 	o(_.base.tables).deepEquals([])
+		o(`.remove${Class.child.name}(@${Class.child.name.toLowerCase()})`, ()=>{
+			const childA = _.instance[`create${Class.child.name}`]()
+			const childB = _.instance[`create${Class.child.name}`]()
+			o(_.instance[Class.child.name.toLowerCase().toPlural()]).deepEquals([childA, childB])
+			_.instance[`remove${Class.child.name}`](childA)
+			o(_.instance[Class.child.name.toLowerCase().toPlural()]).deepEquals([childB])
+			_.instance[`remove${Class.child.name}`](childB)
+			o(_.instance[Class.child.name.toLowerCase().toPlural()]).deepEquals([])
 
-		// 	o(_.base.removeTable(tableB)).equals(false)
-		// })
+			o(_.instance[`remove${Class.child.name}`](childB)).equals(false)
+		})
 		// o('JSON.stringify(@base)', ()=>{
 		// 	_.base.createTable()
 		// 	_.base.createTable()
