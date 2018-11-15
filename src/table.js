@@ -1,38 +1,21 @@
-function Table(base){
+function Table(parent){
 	const instance = this
-	let parent = (base || undefined)
+	const pvt = {
+		parent: (parent || undefined)
+	}
 	Object.defineProperties(instance, {
 		base: {
-			get: ()=>parent
+			get: ()=>pvt.parent
 		},
 		parent: {
-			get: ()=>parent
+			get: ()=>pvt.parent
 		},
 
 		addTo: {
-			value: function(targetParent){
-				if(targetParent instanceof instance.constructor.parent){
-					if(parent != targetParent){
-						if(parent){
-							parent.children.remove(instance)
-						}
-						parent = targetParent
-						targetParent.children.add(instance)
-					}
-				}else{
-					throw new Error(`Cannot move ${instance.constructor.name} to ${targetParent.constructor.name}.`)
-				}
-			}
+			value: Cafesheet.instanceMethods.addToParent(instance, pvt)
 		},
 		removeFromParent: {
-			value: function(){
-				if(parent){
-					parent.children.remove(instance)
-					parent = undefined
-				}else{
-					return false
-				}
-			}
+			value: Cafesheet.instanceMethods.removeFromParent(instance, pvt)
 		}
 	})
 }

@@ -80,3 +80,33 @@ function ChildCollection(parent, Class){
 		}
 	})
 }
+
+const Cafesheet = {
+	instanceMethods: {
+		addToParent: function(instance, pvt){
+			return function(targetParent){
+				if(targetParent instanceof instance.constructor.parent){
+					if(pvt.parent != targetParent){
+						if(pvt.parent){
+							pvt.parent.children.remove(instance)
+						}
+						pvt.parent = targetParent
+						targetParent.children.add(instance)
+					}
+				}else{
+					throw new Error(`Cannot move ${instance.constructor.name} to ${targetParent.constructor.name}.`)
+				}
+			}
+		},
+		removeFromParent: function(instance, pvt){
+			return function(){
+				if(pvt.parent){
+					pvt.parent.children.remove(instance)
+					pvt.parent = undefined
+				}else{
+					return false
+				}
+			}
+		}
+	}
+}
