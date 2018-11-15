@@ -65,11 +65,12 @@ function specParentToChild(Class){
 		_.instance = new _.class()
 		_.childClass = _.class.child
 	})
-	o('.add(@child)', ()=>{
-		o(thrownBy(n=>_.instance.children.add('wrong class'))).equals(Error)
-
+	o('new', ()=>{
 		o(_.instance.children.get().length).equals(0)
 		o(_.instance.children.get()).deepEquals([])
+	})
+	o('.add(@child)', ()=>{
+		o(thrownBy(n=>_.instance.children.add('wrong class'))).equals(Error)
 
 		const child = new _.childClass()
 		o(_.instance.children.add(child).constructor).equals(_.childClass)
@@ -167,9 +168,6 @@ o.spec('@base', ()=>{
 	o.spec('.children', ()=>{
 		specParentToChild(Base)
 	})
-	o.spec('@child.parent', ()=>{
-		specChildToParent(Table)
-	})
 	o('.addTable(@table)', ()=>{
 		o(thrownBy(n=>_.base.addTable('not a table'))).equals(Error)
 
@@ -218,5 +216,15 @@ o.spec('@base', ()=>{
 		const json = JSON.parse(JSON.stringify(_.base))
 		o(Object.keys(json)).deepEquals(['tables'])
 		o(json.tables.length).equals(2)
+	})
+})
+
+o.spec('@table', ()=>{
+	const _ = {}
+	o.beforeEach(()=>{
+		_.base = new Table()
+	})
+	o.spec('.parent', ()=>{
+		specChildToParent(Table)
 	})
 })
