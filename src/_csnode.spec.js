@@ -79,8 +79,19 @@ o.spec('@base', ()=>{
 			o(_.instance.children.add(child).constructor).equals(_.childClass)
 			o(_.instance.children.get()).deepEquals([child])
 			o(child.parent).equals(_.instance)
+
+			const otherInstance = new _.class()
+			otherInstance.children.add(child)
+			o(_.instance.children.get()).deepEquals([])
+			o(otherInstance.children.get()).deepEquals([child])
+			o(child.parent).equals(otherInstance)
+
+			child.addTo(_.instance)
+			o(_.instance.children.get()).deepEquals([child])
+			o(otherInstance.children.get()).deepEquals([])
+			o(child.parent).equals(_.instance)
 		})
-		o('.get(@child)', ()=>{
+		o('.get()', ()=>{
 			o(_.instance.children.get()).deepEquals([])
 	
 			const child = _.instance.children.create()

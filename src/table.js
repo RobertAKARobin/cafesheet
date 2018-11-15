@@ -1,6 +1,6 @@
 function Table(base){
 	const instance = this
-	const parentWrapper = {parent: (base || {})}
+	const parentWrapper = {parent: (base || undefined)}
 	Object.defineProperties(instance, {
 		base: {
 			get: ()=>instance.parent
@@ -10,11 +10,17 @@ function Table(base){
 		},
 
 		addTo: {
-			value: function(parent){
-				if(parent instanceof instance.constructor.parent){
-					parentWrapper.parent = parent
+			value: function(targetParent){
+				if(targetParent instanceof instance.constructor.parent){
+					if(parentWrapper.parent != targetParent){
+						if(parentWrapper.parent){
+							parentWrapper.parent.children.remove(instance)
+						}
+						parentWrapper.parent = targetParent
+						targetParent.children.add(instance)
+					}
 				}else{
-					throw new Error(`Cannot move ${instance.constructor.name} to ${parent.constructor.name}.`)
+					throw new Error(`Cannot move ${instance.constructor.name} to ${targetParent.constructor.name}.`)
 				}
 			}
 		}

@@ -13,9 +13,11 @@ function ChildArray(parent, Class){
 		add: {
 			value: function(child){
 				if(child instanceof Class){
-					children.push(child)
-					child.addTo(parent)
-					return child
+					if(!children.includes(child)){
+						children.push(child)
+						child.addTo(parent)
+						return child
+					}
 				}else{
 					throw new Error(`Cannot add ${child.constructor.name} to ${Class.name}.`)
 				}

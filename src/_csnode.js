@@ -32,53 +32,5 @@ Object.defineProperties(String.prototype, {
 })
 
 const Cafesheet = {
-	classTypes: [Base, Table, Section, Row, Cell],
-	instanceMethods: {
-		addTo: function(instanceParentWrapper){
-			return function(parent){
-				const instance = this
-				if(parent instanceof instance.constructor.parent){
-					const instanceHasParent = (instance.parent && instance.parent == parent)
-					const parentHasInstance = (parent.children.includes(instance))
-					if(instanceHasParent && parentHasInstance){
-						return false
-					}else{
-						if(!instanceHasParent){
-							instanceParentWrapper.parent = parent
-						}
-						if(!parentHasInstance){
-							parent.add(instance)
-						}
-						return instance
-					}
-				}else{
-					throw new Error(`Cannot move ${instance.constructor.name} to ${parent.constructor.name}.`)
-				}
-			}
-		},
-		remove: function(instanceChildren){
-			return function(child){
-				const instance = this
-				const instanceHasChild = (instance.children.includes(child))
-				if(instanceHasChild){
-					instanceChildren.remove(child)
-					child.removeFromParent()
-				}else{
-					return false
-				}
-			}
-		},
-		removeFromParent: function(parentWrapper){
-			return function(){
-				const instance = this
-				const currentParent = instance.parent
-				if(currentParent){
-					parentWrapper.parent = undefined
-					currentParent.remove(instance)
-				}else{
-					return false
-				}
-			}
-		}
-	}
+	classTypes: [Base, Table, Section, Row, Cell]
 }
