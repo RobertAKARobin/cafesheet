@@ -137,14 +137,14 @@ function specChildren(Class){
 			o(_.instance[Class.child.name.toLowerCase().toPlural()]).deepEquals([])
 			o(otherInstance[Class.child.name.toLowerCase().toPlural()]).deepEquals([child])
 		})
-		// o('.createTable()', ()=>{
-		// 	o(_.base.tables).deepEquals([])
+		o(`.create${Class.child.name}()`, ()=>{
+			o(_.instance[Class.child.name.toLowerCase().toPlural()]).deepEquals([])
 
-		// 	const table = _.base.createTable()
-		// 	o(table.constructor).equals(Table)
-		// 	o(_.base.tables).deepEquals([table])
-		// 	o(table.base).equals(_.base)
-		// })
+			const child = _.instance[`create${Class.child.name}`]()
+			o(child.constructor).equals(Class.child)
+			o(_.instance[Class.child.name.toLowerCase().toPlural()]).deepEquals([child])
+			o(child[Class.name.toLowerCase()]).equals(_.instance)
+		})
 		// o('.removeTable(@table)', ()=>{
 		// 	const tableA = _.base.createTable()
 		// 	const tableB = _.base.createTable()
