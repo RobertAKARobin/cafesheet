@@ -1,6 +1,6 @@
 function Base(){
 	const instance = this
-	const children = new ChildCollection(instance, Table)
+	const children = new Cafesheet.childCollection(instance, Table)
 
 	Object.defineProperties(instance, {
 		children: {
