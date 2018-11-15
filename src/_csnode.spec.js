@@ -107,10 +107,16 @@ o.spec('@base', ()=>{
 		o('.remove(@child)', ()=>{
 			const childA = _.instance.children.create()
 			const childB = _.instance.children.create()
+			o(childA.parent).equals(_.instance)
+			o(childB.parent).equals(_.instance)
 			o(_.instance.children.get()).deepEquals([childA, childB])
+
 			_.base.children.remove(childA)
+			o(childA.parent).equals(undefined)
 			o(_.instance.children.get()).deepEquals([childB])
+
 			_.base.children.remove(childB)
+			o(childB.parent).equals(undefined)
 			o(_.instance.children.get()).deepEquals([])
 
 			o(_.instance.children.remove(childB)).equals(false)
@@ -118,11 +124,16 @@ o.spec('@base', ()=>{
 		o('@child.removeFromParent()', ()=>{
 			const childA = _.instance.children.create()
 			const childB = _.instance.children.create()
-			o(_.instance.children.get()).deepEquals([childA, childB])
+
 			childA.removeFromParent()
+			o(childA.parent).equals(undefined)
 			o(_.instance.children.get()).deepEquals([childB])
+
 			childB.removeFromParent()
+			o(childB.parent).equals(undefined)
 			o(_.instance.children.get()).deepEquals([])
+
+			o(childA.removeFromParent()).equals(false)
 		})
 	})
 	o('.addTable(@table)', ()=>{

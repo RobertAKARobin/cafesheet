@@ -39,6 +39,7 @@ function ChildArray(parent, Class){
 			value: function(child){
 				if(children.includes(child)){
 					children.remove(child)
+					child.removeFromParent()
 				}else{
 					return false
 				}

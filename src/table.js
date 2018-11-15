@@ -29,6 +29,8 @@ function Table(base){
 				if(parentWrapper.parent){
 					parentWrapper.parent.children.remove(instance)
 					parentWrapper.parent = undefined
+				}else{
+					return false
 				}
 			}
 		}
