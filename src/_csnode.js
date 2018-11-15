@@ -32,8 +32,9 @@ Object.defineProperties(String.prototype, {
 })
 
 const Cafesheet = {
-	childCollection: function ChildCollection(parent, Class){
+	childCollection: function ChildCollection(parent){
 		const instance = this
+		const Class = parent.constructor.child
 		const children = []
 
 		Object.defineProperties(instance, {

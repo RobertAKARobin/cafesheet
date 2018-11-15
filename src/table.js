@@ -1,6 +1,6 @@
 function Table(parent){
 	const instance = this
-	const children = new Cafesheet.childCollection(instance, Section)
+	const children = new Cafesheet.childCollection(instance)
 	const pvt = {
 		parent: (parent || undefined)
 	}
