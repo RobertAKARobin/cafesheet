@@ -5,9 +5,6 @@ function Row(parent){
 		parent: (parent || undefined)
 	}
 	Object.defineProperties(instance, {
-		section: {
-			get: ()=>pvt.parent
-		},
 		children: {
 			value: children
 		},
@@ -20,6 +17,10 @@ function Row(parent){
 		},
 		removeFromParent: {
 			value: Cafesheet.instanceMethods.removeFromParent(instance, pvt)
+		},
+
+		section: {
+			get: ()=>pvt.parent
 		}
 	})
 }

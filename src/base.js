@@ -6,6 +6,7 @@ function Base(){
 		children: {
 			value: children
 		},
+
 		tables: {
 			get: children.get,
 			enumerable: true
