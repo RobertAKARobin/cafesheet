@@ -31,6 +31,52 @@ Object.defineProperties(String.prototype, {
 	}
 })
 
-const Cafesheet = {
-	classTypes: [Base, Table, Section, Row, Cell]
+function ChildCollection(parent, Class){
+	const instance = this
+	const children = []
+
+	Object.defineProperties(instance, {
+		class: {
+			value: Class
+		},
+		parent: {
+			value: parent
+		},
+
+		add: {
+			value: function(child){
+				if(child instanceof Class){
+					if(!children.includes(child)){
+						children.push(child)
+						child.addTo(parent)
+						return child
+					}
+				}else{
+					throw new Error(`Cannot add ${child.constructor.name} to ${Class.name}.`)
+				}
+			}
+		},
+		get: {
+			value: function(){
+				return Array.from(children)
+			}
+		},
+		create: {
+			value: function(){
+				const child = new Class(parent)
+				children.push(child)
+				return child
+			}
+		},
+		remove: {
+			value: function(child){
+				if(children.includes(child)){
+					children.remove(child)
+					child.removeFromParent()
+				}else{
+					return false
+				}
+			}
+		}
+	})
 }
