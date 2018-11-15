@@ -156,14 +156,14 @@ function specChildren(Class){
 
 			o(_.instance[`remove${Class.child.name}`](childB)).equals(false)
 		})
-		// o('JSON.stringify(@base)', ()=>{
-		// 	_.base.createTable()
-		// 	_.base.createTable()
+		o(`JSON.stringify(@${Class.name.toLowerCase()})`, ()=>{
+			_.instance[`create${Class.child.name}`]()
+			_.instance[`create${Class.child.name}`]()
 
-		// 	const json = JSON.parse(JSON.stringify(_.base))
-		// 	o(Object.keys(json)).deepEquals(['tables'])
-		// 	o(json.tables.length).equals(2)
-		// })
+			const json = JSON.parse(JSON.stringify(_.instance))
+			o(Object.keys(json)).deepEquals([Class.child.name.toLowerCase().toPlural()])
+			o(json[Class.child.name.toLowerCase().toPlural()].length).equals(2)
+		})
 	})
 }
 
