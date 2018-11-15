@@ -21,6 +21,20 @@ function Table(parent){
 
 		base: {
 			get: ()=>pvt.parent
+		},
+		sections: {
+			get: children.get,
+			enumerable: true
+		},
+
+		addSection: {
+			value: children.add
+		},
+		createSection: {
+			value: children.create
+		},
+		removeSection: {
+			value: children.remove
 		}
 	})
 }

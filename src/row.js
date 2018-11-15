@@ -21,6 +21,20 @@ function Row(parent){
 
 		section: {
 			get: ()=>pvt.parent
+		},
+		cells: {
+			get: children.get,
+			enumerable: true
+		},
+
+		addCell: {
+			value: children.add
+		},
+		createCell: {
+			value: children.create
+		},
+		removeCell: {
+			value: children.remove
 		}
 	})
 }

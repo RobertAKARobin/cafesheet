@@ -28,6 +28,11 @@ Object.defineProperties(String.prototype, {
 		value: function(){
 			return `${this}s`
 		}
+	},
+	capitalize: {
+		value: function(){
+			return `${this.substring(0,1).toUpperCase()}${this.substring(1)}`
+		}
 	}
 })
 
