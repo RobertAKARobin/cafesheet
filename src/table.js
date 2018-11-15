@@ -1,22 +1,22 @@
 function Table(base){
 	const instance = this
-	const parentWrapper = {parent: (base || undefined)}
+	let parent = (base || undefined)
 	Object.defineProperties(instance, {
 		base: {
-			get: ()=>instance.parent
+			get: ()=>parent
 		},
 		parent: {
-			get: ()=>parentWrapper.parent
+			get: ()=>parent
 		},
 
 		addTo: {
 			value: function(targetParent){
 				if(targetParent instanceof instance.constructor.parent){
-					if(parentWrapper.parent != targetParent){
-						if(parentWrapper.parent){
-							parentWrapper.parent.children.remove(instance)
+					if(parent != targetParent){
+						if(parent){
+							parent.children.remove(instance)
 						}
-						parentWrapper.parent = targetParent
+						parent = targetParent
 						targetParent.children.add(instance)
 					}
 				}else{
@@ -26,9 +26,9 @@ function Table(base){
 		},
 		removeFromParent: {
 			value: function(){
-				if(parentWrapper.parent){
-					parentWrapper.parent.children.remove(instance)
-					parentWrapper.parent = undefined
+				if(parent){
+					parent.children.remove(instance)
+					parent = undefined
 				}else{
 					return false
 				}
