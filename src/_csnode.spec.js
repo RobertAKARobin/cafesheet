@@ -109,56 +109,9 @@ function specChildren(Class){
 	
 			o(_.instance.children.remove(childB)).equals(false)
 		})
-	})
-	o.spec('instance', ()=>{
-		const _ = {}
-		o.beforeEach(()=>{
-			_.instance = new Class()
-		})
-		o(`.add${Class.child.name}(@${Class.child.name.toLowerCase()})`, ()=>{
-			o(thrownBy(n=>_.instance[`add${Class.child.name}`](`not a ${Class.child.name}`))).equals(Error)
-
-			o(_.instance[Class.child.name.toLowerCase().toPlural()].length).equals(0)
-			o(_.instance[Class.child.name.toLowerCase().toPlural()]).deepEquals([])
-
-			const child = new Class.child()
-			o(_.instance[`add${Class.child.name}`](child).constructor).equals(Class.child)
-			o(_.instance[Class.child.name.toLowerCase().toPlural()]).deepEquals([child])
-			o(child[Class.name.toLowerCase()]).equals(_.instance)
-		})
-		o(`@other.add${Class.child.name}(@${Class.child.name.toLowerCase()})`, ()=>{
-			const otherInstance = new Class()
-			const child = new Class.child()
-
-			_.instance[`add${Class.child.name}`](child)
-			o(child[Class.name.toLowerCase()]).equals(_.instance)
-			otherInstance[`add${Class.child.name}`](child)
-			o(child[Class.name.toLowerCase()]).equals(otherInstance)
-			o(_.instance[Class.child.name.toLowerCase().toPlural()]).deepEquals([])
-			o(otherInstance[Class.child.name.toLowerCase().toPlural()]).deepEquals([child])
-		})
-		o(`.create${Class.child.name}()`, ()=>{
-			o(_.instance[Class.child.name.toLowerCase().toPlural()]).deepEquals([])
-
-			const child = _.instance[`create${Class.child.name}`]()
-			o(child.constructor).equals(Class.child)
-			o(_.instance[Class.child.name.toLowerCase().toPlural()]).deepEquals([child])
-			o(child[Class.name.toLowerCase()]).equals(_.instance)
-		})
-		o(`.remove${Class.child.name}(@${Class.child.name.toLowerCase()})`, ()=>{
-			const childA = _.instance[`create${Class.child.name}`]()
-			const childB = _.instance[`create${Class.child.name}`]()
-			o(_.instance[Class.child.name.toLowerCase().toPlural()]).deepEquals([childA, childB])
-			_.instance[`remove${Class.child.name}`](childA)
-			o(_.instance[Class.child.name.toLowerCase().toPlural()]).deepEquals([childB])
-			_.instance[`remove${Class.child.name}`](childB)
-			o(_.instance[Class.child.name.toLowerCase().toPlural()]).deepEquals([])
-
-			o(_.instance[`remove${Class.child.name}`](childB)).equals(false)
-		})
 		o(`JSON.stringify(@${Class.name.toLowerCase()})`, ()=>{
-			_.instance[`create${Class.child.name}`]()
-			_.instance[`create${Class.child.name}`]()
+			_.instance.children.create()
+			_.instance.children.create()
 
 			const json = JSON.parse(JSON.stringify(_.instance))
 			o(Object.keys(json)).deepEquals([Class.child.name.toLowerCase().toPlural()])
