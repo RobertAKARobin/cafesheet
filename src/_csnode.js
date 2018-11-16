@@ -69,8 +69,8 @@ const Cafesheet = {
 				}
 			},
 			create: {
-				value: function(){
-					const child = new Class(parent)
+				value: function(input){
+					const child = new Class(parent, input)
 					children.push(child)
 					return child
 				}

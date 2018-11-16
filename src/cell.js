@@ -1,8 +1,9 @@
-function Cell(parent){
+function Cell(parent = undefined, input = {}){
 	const instance = this
 	const pvt = {
-		parent: (parent || undefined)
+		parent
 	}
+	
 	Object.defineProperties(instance, {
 		parent: {
 			get: ()=>pvt.parent
@@ -19,6 +20,10 @@ function Cell(parent){
 			get: ()=>pvt.parent
 		}
 	})
+
+	if(input.datum){
+		instance.datum = input.datum
+	}
 }
 Object.defineProperties(Cell, {
 	ancestors: {

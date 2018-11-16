@@ -1,8 +1,8 @@
-function Section(parent){
+function Section(parent = undefined, input = {}){
 	const instance = this
 	const children = new Cafesheet.childCollection(instance)
 	const pvt = {
-		parent: (parent || undefined)
+		parent
 	}
 	Object.defineProperties(instance, {
 		children: {
@@ -37,6 +37,10 @@ function Section(parent){
 			value: children.remove
 		}
 	})
+
+	if(input.rows){
+		input.rows.forEach(instance.createRow)
+	}
 }
 Object.defineProperties(Section, {
 	ancestors: {

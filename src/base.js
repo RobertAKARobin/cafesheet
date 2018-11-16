@@ -1,4 +1,4 @@
-function Base(){
+function Base(input = {}){
 	const instance = this
 	const children = new Cafesheet.childCollection(instance)
 
@@ -22,6 +22,10 @@ function Base(){
 			value: children.remove
 		}
 	})
+
+	if(input.tables){
+		input.tables.forEach(instance.createTable)
+	}
 }
 Object.defineProperties(Base, {
 	child: {
