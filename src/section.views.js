@@ -18,7 +18,7 @@ Section.prototype.view = function(){
 		// 		return column.view()
 		// 	})
 		// ]),
-		section.getRows().map((row)=>{
+		section.rows.map(row=>{
 			return row.view()
 		})
 	])

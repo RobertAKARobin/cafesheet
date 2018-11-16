@@ -1,6 +1,6 @@
 Table.prototype.view = function(){
 	const table = this
-	return m('table', table.getSections().map((section)=>{
+	return m('table', table.sections.map(section=>{
 		return section.view()
 	}))
 }

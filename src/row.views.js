@@ -13,7 +13,7 @@ Row.prototype.view = function(){
 		// 		}
 		// 	}, '+')
 		// ]),
-		row.getCells().map((cell)=>{
+		row.cells.map(cell=>{
 			return cell.view()
 		})
 	])

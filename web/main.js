@@ -1,4 +1,5 @@
 window.addEventListener('DOMContentLoaded', ()=>{
-	let sheet = new Sheet()
-	m.mount(document.getElementById('app-output'), sheet)
+	const base = new Base()
+	base.createTable()
+	m.mount(document.getElementById('app-output'), base)
 })

@@ -1,6 +1,6 @@
-Sheet.prototype.view = function(){
-	const sheet = this
-	return sheet.getTables().map((table)=>{
+Base.prototype.view = function(){
+	const base = this
+	return base.tables.map(table=>{
 		return table.view()
 	})
 }
