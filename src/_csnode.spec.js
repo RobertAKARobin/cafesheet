@@ -148,7 +148,7 @@ function specParent(Class){
 			o(otherParent.children.get()).deepEquals([_.instance])
 			o(_.instance.parent).equals(otherParent)
 		})
-		o('.removeFromParent()', ()=>{
+		o('.remove()', ()=>{
 			const parent = new _.parentClass()
 
 			_.instance.addTo(parent)
@@ -157,17 +157,17 @@ function specParent(Class){
 			o(_.instance.parent).equals(parent)
 			o(otherInstance.parent).equals(parent)
 
-			_.instance.removeFromParent()
+			_.instance.remove()
 			o(parent.children.get()).deepEquals([otherInstance])
 			o(_.instance.parent).equals(undefined)
 			o(otherInstance.parent).equals(parent)
 
-			otherInstance.removeFromParent()
+			otherInstance.remove()
 			o(parent.children.get()).deepEquals([])
 			o(_.instance.parent).equals(undefined)
 			o(otherInstance.parent).equals(undefined)
 
-			o(_.instance.removeFromParent()).equals(false)
+			o(_.instance.remove()).equals(false)
 		})
 	})
 }

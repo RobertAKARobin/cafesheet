@@ -15,7 +15,7 @@ function Table(parent = undefined, input = {}){
 		addTo: {
 			value: Cafesheet.instanceMethods.addToParent(instance, pvt)
 		},
-		removeFromParent: {
+		remove: {
 			value: Cafesheet.instanceMethods.removeFromParent(instance, pvt)
 		},
 

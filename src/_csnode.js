@@ -79,7 +79,7 @@ const Cafesheet = {
 				value: function(child){
 					if(children.includes(child)){
 						children.remove(child)
-						child.removeFromParent()
+						child.remove()
 					}else{
 						return false
 					}
