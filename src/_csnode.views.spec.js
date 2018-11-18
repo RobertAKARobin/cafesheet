@@ -4,18 +4,9 @@ o.spec('Cafesheet in browser', ()=>{
 
 	o.beforeEach(()=>{
 		Data.tables = CSData.tables
-		Data.sections = Data.tables.reduce((aggregate, table)=>{
-			aggregate = aggregate.concat(table.sections)
-			return aggregate
-		}, [])
-		Data.rows = Data.sections.reduce((aggregate, section)=>{
-			aggregate = aggregate.concat(section.rows)
-			return aggregate
-		}, [])
-		Data.cells = Data.rows.reduce((aggregate, row)=>{
-			aggregate = aggregate.concat(row.cells)
-			return aggregate
-		}, [])
+		Data.sections = Data.tables.map(t=>t.sections).flat()
+		Data.rows = Data.sections.map(s=>s.rows).flat()
+		Data.cells = Data.rows.map(r=>r.cells).flat()
 
 		DOM.base = new Base(CSData)
 		DOM.output = document.getElementById('app-output')

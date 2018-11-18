@@ -1,4 +1,16 @@
 Object.defineProperties(Array.prototype, {
+	flat: {
+		value: function(){
+			return this.reduce((aggregate, item)=>{
+				if(item instanceof Array){
+					aggregate = aggregate.concat(item)
+				}else{
+					aggregate.push(item)
+				}
+				return aggregate
+			}, [])
+		}
+	},
 	remove: {
 		value: function(item){
 			this.splice(this.indexOf(item), 1)

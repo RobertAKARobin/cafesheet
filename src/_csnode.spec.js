@@ -1,6 +1,10 @@
 o.spec('Array', ()=>{
 	'use strict'
 
+	o('#flat', ()=>{
+		const a = [['a', 'b'], 'c', ['d', 'e'], 'f']
+		o(a.flat()).deepEquals(['a', 'b', 'c', 'd', 'e', 'f'])
+	})
 	o(`#sortOn`, ()=>{
 		const a = [{v: 'f'}, {v: 'c'}, {v: 'a'}, {v: '3'}, {v: 2}]
 		o(a.sortOn(i=>i.v).map(i=>i.v)).deepEquals([2,'3','a','c','f'])
