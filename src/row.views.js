@@ -7,14 +7,12 @@ Row.prototype.view = function(){
 					row.remove()
 				}
 			}),
-			m('button', {
+			m('button[action=create]', {
 				onclick: ()=>{
-					row.parent.children.create()
+					row.siblings.create()
 				}
 			}, '+')
 		]),
-		row.cells.map(cell=>{
-			return cell.view()
-		})
+		row.cells.map(cell => m(cell))
 	])
 }

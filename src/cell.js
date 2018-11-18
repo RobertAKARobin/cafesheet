@@ -8,6 +8,9 @@ function Cell(parent = undefined, input = {}){
 		parent: {
 			get: ()=>pvt.parent
 		},
+		siblings: {
+			get: ()=>pvt.parent.children
+		},
 
 		addTo: {
 			value: Cafesheet.instanceMethods.addToParent(instance, pvt)
