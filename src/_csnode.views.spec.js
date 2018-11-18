@@ -1,13 +1,6 @@
 o.spec('Cafesheet in browser', ()=>{
-	let DOM = {},
-		Data = {},
-		mapping = [
-			['tables', 'table'],
-			['sections', 'tbody'],
-			['rows', 'tr'],
-			['cells', 'td'],
-			['data', 'td textarea']
-		]
+	const DOM = {},
+		Data = {}
 
 	o.beforeEach(()=>{
 		Data.tables = CSData.tables
@@ -24,14 +17,18 @@ o.spec('Cafesheet in browser', ()=>{
 			return aggregate
 		}, [])
 
-		DOM.sheet = new Sheet(CSData)
+		DOM.base = new Base(CSData)
 		DOM.output = document.getElementById('app-output')
-		m.mount(DOM.output, DOM.sheet)
+		m.mount(DOM.output, DOM.base)
 
-		mapping.forEach((map)=>{
-			let keyName = map[0],
-				elementName = map[1]
-			DOM[keyName] = Array.from(document.querySelectorAll(elementName))
+		;[
+			['tables', 'table'],
+			['sections', 'tbody'],
+			['rows', 'tr'],
+			['cells', 'td'],
+			['data', 'td textarea']
+		].forEach(map=>{
+			DOM[map[0]] = Array.from(document.querySelectorAll(map[1]))
 		})
 	})
 	o.spec('on load', ()=>{
