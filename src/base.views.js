@@ -1,4 +1,4 @@
 Base.prototype.view = function(){
 	const base = this
-	return base.tables.map(table => m(table))
+	return m('div.base', base.tables.map(table => m(table)))
 }
