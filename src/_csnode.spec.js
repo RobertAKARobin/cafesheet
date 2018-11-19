@@ -173,6 +173,16 @@ function specParent(Class){
 
 			o(_.instance.remove()).equals(false)
 		})
+		o('.siblings', ()=>{
+			o(_.instance.siblings).equals(false)
+			
+			const parent = new _.parentClass()
+			_.instance.addTo(parent)
+			o(_.instance.siblings.get()).deepEquals([_.instance])
+			
+			const sibling = _.instance.parent.children.create()
+			o(_.instance.siblings.get()).deepEquals([_.instance, sibling])
+		})
 	})
 }
 

@@ -12,7 +12,7 @@ function Table(parent = undefined, input = {}){
 			get: ()=>pvt.parent
 		},
 		siblings: {
-			get: ()=>pvt.parent.children
+			get: Cafesheet.instanceMethods.siblings
 		},
 
 		addTo: {

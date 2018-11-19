@@ -124,6 +124,14 @@ const Cafesheet = {
 					return false
 				}
 			}
+		},
+		siblings: function(){
+			const instance = this
+			if(instance.parent){
+				return instance.parent.children
+			}else{
+				return false
+			}
 		}
 	}
 }
