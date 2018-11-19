@@ -41,4 +41,17 @@ o.spec('Cafesheet in browser', ()=>{
 			o(DOM.data.map(d=>d.value)).deepEquals(Data.cells.map(c=>c.datum))
 		})
 	})
+	o('row.siblings.create()', (done)=>{
+		o(DOM.rows.length).equals(Data.rows.length)
+		DOM.rows[0].querySelector('button[action=create').click()
+
+		wait(()=>o(DOM.rows.length).equals(Data.rows.length), done)
+	})
 })
+
+function wait(callback, done){
+	setTimeout(()=>{
+		callback()
+		done()
+	}, 10)
+}
