@@ -1,3 +1,7 @@
+function frame(){
+	return new Promise (requestAnimationFrame)
+}
+
 o.spec('Cafesheet in browser', ()=>{
 	const DOM = {},
 		Data = {}
@@ -19,39 +23,34 @@ o.spec('Cafesheet in browser', ()=>{
 			['data', 'td textarea']
 		]
 		componentToElementMapping.forEach(map=>{
-			DOM[map[0]] = Array.from(document.querySelectorAll(map[1]))
+			DOM[map[0]] = function(){
+				return Array.from(document.querySelectorAll(map[1]))
+			}
 		})
 	})
 	o.spec('on load', ()=>{
 		o('tables', ()=>{
-			o(DOM.bases[0].children[0].tagName.toLowerCase()).equals('table')
-			o(DOM.tables.length).equals(Data.tables.length)
+			o(DOM.bases()[0].children[0].tagName.toLowerCase()).equals('table')
+			o(DOM.tables().length).equals(Data.tables.length)
 		})
 		o('sections', ()=>{
-			o(DOM.sections.length).equals(Data.sections.length)
+			o(DOM.sections().length).equals(Data.sections.length)
 		})
 		o('rows', ()=>{
-			o(DOM.rows.length).equals(Data.rows.length)
+			o(DOM.rows().length).equals(Data.rows.length)
 		})
 		o('cells', ()=>{
-			o(DOM.cells.length).equals(Data.cells.length)
+			o(DOM.cells().length).equals(Data.cells.length)
 		})
 		o('celldata', ()=>{
-			o(DOM.data.length).equals(Data.cells.length)
-			o(DOM.data.map(d=>d.value)).deepEquals(Data.cells.map(c=>c.datum))
+			o(DOM.data().length).equals(Data.cells.length)
+			o(DOM.data().map(d=>d.value)).deepEquals(Data.cells.map(c=>c.datum))
 		})
 	})
-	o('row.siblings.create()', (done)=>{
-		o(DOM.rows.length).equals(Data.rows.length)
-		DOM.rows[0].querySelector('button[action=create').click()
-
-		wait(()=>o(DOM.rows.length).equals(Data.rows.length), done)
+	o('row.siblings.create()', async ()=>{
+		o(DOM.rows().length).equals(Data.rows.length)
+		DOM.rows()[0].querySelector('button[action=create]').click()
+		await frame()
+		o(DOM.rows().length).equals(Data.rows.length + 1)
 	})
 })
-
-function wait(callback, done){
-	setTimeout(()=>{
-		callback()
-		done()
-	}, 10)
-}
