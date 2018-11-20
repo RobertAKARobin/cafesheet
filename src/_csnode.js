@@ -77,16 +77,11 @@ const Cafesheet = {
 						if(!children.includes(child)){
 							children.push(child)
 							child.addTo(parent)
-							return child
 						}
+						return child
 					}else{
 						throw new Error(`Cannot add ${child.constructor.name} to ${Class.name}.`)
 					}
-				}
-			},
-			get: {
-				value: function(){
-					return Array.from(children)
 				}
 			},
 			create: {
@@ -94,6 +89,21 @@ const Cafesheet = {
 					const child = new Class(parent, input)
 					children.push(child)
 					return child
+				}
+			},
+			get: {
+				value: function(){
+					return Array.from(children)
+				}
+			},
+			place: {
+				value: function(child, index){
+					if(children.includes(child)){
+						children.remove(child)
+						children.insert(child, index)
+					}else{
+						throw new Error(`${child.constructor.name} must be added to ${Class.name} before can be placed`)
+					}
 				}
 			},
 			remove: {
@@ -118,6 +128,7 @@ const Cafesheet = {
 						}
 						pvt.parent = targetParent
 						targetParent.children.add(instance)
+						return instance
 					}
 				}else{
 					throw new Error(`Cannot move ${instance.constructor.name} to ${targetParent.constructor.name}.`)
