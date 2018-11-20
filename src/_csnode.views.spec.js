@@ -6,14 +6,7 @@ o.spec('Cafesheet in browser', ()=>{
 	const DOM = {},
 		Data = {}
 
-	o.beforeEach(()=>{
-		Data.tables = CSData.tables
-		Data.sections = Data.tables.map(t=>t.sections).flat()
-		Data.rows = Data.sections.map(s=>s.rows).flat()
-		Data.cells = Data.rows.map(r=>r.cells).flat()
-
-		m.mount(document.getElementById('app-output'), new Base(CSData))
-
+	o.before(()=>{
 		const componentToElementMapping = [
 			['bases', 'div.base'],
 			['tables', 'table'],
@@ -27,6 +20,14 @@ o.spec('Cafesheet in browser', ()=>{
 				return Array.from(document.querySelectorAll(map[1]))
 			}
 		})
+	})
+	o.beforeEach(()=>{
+		Data.tables = Array.from(CSData.tables)
+		Data.sections = Data.tables.map(t=>t.sections).flat()
+		Data.rows = Data.sections.map(s=>s.rows).flat()
+		Data.cells = Data.rows.map(r=>r.cells).flat()
+
+		m.mount(document.getElementById('app-output'), new Base(CSData))
 	})
 	o.spec('on load', ()=>{
 		o('tables', ()=>{
