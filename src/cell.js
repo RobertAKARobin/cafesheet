@@ -8,6 +8,9 @@ function Cell(parent = undefined, input = {}){
 		parent: {
 			get: ()=>pvt.parent
 		},
+		index: {
+			get: Cafesheet.instanceMethods.index
+		},
 		siblings: {
 			get: Cafesheet.instanceMethods.siblings
 		},

@@ -8,6 +8,9 @@ function Row(parent = undefined, input = {}){
 		children: {
 			value: children
 		},
+		index: {
+			get: Cafesheet.instanceMethods.index
+		},
 		parent: {
 			get: ()=>pvt.parent
 		},

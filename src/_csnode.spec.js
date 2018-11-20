@@ -201,6 +201,19 @@ function specParent(Class){
 			childC.addTo(parent, 1)
 			o(childC.siblings.get()).deepEquals([childA, childC, childB])
 		})
+		o('.index', ()=>{
+			const childA = _.instance
+			o(childA.index).equals(-1)
+
+			const parent = new _.parentClass()
+			const childB = parent.children.create()
+			o(childA.index).equals(-1)
+			o(childB.index).equals(0)
+			const childC = parent.children.create()
+			o(childC.index).equals(1)
+			parent.children.add(childA)
+			o(childA.index).equals(2)
+		})
 		o('.placeAt(index)', ()=>{
 			const parent = new _.parentClass()
 			const childA = parent.children.create()

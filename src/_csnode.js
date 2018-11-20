@@ -96,6 +96,11 @@ const Cafesheet = {
 					return Array.from(children)
 				}
 			},
+			indexOf: {
+				value: function(child){
+					return children.indexOf(child)
+				}
+			},
 			place: {
 				value: function(child, index){
 					if(children.includes(child)){
@@ -134,6 +139,14 @@ const Cafesheet = {
 				}else{
 					throw new Error(`Cannot move ${instance.constructor.name} to ${targetParent.constructor.name}.`)
 				}
+			}
+		},
+		index: function(){
+			const instance = this
+			if(instance.parent){
+				return instance.parent.children.indexOf(instance)
+			}else{
+				return -1
 			}
 		},
 		placeAt: function(index){
