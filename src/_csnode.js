@@ -72,10 +72,10 @@ const Cafesheet = {
 			},
 
 			add: {
-				value: function(child){
+				value: function(child, index){
 					if(child instanceof Class){
 						if(!children.includes(child)){
-							children.push(child)
+							children.insert(child, index)
 							child.addTo(parent)
 						}
 						return child

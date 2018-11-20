@@ -94,6 +94,18 @@ function specChildren(Class){
 			o(otherInstance.children.get()).deepEquals([child])
 			o(child.parent).equals(otherInstance)
 		})
+		o('.add(@child, index)', ()=>{
+			const childA = new _.childClass()
+			const childB = new _.childClass()
+			const childC = new _.childClass()
+
+			_.instance.children.add(childA, 1)
+			o(_.instance.children.get()).deepEquals([childA])
+			_.instance.children.add(childB, 1)
+			o(_.instance.children.get()).deepEquals([childA, childB])
+			_.instance.children.add(childC, 1)
+			o(_.instance.children.get()).deepEquals([childA, childC, childB])
+		})
 		o('.create(), .get()', ()=>{
 			const child = _.instance.children.create()
 
