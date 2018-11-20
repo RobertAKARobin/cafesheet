@@ -10,6 +10,8 @@ o.spec('Array', ()=>{
 		o(['a', 'b', 'c', 'd'].insert('x', 0)).deepEquals(['x', 'a', 'b', 'c', 'd'])
 		o(['a', 'b', 'c', 'd'].insert('x', 2)).deepEquals(['a', 'b', 'x', 'c', 'd'])
 		o(['a', 'b', 'c', 'd'].insert('x', 200)).deepEquals(['a', 'b', 'c', 'd', 'x'])
+		o(['a', 'b', 'c', 'd'].insert('x', Infinity)).deepEquals(['a', 'b', 'c', 'd', 'x'])
+		o(['a', 'b', 'c', 'd'].insert('x', 'ayy lmao')).deepEquals(['a', 'b', 'c', 'd', 'x'])
 	})
 	o('#remove', ()=>{
 		const target = {v: 'a'}
