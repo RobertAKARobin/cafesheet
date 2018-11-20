@@ -121,14 +121,14 @@ const Cafesheet = {
 	},
 	instanceMethods: {
 		addToParent: function(instance, pvt){
-			return function(targetParent){
+			return function(targetParent, index){
 				if(targetParent instanceof instance.constructor.parent){
 					if(pvt.parent != targetParent){
 						if(pvt.parent){
 							pvt.parent.children.remove(instance)
 						}
 						pvt.parent = targetParent
-						targetParent.children.add(instance)
+						targetParent.children.add(instance, index)
 						return instance
 					}
 				}else{
