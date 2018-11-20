@@ -262,6 +262,9 @@ function specParent(Class){
 }
 
 o.spec('@base', ()=>{
+	o('JSON', ()=>{
+		o(JSON.stringify(new Base(CSData))).equals(JSON.stringify(CSData))
+	})
 	specChildren(Base)
 })
 
