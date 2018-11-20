@@ -113,8 +113,10 @@ function specChildren(Class){
 			o(_.instance.children.get()).deepEquals([childB, childA, childC])
 			_.instance.children.place(childB, 200)
 			o(_.instance.children.get()).deepEquals([childA, childC, childB])
-			_.instance.children.place(childB, 1)
-			o(_.instance.children.get()).deepEquals([childA, childB, childC])
+
+			const childD = new _.childClass()
+			_.instance.children.place(childD, 1)
+			o(_.instance.children.get()).deepEquals([childA, childD, childC, childB])
 		})
 		o('.remove(@child)', ()=>{
 			const childA = _.instance.children.create()

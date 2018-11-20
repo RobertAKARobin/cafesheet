@@ -102,7 +102,8 @@ const Cafesheet = {
 						children.remove(child)
 						children.insert(child, index)
 					}else{
-						throw new Error(`${child.constructor.name} must be added to ${Class.name} before can be placed`)
+						instance.add(child)
+						instance.place.apply(instance, arguments)
 					}
 				}
 			},
