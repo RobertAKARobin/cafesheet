@@ -2,7 +2,7 @@ Row.prototype.view = function(){
 	const row = this
 	return m('tr', [
 		m('th', [
-			m('button', {
+			m('button[action=remove]', {
 				onclick: ()=>{
 					row.remove()
 				}

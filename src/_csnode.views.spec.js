@@ -54,4 +54,12 @@ o.spec('Cafesheet in browser', ()=>{
 		await frame()
 		o(DOM.rows().length).equals(Data.rows.length + 1)
 	})
+	o('row.remove()', async ()=>{
+		let firstRow = DOM.rows()[0]
+		o(firstRow.parentNode).notEquals(null)
+		DOM.rows()[0].querySelector('button[action=remove]').click()
+		await frame()
+		o(DOM.rows().length).equals(Data.rows.length - 1)
+		o(firstRow.parentNode).equals(null)
+	})
 })
