@@ -11,6 +11,15 @@ Object.defineProperties(Array.prototype, {
 			}, [])
 		}
 	},
+	insert: {
+		value: function(item, index){
+			if(isNaN(index)){
+				index = this.length
+			}
+			this.splice(index, 0, item)
+			return this
+		}
+	},
 	remove: {
 		value: function(item){
 			this.splice(this.indexOf(item), 1)
