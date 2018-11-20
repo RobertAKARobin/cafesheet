@@ -15,6 +15,9 @@ function Cell(parent = undefined, input = {}){
 		addTo: {
 			value: Cafesheet.instanceMethods.addToParent(instance, pvt)
 		},
+		placeAt: {
+			value: Cafesheet.instanceMethods.placeAt
+		},
 		remove: {
 			value: Cafesheet.instanceMethods.removeFromParent(instance, pvt)
 		},

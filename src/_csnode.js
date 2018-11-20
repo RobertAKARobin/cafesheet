@@ -136,6 +136,14 @@ const Cafesheet = {
 				}
 			}
 		},
+		placeAt: function(index){
+			const instance = this
+			if(instance.parent){
+				instance.parent.children.place(instance, index)
+			}else{
+				return false
+			}
+		},
 		removeFromParent: function(instance, pvt){
 			return function(){
 				if(pvt.parent){
