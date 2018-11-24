@@ -39,6 +39,10 @@ o.spec('Cafesheet in browser', ()=>{
 		})
 		o('rows', ()=>{
 			o(DOM.rows().length).equals(Data.rows.length)
+
+			const dataRowIndexes = Data.rows.map(r=>Data.rows.indexOf(r))
+			const domRowIndexes = DOM.rows().map(r=>parseInt(r.querySelector('.rowIndex').textContent))
+			o(domRowIndexes).deepEquals(dataRowIndexes)
 		})
 		o('cells', ()=>{
 			o(DOM.cells().length).equals(Data.cells.length)

@@ -6,7 +6,9 @@ Row.prototype.view = function(){
 				onclick: ()=>{
 					row.remove()
 				}
-			}),
+			}, [
+				m('span.rowIndex', row.index)
+			]),
 			m('button[action=create]', {
 				onclick: ()=>{
 					row.siblings.create()
