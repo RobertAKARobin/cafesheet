@@ -213,6 +213,7 @@ function specParent(Class){
 			o(childC.index).equals(1)
 			parent.children.add(childA)
 			o(childA.index).equals(2)
+			o(parent.children.get().map(c => c.index)).deepEquals([0, 1, 2])
 		})
 		o('.placeAt(index)', ()=>{
 			const parent = new _.parentClass()
