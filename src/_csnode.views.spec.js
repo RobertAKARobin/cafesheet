@@ -13,7 +13,7 @@ o.spec('Cafesheet in browser', ()=>{
 			['sections', 'tbody'],
 			['rows', 'tr'],
 			['cells', 'td'],
-			['data', 'td textarea']
+			['celldata', 'td textarea']
 		]
 		componentToElementMapping.forEach(map=>{
 			DOM[map[0]] = function(){
@@ -44,8 +44,8 @@ o.spec('Cafesheet in browser', ()=>{
 			o(DOM.cells().length).equals(Data.cells.length)
 		})
 		o('celldata', ()=>{
-			o(DOM.data().length).equals(Data.cells.length)
-			o(DOM.data().map(d=>d.value)).deepEquals(Data.cells.map(c=>c.datum))
+			o(DOM.celldata().length).equals(Data.cells.length)
+			o(DOM.celldata().map(d=>d.value)).deepEquals(Data.cells.map(c=>c.datum))
 		})
 	})
 	o.spec('@row', ()=>{
