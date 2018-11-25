@@ -9,7 +9,7 @@ function Cell(parent = undefined, input = {}){
 			get: ()=>pvt.parent
 		},
 		index: {
-			get: Cafesheet.instanceMethods.index
+			get: Cafesheet.instanceMethods.getIndex(instance)
 		},
 		siblings: {
 			get: Cafesheet.instanceMethods.siblings

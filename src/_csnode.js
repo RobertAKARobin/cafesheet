@@ -141,12 +141,13 @@ const Cafesheet = {
 				}
 			}
 		},
-		index: function(){
-			const instance = this
-			if(instance.parent){
-				return instance.parent.children.indexOf(instance)
-			}else{
-				return -1
+		getIndex: function(instance){
+			return function(){
+				if(instance.parent){
+					return instance.parent.children.indexOf(instance)
+				}else{
+					return -1
+				}
 			}
 		},
 		placeAt: function(index){

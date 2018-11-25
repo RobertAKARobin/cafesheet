@@ -9,7 +9,7 @@ function Section(parent = undefined, input = {}){
 			value: children
 		},
 		index: {
-			get: Cafesheet.instanceMethods.index
+			get: Cafesheet.instanceMethods.getIndex(instance)
 		},
 		parent: {
 			get: ()=>pvt.parent
