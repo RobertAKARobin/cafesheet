@@ -13,11 +13,14 @@ o.spec('Cafesheet in browser', ()=>{
 			['sections', 'tbody'],
 			['rows', 'tr'],
 			['cells', 'td'],
-			['celldata', 'td textarea']
+			['celldata', 'td textarea'],
+			['createButton', 'button[action=create]'],
+			['removeButton', 'button[action=remove]'],
+			['rowIndex', '.rowIndex']
 		]
 		componentToElementMapping.forEach(map=>{
-			DOM[map[0]] = function(){
-				return Array.from(document.querySelectorAll(map[1]))
+			DOM[map[0]] = function(root){
+				return Array.from((root || document).querySelectorAll(map[1]))
 			}
 		})
 	})
@@ -42,7 +45,7 @@ o.spec('Cafesheet in browser', ()=>{
 			o(DOM.rows().length).equals(Data.rows.length)
 
 			const dataRowIndexes = Data.rows.map(r=>Data.rows.indexOf(r))
-			const domRowIndexes = DOM.rows().map(r=>parseInt(r.querySelector('.rowIndex').textContent))
+			const domRowIndexes = DOM.rows().map(r=>parseInt(DOM.rowIndex(r)[0].textContent))
 			o(domRowIndexes).deepEquals(dataRowIndexes)
 		})
 		o('cells', ()=>{
@@ -56,17 +59,17 @@ o.spec('Cafesheet in browser', ()=>{
 	o.spec('@row', ()=>{
 		o('click create button', async ()=>{
 			o(DOM.rows().length).equals(Data.rows.length)
-			DOM.rows()[0].querySelector('button[action=create]').click()
+			DOM.createButton(DOM.rows()[0])[0].click()
 			await frame()
 			o(DOM.rows().length).equals(Data.rows.length + 1)
 		})
 		o('click remove button', async ()=>{
 			const firstRow = DOM.rows()[0]
-			firstRow.querySelector('button[action=remove]').click()
-			o(Array.from(firstRow.querySelectorAll('textarea')).map(t=>t.value)).deepEquals(Data.rows[0].cells.map(c=>c.datum))
+			DOM.removeButton(DOM.rows()[0])[0].click()
+			o(DOM.celldata(firstRow).map(t=>t.value)).deepEquals(Data.rows[0].cells.map(c=>c.datum))
 			await frame()
 			o(DOM.rows().length).equals(Data.rows.length - 1)
-			o(Array.from(firstRow.querySelectorAll('textarea')).map(t=>t.value)).deepEquals(Data.rows[1].cells.map(c=>c.datum))
+			o(DOM.celldata(firstRow).map(t=>t.value)).deepEquals(Data.rows[1].cells.map(c=>c.datum))
 		})
 	})
 })
