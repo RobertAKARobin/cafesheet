@@ -58,6 +58,7 @@ Object.defineProperties(String.prototype, {
 })
 
 const Cafesheet = {
+	state: {},
 	childCollection: function ChildCollection(parent){
 		const instance = this
 		const Class = parent.constructor.child

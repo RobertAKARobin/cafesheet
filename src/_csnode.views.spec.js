@@ -27,7 +27,8 @@ o.spec('Cafesheet in browser', ()=>{
 		Data.rows = Data.sections.map(s=>s.rows).flat()
 		Data.cells = Data.rows.map(r=>r.cells).flat()
 
-		m.mount(document.getElementById('app-output'), new Base(CSData))
+		Cafesheet.state.base = new Base(CSData)
+		m.mount(document.getElementById('app-output'), Base.component)
 	})
 	o.spec('on load', ()=>{
 		o('tables', ()=>{
@@ -60,12 +61,12 @@ o.spec('Cafesheet in browser', ()=>{
 			o(DOM.rows().length).equals(Data.rows.length + 1)
 		})
 		o('click remove button', async ()=>{
-			let firstRow = DOM.rows()[0]
-			o(firstRow.parentNode).notEquals(null)
-			DOM.rows()[0].querySelector('button[action=remove]').click()
+			const firstRow = DOM.rows()[0]
+			firstRow.querySelector('button[action=remove]').click()
+			o(Array.from(firstRow.querySelectorAll('textarea')).map(t=>t.value)).deepEquals(Data.rows[0].cells.map(c=>c.datum))
 			await frame()
 			o(DOM.rows().length).equals(Data.rows.length - 1)
-			o(firstRow.parentNode).equals(null)
+			o(Array.from(firstRow.querySelectorAll('textarea')).map(t=>t.value)).deepEquals(Data.rows[1].cells.map(c=>c.datum))
 		})
 	})
 })
