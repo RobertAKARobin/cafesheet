@@ -34,45 +34,48 @@ const state = {
 
 const Spreadsheet = {
 	view: function(){
-		return state.tables.map((table)=>{
-			return m(Table, {table})
-		})
+		return state.tables.map(Table.m)
 	}
 }
 
 const Table = {
+	m: function(table){
+		return m(Table, table)
+	},
 	view: function(vnode){
-		return m('table', vnode.attrs.table.rows.map((row)=>{
-			return m(Row, {row})
-		}))
+		return m('table', vnode.attrs.rows.map(Row.m))
 	}
 }
 
 const Row = {
+	m: function(row){
+		return m(Row, row)
+	},
 	view: function(vnode){
-		return m('tr', vnode.attrs.row.cells.map((cell)=>{
-			return m(Cell, {cell})
-		}))
+		return m('tr', vnode.attrs.cells.map(Cell.m))
 	}
 }
 
 const Cell = {
+	m: function(cell){
+		return m(Cell, cell)
+	},
 	view: function(vnode){
-		return m('td', vnode.attrs.cell.data)
+		return m('td', vnode.attrs.data)
 	}
 }
 
-const Spreadsheet = {
-	view: function(){
-		return state.tables.map(table=>{
-			return m('table', table.rows.map(row=>{
-				return m('tr', row.cells.map(cell=>{
-					return m('td', cell.data)
-				}))
-			}))
-		})
-	}
-}
+// const Spreadsheet = {
+// 	view: function(){
+// 		return state.tables.map(table=>{
+// 			return m('table', table.rows.map(row=>{
+// 				return m('tr', row.cells.map(cell=>{
+// 					return m('td', cell.data)
+// 				}))
+// 			}))
+// 		})
+// 	}
+// }
 
 window.addEventListener('DOMContentLoaded', () => {
 	m.mount(document.getElementById('app-output'), Spreadsheet)
