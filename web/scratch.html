@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Test</title>
+	<link rel="stylesheet" href="./styles-$cachebuster$.css" />
+	<script src="./mithril.min.js"></script>
+	<script src="./ospec.js"></script>
+	<script>
+const CSData = $CSData$
+
+const state = {
+	tables: [
+		{
+			rows: [
+				{
+					cells: [
+						{
+							data: 'a'
+						},
+						{
+							data: 'b'
+						},
+						{
+							data: 'c'
+						}
+					]
+				}
+			]
+		}
+	]
+}
+
+const Spreadsheet = {
+	view: function(){
+		return state.tables.map((table)=>{
+			return m(Table, {table})
+		})
+	}
+}
+
+const Table = {
+	view: function(vnode){
+		return m('table', vnode.attrs.table.rows.map((row)=>{
+			return m(Row, {row})
+		}))
+	}
+}
+
+const Row = {
+	view: function(vnode){
+		return m('tr', vnode.attrs.row.cells.map((cell)=>{
+			return m(Cell, {cell})
+		}))
+	}
+}
+
+const Cell = {
+	view: function(vnode){
+		return m('td', vnode.attrs.cell.data)
+	}
+}
+
+const Spreadsheet = {
+	view: function(){
+		return state.tables.map(table=>{
+			return m('table', table.rows.map(row=>{
+				return m('tr', row.cells.map(cell=>{
+					return m('td', cell.data)
+				}))
+			}))
+		})
+	}
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+	m.mount(document.getElementById('app-output'), Spreadsheet)
+})
+
+	</script>
+</head>
+<body>
+	<div id="app-output"></div>
+</body>
+</html>
