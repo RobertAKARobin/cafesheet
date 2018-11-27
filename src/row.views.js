@@ -12,7 +12,7 @@ Row.component = {
 				]),
 				m('button[action=create]', {
 					onclick: ()=>{
-						row.siblings.create()
+						row.siblings.create().placeAt(row.index + 1)
 					}
 				}, '+')
 			]),

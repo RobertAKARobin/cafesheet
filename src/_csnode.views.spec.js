@@ -60,9 +60,18 @@ o.spec('Cafesheet in browser', ()=>{
 	o.spec('@row', ()=>{
 		o('click create button', async ()=>{
 			o(DOM('rows').length).equals(Data.rows.length)
-			DOM(DOM('rows')[0], 'createButton')[0].click()
+
+			const firstRow = DOM('rows')[0]
+			const firstRowContent = DOM(firstRow, 'celldata').map(t=>t.value)
+			const secondRow = DOM('rows')[1]
+			const secondRowContent = DOM(secondRow, 'celldata').map(t=>t.value)
+			DOM(firstRow, 'createButton')[0].click()
 			await frame()
 			o(DOM('rows').length).equals(Data.rows.length + 1)
+
+			const thirdRow = DOM('rows')[2]
+			o(DOM(firstRow, 'celldata').map(t=>t.value)).deepEquals(firstRowContent)
+			o(DOM(thirdRow, 'celldata').map(t=>t.value)).deepEquals(secondRowContent)
 		})
 		o('click remove button', async ()=>{
 			const firstRow = DOM('rows')[0]
