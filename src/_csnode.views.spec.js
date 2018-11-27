@@ -58,28 +58,41 @@ o.spec('Cafesheet in browser', ()=>{
 		})
 	})
 	o.spec('@row', ()=>{
-		o('click create button', async ()=>{
-			o(DOM('rows').length).equals(Data.rows.length)
+		o.spec('click create button', ()=>{
+			o('increases row length', async ()=>{
+				const firstRow = DOM('rows')[0]
+				o(DOM('rows').length).equals(Data.rows.length)
+				DOM(firstRow, 'createButton')[0].click()
+				await frame()
+				o(DOM('rows').length).equals(Data.rows.length + 1)
+			})
+			o('third row now has data of former second row', async ()=>{
+				const firstRow = DOM('rows')[0]
+				const firstRowContent = DOM(firstRow, 'celldata').map(t=>t.value)
+				const secondRow = DOM('rows')[1]
+				const secondRowContent = DOM(secondRow, 'celldata').map(t=>t.value)
+				DOM(firstRow, 'createButton')[0].click()
+				await frame()
 
-			const firstRow = DOM('rows')[0]
-			const firstRowContent = DOM(firstRow, 'celldata').map(t=>t.value)
-			const secondRow = DOM('rows')[1]
-			const secondRowContent = DOM(secondRow, 'celldata').map(t=>t.value)
-			DOM(firstRow, 'createButton')[0].click()
-			await frame()
-			o(DOM('rows').length).equals(Data.rows.length + 1)
-
-			const thirdRow = DOM('rows')[2]
-			o(DOM(firstRow, 'celldata').map(t=>t.value)).deepEquals(firstRowContent)
-			o(DOM(thirdRow, 'celldata').map(t=>t.value)).deepEquals(secondRowContent)
+				const thirdRow = DOM('rows')[2]
+				o(DOM(firstRow, 'celldata').map(t=>t.value)).deepEquals(firstRowContent)
+				o(DOM(thirdRow, 'celldata').map(t=>t.value)).deepEquals(secondRowContent)
+			})
 		})
-		o('click remove button', async ()=>{
-			const firstRow = DOM('rows')[0]
-			DOM(firstRow, 'removeButton')[0].click()
-			o(DOM(firstRow, 'celldata').map(t=>t.value)).deepEquals(Data.rows[0].cells.map(c=>c.datum))
-			await frame()
-			o(DOM('rows').length).equals(Data.rows.length - 1)
-			o(DOM(firstRow, 'celldata').map(t=>t.value)).deepEquals(Data.rows[1].cells.map(c=>c.datum))
+		o.spec('click remove button', ()=>{
+			o('decreases row length', async ()=>{
+				const firstRow = DOM('rows')[0]
+				DOM(firstRow, 'removeButton')[0].click()
+				await frame()
+				o(DOM('rows').length).equals(Data.rows.length - 1)
+			})
+			o('first row now has data of former second row', async ()=>{
+				const firstRow = DOM('rows')[0]
+				DOM(firstRow, 'removeButton')[0].click()
+				o(DOM(firstRow, 'celldata').map(t=>t.value)).deepEquals(Data.rows[0].cells.map(c=>c.datum))
+				await frame()
+				o(DOM(firstRow, 'celldata').map(t=>t.value)).deepEquals(Data.rows[1].cells.map(c=>c.datum))
+			})
 		})
 	})
 })
