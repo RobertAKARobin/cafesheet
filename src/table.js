@@ -1,54 +1,9 @@
 function Table(parent = undefined, input = {}){
 	const instance = this
-	const children = new Cafesheet.childCollection(instance)
 	const pvt = {
+		children: [],
+		instance,
 		parent
-	}
-	Object.defineProperties(instance, {
-		children: {
-			value: children
-		},
-		index: {
-			get: Cafesheet.instanceMethods.index
-		},
-		parent: {
-			get: ()=>pvt.parent
-		},
-		siblings: {
-			get: Cafesheet.instanceMethods.siblings
-		},
-
-		addTo: {
-			value: Cafesheet.instanceMethods.addToParent(instance, pvt)
-		},
-		placeAt: {
-			value: Cafesheet.instanceMethods.placeAt
-		},
-		remove: {
-			value: Cafesheet.instanceMethods.removeFromParent(instance, pvt)
-		},
-
-		base: {
-			get: ()=>pvt.parent
-		},
-		sections: {
-			get: children.get,
-			enumerable: true
-		},
-
-		addSection: {
-			value: children.add
-		},
-		createSection: {
-			value: children.create
-		},
-		removeSection: {
-			value: children.remove
-		}
-	})
-
-	if(input.sections){
-		input.sections.forEach(instance.createSection)
 	}
 }
 Object.defineProperties(Table, {
@@ -56,8 +11,7 @@ Object.defineProperties(Table, {
 		value: [Base]
 	},
 	child: {
-		value: Section,
-		enumerable: true
+		value: Section
 	},
 	descendants: {
 		value: [Section, Row, Cell]

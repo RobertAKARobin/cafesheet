@@ -1,36 +1,48 @@
 function Base(input = {}){
-	const instance = this
-	const children = new Cafesheet.childCollection(instance)
+	const base = this
+	const pvt = {
+		children: [],
+		instance: base
+	}
 
-	Object.defineProperties(instance, {
-		children: {
-			value: children
+	Object.defineProperties(base, {
+		addChild: {
+			value: Cafesheet.instance.addChild(pvt)
+		},
+		getChildren: {
+			value: Cafesheet.instance.getChildren(pvt)
+		},
+		createChild: {
+			value: Cafesheet.instance.createChild(pvt)
+		},
+		removeChild: {
+			value: Cafesheet.instance.removeChild(pvt)
 		},
 
+		
 		tables: {
-			get: children.get,
+			get: base.getChildren,
 			enumerable: true
 		},
 
 		addTable: {
-			value: children.add
+			value: base.addChild
 		},
-		createTable: {
-			value: children.create
+		createChild: {
+			value: base.createChild
 		},
-		removeTable: {
-			value: children.remove
+		removeChild: {
+			value: base.removeChild
 		}
 	})
 
 	if(input.tables){
-		input.tables.forEach(instance.createTable)
+		input.tables.forEach(base.createTable)
 	}
 }
 Object.defineProperties(Base, {
 	child: {
-		value: Table,
-		enumerable: true
+		value: Table
 	},
 	descendants: {
 		value: [Table, Section, Row, Cell]

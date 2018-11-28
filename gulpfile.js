@@ -52,13 +52,9 @@ gulp.task('build-main', ()=>{
 })
 
 gulp.task('build-tests', ()=>{
-	// return gulp.src(CSComponents.map((component)=>{
-	// 	return `./src/${component}.spec.js`
-	// }))
-	return gulp.src([
-		'./src/_csnode.spec.js',
-		'./src/_csnode.views.spec.js'
-	])
+	return gulp.src(['_csnode'].concat(CSComponents).map((component)=>{
+		return `./src/${component}.spec.js`
+	}))
 	.pipe(concat('tests.js'))
 	.pipe(gulp.dest('./dist'))
 })
