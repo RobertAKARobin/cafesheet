@@ -1,34 +1,3 @@
-// o.spec('Array', ()=>{
-// 	'use strict'
-
-// 	o('#flat', ()=>{
-// 		const a = [['a', 'b'], 'c', ['d', 'e'], 'f']
-// 		o(a.flat()).deepEquals(['a', 'b', 'c', 'd', 'e', 'f'])
-// 	})
-// 	o('#insert', ()=>{
-// 		o(['a', 'b', 'c', 'd'].insert('x')).deepEquals(['a', 'b', 'c', 'd', 'x'])
-// 		o(['a', 'b', 'c', 'd'].insert('x', 0)).deepEquals(['x', 'a', 'b', 'c', 'd'])
-// 		o(['a', 'b', 'c', 'd'].insert('x', 2)).deepEquals(['a', 'b', 'x', 'c', 'd'])
-// 		o(['a', 'b', 'c', 'd'].insert('x', 200)).deepEquals(['a', 'b', 'c', 'd', 'x'])
-// 		o(['a', 'b', 'c', 'd'].insert('x', Infinity)).deepEquals(['a', 'b', 'c', 'd', 'x'])
-// 		o(['a', 'b', 'c', 'd'].insert('x', 'ayy lmao')).deepEquals(['a', 'b', 'c', 'd', 'x'])
-// 	})
-// 	o('#remove', ()=>{
-// 		const target = {v: 'a'}
-// 		const a = ['a', 'b', target, 'd']
-// 		o(a.remove(target)).equals(target)
-// 		o(a).deepEquals(['a', 'b', 'd'])
-// 	})
-// 	o(`#sortOn`, ()=>{
-// 		const a = [{v: 'f'}, {v: 'c'}, {v: 'a'}, {v: '3'}, {v: 2}]
-// 		o(a.sortOn(i=>i.v).map(i=>i.v)).deepEquals([2,'3','a','c','f'])
-// 	})
-// 	o('#without', ()=>{
-// 		const a = [1, 2, 'a', 'b', 5]
-// 		o(a.without(2)).deepEquals([1, 'a', 'b', 5])
-// 	})
-// })
-
 function thrownBy(callback){
 	try{
 		callback()
@@ -36,40 +5,6 @@ function thrownBy(callback){
 		return e.constructor
 	}
 }
-
-// o.spec('Family trees', ()=>{
-// 	o('Base', ()=>{
-// 		o(Base.descendants).deepEquals([Table, Section, Row, Cell])
-// 		o(Base.child).equals(Table)
-// 		o(Base.ancestors).equals(undefined)
-// 		o(Base.parent).equals(undefined)
-// 	})
-// 	o('Table', ()=>{
-// 		o(Table.descendants).deepEquals([Section, Row, Cell])
-// 		o(Table.child).equals(Section)
-// 		o(Table.ancestors).deepEquals([Base])
-// 		o(Table.parent).equals(Base)
-// 	})
-// 	o('Section', ()=>{
-// 		o(Section.descendants).deepEquals([Row, Cell])
-// 		o(Section.child).equals(Row)
-// 		o(Section.ancestors).deepEquals([Table, Base])
-// 		o(Section.parent).equals(Table)
-// 	})
-// 	o('Row', ()=>{
-// 		o(Row.descendants).deepEquals([Cell])
-// 		o(Row.child).equals(Cell)
-// 		o(Row.ancestors).deepEquals([Section, Table, Base])
-// 		o(Row.parent).equals(Section)
-// 	})
-// 	o('Cell', ()=>{
-// 		o(Cell.descendants).deepEquals(undefined)
-// 		o(Cell.child).equals(undefined)
-// 		o(Cell.ancestors).deepEquals([Row, Section, Table, Base])
-// 		o(Cell.parent).equals(Row)
-// 	})
-// })
-
 
 Cafesheet.Spec = function(Class){
 	const specs = {

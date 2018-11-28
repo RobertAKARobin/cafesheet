@@ -5,11 +5,9 @@ const replace = require('gulp-replace')
 const dateformat = require('dateformat')
 const del = require('del')
 const fs = require('fs')
-const CSComponents = ['base', 'table', 'section', 'row', 'cell']
-let ENV
+const ENV = {}
 
 const loadEnv = function(done){
-	ENV = JSON.parse(fs.readFileSync('./env.json'))
 	ENV.CSData = fs.readFileSync('./data.json')
 	ENV.cachebuster = dateformat(new Date(), 'yymmddHHMMssl')
 	done()
@@ -24,37 +22,31 @@ gulp.task('clean', ()=>{
 	return del(['./dist'])
 })
 
-gulp.task('build-cafesheet', ()=>{
-	return gulp.src(['_csnode'].concat(CSComponents).map((component)=>{
-		return `./src/${component}.js`
-	}))
+gulp.task('build-src', ()=>{
+	return gulp.src([
+		'./lib/*.js',
+		'./src/*.js',
+		'!./src/*.views.js'
+	])
 	.pipe(insertEnv())
-	.pipe(concat(`cafesheet-${ENV.cachebuster}.js`))
+	.pipe(concat(`src-${ENV.cachebuster}.js`))
 	.pipe(gulp.dest('./dist'))
 })
 
 gulp.task('build-views', ()=>{
-	return gulp.src(CSComponents.map((component)=>{
-		return `./src/${component}.views.js`
-	}))
-	.pipe(insertEnv())
-	.pipe(concat(`cafesheet.views-${ENV.cachebuster}.js`))
-	.pipe(gulp.dest('./dist'))
-})
-
-gulp.task('build-main', ()=>{
 	return gulp.src([
-		'./web/main.js'
+		'./src/*.views.js'
 	])
 	.pipe(insertEnv())
-	.pipe(concat(`main-${ENV.cachebuster}.js`))
+	.pipe(concat(`views-${ENV.cachebuster}.js`))
 	.pipe(gulp.dest('./dist'))
 })
 
+
 gulp.task('build-tests', ()=>{
-	return gulp.src(['_csnode'].concat(CSComponents).map((component)=>{
-		return `./src/${component}.spec.js`
-	}))
+	return gulp.src([
+		'./tests/*.js'
+	])
 	.pipe(concat('tests.js'))
 	.pipe(gulp.dest('./dist'))
 })
@@ -92,9 +84,8 @@ gulp.task('build', gulp.series([
 	'clean',
 	loadEnv,
 	'build-modules',
-	'build-cafesheet',
+	'build-src',
 	'build-views',
-	'build-main',
 	'build-tests',
 	'build-css',
 	'build-html'
@@ -103,7 +94,8 @@ gulp.task('build', gulp.series([
 gulp.task('watch', ()=>{
 	gulp.watch([
 		'./*.json',
-		'./src/**/*',
-		'./web/**/*'
+		'./lib/*',
+		'./src/*',
+		'./web/*'
 	], {ignoreInitial: false}, gulp.task('build'))
 })

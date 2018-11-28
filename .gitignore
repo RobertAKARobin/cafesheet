@@ -2,4 +2,3 @@ node_modules
 .sass-cache
 *.log
 dist/*
-index.html
