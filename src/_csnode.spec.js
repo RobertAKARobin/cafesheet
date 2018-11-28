@@ -130,7 +130,7 @@ Cafesheet.Spec = function(Class){
 			const childC = instance.createChild()
 			o(instance.getChildren()).deepEquals([childA, childB, childC])
 		}),
-		getParent: ()=>o('.getParent', ()=>{
+		getParent: ()=>o('.getParent()', ()=>{
 			const parent = new Class.parent()
 			const orphan = new Class()
 			const child = parent.createChild()
@@ -165,7 +165,21 @@ Cafesheet.Spec = function(Class){
 				o(instance.removeChild()).equals(false)
 			})
 		}),
-		removeFromParent: ()=>{}
+		removeFromParent: ()=>o('.removeFromParent()', ()=>{
+			const parent = new Class.parent()
+			const child = new Class()
+
+			o(child.getParent()).equals(undefined)
+			o(child.removeFromParent()).equals(child)
+
+			parent.addChild(child)
+			o(parent.getChildren()).deepEquals([child])
+			o(child.getParent()).equals(parent)
+
+			o(child.removeFromParent()).equals(child)
+			o(parent.getChildren()).deepEquals([])
+			o(child.getParent()).equals(undefined)
+		})
 	}
 
 	const output = {}
