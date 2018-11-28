@@ -3,4 +3,5 @@ o.spec('@base', ()=>{
 		.addChild()
 		.createChild()
 		.getChildren()
+		.removeChild()
 })
