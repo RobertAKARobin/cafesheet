@@ -9,4 +9,5 @@ o.spec('@cell', ()=>{
 		.addToParent()
 		.getParent()
 		.removeFromParent()
+	// TODO JSON
 })

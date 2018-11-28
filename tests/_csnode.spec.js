@@ -78,6 +78,7 @@ Cafesheet.Spec = function(Class){
 			const childC = instance.createChild()
 			o(instance.getChildren()).deepEquals([childA, childB, childC])
 		}),
+		getIndex: ()=>{},
 		getParent: ()=>o('.getParent()', ()=>{
 			const parent = new Class.parent()
 			const orphan = new Class()
@@ -89,6 +90,8 @@ Cafesheet.Spec = function(Class){
 			parent.addChild(orphan)
 			o(orphan.getParent()).equals(parent)
 		}),
+		getSiblings: ()=>{},
+		placeAt: ()=>{},
 		removeChild: ()=>o.spec('.removeChild', ()=>{
 			o('.removeChild(@child)', ()=>{
 				const instance = new Class()
@@ -152,40 +155,6 @@ function specChildren(Class){
 			o(_.instance.children.get().length).equals(0)
 			o(_.instance.children.get()).deepEquals([])
 		})
-		o('.add(@child)', ()=>{
-			o(thrownBy(n=>_.instance.children.add('wrong class'))).equals(Error)
-	
-			const child = new _.childClass()
-			o(_.instance.children.add(child).constructor).equals(_.childClass)
-			o(_.instance.children.get()).deepEquals([child])
-			o(child.parent).equals(_.instance)
-	
-			const otherInstance = new _.class()
-			otherInstance.children.add(child)
-			o(_.instance.children.get()).deepEquals([])
-			o(otherInstance.children.get()).deepEquals([child])
-			o(child.parent).equals(otherInstance)
-		})
-		o('.add(@child, index)', ()=>{
-			const childA = new _.childClass()
-			const childB = new _.childClass()
-			const childC = new _.childClass()
-
-			_.instance.children.add(childA, 1)
-			o(_.instance.children.get()).deepEquals([childA])
-			_.instance.children.add(childB, 1)
-			o(_.instance.children.get()).deepEquals([childA, childB])
-			_.instance.children.add(childC, 1)
-			o(_.instance.children.get()).deepEquals([childA, childC, childB])
-		})
-		o('.create(), .get()', ()=>{
-			const child = _.instance.children.create()
-
-			o(child.constructor).equals(_.childClass)
-			o(_.instance.children.get().length).equals(1)
-			o(_.instance.children.get()).deepEquals([child])
-			o(child.parent).equals(_.instance)
-		})
 		o('.place(@child, index)', ()=>{
 			const childA = _.instance.children.create()
 			const childB = _.instance.children.create()
@@ -201,23 +170,6 @@ function specChildren(Class){
 			const childD = new _.childClass()
 			_.instance.children.place(childD, 1)
 			o(_.instance.children.get()).deepEquals([childA, childD, childC, childB])
-		})
-		o('.remove(@child)', ()=>{
-			const childA = _.instance.children.create()
-			const childB = _.instance.children.create()
-			o(childA.parent).equals(_.instance)
-			o(childB.parent).equals(_.instance)
-			o(_.instance.children.get()).deepEquals([childA, childB])
-	
-			_.instance.children.remove(childA)
-			o(childA.parent).equals(undefined)
-			o(_.instance.children.get()).deepEquals([childB])
-	
-			_.instance.children.remove(childB)
-			o(childB.parent).equals(undefined)
-			o(_.instance.children.get()).deepEquals([])
-	
-			o(_.instance.children.remove(childB)).equals(false)
 		})
 		o(`JSON.stringify(@${Class.name.toLowerCase()})`, ()=>{
 			_.instance.children.create()
@@ -237,39 +189,6 @@ function specParent(Class){
 		o.beforeEach(()=>{
 			_.instance = new _.class()
 			_.parentClass = _.class.parent
-		})
-		o('new', ()=>{
-			const parent = new _.parentClass()
-			o(parent.children.get()).deepEquals([])
-			o(_.instance.parent).equals(undefined)
-		})
-		o('.addTo(@parent)', ()=>{
-			o(thrownBy(n=>_.instance.addTo('wrong class'))).equals(Error)
-
-			const parent = new _.parentClass()
-			
-			_.instance.addTo(parent)
-			o(parent.children.get()).deepEquals([_.instance])
-			o(_.instance.parent).equals(parent)
-
-			const otherParent = new _.parentClass()
-			_.instance.addTo(otherParent)
-			o(parent.children.get()).deepEquals([])
-			o(otherParent.children.get()).deepEquals([_.instance])
-			o(_.instance.parent).equals(otherParent)
-		})
-		o('.addTo(@parent, index)', ()=>{
-			const parent = new _.parentClass()
-			const childA = new _.class()
-			const childB = new _.class()
-			const childC = new _.class()
-
-			childA.addTo(parent, 1)
-			o(childA.siblings.get()).deepEquals([childA])
-			childB.addTo(parent, 1)
-			o(childB.siblings.get()).deepEquals([childA, childB])
-			childC.addTo(parent, 1)
-			o(childC.siblings.get()).deepEquals([childA, childC, childB])
 		})
 		o('.index', ()=>{
 			const childA = _.instance
@@ -297,27 +216,6 @@ function specParent(Class){
 			o(parent.children.get()).deepEquals([childA, childB, childC])
 			childA.placeAt()
 			o(parent.children.get()).deepEquals([childB, childC, childA])
-		})
-		o('.remove()', ()=>{
-			const parent = new _.parentClass()
-
-			_.instance.addTo(parent)
-			const otherInstance = parent.children.create()
-			o(parent.children.get()).deepEquals([_.instance, otherInstance])
-			o(_.instance.parent).equals(parent)
-			o(otherInstance.parent).equals(parent)
-
-			_.instance.remove()
-			o(parent.children.get()).deepEquals([otherInstance])
-			o(_.instance.parent).equals(undefined)
-			o(otherInstance.parent).equals(parent)
-
-			otherInstance.remove()
-			o(parent.children.get()).deepEquals([])
-			o(_.instance.parent).equals(undefined)
-			o(otherInstance.parent).equals(undefined)
-
-			o(_.instance.remove()).equals(false)
 		})
 		o('.siblings', ()=>{
 			o(_.instance.siblings).equals(false)
