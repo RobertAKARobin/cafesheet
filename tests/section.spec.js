@@ -4,3 +4,13 @@ o('Section', ()=>{
 	o(Section.ancestors).deepEquals([Table, Base])
 	o(Section.parent).equals(Table)
 })
+o.spec('@section', ()=>{
+	Cafesheet.Spec(Section)
+		.addChild()
+		.addToParent()
+		.createChild()
+		.getChildren()
+		.getParent()
+		.removeFromParent()
+		.removeChild()
+})

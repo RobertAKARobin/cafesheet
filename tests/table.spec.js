@@ -6,7 +6,11 @@ o('Table', ()=>{
 })
 o.spec('@table', ()=>{
 	Cafesheet.Spec(Table)
+		.addChild()
 		.addToParent()
+		.createChild()
+		.getChildren()
 		.getParent()
 		.removeFromParent()
+		.removeChild()
 })
