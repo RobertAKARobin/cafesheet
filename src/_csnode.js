@@ -63,8 +63,8 @@ const Cafesheet = {
 		addChild: function(pvt){
 			return function(child){
 				// const parent = pvt.instance
-				const parentClass = pvt.instance.class
-				const childClass = pvt.instance.class.child
+				const parentClass = pvt.instance.constructor
+				const childClass = pvt.instance.constructor.child
 				const children = pvt.children
 	
 				if(child instanceof childClass){
@@ -100,10 +100,11 @@ const Cafesheet = {
 		createChild: function(pvt){
 			return function(){
 				const parent = pvt.instance
-				const childClass = pvt.instance.class.child
+				const childClass = pvt.instance.constructor.child
 				const children = pvt.children
 	
-				const child = new childClass(parent, input)
+				// const child = new childClass(parent, input)
+				const child = new childClass(parent)
 				children.push(child)
 				return child
 			}

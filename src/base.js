@@ -28,10 +28,10 @@ function Base(input = {}){
 		addTable: {
 			value: base.addChild
 		},
-		createChild: {
+		createTable: {
 			value: base.createChild
 		},
-		removeChild: {
+		removeTable: {
 			value: base.removeChild
 		}
 	})
