@@ -74,7 +74,7 @@ function thrownBy(callback){
 Cafesheet.Spec = function(Class){
 	const specs = {
 		addChild: ()=>o.spec('.addChild', ()=>{
-			o('.addChild(child)', ()=>{
+			o('.addChild(@childClass)', ()=>{
 				const instance = new Class()
 				const childA = new Class.child()
 				const childB = new Class.child()
@@ -83,6 +83,29 @@ Cafesheet.Spec = function(Class){
 				o(instance.getChildren()).deepEquals([childA])
 				instance.addChild(childB)
 				o(instance.getChildren()).deepEquals([childA, childB])
+			})
+			o('.addChild(@childClass, index)', ()=>{
+				const instance = new Class()
+				const childA = new Class.child()
+				const childB = new Class.child()
+				const childC = new Class.child()
+
+				instance.addChild(childA, 1)
+				o(instance.getChildren()).deepEquals([childA])
+				instance.addChild(childB, 1)
+				o(instance.getChildren()).deepEquals([childA, childB])
+				instance.addChild(childC, 1)
+				o(instance.getChildren()).deepEquals([childA, childC, childB])
+			})
+			o('.addChild()', ()=>{
+				const instance = new Class()
+				
+				o(thrownBy(n=>instance.addChild())).equals(Error)
+			})
+			o('.addChild(@wrongClass)', ()=>{
+				const instance = new Class()
+				
+				o(thrownBy(n=>instance.addChild({}))).equals(Error)
 			})
 		}),
 		createChild: ()=>o('.createChild()', ()=>{

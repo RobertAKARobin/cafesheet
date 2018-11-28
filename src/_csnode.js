@@ -74,7 +74,7 @@ const Cafesheet = {
 					}
 					return child
 				}else{
-					throw new Error(`Cannot add ${child.constructor.name} to ${parentClass.name}.`)
+					throw new Error(`Cannot add ${child ? child.constructor.name : child} to ${parentClass.name}.`)
 				}
 			}
 		},
