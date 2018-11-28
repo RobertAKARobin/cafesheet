@@ -70,20 +70,33 @@ function thrownBy(callback){
 // 	})
 // })
 
-const CafesheetSpec = {
-	createChild: (Class)=>o('.createChild', ()=>{
-		const instance = new Class()
-		const childA = instance.createChild()
-		const childB = instance.createChild()
-		const childC = instance.createChild()
 
-		o(childA.constructor).equals(instance.constructor.child)
-		o(instance.getChildren()).deepEquals([childA, childB, childC])
-	}),
-	getChildren: (Class)=>o('.getChildren', ()=>{
-		const instance = new Class()
-		o(instance.getChildren()).deepEquals([])
-	})
+Cafesheet.Spec = function(Class){
+	const specs = {
+		createChild: ()=>o('.createChild()', ()=>{
+			const instance = new Class()
+			const childA = instance.createChild()
+			const childB = instance.createChild()
+			const childC = instance.createChild()
+
+			o(childA.constructor).equals(instance.constructor.child)
+			o(instance.getChildren()).deepEquals([childA, childB, childC])
+		}),
+		getChildren: ()=>o('.getChildren()', ()=>{
+			const instance = new Class()
+
+			o(instance.getChildren()).deepEquals([])
+		})
+	}
+
+	const output = {}
+	for(let key in specs){
+		output[key] = ()=>{
+			specs[key]()
+			return output
+		}
+	}
+	return output
 }
 
 function specChildren(Class){

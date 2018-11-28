@@ -1,4 +1,5 @@
 o.spec('@base', ()=>{
-	CafesheetSpec.createChild(Base)
-	CafesheetSpec.getChildren(Base)
+	Cafesheet.Spec(Base)
+		.createChild()
+		.getChildren()
 })
