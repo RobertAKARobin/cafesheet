@@ -5,6 +5,15 @@ function Table(parent = undefined, input = {}){
 		instance,
 		parent
 	}
+
+	Object.defineProperties(instance, {
+		getParent: {
+			value: Cafesheet.instance.getParent(pvt)
+		},
+		removeFromParent: {
+			value: Cafesheet.instance.removeFromParent(pvt)
+		}
+	})
 }
 Object.defineProperties(Table, {
 	ancestors: {

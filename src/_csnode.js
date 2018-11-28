@@ -129,10 +129,22 @@ const Cafesheet = {
 	
 				if(children.includes(child)){
 					children.remove(child)
-					// child.remove()
+					child.removeFromParent()
 				}else{
 					return false
 				}
+			}
+		},
+		removeFromParent: function(pvt){
+			return function(){
+				const child = pvt.instance
+				const parent = pvt.parent
+
+				if(parent){
+					parent.removeChild(child)
+					pvt.parent = undefined
+				}
+				return child
 			}
 		}
 	},
@@ -259,12 +271,12 @@ const Cafesheet = {
 // 		},
 // 		removeFromParent: function(instance, pvt){
 // 			return function(){
-// 				if(pvt.parent){
-// 					pvt.parent.children.remove(instance)
-// 					pvt.parent = undefined
-// 				}else{
-// 					return false
-// 				}
+				// if(pvt.parent){
+				// 	pvt.parent.children.remove(instance)
+				// 	pvt.parent = undefined
+				// }else{
+				// 	return false
+				// }
 // 			}
 // 		},
 // 		siblings: function(){
