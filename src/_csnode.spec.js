@@ -109,7 +109,20 @@ Cafesheet.Spec = function(Class){
 				o(thrownBy(n=>instance.addChild({}))).equals(Error)
 			})
 		}),
-		addToParent: ()=>{},
+		addToParent: ()=>o.spec('.addToParent', ()=>{
+			o('.addToParent(@parent)', ()=>{
+				const child = new Class()
+				const parent = new Class.parent()
+
+				o(child.getParent()).equals(undefined)
+				o(child.addToParent(parent)).equals(child)
+				o(child.getParent()).equals(parent)
+
+				o(child.removeFromParent()).equals(child)
+				o(child.addToParent(parent)).equals(child)
+				o(child.getParent()).equals(parent)
+			})
+		}),
 		createChild: ()=>o('.createChild()', ()=>{
 			const instance = new Class()
 			const childA = instance.createChild()

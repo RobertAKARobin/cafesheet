@@ -7,7 +7,7 @@ function Table(parent = undefined, input = {}){
 	}
 
 	Object.defineProperties(instance, {
-		addTo: {
+		addToParent: {
 			value: Cafesheet.instance.addToParent(pvt)
 		},
 		getParent: {

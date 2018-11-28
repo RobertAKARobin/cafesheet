@@ -70,7 +70,7 @@ const Cafesheet = {
 				if(child instanceof childClass){
 					if(!children.includes(child)){
 						children.insert(child, index)
-						child.addTo(parent)
+						child.addToParent(parent)
 					}
 					return child
 				}else{
