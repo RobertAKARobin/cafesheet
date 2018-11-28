@@ -62,7 +62,7 @@ const Cafesheet = {
 	instance: {
 		addChild: function(pvt){
 			return function(child, index){
-				// const parent = pvt.instance
+				const parent = pvt.instance
 				const parentClass = pvt.instance.constructor
 				const childClass = pvt.instance.constructor.child
 				const children = pvt.children
@@ -70,7 +70,7 @@ const Cafesheet = {
 				if(child instanceof childClass){
 					if(!children.includes(child)){
 						children.insert(child, index)
-						// child.addTo(parent)
+						child.addTo(parent)
 					}
 					return child
 				}else{
@@ -81,14 +81,14 @@ const Cafesheet = {
 		addToParent: function(pvt){
 			return function(targetParent, index){
 				const child = pvt.instance
-				const parentWrapper = pvt
+				const currentParent = pvt.parent
 
 				if(targetParent instanceof child.constructor.parent){
 					if(currentParent != targetParent){
 						if(currentParent){
 							currentParent.removeChild(child)
 						}
-						parentWrapper.parent = currentParent = targetParent
+						pvt.parent = targetParent
 						targetParent.addChild(child, index)
 						return child
 					}
