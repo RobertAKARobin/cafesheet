@@ -73,6 +73,18 @@ function thrownBy(callback){
 
 Cafesheet.Spec = function(Class){
 	const specs = {
+		addChild: ()=>o.spec('.addChild', ()=>{
+			o('.addChild(child)', ()=>{
+				const instance = new Class()
+				const childA = new Class.child()
+				const childB = new Class.child()
+
+				instance.addChild(childA)
+				o(instance.getChildren()).deepEquals([childA])
+				instance.addChild(childB)
+				o(instance.getChildren()).deepEquals([childA, childB])
+			})
+		}),
 		createChild: ()=>o('.createChild()', ()=>{
 			const instance = new Class()
 			const childA = instance.createChild()

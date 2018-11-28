@@ -61,7 +61,7 @@ const Cafesheet = {
 	state: {},
 	instance: {
 		addChild: function(pvt){
-			return function(child){
+			return function(child, index){
 				// const parent = pvt.instance
 				const parentClass = pvt.instance.constructor
 				const childClass = pvt.instance.constructor.child
