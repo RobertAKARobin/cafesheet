@@ -105,7 +105,7 @@ const Cafesheet = {
 			if(parent){
 				return parent.getChildren()
 			}else{
-				return false
+				return []
 			}
 		}
 	}

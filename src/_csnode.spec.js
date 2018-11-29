@@ -110,7 +110,7 @@ Cafesheet.Spec = function(Class){
 			const childA = new Class()
 			const childB = new Class()
 
-			o(childA.getSiblings()).equals(false)
+			o(childA.getSiblings()).deepEquals([])
 
 			childA.addToParent(parent)
 			o(childA.getSiblings()).deepEquals([childA])
@@ -121,7 +121,7 @@ Cafesheet.Spec = function(Class){
 			
 			parent.removeChild(childB)
 			o(childA.getSiblings()).deepEquals([childA])
-			o(childB.getSiblings()).equals(false)
+			o(childB.getSiblings()).deepEquals([])
 		}),
 		placeAt: ()=>{},
 		removeChild: ()=>o.spec('.removeChild', ()=>{
