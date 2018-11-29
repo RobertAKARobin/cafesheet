@@ -90,10 +90,11 @@ const Cafesheet = {
 		}
 	},
 	proto: {
-		getIndex: function(){
+		getPlace: function(){
 			const instance = this
-			if(instance.parent){
-				return instance.parent.children.indexOf(instance)
+			const parent = instance.getParent()
+			if(parent){
+				return parent.getChildren().indexOf(instance)
 			}else{
 				return -1
 			}
@@ -111,25 +112,8 @@ const Cafesheet = {
 }
 
 // const Cafesheet = {
-// 	state: {},
 // 	childCollection: function ChildCollection(parent){
-// 		const instance = this
-// 		const Class = parent.constructor.child
-// 		const children = []
-
 // 		Object.defineProperties(instance, {
-// 			class: {
-// 				value: Class
-// 			},
-// 			parent: {
-// 				value: parent
-// 			},
-
-// 			indexOf: {
-// 				value: function(child){
-// 					return children.indexOf(child)
-// 				}
-// 			},
 // 			place: {
 // 				value: function(child, index){
 // 					if(children.includes(child)){
@@ -144,14 +128,6 @@ const Cafesheet = {
 // 		})
 // 	},
 // 	instanceMethods: {
-// 		index: function(){
-			// const instance = this
-			// if(instance.parent){
-			// 	return instance.parent.children.indexOf(instance)
-			// }else{
-			// 	return -1
-			// }
-// 		},
 // 		placeAt: function(index){
 // 			const instance = this
 // 			if(instance.parent){

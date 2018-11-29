@@ -37,6 +37,9 @@ function Table(parent = undefined, input = {}){
 	})
 }
 Object.defineProperties(Table.prototype, {
+	getPlace: {
+		value: Cafesheet.proto.getPlace
+	},
 	getSiblings: {
 		value: Cafesheet.proto.getSiblings
 	}

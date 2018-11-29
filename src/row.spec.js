@@ -11,6 +11,7 @@ o.spec('@row', ()=>{
 		.createChild()
 		.getChildren()
 		.getParent()
+		.getPlace()
 		.getSiblings()
 		.removeFromParent()
 		.removeChild()

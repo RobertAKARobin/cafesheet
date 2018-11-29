@@ -78,7 +78,6 @@ Cafesheet.Spec = function(Class){
 			const childC = instance.createChild()
 			o(instance.getChildren()).deepEquals([childA, childB, childC])
 		}),
-		getIndex: ()=>{},
 		getParent: ()=>o('.getParent()', ()=>{
 			const parent = new Class.parent()
 			const orphan = new Class()
@@ -89,6 +88,22 @@ Cafesheet.Spec = function(Class){
 
 			parent.addChild(orphan)
 			o(orphan.getParent()).equals(parent)
+		}),
+		getPlace: ()=>o('.getPlace()', ()=>{
+			const childA = new Class()
+			o(childA.getPlace()).equals(-1)
+			
+			const parent = new Class.parent()
+			const childB = parent.createChild()
+			o(childA.getPlace()).equals(-1)
+			o(childB.getPlace()).equals(0)
+
+			const childC = parent.createChild()
+			o(childC.getPlace()).equals(1)
+
+			parent.addChild(childA)
+			o(childA.getPlace()).equals(2)
+			o(parent.getChildren().map(c => c.getPlace())).deepEquals([0, 1, 2])
 		}),
 		getSiblings: ()=>o('.getSiblings()', ()=>{
 			const parent = new Class.parent()
@@ -208,20 +223,6 @@ function specParent(Class){
 		o.beforeEach(()=>{
 			_.instance = new _.class()
 			_.parentClass = _.class.parent
-		})
-		o('.index', ()=>{
-			const childA = _.instance
-			o(childA.index).equals(-1)
-
-			const parent = new _.parentClass()
-			const childB = parent.children.create()
-			o(childA.index).equals(-1)
-			o(childB.index).equals(0)
-			const childC = parent.children.create()
-			o(childC.index).equals(1)
-			parent.children.add(childA)
-			o(childA.index).equals(2)
-			o(parent.children.get().map(c => c.index)).deepEquals([0, 1, 2])
 		})
 		o('.placeAt(index)', ()=>{
 			const parent = new _.parentClass()

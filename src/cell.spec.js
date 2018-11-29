@@ -8,6 +8,7 @@ o.spec('@cell', ()=>{
 	Cafesheet.Spec(Cell)
 		.addToParent()
 		.getParent()
+		.getPlace()
 		.getSiblings()
 		.removeFromParent()
 	// TODO JSON

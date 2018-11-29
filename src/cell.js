@@ -18,6 +18,9 @@ function Cell(parent = undefined, input = {}){
 	})
 }
 Object.defineProperties(Cell.prototype, {
+	getPlace: {
+		value: Cafesheet.proto.getPlace
+	},
 	getSiblings: {
 		value: Cafesheet.proto.getSiblings
 	}

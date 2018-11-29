@@ -37,6 +37,9 @@ function Section(parent = undefined, input = {}){
 	})
 }
 Object.defineProperties(Section.prototype, {
+	getPlace: {
+		value: Cafesheet.proto.getPlace
+	},
 	getSiblings: {
 		value: Cafesheet.proto.getSiblings
 	}
