@@ -120,10 +120,15 @@ Cafesheet.Spec = function(Class){
 				o(parent.getChildren()).deepEquals([childB, childC, childA])
 			})
 			o('.placeAt($notNumber)', ()=>{
-
+				const parent = new Class.parent()
+				const child = parent.createChild()
+	
+				o(thrownBy(n=>child.placeAt('x'))).equals(TypeError)
 			})
 			o('no parent', ()=>{
-				
+				const orphan = new Class()
+
+				o(thrownBy(n=>orphan.placeAt())).equals(Error)
 			})
 		}),
 		placeChild: ()=>o.spec('.placeChild', ()=>{
