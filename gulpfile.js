@@ -25,8 +25,10 @@ gulp.task('clean', ()=>{
 gulp.task('build-src', ()=>{
 	return gulp.src([
 		'./lib/*.js',
+		'!./lib/*.spec.js',
 		'./src/*.js',
-		'!./src/*.views.js'
+		'!./src/*.views.js',
+		'!./src/*.spec.js'
 	])
 	.pipe(insertEnv())
 	.pipe(concat(`src-${ENV.cachebuster}.js`))
@@ -45,7 +47,8 @@ gulp.task('build-views', ()=>{
 
 gulp.task('build-tests', ()=>{
 	return gulp.src([
-		'./tests/*.js'
+		'./lib/*.spec.js',
+		'./src/*.spec.js'
 	])
 	.pipe(concat('tests.js'))
 	.pipe(gulp.dest('./dist'))
