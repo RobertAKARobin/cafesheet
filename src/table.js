@@ -30,6 +30,10 @@ function Table(parent = undefined, input = {}){
 		}
 	})
 	Object.defineProperties(table, {
+		place: {
+			get: table.getPlace,
+			enumerable: true
+		},
 		sections: {
 			get: table.getChildren,
 			enumerable: true

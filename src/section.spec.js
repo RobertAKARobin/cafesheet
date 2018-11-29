@@ -16,5 +16,4 @@ o.spec('@section', ()=>{
 		.placeChild()
 		.removeFromParent()
 		.removeChild()
-		.toJSON()
 })

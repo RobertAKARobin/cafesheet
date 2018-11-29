@@ -10,5 +10,4 @@ o.spec('@base', ()=>{
 		.getChildren()
 		.placeChild()
 		.removeChild()
-		.toJSON()
 })

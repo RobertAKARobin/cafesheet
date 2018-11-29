@@ -30,6 +30,10 @@ function Section(parent = undefined, input = {}){
 		}
 	})
 	Object.defineProperties(section, {
+		place: {
+			get: section.getPlace,
+			enumerable: true
+		},
 		rows: {
 			get: section.getChildren,
 			enumerable: true

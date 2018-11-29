@@ -16,6 +16,12 @@ function Cell(parent = undefined, input = {}){
 			value: Cafesheet.instance.removeFromParent(pvt)
 		}
 	})
+	Object.defineProperties(cell, {
+		place: {
+			get: cell.getPlace,
+			enumerable: true
+		}
+	})
 }
 Object.defineProperties(Cell.prototype, {
 	getPlace: {

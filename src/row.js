@@ -30,6 +30,10 @@ function Row(parent = undefined, input = {}){
 		}
 	})
 	Object.defineProperties(row, {
+		place: {
+			get: row.getPlace,
+			enumerable: true
+		},
 		cells: {
 			get: row.getChildren,
 			enumerable: true
