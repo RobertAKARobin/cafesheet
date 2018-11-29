@@ -12,6 +12,7 @@ o.spec('@section', ()=>{
 		.getParent()
 		.getPlace()
 		.getSiblings()
+		.placeAt()
 		.placeChild()
 		.removeFromParent()
 		.removeChild()

@@ -10,6 +10,7 @@ o.spec('@cell', ()=>{
 		.getParent()
 		.getPlace()
 		.getSiblings()
+		.placeAt()
 		.removeFromParent()
 	// TODO JSON
 })

@@ -9,7 +9,7 @@ function thrownBy(callback){
 Cafesheet.Spec = function(Class){
 	const specs = {
 		addToParent: ()=>o.spec('.addToParent', ()=>{
-			o('.addToParent(@parent)', ()=>{
+			o('.addToParent(@newParent)', ()=>{
 				const child = new Class()
 				const parent = new Class.parent()
 
@@ -18,6 +18,13 @@ Cafesheet.Spec = function(Class){
 				o(child.getParent()).equals(parent)
 
 				o(child.removeFromParent()).equals(child)
+				o(child.addToParent(parent)).equals(child)
+				o(child.getParent()).equals(parent)
+			})
+			o('.addToParent(@existingParent)', ()=>{
+				const parent = new Class.parent()
+				const child = parent.createChild()
+
 				o(child.addToParent(parent)).equals(child)
 				o(child.getParent()).equals(parent)
 			})
@@ -97,7 +104,28 @@ Cafesheet.Spec = function(Class){
 			o(childA.getSiblings()).deepEquals([childA])
 			o(childB.getSiblings()).deepEquals([])
 		}),
-		placeAt: ()=>{},
+		placeAt: ()=>o.spec('.placeAt', ()=>{
+			o('.placeAt($number || empty)', ()=>{
+				const parent = new Class.parent()
+				const childA = parent.createChild()
+				const childB = parent.createChild()
+				const childC = parent.createChild()
+	
+				o(parent.getChildren()).deepEquals([childA, childB, childC])
+				childA.placeAt(1)
+				o(parent.getChildren()).deepEquals([childB, childA, childC])
+				childA.placeAt(0)
+				o(parent.getChildren()).deepEquals([childA, childB, childC])
+				childA.placeAt()
+				o(parent.getChildren()).deepEquals([childB, childC, childA])
+			})
+			o('.placeAt($notNumber)', ()=>{
+
+			})
+			o('no parent', ()=>{
+				
+			})
+		}),
 		placeChild: ()=>o.spec('.placeChild', ()=>{
 			o('.placeChild(@childClass)', ()=>{
 				const instance = new Class()
@@ -122,6 +150,9 @@ Cafesheet.Spec = function(Class){
 				o(instance.getChildren()).deepEquals([childA, childB])
 				instance.placeChild(childC, 1)
 				o(instance.getChildren()).deepEquals([childA, childC, childB])
+			})
+			o('.placeChild(@childClass, $notNumber)', ()=>{
+
 			})
 			o('.placeChild()', ()=>{
 				const instance = new Class()
@@ -193,59 +224,4 @@ Cafesheet.Spec = function(Class){
 		}
 	}
 	return output
-}
-
-function specChildren(Class){
-	o.spec('.children', ()=>{
-		const _ = {}
-		_.class = Class
-		o.beforeEach(()=>{
-			_.instance = new _.class()
-			_.childClass = _.class.child
-		})
-		o('new', ()=>{
-			o(_.instance.children.get().length).equals(0)
-			o(_.instance.children.get()).deepEquals([])
-		})
-		o('.place(@child, index)', ()=>{
-			const childA = _.instance.children.create()
-			const childB = _.instance.children.create()
-			const childC = _.instance.children.create()
-			o(_.instance.children.get()).deepEquals([childA, childB, childC])
-			_.instance.children.place(childB)
-			o(_.instance.children.get()).deepEquals([childA, childC, childB])
-			_.instance.children.place(childB, 0)
-			o(_.instance.children.get()).deepEquals([childB, childA, childC])
-			_.instance.children.place(childB, 200)
-			o(_.instance.children.get()).deepEquals([childA, childC, childB])
-
-			const childD = new _.childClass()
-			_.instance.children.place(childD, 1)
-			o(_.instance.children.get()).deepEquals([childA, childD, childC, childB])
-		})
-	})
-}
-
-function specParent(Class){
-	o.spec('.parent', ()=>{
-		const _ = {}
-		_.class = Class
-		o.beforeEach(()=>{
-			_.instance = new _.class()
-			_.parentClass = _.class.parent
-		})
-		o('.placeAt(index)', ()=>{
-			const parent = new _.parentClass()
-			const childA = parent.children.create()
-			const childB = parent.children.create()
-			const childC = parent.children.create()
-
-			childA.placeAt(1)
-			o(parent.children.get()).deepEquals([childB, childA, childC])
-			childA.placeAt(0)
-			o(parent.children.get()).deepEquals([childA, childB, childC])
-			childA.placeAt()
-			o(parent.children.get()).deepEquals([childB, childC, childA])
-		})
-	})
 }

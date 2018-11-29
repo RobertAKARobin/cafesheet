@@ -12,6 +12,7 @@ o.spec('@table', ()=>{
 		.getParent()
 		.getPlace()
 		.getSiblings()
+		.placeAt()
 		.placeChild()
 		.removeFromParent()
 		.removeChild()

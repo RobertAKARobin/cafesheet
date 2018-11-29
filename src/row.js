@@ -42,6 +42,9 @@ Object.defineProperties(Row.prototype, {
 	},
 	getSiblings: {
 		value: Cafesheet.proto.getSiblings
+	},
+	placeAt: {
+		value: Cafesheet.proto.placeAt
 	}
 })
 Object.defineProperties(Row, {

@@ -12,9 +12,11 @@ const Cafesheet = {
 							currentParent.removeChild(child)
 						}
 						pvt.parent = targetParent
-						targetParent.placeChild(child)
-						return child
+						if(!targetParent.getChildren().includes(child)){
+							targetParent.placeChild(child)
+						}
 					}
+					return child
 				}else{
 					throw new Error(`Cannot move ${child.constructor.name} to ${targetParent ? targetParent.constructor.name : targetParent}.`)
 				}
@@ -57,6 +59,8 @@ const Cafesheet = {
 					if(!children.includes(child)){
 						children.insert(child, index)
 						child.addToParent(parent)
+					}else if(child.getPlace() !== index){
+						children.place(child, index)
 					}
 					return child
 				}else{
@@ -107,34 +111,15 @@ const Cafesheet = {
 			}else{
 				return []
 			}
+		},
+		placeAt: function(index){
+			const instance = this
+			const parent = instance.getParent()
+			if(parent){
+				return parent.placeChild(instance, index)
+			}else{
+				throw new Error(`${instance.constructor.name} must have a parent.`)
+			}
 		}
 	}
 }
-
-// const Cafesheet = {
-// 	childCollection: function ChildCollection(parent){
-// 		Object.defineProperties(instance, {
-// 			place: {
-// 				value: function(child, index){
-// 					if(children.includes(child)){
-// 						children.remove(child)
-// 						children.insert(child, index)
-// 					}else{
-// 						instance.add(child)
-// 						instance.place.apply(instance, arguments)
-// 					}
-// 				}
-// 			}
-// 		})
-// 	},
-// 	instanceMethods: {
-// 		placeAt: function(index){
-// 			const instance = this
-// 			if(instance.parent){
-// 				instance.parent.children.place(instance, index)
-// 			}else{
-// 				return false
-// 			}
-// 		}
-// 	}
-// }
