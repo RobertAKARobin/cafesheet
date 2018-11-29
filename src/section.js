@@ -7,9 +7,6 @@ function Section(parent = undefined, input = {}){
 	}
 
 	Object.defineProperties(section, {
-		addChild: {
-			value: Cafesheet.instance.addChild(pvt)
-		},
 		addToParent: {
 			value: Cafesheet.instance.addToParent(pvt)
 		},
@@ -21,6 +18,9 @@ function Section(parent = undefined, input = {}){
 		},
 		getParent: {
 			value: Cafesheet.instance.getParent(pvt)
+		},
+		placeChild: {
+			value: Cafesheet.instance.placeChild(pvt)
 		},
 		removeChild: {
 			value: Cafesheet.instance.removeChild(pvt)

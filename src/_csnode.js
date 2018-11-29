@@ -1,24 +1,6 @@
 const Cafesheet = {
 	state: {},
 	instance: {
-		addChild: function(pvt){
-			return function(child, index){
-				const parent = pvt.instance
-				const parentClass = pvt.instance.constructor
-				const childClass = pvt.instance.constructor.child
-				const children = pvt.children
-	
-				if(child instanceof childClass){
-					if(!children.includes(child)){
-						children.insert(child, index)
-						child.addToParent(parent)
-					}
-					return child
-				}else{
-					throw new Error(`Cannot add ${child ? child.constructor.name : child} to ${parentClass.name}.`)
-				}
-			}
-		},
 		addToParent: function(pvt){
 			return function(targetParent, index){
 				const child = pvt.instance
@@ -30,7 +12,7 @@ const Cafesheet = {
 							currentParent.removeChild(child)
 						}
 						pvt.parent = targetParent
-						targetParent.addChild(child, index)
+						targetParent.placeChild(child, index)
 						return child
 					}
 				}else{
@@ -62,6 +44,24 @@ const Cafesheet = {
 				const parent = pvt.parent
 
 				return parent
+			}
+		},
+		placeChild: function(pvt){
+			return function(child, index){
+				const parent = pvt.instance
+				const parentClass = pvt.instance.constructor
+				const childClass = pvt.instance.constructor.child
+				const children = pvt.children
+	
+				if(child instanceof childClass){
+					if(!children.includes(child)){
+						children.insert(child, index)
+						child.addToParent(parent)
+					}
+					return child
+				}else{
+					throw new Error(`Cannot add ${child ? child.constructor.name : child} to ${parentClass.name}.`)
+				}
 			}
 		},
 		removeChild: function(pvt){

@@ -6,9 +6,9 @@ o('Base', ()=>{
 })
 o.spec('@base', ()=>{
 	Cafesheet.Spec(Base)
-		.addChild()
 		.createChild()
 		.getChildren()
+		.placeChild()
 		.removeChild()
 		.toJSON()
 })

@@ -6,14 +6,14 @@ function Base(input = {}){
 	}
 
 	Object.defineProperties(base, {
-		addChild: {
-			value: Cafesheet.instance.addChild(pvt)
-		},
 		getChildren: {
 			value: Cafesheet.instance.getChildren(pvt)
 		},
 		createChild: {
 			value: Cafesheet.instance.createChild(pvt)
+		},
+		placeChild: {
+			value: Cafesheet.instance.placeChild(pvt)
 		},
 		removeChild: {
 			value: Cafesheet.instance.removeChild(pvt)
