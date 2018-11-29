@@ -138,7 +138,7 @@ Cafesheet.Spec = function(Class){
 				instance.placeChild(childB)
 				o(instance.getChildren()).deepEquals([childA, childB])
 			})
-			o('.placeChild(@childClass, index)', ()=>{
+			o('.placeChild(@childClass, $number)', ()=>{
 				const instance = new Class()
 				const childA = new Class.child()
 				const childB = new Class.child()
@@ -152,6 +152,8 @@ Cafesheet.Spec = function(Class){
 				o(instance.getChildren()).deepEquals([childA, childC, childB])
 				instance.placeChild(childC, 0)
 				o(instance.getChildren()).deepEquals([childC, childA, childB])
+				instance.placeChild(childC, -1)
+				o(instance.getChildren()).deepEquals([childA, childC, childB])
 			})
 			o('.placeChild(@childClass, $notNumber)', ()=>{
 				const instance = new Class()
