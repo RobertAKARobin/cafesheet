@@ -13,5 +13,5 @@ o.spec('@row', ()=>{
 		.getParent()
 		.removeFromParent()
 		.removeChild()
-	// TODO JSON
+		.toJSON()
 })

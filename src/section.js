@@ -27,8 +27,9 @@ function Section(parent = undefined, input = {}){
 		},
 		removeFromParent: {
 			value: Cafesheet.instance.removeFromParent(pvt)
-		},
-
+		}
+	})
+	Object.defineProperties(section, {
 		rows: {
 			get: section.getChildren,
 			enumerable: true

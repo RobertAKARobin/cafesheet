@@ -130,6 +130,16 @@ Cafesheet.Spec = function(Class){
 			o(child.removeFromParent()).equals(child)
 			o(parent.getChildren()).deepEquals([])
 			o(child.getParent()).equals(undefined)
+		}),
+		toJSON: ()=>o('JSON.stringify(@instance)', ()=>{
+			const childrenName = Class.child.name.toLowerCase().toPlural()
+			const instance = new Class()
+			instance.createChild()
+			instance.createChild()
+
+			const json = JSON.parse(JSON.stringify(instance))
+			o(Object.keys(json)).deepEquals([childrenName])
+			o(json[childrenName].length).equals(2)
 		})
 	}
 
@@ -170,14 +180,6 @@ function specChildren(Class){
 			const childD = new _.childClass()
 			_.instance.children.place(childD, 1)
 			o(_.instance.children.get()).deepEquals([childA, childD, childC, childB])
-		})
-		o(`JSON.stringify(@${Class.name.toLowerCase()})`, ()=>{
-			_.instance.children.create()
-			_.instance.children.create()
-
-			const json = JSON.parse(JSON.stringify(_.instance))
-			o(Object.keys(json)).deepEquals([Class.child.name.toLowerCase().toPlural()])
-			o(json[Class.child.name.toLowerCase().toPlural()].length).equals(2)
 		})
 	})
 }

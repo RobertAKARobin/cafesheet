@@ -10,14 +10,5 @@ o.spec('@base', ()=>{
 		.createChild()
 		.getChildren()
 		.removeChild()
-
-	o('JSON.stringify(@base)', ()=>{
-		const instance = new Base()
-		instance.createChild()
-		instance.createChild()
-
-		const json = JSON.parse(JSON.stringify(instance))
-		o(Object.keys(json)).deepEquals(['tables'])
-		o(json['tables'].length).equals(2)
-	})
+		.toJSON()
 })

@@ -13,5 +13,5 @@ o.spec('@table', ()=>{
 		.getParent()
 		.removeFromParent()
 		.removeChild()
-	// TODO JSON
+		.toJSON()
 })
