@@ -5,14 +5,14 @@ Row.component = {
 			m('th', [
 				m('button[action=remove]', {
 					onclick: ()=>{
-						row.remove()
+						row.removeFromParent()
 					}
 				}, [
-					m('span.rowIndex', row.index)
+					m('span.rowIndex', row.place)
 				]),
 				m('button[action=create]', {
 					onclick: ()=>{
-						row.siblings.create().placeAt(row.index + 1)
+						row.getParent().createChild().placeAt(row.place + 1)
 					}
 				}, '+')
 			]),

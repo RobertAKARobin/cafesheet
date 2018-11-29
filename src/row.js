@@ -37,8 +37,16 @@ function Row(parent = undefined, input = {}){
 		cells: {
 			get: row.getChildren,
 			enumerable: true
+		},
+
+		createCell: {
+			value: row.createChild
 		}
 	})
+
+	if(input.cells){
+		input.cells.forEach(row.createCell)
+	}
 }
 Object.defineProperties(Row.prototype, {
 	getPlace: {

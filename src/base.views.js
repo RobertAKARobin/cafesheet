@@ -1,6 +1,7 @@
 Base.component = {
 	view: function(){
-		return m('div.base', Cafesheet.state.base.tables.map(table => {
+		const base = Cafesheet.state.base
+		return m('div.base', base.tables.map(table => {
 			return m(Table.component, {table})
 		}))
 	}

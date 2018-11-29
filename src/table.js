@@ -37,8 +37,16 @@ function Table(parent = undefined, input = {}){
 		sections: {
 			get: table.getChildren,
 			enumerable: true
+		},
+
+		createSection: {
+			value: table.createChild
 		}
 	})
+
+	if(input.sections){
+		input.sections.forEach(table.createSection)
+	}
 }
 Object.defineProperties(Table.prototype, {
 	getPlace: {

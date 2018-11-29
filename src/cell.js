@@ -22,6 +22,8 @@ function Cell(parent = undefined, input = {}){
 			enumerable: true
 		}
 	})
+
+	cell.datum = input.datum
 }
 Object.defineProperties(Cell.prototype, {
 	getPlace: {

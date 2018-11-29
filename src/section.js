@@ -37,8 +37,16 @@ function Section(parent = undefined, input = {}){
 		rows: {
 			get: section.getChildren,
 			enumerable: true
+		},
+
+		createRow: {
+			value: section.createChild
 		}
 	})
+
+	if(input.rows){
+		input.rows.forEach(section.createRow)
+	}
 }
 Object.defineProperties(Section.prototype, {
 	getPlace: {

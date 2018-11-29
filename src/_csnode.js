@@ -23,13 +23,12 @@ const Cafesheet = {
 			}
 		},
 		createChild: function(pvt){
-			return function(){
+			return function(input){
 				const parent = pvt.instance
 				const childClass = pvt.instance.constructor.child
 				const children = pvt.children
 	
-				// const child = new childClass(parent, input)
-				const child = new childClass(parent)
+				const child = new childClass(parent, input)
 				children.push(child)
 				return child
 			}
