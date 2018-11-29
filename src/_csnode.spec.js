@@ -21,6 +21,16 @@ Cafesheet.Spec = function(Class){
 				o(child.addToParent(parent)).equals(child)
 				o(child.getParent()).equals(parent)
 			})
+			o('.addToParent()', ()=>{
+				const child = new Class()
+
+				o(thrownBy(n=>child.addToParent())).equals(Error)
+			})
+			o('.addToParent(@wrongClass)', ()=>{
+				const child = new Class()
+
+				o(thrownBy(n=>child.addToParent({}))).equals(Error)
+			})
 		}),
 		createChild: ()=>o('.createChild()', ()=>{
 			const instance = new Class()

@@ -2,7 +2,7 @@ const Cafesheet = {
 	state: {},
 	instance: {
 		addToParent: function(pvt){
-			return function(targetParent, index){
+			return function(targetParent){
 				const child = pvt.instance
 				const currentParent = pvt.parent
 
@@ -12,11 +12,11 @@ const Cafesheet = {
 							currentParent.removeChild(child)
 						}
 						pvt.parent = targetParent
-						targetParent.placeChild(child, index)
+						targetParent.placeChild(child)
 						return child
 					}
 				}else{
-					throw new Error(`Cannot move ${child.constructor.name} to ${targetParent.constructor.name}.`)
+					throw new Error(`Cannot move ${child.constructor.name} to ${targetParent ? targetParent.constructor.name : targetParent}.`)
 				}
 			}
 		},
