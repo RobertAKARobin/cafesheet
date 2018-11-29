@@ -11,6 +11,7 @@ o.spec('@table', ()=>{
 		.createChild()
 		.getChildren()
 		.getParent()
+		.getSiblings()
 		.removeFromParent()
 		.removeChild()
 		.toJSON()

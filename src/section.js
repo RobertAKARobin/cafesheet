@@ -36,6 +36,11 @@ function Section(parent = undefined, input = {}){
 		}
 	})
 }
+Object.defineProperties(Section.prototype, {
+	getSiblings: {
+		value: Cafesheet.proto.getSiblings
+	}
+})
 Object.defineProperties(Section, {
 	ancestors: {
 		value: [Table, Base]

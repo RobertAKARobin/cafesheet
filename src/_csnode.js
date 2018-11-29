@@ -100,8 +100,9 @@ const Cafesheet = {
 		},
 		getSiblings: function(){
 			const instance = this
-			if(instance.parent){
-				return instance.parent.children
+			const parent = instance.getParent()
+			if(parent){
+				return parent.getChildren()
 			}else{
 				return false
 			}
@@ -124,31 +125,6 @@ const Cafesheet = {
 // 				value: parent
 // 			},
 
-// 			add: {
-// 				value: function(child, index){
-					// if(child instanceof Class){
-					// 	if(!children.includes(child)){
-					// 		children.insert(child, index)
-					// 		child.addTo(parent)
-					// 	}
-					// 	return child
-					// }else{
-					// 	throw new Error(`Cannot add ${child.constructor.name} to ${Class.name}.`)
-					// }
-// 				}
-// 			},
-// 			create: {
-// 				value: function(input){
-					// const child = new Class(parent, input)
-					// children.push(child)
-					// return child
-// 				}
-// 			},
-// 			get: {
-				// value: function(){
-				// 	return Array.from(children)
-				// }
-// 			},
 // 			indexOf: {
 // 				value: function(child){
 // 					return children.indexOf(child)
@@ -164,36 +140,10 @@ const Cafesheet = {
 // 						instance.place.apply(instance, arguments)
 // 					}
 // 				}
-// 			},
-// 			remove: {
-// 				value: function(child){
-					// if(children.includes(child)){
-					// 	children.remove(child)
-					// 	child.remove()
-					// }else{
-					// 	return false
-					// }
-// 				}
 // 			}
 // 		})
 // 	},
 // 	instanceMethods: {
-// 		addToParent: function(instance, pvt){
-// 			return function(targetParent, index){
-				// if(targetParent instanceof instance.constructor.parent){
-				// 	if(pvt.parent != targetParent){
-				// 		if(pvt.parent){
-				// 			pvt.parent.children.remove(instance)
-				// 		}
-				// 		pvt.parent = targetParent
-				// 		targetParent.children.add(instance, index)
-				// 		return instance
-				// 	}
-				// }else{
-				// 	throw new Error(`Cannot move ${instance.constructor.name} to ${targetParent.constructor.name}.`)
-				// }
-// 			}
-// 		},
 // 		index: function(){
 			// const instance = this
 			// if(instance.parent){
@@ -209,24 +159,6 @@ const Cafesheet = {
 // 			}else{
 // 				return false
 // 			}
-// 		},
-// 		removeFromParent: function(instance, pvt){
-// 			return function(){
-				// if(pvt.parent){
-				// 	pvt.parent.children.remove(instance)
-				// 	pvt.parent = undefined
-				// }else{
-				// 	return false
-				// }
-// 			}
-// 		},
-// 		siblings: function(){
-			// const instance = this
-			// if(instance.parent){
-			// 	return instance.parent.children
-			// }else{
-			// 	return false
-			// }
 // 		}
 // 	}
 // }
