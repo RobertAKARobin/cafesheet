@@ -17,9 +17,9 @@ function Base(input = {}){
 		},
 		removeChild: {
 			value: Cafesheet.instance.removeChild(pvt)
-		},
-
-		
+		}
+	})
+	Object.defineProperties(base, {
 		tables: {
 			get: base.getChildren,
 			enumerable: true
