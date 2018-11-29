@@ -13,7 +13,7 @@ o.spec('Cafesheet in browser', ()=>{
 		'celldata': 'td textarea',
 		'createButton': 'button[action=create]',
 		'removeButton': 'button[action=remove]',
-		'rowIndex': '.rowIndex'
+		'rowPlace': '.rowPlace'
 	}
 	function DOM(){
 		let root, selector
@@ -46,8 +46,8 @@ o.spec('Cafesheet in browser', ()=>{
 			o(DOM('rows').length).equals(Data.rows.length)
 
 			const dataRowIndexes = Data.rows.map(r=>Data.rows.indexOf(r))
-			const domRowIndexes = DOM('rows').map(r=>parseInt(DOM(r, 'rowIndex')[0].textContent))
-			o(domRowIndexes).deepEquals(dataRowIndexes)
+			const domRowPlaces = DOM('rows').map(r=>parseInt(DOM(r, 'rowPlace')[0].textContent))
+			o(domRowPlaces).deepEquals(dataRowIndexes)
 		})
 		o('cells', ()=>{
 			o(DOM('cells').length).equals(Data.cells.length)

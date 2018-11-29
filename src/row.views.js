@@ -8,7 +8,7 @@ Row.component = {
 						row.removeFromParent()
 					}
 				}, [
-					m('span.rowIndex', row.place)
+					m('span.rowPlace', row.place)
 				]),
 				m('button[action=create]', {
 					onclick: ()=>{
