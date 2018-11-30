@@ -12,7 +12,12 @@ o.spec('@cell', ()=>{
 		.getSiblings()
 		.placeAt()
 		.removeFromParent()
+	
+	o('.empty()', ()=>{
+		const cell = Cell.create({datum: 'banana'})
+		o(cell.datum).equals('banana')
+		o(cell.empty().datum).equals('')
+	})
 	// TODO JSON
-	// TODO empty
 	// TODO create
 })
