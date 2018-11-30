@@ -19,22 +19,25 @@ o.spec('@table', ()=>{
 		.removeChild()
 	
 	o.spec('.scan', ()=>{
+		let base = undefined
+		let table = undefined
+		o.beforeEach(()=>{
+			base = Base.create()
+			table = base.tables[0]
+		})
 		o('.scan(Base)', ()=>{
-			const instance = new Table()
-			const result = instance.scan(Base)
-			o(result).equals(instance.getParent())
+			const result = table.scan(Base)
+			o(result).equals(table.getParent())
+			o(result).equals(base)
 		})
 		o('.scan(Table)', ()=>{
-			const instance = new Table()
-			o(thrownBy(n=>instance.scan(Table))).equals(Error)
+			o(thrownBy(n=>table.scan(Table))).equals(Error)
 		})
 		o('.scan()', ()=>{
-			const instance = new Table()
-			o(thrownBy(n=>instance.scan())).equals(Error)
+			o(thrownBy(n=>table.scan())).equals(Error)
 		})
 		o('.scan(ExternalClass)', ()=>{
-			const instance = new Table()
-			o(thrownBy(n=>instance.scan(Element))).equals(Error)
+			o(thrownBy(n=>table.scan(Element))).equals(Error)
 		})
 	})
 })
