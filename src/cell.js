@@ -40,6 +40,9 @@ Object.defineProperties(Cell.prototype, {
 	},
 	placeAt: {
 		value: Cafesheet.proto.placeAt
+	},
+	scan: {
+		value: Cafesheet.proto.scan
 	}
 })
 Object.defineProperties(Cell, {

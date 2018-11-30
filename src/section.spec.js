@@ -17,4 +17,5 @@ o.spec('@section', ()=>{
 		.placeChild()
 		.removeFromParent()
 		.removeChild()
+		.scan()
 })

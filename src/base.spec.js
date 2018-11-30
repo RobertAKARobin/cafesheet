@@ -11,4 +11,5 @@ o.spec('@base', ()=>{
 		.empty()
 		.placeChild()
 		.removeChild()
+		.scan()
 })

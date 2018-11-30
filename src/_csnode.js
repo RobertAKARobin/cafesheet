@@ -158,15 +158,27 @@ const Cafesheet = {
 				return parent
 			}
 			function scanDescendants(startingInstance, TargetClass){
+				// let combinedChildren = []
+				// gatherChildren(startingInstance)
+				// return combinedChildren.flat()
+
+				// function gatherChildren(current){
+				// 	const children = current.getChildren()
+				// 	if(current.constructor.child === TargetClass){
+				// 		combinedChildren.push(children)
+				// 	}else{
+				// 		children.forEach(gatherChildren)
+				// 	}
+				// }
 			}
 			return function(TargetClass){
 				const instance = this
 				const Anchor = instance.constructor
 				if(Anchor === TargetClass){
 					return instance
-				}else if(Anchor.ancestors.includes(TargetClass)){
+				}else if(Anchor.ancestors && Anchor.ancestors.includes(TargetClass)){
 					return scanAncestors(instance, TargetClass)
-				}else if(Anchor.descendants.includes(TargetClass)){
+				}else if(Anchor.descendants && Anchor.descendants.includes(TargetClass)){
 					return scanDescendants(instance, TargetClass)
 				}else{
 					throw new Error(`${Anchor.name} cannot scan for ${TargetClass ? TargetClass.name : TargetClass}`)

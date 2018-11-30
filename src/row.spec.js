@@ -17,4 +17,5 @@ o.spec('@row', ()=>{
 		.placeChild()
 		.removeFromParent()
 		.removeChild()
+		.scan()
 })

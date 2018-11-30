@@ -12,6 +12,7 @@ o.spec('@cell', ()=>{
 		.getSiblings()
 		.placeAt()
 		.removeFromParent()
+		.scan()
 	
 	o('.empty()', ()=>{
 		const cell = Cell.create({datum: 'banana'})

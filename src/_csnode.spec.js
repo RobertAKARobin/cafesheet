@@ -272,9 +272,6 @@ Cafesheet.Spec = function(Class){
 			o('.scan(Base)', ()=>{
 				o($.instance.scan(Base)).equals($.Base)
 			})
-			o('.scan($Descendant)', ()=>{
-
-			})
 		})
 	}
 
