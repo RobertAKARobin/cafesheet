@@ -148,24 +148,23 @@ const Cafesheet = {
 			function scanAncestors(startingInstance, TargetClass){
 				let parent = undefined
 				let current = startingInstance
-				while(true){
-					parent = current.getParent()
-					if(parent && parent.constructor !== TargetClass){
-						current = parent
-						continue
-					}else{
+				while(parent = current.getParent()){
+					if(parent.constructor === TargetClass){
 						break
+					}else{
+						current = parent
 					}
 				}
 				return parent
 			}
 			function scanDescendants(startingInstance, TargetClass){
-				
 			}
 			return function(TargetClass){
 				const instance = this
 				const Anchor = instance.constructor
-				if(Anchor.ancestors.includes(TargetClass)){
+				if(Anchor === TargetClass){
+					return instance
+				}else if(Anchor.ancestors.includes(TargetClass)){
 					return scanAncestors(instance, TargetClass)
 				}else if(Anchor.descendants.includes(TargetClass)){
 					return scanDescendants(instance, TargetClass)

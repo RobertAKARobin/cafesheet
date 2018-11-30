@@ -17,27 +17,5 @@ o.spec('@table', ()=>{
 		.placeChild()
 		.removeFromParent()
 		.removeChild()
-	
-	o.spec('.scan', ()=>{
-		let base = undefined
-		let table = undefined
-		o.beforeEach(()=>{
-			base = Base.create()
-			table = base.tables[0]
-		})
-		o('.scan(Base)', ()=>{
-			const result = table.scan(Base)
-			o(result).equals(table.getParent())
-			o(result).equals(base)
-		})
-		o('.scan(Table)', ()=>{
-			o(thrownBy(n=>table.scan(Table))).equals(Error)
-		})
-		o('.scan()', ()=>{
-			o(thrownBy(n=>table.scan())).equals(Error)
-		})
-		o('.scan(ExternalClass)', ()=>{
-			o(thrownBy(n=>table.scan(Element))).equals(Error)
-		})
-	})
+		.scan()
 })

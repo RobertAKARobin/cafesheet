@@ -248,6 +248,33 @@ Cafesheet.Spec = function(Class){
 			o(child.removeFromParent()).equals(child)
 			o(parent.getChildren()).deepEquals([])
 			o(child.getParent()).equals(undefined)
+		}),
+		scan: ()=>o.spec('.scan', ()=>{
+			const $ = {}
+			o.beforeEach(()=>{
+				$.Base = Base.create()
+				$.Table = $.Base.tables
+				$.Section = $.Table.map(t=>t.sections).flat()
+				$.Row = $.Section.map(s=>s.rows).flat()
+				$.Cell = $.Row.map(r=>r.cells).flat()
+
+				$.instance = (Class === Base ? $.Base : $[Class.name][0])
+			})
+			o('.scan($Self)', ()=>{
+				o($.instance.scan(Class)).equals($.instance)
+			})
+			o('.scan()', ()=>{
+				o(thrownBy(n=>$.instance.scan())).equals(Error)
+			})
+			o('.scan(ExternalClass)', ()=>{
+				o(thrownBy(n=>$.instance.scan(Element))).equals(Error)
+			})
+			o('.scan(Base)', ()=>{
+				o($.instance.scan(Base)).equals($.Base)
+			})
+			o('.scan($Descendant)', ()=>{
+
+			})
 		})
 	}
 
