@@ -144,16 +144,13 @@ const Cafesheet = {
 				throw new Error(`${instance.constructor.name} must have a parent.`)
 			}
 		},
-		scan: function(Target){
-			const instance = this
-			const Anchor = instance.constructor
-
-			if(Anchor.ancestors.includes(Target)){
+		scan: (function(){
+			function scanAncestors(startingInstance, TargetClass){
 				let parent = undefined
-				let current = instance
+				let current = startingInstance
 				while(true){
 					parent = current.getParent()
-					if(parent && parent.constructor !== Target){
+					if(parent && parent.constructor !== TargetClass){
 						current = parent
 						continue
 					}else{
@@ -161,11 +158,21 @@ const Cafesheet = {
 					}
 				}
 				return parent
-			}else if(Anchor.descendants.includes(Target)){
-
-			}else{
-				throw new Error(`${Anchor.name} cannot scan for ${Target ? Target.name : Target}`)
 			}
-		}
+			function scanDescendants(startingInstance, TargetClass){
+				
+			}
+			return function(TargetClass){
+				const instance = this
+				const Anchor = instance.constructor
+				if(Anchor.ancestors.includes(TargetClass)){
+					return scanAncestors(instance, TargetClass)
+				}else if(Anchor.descendants.includes(TargetClass)){
+					return scanDescendants(instance, TargetClass)
+				}else{
+					throw new Error(`${Anchor.name} cannot scan for ${TargetClass ? TargetClass.name : TargetClass}`)
+				}
+			}
+		})()
 	}
 }
