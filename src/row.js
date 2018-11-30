@@ -1,12 +1,12 @@
 function Row(parent = undefined, input = {}){
-	const row = this
+	const instance = this
 	const pvt = {
 		children: [],
-		instance: row,
+		instance,
 		parent
 	}
 
-	Object.defineProperties(row, {
+	Object.defineProperties(instance, {
 		addToParent: {
 			value: Cafesheet.instance.addToParent(pvt)
 		},
@@ -29,23 +29,23 @@ function Row(parent = undefined, input = {}){
 			value: Cafesheet.instance.removeFromParent(pvt)
 		}
 	})
-	Object.defineProperties(row, {
+	Object.defineProperties(instance, {
 		place: {
-			get: row.getPlace,
+			get: instance.getPlace,
 			enumerable: true
 		},
 		cells: {
-			get: row.getChildren,
+			get: instance.getChildren,
 			enumerable: true
 		},
 
 		createCell: {
-			value: row.createChild
+			value: instance.createChild
 		}
 	})
 
 	if(input.cells){
-		input.cells.forEach(row.createCell)
+		input.cells.forEach(instance.createChild)
 	}
 }
 Object.defineProperties(Row.prototype, {

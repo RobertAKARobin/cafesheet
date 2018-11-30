@@ -1,11 +1,11 @@
 function Cell(parent = undefined, input = {}){
-	const cell = this
+	const instance = this
 	const pvt = {
-		instance: cell,
+		instance,
 		parent
 	}
 
-	Object.defineProperties(cell, {
+	Object.defineProperties(instance, {
 		addToParent: {
 			value: Cafesheet.instance.addToParent(pvt)
 		},
@@ -16,14 +16,15 @@ function Cell(parent = undefined, input = {}){
 			value: Cafesheet.instance.removeFromParent(pvt)
 		}
 	})
-	Object.defineProperties(cell, {
+
+	Object.defineProperties(instance, {
 		place: {
-			get: cell.getPlace,
+			get: instance.getPlace,
 			enumerable: true
 		}
 	})
 
-	cell.datum = input.datum
+	instance.datum = input.datum
 }
 Object.defineProperties(Cell.prototype, {
 	getPlace: {
