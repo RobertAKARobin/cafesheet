@@ -119,6 +119,18 @@ const Cafesheet = {
 			}else{
 				throw new Error(`${instance.constructor.name} must have a parent.`)
 			}
+		},
+		scan: function(Target){
+			const instance = this
+			const Anchor = instance.constructor
+
+			if(Anchor.ancestors.includes(Target)){
+
+			}else if(Anchor.descendants.includes(Target)){
+
+			}else{
+				throw new Error(`${Anchor.name} cannot scan for ${Target ? Target.name : Target}`)
+			}
 		}
 	}
 }

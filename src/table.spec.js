@@ -16,4 +16,19 @@ o.spec('@table', ()=>{
 		.placeChild()
 		.removeFromParent()
 		.removeChild()
+	
+	o.spec('.scan', ()=>{
+		o('.scan(Table)', ()=>{
+			const instance = new Table()
+			o(thrownBy(n=>instance.scan(Table))).equals(Error)
+		})
+		o('.scan()', ()=>{
+			const instance = new Table()
+			o(thrownBy(n=>instance.scan())).equals(Error)
+		})
+		o('.scan(ExternalClass)', ()=>{
+			const instance = new Table()
+			o(thrownBy(n=>instance.scan(Element))).equals(Error)
+		})
+	})
 })
