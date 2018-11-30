@@ -61,7 +61,7 @@ Cafesheet.Spec = function(Class){
 				o(instance.getChildren()).deepEquals([childA, childB, childC])
 			})
 			o('JSON', ()=>{
-				const childrenName = Class.child.name.toLowerCase().toPlural()
+				const childrenName = Class.child.name.toLowerCase() + 's'
 				const instance = new Class()
 				instance.createChild()
 				instance.createChild()
