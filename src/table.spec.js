@@ -18,6 +18,11 @@ o.spec('@table', ()=>{
 		.removeChild()
 	
 	o.spec('.scan', ()=>{
+		o('.scan(Base)', ()=>{
+			const instance = new Table()
+			const result = instance.scan(Base)
+			o(result).equals(instance.getParent())
+		})
 		o('.scan(Table)', ()=>{
 			const instance = new Table()
 			o(thrownBy(n=>instance.scan(Table))).equals(Error)

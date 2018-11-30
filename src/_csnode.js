@@ -125,7 +125,18 @@ const Cafesheet = {
 			const Anchor = instance.constructor
 
 			if(Anchor.ancestors.includes(Target)){
-
+				let parent = undefined
+				let current = instance
+				while(true){
+					parent = current.getParent()
+					if(parent && parent.constructor !== Target){
+						current = parent
+						continue
+					}else{
+						break
+					}
+				}
+				return parent
 			}else if(Anchor.descendants.includes(Target)){
 
 			}else{
