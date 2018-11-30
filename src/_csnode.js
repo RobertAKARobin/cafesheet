@@ -69,11 +69,13 @@ const Cafesheet = {
 		},
 		removeChild: function(pvt){
 			return function(child){
+				const parent = this
 				const children = pvt.children
 	
 				if(children.includes(child)){
 					children.remove(child)
 					child.removeFromParent()
+					return parent
 				}else{
 					return false
 				}
