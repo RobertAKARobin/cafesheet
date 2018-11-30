@@ -8,6 +8,7 @@ o.spec('@base', ()=>{
 	Cafesheet.Spec(Base)
 		.createChild()
 		.getChildren()
+		.empty()
 		.placeChild()
 		.removeChild()
 })

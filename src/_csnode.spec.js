@@ -49,6 +49,15 @@ Cafesheet.Spec = function(Class){
 			o(childA.constructor).equals(instance.constructor.child)
 			o(instance.getChildren()).deepEquals([childA, childB, childC])
 		}),
+		empty: ()=>o('.empty()', ()=>{
+			const instance = new Class()
+			const childA = instance.createChild()
+			const childB = instance.createChild()
+			const childC = instance.createChild()
+
+			o(instance.getChildren()).deepEquals([childA, childB, childC])
+			o(instance.empty().getChildren()).deepEquals([])
+		}),
 		getChildren: ()=>o.spec('.getChildren', ()=>{
 			o('.getChildren()', ()=>{
 				const instance = new Class()

@@ -8,6 +8,7 @@ o.spec('@row', ()=>{
 	Cafesheet.Spec(Row)
 		.addToParent()
 		.createChild()
+		.empty()
 		.getChildren()
 		.getParent()
 		.getPlace()

@@ -40,6 +40,11 @@ function Base(input = {}){
 		input.tables.forEach(instance.createChild)
 	}
 }
+Object.defineProperties(Base.prototype, {
+	empty: {
+		value: Cafesheet.proto.empty
+	}
+})
 Object.defineProperties(Base, {
 	child: {
 		value: Table

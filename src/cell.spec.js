@@ -13,4 +13,5 @@ o.spec('@cell', ()=>{
 		.placeAt()
 		.removeFromParent()
 	// TODO JSON
+	// TODO empty
 })

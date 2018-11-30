@@ -49,6 +49,9 @@ function Row(parent = undefined, input = {}){
 	}
 }
 Object.defineProperties(Row.prototype, {
+	empty: {
+		value: Cafesheet.proto.empty
+	},
 	getPlace: {
 		value: Cafesheet.proto.getPlace
 	},

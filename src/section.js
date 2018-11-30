@@ -49,6 +49,9 @@ function Section(parent = undefined, input = {}){
 	}
 }
 Object.defineProperties(Section.prototype, {
+	empty: {
+		value: Cafesheet.proto.empty
+	},
 	getPlace: {
 		value: Cafesheet.proto.getPlace
 	},

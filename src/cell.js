@@ -27,6 +27,13 @@ function Cell(parent = undefined, input = {}){
 	instance.datum = input.datum
 }
 Object.defineProperties(Cell.prototype, {
+	empty: {
+		value: function(){
+			const instance = this
+			instance.datum = ''
+			return instance
+		}
+	},
 	getPlace: {
 		value: Cafesheet.proto.getPlace
 	},

@@ -8,6 +8,7 @@ o.spec('@section', ()=>{
 	Cafesheet.Spec(Section)
 		.addToParent()
 		.createChild()
+		.empty()
 		.getChildren()
 		.getParent()
 		.getPlace()
