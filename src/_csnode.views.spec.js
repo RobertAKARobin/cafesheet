@@ -25,46 +25,70 @@ o.spec('Cafesheet in browser', ()=>{
 		return Array.from((root || document).querySelectorAll(componentToDOMMapping[selector]))
 	}
 
-	o.beforeEach(()=>{
-		Data.tables = Array.from(CSData.tables)
-		Data.sections = Data.tables.map(t=>t.sections).flat()
-		Data.rows = Data.sections.map(s=>s.rows).flat()
-		Data.cells = Data.rows.map(r=>r.cells).flat()
-
-		Cafesheet.state.base = Base.create(CSData)
-		m.mount(document.getElementById('app-output'), Base.component)
-	})
 	o.spec('on load', ()=>{
-		o('tables', ()=>{
-			o(DOM('bases')[0].children[0].tagName.toLowerCase()).equals('table')
-			o(DOM('tables').length).equals(Data.tables.length)
+		o.spec('without seed data', ()=>{
+			o.beforeEach(()=>{
+				Cafesheet.state.base = Base.create()
+				m.mount(document.getElementById('app-output'), Base.component)
+			})
+			o('tables', ()=>{
+				o(DOM('tables').length).equals(Base.defaultNumberOfChildren)
+			})
+			o('sections', ()=>{
+				o(DOM('sections').length).equals(Base.defaultNumberOfChildren * Table.defaultNumberOfChildren)
+			})
+			o('rows', ()=>{
+				o(DOM('rows').length).equals(Base.defaultNumberOfChildren * Table.defaultNumberOfChildren * Section.defaultNumberOfChildren)
+			})
+			o('cells', ()=>{
+				o(DOM('cells').length).equals(Base.defaultNumberOfChildren * Table.defaultNumberOfChildren * Section.defaultNumberOfChildren * Row.defaultNumberOfChildren)
+			})
 		})
-		o('sections', ()=>{
-			o(DOM('sections').length).equals(Data.sections.length)
-		})
-		o('rows', ()=>{
-			o(DOM('rows').length).equals(Data.rows.length)
+		o.spec('with seed data', ()=>{
+			o.beforeEach(()=>{
+				Data.tables = Array.from(CSData.tables)
+				Data.sections = Data.tables.map(t=>t.sections).flat()
+				Data.rows = Data.sections.map(s=>s.rows).flat()
+				Data.cells = Data.rows.map(r=>r.cells).flat()
 
-			const dataRowIndexes = Data.rows.map(r=>Data.rows.indexOf(r))
-			const domRowPlaces = DOM('rows').map(r=>parseInt(DOM(r, 'rowPlace')[0].textContent))
-			o(domRowPlaces).deepEquals(dataRowIndexes)
-		})
-		o('cells', ()=>{
-			o(DOM('cells').length).equals(Data.cells.length)
-		})
-		o('celldata', ()=>{
-			o(DOM('celldata').length).equals(Data.cells.length)
-			o(DOM('celldata').map(d=>d.value)).deepEquals(Data.cells.map(c=>c.datum))
+				Cafesheet.state.base = Base.create(CSData)
+				m.mount(document.getElementById('app-output'), Base.component)
+			})
+
+			o('tables', ()=>{
+				o(DOM('tables').length).equals(Data.tables.length)
+			})
+			o('sections', ()=>{
+				o(DOM('sections').length).equals(Data.sections.length)
+			})
+			o('rows', ()=>{
+				o(DOM('rows').length).equals(Data.rows.length)
+	
+				const dataRowIndexes = Data.rows.map(r=>Data.rows.indexOf(r))
+				const domRowPlaces = DOM('rows').map(r=>parseInt(DOM(r, 'rowPlace')[0].textContent))
+				o(domRowPlaces).deepEquals(dataRowIndexes)
+			})
+			o('cells', ()=>{
+				o(DOM('cells').length).equals(Data.cells.length)
+			})
+			o('celldata', ()=>{
+				o(DOM('celldata').length).equals(Data.cells.length)
+				o(DOM('celldata').map(d=>d.value)).deepEquals(Data.cells.map(c=>c.datum))
+			})
 		})
 	})
 	o.spec('@row', ()=>{
+		o.beforeEach(()=>{
+			Cafesheet.state.base = Base.create()
+			m.mount(document.getElementById('app-output'), Base.component)
+		})
 		o.spec('click create button', ()=>{
 			o('increases row length', async ()=>{
 				const firstRow = DOM('rows')[0]
-				o(DOM('rows').length).equals(Data.rows.length)
+				const initialNumberOfRows = DOM('rows').length
 				DOM(firstRow, 'createButton')[0].click()
 				await frame()
-				o(DOM('rows').length).equals(Data.rows.length + 1)
+				o(DOM('rows').length).equals(initialNumberOfRows + 1)
 			})
 			o('third row now has data of former second row', async ()=>{
 				const firstRow = DOM('rows')[0]
@@ -89,10 +113,10 @@ o.spec('Cafesheet in browser', ()=>{
 			o('first row now has data of former second row', async ()=>{
 				const firstRow = DOM('rows')[0]
 				const secondRow = DOM('rows')[1]
-				const secondRowData = DOM(secondRow, 'celldata').map(t=>t.value)
+				const secondRowContent = DOM(secondRow, 'celldata').map(t=>t.value)
 				DOM(firstRow, 'removeButton')[0].click()
 				await frame()
-				o(DOM(firstRow, 'celldata').map(t=>t.value)).deepEquals(secondRowData)
+				o(DOM(firstRow, 'celldata').map(t=>t.value)).deepEquals(secondRowContent)
 			})
 		})
 	})

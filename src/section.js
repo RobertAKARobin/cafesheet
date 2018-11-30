@@ -66,7 +66,10 @@ Object.defineProperties(Section, {
 		value: Row
 	},
 	create: {
-		value: Cafesheet.class.create(Section, 'rows', 3)
+		value: Cafesheet.class.create(Section, 'rows')
+	},
+	defaultNumberOfChildren: {
+		value: 3
 	},
 	descendants: {
 		value: [Row, Cell]

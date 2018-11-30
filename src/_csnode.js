@@ -1,13 +1,13 @@
 const Cafesheet = {
 	state: {},
 	class: {
-		create: function(Class, children, defaultNumberOfChildren){
+		create: function(Class, children){
 			return function(input = {}){
 				const instance = new Class()
 				if(input[children]){
 					input[children].forEach(instance.createChild)
 				}else{
-					(defaultNumberOfChildren).times(instance.createChild)
+					(Class.defaultNumberOfChildren).times(instance.createChild)
 				}
 				return instance
 			}
