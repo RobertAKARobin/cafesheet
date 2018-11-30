@@ -1,5 +1,23 @@
 const Cafesheet = {
 	state: {},
+	class: {
+		create: function(Class, children, defaultNumberOfChildren){
+			return function(input = {}){
+				const instance = new Class()
+				if(input[children]){
+					input[children].forEach(instance.createChild)
+				}else{
+					(defaultNumberOfChildren).times(instance.createChild)
+				}
+				return instance
+			}
+		},
+		new: function(Class){
+			return function(){
+				return new Class()
+			}
+		}
+	},
 	instance: {
 		addToParent: function(pvt){
 			return function(targetParent){
@@ -28,8 +46,7 @@ const Cafesheet = {
 				const childClass = pvt.instance.constructor.child
 				const children = pvt.children
 	
-				const child = new childClass(parent, input)
-				children.push(child)
+				const child = childClass.create(input).addToParent(parent)
 				return child
 			}
 		},

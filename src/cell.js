@@ -1,8 +1,8 @@
-function Cell(parent = undefined, input = {}){
+function Cell(){
 	const instance = this
 	const pvt = {
 		instance,
-		parent
+		parent: undefined
 	}
 
 	Object.defineProperties(instance, {
@@ -23,8 +23,6 @@ function Cell(parent = undefined, input = {}){
 			enumerable: true
 		}
 	})
-
-	instance.datum = input.datum
 }
 Object.defineProperties(Cell.prototype, {
 	empty: {
@@ -47,6 +45,16 @@ Object.defineProperties(Cell.prototype, {
 Object.defineProperties(Cell, {
 	ancestors: {
 		value: [Row, Section, Table, Base]
+	},
+	create: {
+		value: function(input = {}){
+			const cell = new Cell()
+			cell.datum = input.datum
+			return cell
+		}
+	},
+	new: {
+		value: Cafesheet.class.new(Cell)
 	},
 	parent: {
 		value: Row

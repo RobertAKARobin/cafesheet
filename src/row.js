@@ -1,9 +1,9 @@
-function Row(parent = undefined, input = {}){
+function Row(){
 	const instance = this
 	const pvt = {
 		children: [],
 		instance,
-		parent
+		parent: undefined
 	}
 
 	Object.defineProperties(instance, {
@@ -43,10 +43,6 @@ function Row(parent = undefined, input = {}){
 			value: instance.createChild
 		}
 	})
-
-	if(input.cells){
-		input.cells.forEach(instance.createChild)
-	}
 }
 Object.defineProperties(Row.prototype, {
 	empty: {
@@ -69,8 +65,14 @@ Object.defineProperties(Row, {
 	child: {
 		value: Cell
 	},
+	create: {
+		value: Cafesheet.class.create(Row, 'cells', 5)
+	},
 	descendants: {
 		value: [Cell]
+	},
+	new: {
+		value: Cafesheet.class.new(Row)
 	},
 	parent: {
 		value: Section

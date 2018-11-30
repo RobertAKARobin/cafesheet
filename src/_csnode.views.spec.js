@@ -31,7 +31,7 @@ o.spec('Cafesheet in browser', ()=>{
 		Data.rows = Data.sections.map(s=>s.rows).flat()
 		Data.cells = Data.rows.map(r=>r.cells).flat()
 
-		Cafesheet.state.base = new Base(CSData)
+		Cafesheet.state.base = Base.create(CSData)
 		m.mount(document.getElementById('app-output'), Base.component)
 	})
 	o.spec('on load', ()=>{
@@ -88,10 +88,11 @@ o.spec('Cafesheet in browser', ()=>{
 			})
 			o('first row now has data of former second row', async ()=>{
 				const firstRow = DOM('rows')[0]
+				const secondRow = DOM('rows')[1]
+				const secondRowData = DOM(secondRow, 'celldata').map(t=>t.value)
 				DOM(firstRow, 'removeButton')[0].click()
-				o(DOM(firstRow, 'celldata').map(t=>t.value)).deepEquals(Data.rows[0].cells.map(c=>c.datum))
 				await frame()
-				o(DOM(firstRow, 'celldata').map(t=>t.value)).deepEquals(Data.rows[1].cells.map(c=>c.datum))
+				o(DOM(firstRow, 'celldata').map(t=>t.value)).deepEquals(secondRowData)
 			})
 		})
 	})

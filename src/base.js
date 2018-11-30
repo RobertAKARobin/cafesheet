@@ -1,4 +1,4 @@
-function Base(input = {}){
+function Base(){
 	const instance = this
 	const pvt = {
 		children: [],
@@ -35,10 +35,6 @@ function Base(input = {}){
 			value: instance.removeChild
 		}
 	})
-
-	if(input.tables){
-		input.tables.forEach(instance.createChild)
-	}
 }
 Object.defineProperties(Base.prototype, {
 	empty: {
@@ -49,7 +45,13 @@ Object.defineProperties(Base, {
 	child: {
 		value: Table
 	},
+	create: {
+		value: Cafesheet.class.create(Base, 'tables', 1)
+	},
 	descendants: {
 		value: [Table, Section, Row, Cell]
+	},
+	new: {
+		value: Cafesheet.class.new(Base)
 	}
 })
