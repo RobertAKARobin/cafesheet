@@ -19,6 +19,20 @@ o.spec('@section', ()=>{
 		.removeChild()
 		.scan()
 
+	o('.getWidth()', ()=>{
+		const instance = Section.create()
+		const initialWidth = Row.defaultNumberOfChildren
+		o(instance.getWidth()).equals(initialWidth)
+
+		const rowA = instance.createChild()
+		const rowB = instance.createChild()
+		rowA.createChild()
+		o(instance.getWidth()).equals(initialWidth + 1)
+
+		rowB.createChild()
+		rowB.createChild()
+		o(instance.getWidth()).equals(initialWidth + 2)
+	})
 	o('.scanFor($Class)', ()=>{
 		const base = Base.create()
 		const table = base.tables[0]

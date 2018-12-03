@@ -19,6 +19,22 @@ o.spec('@table', ()=>{
 		.removeChild()
 		.scan()
 
+	o('.getWidth()', ()=>{
+		const instance = Table.create()
+		const initialWidth = Row.defaultNumberOfChildren
+		o(instance.getWidth()).equals(initialWidth)
+
+		const sectionA = instance.createChild()
+		const sectionB = instance.createChild()
+		const rowA = sectionA.createChild()
+		const rowB = sectionB.createChild()
+		rowA.createChild()
+		o(instance.getWidth()).equals(initialWidth + 1)
+
+		rowB.createChild()
+		rowB.createChild()
+		o(instance.getWidth()).equals(initialWidth + 2)
+	})
 	o('.scanFor($Class)', ()=>{
 		const base = Base.create()
 		const instance = base.tables[0]
