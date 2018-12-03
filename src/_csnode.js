@@ -139,7 +139,7 @@ const Cafesheet = {
 			const instance = this
 			const allRows = instance.scanFor(Row)
 			const widths = allRows.map(r=>r.getWidth())
-			return Math.max(...widths)
+			return Math.max(0, ...widths)
 		},
 		placeAt: function(index){
 			const instance = this

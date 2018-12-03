@@ -20,6 +20,8 @@ o.spec('@row', ()=>{
 		.scan()
 
 	o('.getWidth()', ()=>{
+		o(Row.new().getWidth()).equals(0)
+
 		const instance = Row.create()
 		const initialWidth = Row.defaultNumberOfChildren
 		o(instance.getWidth()).equals(initialWidth)

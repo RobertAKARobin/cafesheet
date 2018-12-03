@@ -20,6 +20,8 @@ o.spec('@table', ()=>{
 		.scan()
 
 	o('.getWidth()', ()=>{
+		o(Table.new().getWidth()).equals(0)
+		
 		const instance = Table.create()
 		const initialWidth = Row.defaultNumberOfChildren
 		o(instance.getWidth()).equals(initialWidth)
