@@ -1,8 +1,19 @@
-o('Base', ()=>{
-	o(Base.descendants).deepEquals([Table, Section, Row, Cell])
-	o(Base.child).equals(Table)
-	o(Base.ancestors).equals(undefined)
-	o(Base.parent).equals(undefined)
+o.spec('Base', ()=>{
+	o('family', ()=>{
+		o(Base.descendants).deepEquals([Table, Section, Row, Cell])
+		o(Base.child).equals(Table)
+		o(Base.ancestors).equals(undefined)
+		o(Base.parent).equals(undefined)
+	})
+
+	o('.create()', ()=>{
+		const instance = Base.create()
+		o(instance.getChildren().length).equals(Base.defaultNumberOfChildren)
+	})
+	o('.new()', ()=>{
+		const instance = Base.new()
+		o(instance.getChildren().length).equals(0)
+	})
 })
 o.spec('@base', ()=>{
 	Cafesheet.Spec(Base)

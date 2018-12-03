@@ -1,8 +1,21 @@
-o('Table', ()=>{
-	o(Table.descendants).deepEquals([Section, Row, Cell])
-	o(Table.child).equals(Section)
-	o(Table.ancestors).deepEquals([Base])
-	o(Table.parent).equals(Base)
+o.spec('Table', ()=>{
+	o('family', ()=>{
+		o(Table.descendants).deepEquals([Section, Row, Cell])
+		o(Table.child).equals(Section)
+		o(Table.ancestors).deepEquals([Base])
+		o(Table.parent).equals(Base)
+	})
+
+	o('.create()', ()=>{
+		const instance = Table.create()
+		o(instance.getChildren().length).equals(Table.defaultNumberOfChildren)
+		o(instance.getParent()).equals(undefined)
+	})
+	o('.new()', ()=>{
+		const instance = Table.new()
+		o(instance.getChildren().length).equals(0)
+		o(instance.getParent()).equals(undefined)
+	})
 })
 o.spec('@table', ()=>{
 	Cafesheet.Spec(Table)
@@ -21,7 +34,7 @@ o.spec('@table', ()=>{
 
 	o('.getWidth()', ()=>{
 		o(Table.new().getWidth()).equals(0)
-		
+
 		const instance = Table.create()
 		const initialWidth = Row.defaultNumberOfChildren
 		o(instance.getWidth()).equals(initialWidth)

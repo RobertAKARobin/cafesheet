@@ -1,8 +1,28 @@
-o('Cell', ()=>{
-	o(Cell.descendants).deepEquals(undefined)
-	o(Cell.child).equals(undefined)
-	o(Cell.ancestors).deepEquals([Row, Section, Table, Base])
-	o(Cell.parent).equals(Row)
+o.spec('Cell', ()=>{
+	o('family', ()=>{
+		o(Cell.descendants).deepEquals(undefined)
+		o(Cell.child).equals(undefined)
+		o(Cell.ancestors).deepEquals([Row, Section, Table, Base])
+		o(Cell.parent).equals(Row)
+	})
+
+	o.spec('.create', ()=>{
+		o('.create()', ()=>{
+			const instance = Cell.create()
+			o(instance.getParent()).equals(undefined)
+			o(instance.datum).equals(undefined)
+		})
+		o('.create($value)', ()=>{
+			const value = 'banana'
+			const instance = Cell.create({datum: value})
+			o(instance.datum).equals(value)
+		})
+	})
+	o('.new()', ()=>{
+		const instance = Cell.new()
+		o(instance.getParent()).equals(undefined)
+		o(instance.datum).equals(undefined)
+	})
 })
 o.spec('@cell', ()=>{
 	Cafesheet.Spec(Cell)
