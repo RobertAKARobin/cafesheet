@@ -1,7 +1,7 @@
 const Cafesheet = {
 	state: {},
 	class: {
-		create: function(Class, children){
+		create(Class, children){
 			return function(input = {}){
 				const instance = new Class()
 				if(input[children]){
@@ -12,14 +12,14 @@ const Cafesheet = {
 				return instance
 			}
 		},
-		new: function(Class){
+		new(Class){
 			return function(){
 				return new Class()
 			}
 		}
 	},
 	instance: {
-		addToParent: function(pvt){
+		addToParent(pvt){
 			return function(targetParent){
 				const child = pvt.instance
 				const currentParent = pvt.parent
@@ -40,7 +40,7 @@ const Cafesheet = {
 				}
 			}
 		},
-		createChild: function(pvt){
+		createChild(pvt){
 			return function(input){
 				const parent = pvt.instance
 				const childClass = pvt.instance.constructor.child
@@ -50,21 +50,21 @@ const Cafesheet = {
 				return child
 			}
 		},
-		getChildren: function(pvt){
+		getChildren(pvt){
 			return function(){
 				const children = pvt.children
 	
 				return Array.from(children)
 			}
 		},
-		getParent: function(pvt){
+		getParent(pvt){
 			return function(){
 				const parent = pvt.parent
 
 				return parent
 			}
 		},
-		placeChild: function(pvt){
+		placeChild(pvt){
 			return function(child, index){
 				const parent = pvt.instance
 				const parentClass = pvt.instance.constructor
@@ -84,7 +84,7 @@ const Cafesheet = {
 				}
 			}
 		},
-		removeChild: function(pvt){
+		removeChild(pvt){
 			return function(child){
 				const parent = this
 				const children = pvt.children
@@ -98,7 +98,7 @@ const Cafesheet = {
 				}
 			}
 		},
-		removeFromParent: function(pvt){
+		removeFromParent(pvt){
 			return function(){
 				const child = pvt.instance
 				const parent = pvt.parent
@@ -112,12 +112,12 @@ const Cafesheet = {
 		}
 	},
 	proto: {
-		empty: function(){
+		empty(){
 			const instance = this
 			instance.getChildren().forEach(instance.removeChild)
 			return instance
 		},
-		getPlace: function(){
+		getPlace(){
 			const instance = this
 			const parent = instance.getParent()
 			if(parent){
@@ -126,7 +126,7 @@ const Cafesheet = {
 				return -1
 			}
 		},
-		getSiblings: function(){
+		getSiblings(){
 			const instance = this
 			const parent = instance.getParent()
 			if(parent){
@@ -135,13 +135,13 @@ const Cafesheet = {
 				return []
 			}
 		},
-		getWidthOfRows: function(){
+		getWidthOfRows(){
 			const instance = this
 			const allRows = instance.scanFor(Row)
 			const widths = allRows.map(r=>r.getWidth())
 			return Math.max(0, ...widths)
 		},
-		placeAt: function(index){
+		placeAt(index){
 			const instance = this
 			const parent = instance.getParent()
 			if(parent){
