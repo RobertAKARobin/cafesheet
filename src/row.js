@@ -57,8 +57,8 @@ Object.defineProperties(Row.prototype, {
 	placeAt: {
 		value: Cafesheet.proto.placeAt
 	},
-	scan: {
-		value: Cafesheet.proto.scan
+	scanFor: {
+		value: Cafesheet.proto.scanForFamily
 	}
 })
 Object.defineProperties(Row, {

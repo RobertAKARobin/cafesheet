@@ -249,7 +249,7 @@ Cafesheet.Spec = function(Class){
 			o(parent.getChildren()).deepEquals([])
 			o(child.getParent()).equals(undefined)
 		}),
-		scan: ()=>o.spec('.scan default', ()=>{
+		scan: ()=>o.spec('.scanFor default', ()=>{
 			const $ = {}
 			o.beforeEach(()=>{
 				$.Base = Base.create()
@@ -260,14 +260,14 @@ Cafesheet.Spec = function(Class){
 
 				$.instance = (Class === Base ? $.Base : $[Class.name][0])
 			})
-			o('.scan($Self)', ()=>{
-				o($.instance.scan(Class)).equals($.instance)
+			o('.scanFor($Self)', ()=>{
+				o($.instance.scanFor(Class)).equals($.instance)
 			})
-			o('.scan()', ()=>{
-				o(thrownBy(n=>$.instance.scan())).equals(Error)
+			o('.scanFor()', ()=>{
+				o(thrownBy(n=>$.instance.scanFor())).equals(Error)
 			})
-			o('.scan(ExternalClass)', ()=>{
-				o(thrownBy(n=>$.instance.scan(Element))).equals(Error)
+			o('.scanFor(ExternalClass)', ()=>{
+				o(thrownBy(n=>$.instance.scanFor(Element))).equals(Error)
 			})
 		})
 	}

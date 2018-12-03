@@ -19,20 +19,20 @@ o.spec('@table', ()=>{
 		.removeChild()
 		.scan()
 
-	o('.scan($Class)', ()=>{
+	o('.scanFor($Class)', ()=>{
 		const base = Base.create()
 		const instance = base.tables[0]
 		const sections = instance.sections
 		const rows = sections.map(s=>s.rows).flat()
 		const cells = rows.map(r=>r.cells).flat()
 
-		o(instance.scan(Base)).equals(base)
-		o(instance.scan(Table)).deepEquals(instance)
-		o(instance.scan(Section)).deepEquals(sections)
-		o(instance.scan(Row)).deepEquals(rows)
-		o(instance.scan(Cell)).deepEquals(cells)
+		o(instance.scanFor(Base)).equals(base)
+		o(instance.scanFor(Table)).deepEquals(instance)
+		o(instance.scanFor(Section)).deepEquals(sections)
+		o(instance.scanFor(Row)).deepEquals(rows)
+		o(instance.scanFor(Cell)).deepEquals(cells)
 
-		o(instance.scan(Base)).equals(instance.getParent())
-		o(instance.scan(Section)).deepEquals(instance.getChildren())
+		o(instance.scanFor(Base)).equals(instance.getParent())
+		o(instance.scanFor(Section)).deepEquals(instance.getChildren())
 	})
 })

@@ -144,7 +144,7 @@ const Cafesheet = {
 				throw new Error(`${instance.constructor.name} must have a parent.`)
 			}
 		},
-		scan: (function(){
+		scanForFamily: (function(){
 			function scanAncestors(startingInstance, TargetClass){
 				let parent = undefined
 				let current = startingInstance
