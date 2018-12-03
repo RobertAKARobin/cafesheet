@@ -54,6 +54,12 @@ Object.defineProperties(Row.prototype, {
 	getSiblings: {
 		value: Cafesheet.proto.getSiblings
 	},
+	getWidth: {
+		value: function(){
+			const instance = this
+			return instance.getChildren().length
+		}
+	},
 	placeAt: {
 		value: Cafesheet.proto.placeAt
 	},

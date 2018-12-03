@@ -135,6 +135,10 @@ const Cafesheet = {
 				return []
 			}
 		},
+		getWidthOfRows: function(){
+			const instance = this
+			return Math.max(instance.scan(Row).map(r=>r.getWidth()))
+		},
 		placeAt: function(index){
 			const instance = this
 			const parent = instance.getParent()
