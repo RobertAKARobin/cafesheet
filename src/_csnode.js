@@ -158,18 +158,18 @@ const Cafesheet = {
 				return parent
 			}
 			function scanDescendants(startingInstance, TargetClass){
-				// let combinedChildren = []
-				// gatherChildren(startingInstance)
-				// return combinedChildren.flat()
+				let combinedChildren = []
+				gatherChildren(startingInstance)
+				return combinedChildren.flat()
 
-				// function gatherChildren(current){
-				// 	const children = current.getChildren()
-				// 	if(current.constructor.child === TargetClass){
-				// 		combinedChildren.push(children)
-				// 	}else{
-				// 		children.forEach(gatherChildren)
-				// 	}
-				// }
+				function gatherChildren(current){
+					const children = current.getChildren()
+					if(current.constructor.child === TargetClass){
+						combinedChildren.push(children)
+					}else{
+						children.forEach(gatherChildren)
+					}
+				}
 			}
 			return function(TargetClass){
 				const instance = this
