@@ -13,19 +13,17 @@ o.spec('@base', ()=>{
 		.removeChild()
 		.scan()
 	
-	o('.scan($Descendant)', ()=>{
-		const $ = {}
-		$.Base = Base.create()
-		$.Table = $.Base.tables
-		$.Section = $.Table.map(t=>t.sections).flat()
-		$.Row = $.Section.map(s=>s.rows).flat()
-		$.Cell = $.Row.map(r=>r.cells).flat()
+	o('.scan($Class)', ()=>{
+		const instance = Base.create()
+		const tables = instance.tables
+		const sections = tables.map(t=>t.sections).flat()
+		const rows = sections.map(s=>s.rows).flat()
+		const cells = rows.map(r=>r.cells).flat()
 
-		const instance = $.Base
-		o(instance.scan(Base)).deepEquals(instance)
-		o(instance.scan(Table)).deepEquals($.Table)
-		o(instance.scan(Section)).deepEquals($.Section)
-		o(instance.scan(Row)).deepEquals($.Row)
-		o(instance.scan(Cell)).deepEquals($.Cell)
+		o(instance.scan(Base)).equals(instance)
+		o(instance.scan(Table)).deepEquals(tables)
+		o(instance.scan(Section)).deepEquals(sections)
+		o(instance.scan(Row)).deepEquals(rows)
+		o(instance.scan(Cell)).deepEquals(cells)
 	})
 })
