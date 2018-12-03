@@ -32,6 +32,9 @@ o.spec('@table', ()=>{
 		.removeChild()
 		.scan()
 
+	o('.getColumns()', ()=>{
+		o(Table.create().getColumns().length).equals(Row.defaultNumberOfChildren)
+	})
 	o('.getWidth()', ()=>{
 		o(Table.new().getWidth()).equals(0)
 

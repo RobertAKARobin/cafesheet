@@ -48,6 +48,9 @@ Object.defineProperties(Section.prototype, {
 	empty: {
 		value: Cafesheet.proto.empty
 	},
+	getColumns: {
+		value: Cafesheet.proto.getColumns
+	},
 	getPlace: {
 		value: Cafesheet.proto.getPlace
 	},

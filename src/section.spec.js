@@ -32,6 +32,9 @@ o.spec('@section', ()=>{
 		.removeChild()
 		.scan()
 
+	o('.getColumns()', ()=>{
+		o(Section.create().getColumns().length).equals(Row.defaultNumberOfChildren)
+	})
 	o('.getWidth()', ()=>{
 		o(Section.new().getWidth()).equals(0)
 
