@@ -1,7 +1,7 @@
 Row.component = {
 	view: function(vnode){
 		const row = vnode.attrs.row
-		return m('tr', [
+		return m('tr.dataRow', [
 			m('th', [
 				m('button[action=remove]', {
 					onclick: ()=>{

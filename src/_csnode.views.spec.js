@@ -7,8 +7,8 @@ o.spec('Cafesheet in browser', ()=>{
 	const componentToDOMMapping = {
 		'bases': 'div.base',
 		'tables': 'table',
-		'sections': 'tbody',
-		'rows': 'tr',
+		'sectionBodies': 'tbody.sectionBody',
+		'rows': 'tr.dataRow',
 		'cells': 'td',
 		'celldata': 'td textarea',
 		'createButton': 'button[action=create]',
@@ -35,7 +35,7 @@ o.spec('Cafesheet in browser', ()=>{
 				o(DOM('tables').length).equals(Base.defaultNumberOfChildren)
 			})
 			o('sections', ()=>{
-				o(DOM('sections').length).equals(Base.defaultNumberOfChildren * Table.defaultNumberOfChildren)
+				o(DOM('sectionBodies').length).equals(Base.defaultNumberOfChildren * Table.defaultNumberOfChildren)
 			})
 			o('rows', ()=>{
 				o(DOM('rows').length).equals(Base.defaultNumberOfChildren * Table.defaultNumberOfChildren * Section.defaultNumberOfChildren)
@@ -59,7 +59,7 @@ o.spec('Cafesheet in browser', ()=>{
 				o(DOM('tables').length).equals(Data.tables.length)
 			})
 			o('sections', ()=>{
-				o(DOM('sections').length).equals(Data.sections.length)
+				o(DOM('sectionBodies').length).equals(Data.sections.length)
 			})
 			o('rows', ()=>{
 				o(DOM('rows').length).equals(Data.rows.length)
