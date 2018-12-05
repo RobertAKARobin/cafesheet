@@ -32,6 +32,22 @@ o.spec('@table', ()=>{
 		.removeChild()
 		.scan()
 
+	o.spec('.getColumnAt', ()=>{
+		o('.getColumnAt()', ()=>{
+			const table = Table.new()
+		})
+		o('.getColumnAt($number)', ()=>{
+			const table = Table.new()
+			const column = table.getColumnAt(1)
+			o(column.cells).deepEquals([])
+
+			const section = Section.new().addToParent(table)
+			const row = Row.new().addToParent(section)
+			const cellA = row.createCell()
+			const cellB = row.createCell()
+			o(column.cells).deepEquals([cellB])
+		})
+	})
 	o('.getColumns()', ()=>{
 		o(Table.create().getColumns().length).equals(Row.defaultNumberOfChildren)
 	})
