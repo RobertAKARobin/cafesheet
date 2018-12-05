@@ -48,8 +48,22 @@ Object.defineProperties(Table.prototype, {
 	empty: {
 		value: Cafesheet.proto.empty
 	},
+	getColumnAt: {
+		value: function(place){
+			const instance = this
+			return TableColumn.new({
+				parent: instance,
+				place
+			})
+		}
+	},
 	getColumns: {
-		value: Cafesheet.proto.getColumns
+		value: function(){
+			const instance = this
+			return instance.getWidth().map(place => {
+				return instance.getColumnAt(place)
+			})
+		}
 	},
 	getPlace: {
 		value: Cafesheet.proto.getPlace

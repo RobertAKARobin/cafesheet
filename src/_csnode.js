@@ -117,16 +117,6 @@ const Cafesheet = {
 			instance.getChildren().forEach(instance.removeChild)
 			return instance
 		},
-		getColumns(){
-			const instance = this
-			const columns = instance.scanFor(Cell).reduce((columns, cell)=>{
-				const place = cell.getPlace()
-				columns[place] = (columns[place] || [])
-				columns[place].push(cell)
-				return columns
-			}, [])
-			return columns
-		},
 		getPlace(){
 			const instance = this
 			const parent = instance.getParent()

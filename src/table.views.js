@@ -5,8 +5,8 @@ Table.component = {
 			m('tbody', [
 				m('tr', [
 					m('th'),
-					table.getColumns().map((column, index) => {
-						return m('th', index)
+					table.getColumns().map(column => {
+						return m('th', column.place)
 					})
 				])
 			]),

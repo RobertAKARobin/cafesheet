@@ -1,36 +1,14 @@
 function TableColumn(input = {}){
 	const instance = this
 	const pvt = {
-		parent: undefined,
-		place: -1,
+		parent: (input.parent || undefined),
+		place: (isNaN(input.place) ? -1 : input.place),
 		instance
 	}
 
 	Object.defineProperties(instance, {
-		addToParent: {
-			value: (targetParent)=>{
-				if(targetParent.constructor == pvt.parent.constructor){
-					// pvt.parent = targetParent
-					// targetParent.addColumn(instance)
-					return instance
-				}else{
-					throw new Error()
-				}
-			}
-		},
 		getParent: {
-			value: ()=>{
-				return pvt.parent
-			}
-		},
-		removeFromParent: {
-			value: ()=>{
-				if(pvt.parent){
-					// pvt.parent.removeColumn(instance)
-					// pvt.parent = undefined
-				}
-				return instance
-			}
+			value: Cafesheet.instance.getParent(pvt)
 		}
 	})
 
@@ -46,22 +24,16 @@ function TableColumn(input = {}){
 	})
 }
 Object.defineProperties(TableColumn.prototype, {
-	empty: {
-		value: ()=>{}
-	},
 	getCells: {
-		value: ()=>{
-
+		value: function(){
+			const instance = this
+			const parent = instance.getParent()
+			if(parent){
+				return parent.scanFor(Cell).filter(cell => cell.getPlace() === instance.place)
+			}else{
+				return []
+			}
 		}
-	},
-	getPlace: {
-		value: ()=>{}
-	},
-	getSiblings: {
-		value: ()=>{}
-	},
-	placeAt: {
-		value: ()=>{}
 	}
 })
 Object.defineProperties(TableColumn, {

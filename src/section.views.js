@@ -5,7 +5,7 @@ Section.component = {
 			m('tbody.sectionHeader', [
 				m('tr', [
 					m('th'),
-					section.getColumns().map((column, index) => {
+					section.getWidth().map(index => {
 						return m('th', index)
 					})
 				])
