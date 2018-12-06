@@ -43,9 +43,7 @@ const Cafesheet = {
 		createChild(pvt){
 			return function(input){
 				const parent = pvt.instance
-				const childClass = pvt.instance.constructor.child
-				const children = pvt.children
-	
+				const childClass = parent.constructor.child
 				const child = childClass.create(input).addToParent(parent)
 				return child
 			}

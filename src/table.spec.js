@@ -35,6 +35,7 @@ o.spec('@table', ()=>{
 	o.spec('.getColumnAt', ()=>{
 		o('.getColumnAt()', ()=>{
 			const table = Table.new()
+			o(thrownBy(n=>table.getColumnAt())).equals(Error)
 		})
 		o('.getColumnAt($number)', ()=>{
 			const table = Table.new()
@@ -42,10 +43,15 @@ o.spec('@table', ()=>{
 			o(column.cells).deepEquals([])
 
 			const section = Section.new().addToParent(table)
-			const row = Row.new().addToParent(section)
-			const cellA = row.createCell()
-			const cellB = row.createCell()
-			o(column.cells).deepEquals([cellB])
+			const rowA = Row.new().addToParent(section)
+			const rowAcellA = rowA.createCell()
+			const rowAcellB = rowA.createCell()
+			o(column.cells).deepEquals([rowAcellB])
+
+			const rowB = Row.new().addToParent(section)
+			const rowBcellA = rowB.createCell()
+			const rowBcellB = rowB.createCell()
+			o(column.cells).deepEquals([rowAcellB, rowBcellB])
 		})
 	})
 	o('.getColumns()', ()=>{
