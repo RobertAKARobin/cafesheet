@@ -51,14 +51,10 @@ Object.defineProperties(Table.prototype, {
 	getColumnAt: {
 		value: function(place){
 			const instance = this
-			if(isNaN(place)){
-				throw new Error(`'${place}' is not a valid place.`)
-			}else{
-				return TableColumn.new({
-					parent: instance,
-					place
-				})
-			}
+			return TableColumn.get({
+				parent: instance,
+				place
+			})
 		}
 	},
 	getColumns: {

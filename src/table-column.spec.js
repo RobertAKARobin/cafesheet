@@ -1,27 +1,48 @@
 o.spec('TableColumn', ()=>{
-	o.spec('.new', ()=>{
-		o('.new()', ()=>{
-			const column = TableColumn.new()
+	o.spec('.get', ()=>{
+		o('.get()', ()=>{
+			const column = TableColumn.get()
 			o(column.cells).deepEquals([])
 			column.cells.push('foo')
 			o(column.cells).deepEquals([])
 			o(column.getParent()).equals(undefined)
+			o(column.place).equals(-1)
 		})
-		o('.new({parent: $parent}', ()=>{
+		o('.get({parent: $parent}', ()=>{
 			const table = Table.create()
-			const column = TableColumn.new({parent: table})
+			const column = TableColumn.get({parent: table})
 			o(column.cells).deepEquals([])
 			o(column.getParent()).equals(table)
+			o(column.place).equals(-1)
 		})
-		o('.new({parent: $wrongparent}', ()=>{
-			o(thrownBy(n=>TableColumn.new({parent: Cell.new()}))).equals(Error)
+		o('.get({parent: $wrongparent}', ()=>{
+			o(thrownBy(n=>TableColumn.get({parent: Cell.new()}))).equals(Error)
 		})
-		o('.new({parent: $parent, place: $place}', ()=>{
+		o('.get({place: $NaN}', ()=>{
+			o(thrownBy(n=>TableColumn.get({place: 'banana'}))).equals(Error)
+		})
+		o('.get({place: $number}', ()=>{
+			const column = TableColumn.get({place: 1})
+			o(column.place).equals(1)
+			o(column.getParent()).equals(undefined)
+			o(column.cells).deepEquals([])
+		})
+		o('.get({parent: $parent, place: $number}', ()=>{
 			const table = Table.create()
-			const column = TableColumn.new({parent: table, place: 1})
+			const place = 1
+			const column = TableColumn.get({parent: table, place: place})
+			o(column.place).equals(place)
 			o(column.cells).deepEquals(table.scanFor(Cell).filter(cell=>cell.place == column.place))
 			o(column.getParent()).equals(table)
 		})
+	})
+	o('.new()', ()=>{
+		const column = TableColumn.new()
+		o(column.cells).deepEquals([])
+		column.cells.push('foo')
+		o(column.cells).deepEquals([])
+		o(column.getParent()).equals(undefined)
+		o(column.place).equals(-1)
 	})
 })
 o.spec('@tableColumn', ()=>{

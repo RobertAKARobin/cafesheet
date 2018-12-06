@@ -34,8 +34,10 @@ o.spec('@table', ()=>{
 
 	o.spec('.getColumnAt', ()=>{
 		o('.getColumnAt()', ()=>{
-			const table = Table.new()
-			o(thrownBy(n=>table.getColumnAt())).equals(Error)
+			const table = Table.create()
+			const column = table.getColumnAt()
+			o(column.getParent()).equals(table)
+			o(column.place).equals(-1)
 		})
 		o('.getColumnAt($number)', ()=>{
 			const table = Table.new()
