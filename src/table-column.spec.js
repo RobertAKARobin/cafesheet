@@ -16,10 +16,10 @@ o.spec('TableColumn', ()=>{
 			o(column.place).equals(-1)
 		})
 		o('.get({parent: $wrongparent}', ()=>{
-			o(thrownBy(n=>TableColumn.get({parent: Cell.new()}))).equals(Error)
+			o(n=>TableColumn.get({parent: Cell.new()})).throws(Error)
 		})
 		o('.get({place: $NaN}', ()=>{
-			o(thrownBy(n=>TableColumn.get({place: 'banana'}))).equals(Error)
+			o(n=>TableColumn.get({place: 'banana'})).throws(Error)
 		})
 		o('.get({place: $number}', ()=>{
 			const column = TableColumn.get({place: 1})

@@ -1,11 +1,3 @@
-function thrownBy(callback){
-	try{
-		callback()
-	}catch(e){
-		return e.constructor
-	}
-}
-
 Cafesheet.Spec = function(Class){
 	const specs = {
 		addTo: ()=>o.spec('.addTo', ()=>{
@@ -31,12 +23,12 @@ Cafesheet.Spec = function(Class){
 			o('.addTo()', ()=>{
 				const child = new Class()
 
-				o(thrownBy(n=>child.addTo())).equals(Error)
+				o(n=>child.addTo()).throws(Error)
 			})
 			o('.addTo(@wrongClass)', ()=>{
 				const child = new Class()
 
-				o(thrownBy(n=>child.addTo({}))).equals(Error)
+				o(n=>child.addTo({})).throws(Error)
 			})
 		}),
 		createChild: ()=>o('.createChild()', ()=>{
@@ -156,12 +148,12 @@ Cafesheet.Spec = function(Class){
 				const parent = new Class.parent()
 				const child = parent.createChild()
 	
-				o(thrownBy(n=>child.placeAt('x'))).equals(TypeError)
+				o(n=>child.placeAt('x')).throws(TypeError)
 			})
 			o('no parent', ()=>{
 				const orphan = new Class()
 
-				o(thrownBy(n=>orphan.placeAt())).equals(Error)
+				o(n=>orphan.placeAt()).throws(Error)
 			})
 		}),
 		placeChild: ()=>o.spec('.placeChild', ()=>{
@@ -197,17 +189,17 @@ Cafesheet.Spec = function(Class){
 				const instance = new Class()
 				const childA = new Class.child()
 
-				o(thrownBy(n=>instance.placeChild(childA, 'x'))).equals(TypeError)
+				o(n=>instance.placeChild(childA, 'x')).throws(TypeError)
 			})
 			o('.placeChild()', ()=>{
 				const instance = new Class()
 				
-				o(thrownBy(n=>instance.placeChild())).equals(Error)
+				o(n=>instance.placeChild()).throws(Error)
 			})
 			o('.placeChild(@wrongClass)', ()=>{
 				const instance = new Class()
 				
-				o(thrownBy(n=>instance.placeChild({}))).equals(Error)
+				o(n=>instance.placeChild({})).throws(Error)
 			})
 		}),
 		removeChild: ()=>o.spec('.removeChild', ()=>{
@@ -264,10 +256,10 @@ Cafesheet.Spec = function(Class){
 				o($.instance.scanFor(Class)).equals($.instance)
 			})
 			o('.scanFor()', ()=>{
-				o(thrownBy(n=>$.instance.scanFor())).equals(Error)
+				o(n=>$.instance.scanFor()).throws(Error)
 			})
 			o('.scanFor(ExternalClass)', ()=>{
-				o(thrownBy(n=>$.instance.scanFor(Element))).equals(Error)
+				o(n=>$.instance.scanFor(Element)).throws(Error)
 			})
 		})
 	}
