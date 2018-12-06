@@ -6,6 +6,24 @@ function TableColumn(input = {}){
 		instance
 	}
 
+	function setPlace(place){
+		if(place && isNaN(place)){
+			throw new Error(`'${place}' is not a valid TableColumn place.`)
+		}else if(place === undefined || place === null){
+			pvt.place = -1
+		}else{
+			pvt.place = input.place
+		}
+	}
+	function setParent(parent){
+		if(parent){
+			if(parent instanceof TableColumn.parent){
+				pvt.parent = parent
+			}else{
+				throw new Error(`${parent ? parent.constructor.name : parent} cannot be TableColumn parent.`)
+			}
+		}
+	}
 	Object.defineProperties(instance, {
 		getParent: {
 			value: Cafesheet.instance.getParent(pvt)
@@ -22,21 +40,8 @@ function TableColumn(input = {}){
 			get: ()=>pvt.place
 		}
 	})
-
-	if(input.place && isNaN(input.place)){
-		throw new Error(`'${input.place}' is not a valid TableColumn place.`)
-	}else if(input.place === undefined || input.place === null){
-		pvt.place = -1
-	}else{
-		pvt.place = input.place
-	}
-	if(input.parent){
-		if(input.parent instanceof TableColumn.parent){
-			pvt.parent = input.parent
-		}else{
-			throw new Error(`TableColumn parent must be a ${TableColumn.parent.name}.`)
-		}
-	}
+	setPlace(input.place)
+	setParent(input.parent)
 }
 Object.defineProperties(TableColumn.prototype, {
 	getCells: {
