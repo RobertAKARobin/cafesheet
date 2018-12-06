@@ -6,8 +6,8 @@ function Cell(){
 	}
 
 	Object.defineProperties(instance, {
-		addToParent: {
-			value: Cafesheet.instance.addToParent(pvt)
+		addTo: {
+			value: Cafesheet.instance.addTo(pvt)
 		},
 		getParent: {
 			value: Cafesheet.instance.getParent(pvt)

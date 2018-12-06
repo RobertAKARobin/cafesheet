@@ -19,7 +19,7 @@ o.spec('Row', ()=>{
 })
 o.spec('@row', ()=>{
 	Cafesheet.Spec(Row)
-		.addToParent()
+		.addTo()
 		.createChild()
 		.empty()
 		.getChildren()

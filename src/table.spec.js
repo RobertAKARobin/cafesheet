@@ -19,7 +19,7 @@ o.spec('Table', ()=>{
 })
 o.spec('@table', ()=>{
 	Cafesheet.Spec(Table)
-		.addToParent()
+		.addTo()
 		.createChild()
 		.empty()
 		.getChildren()
@@ -44,13 +44,13 @@ o.spec('@table', ()=>{
 			const column = table.getColumnAt(1)
 			o(column.cells).deepEquals([])
 
-			const section = Section.new().addToParent(table)
-			const rowA = Row.new().addToParent(section)
+			const section = Section.new().addTo(table)
+			const rowA = Row.new().addTo(section)
 			const rowAcellA = rowA.createCell()
 			const rowAcellB = rowA.createCell()
 			o(column.cells).deepEquals([rowAcellB])
 
-			const rowB = Row.new().addToParent(section)
+			const rowB = Row.new().addTo(section)
 			const rowBcellA = rowB.createCell()
 			const rowBcellB = rowB.createCell()
 			o(column.cells).deepEquals([rowAcellB, rowBcellB])

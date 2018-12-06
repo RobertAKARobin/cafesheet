@@ -8,35 +8,35 @@ function thrownBy(callback){
 
 Cafesheet.Spec = function(Class){
 	const specs = {
-		addToParent: ()=>o.spec('.addToParent', ()=>{
-			o('.addToParent(@newParent)', ()=>{
+		addTo: ()=>o.spec('.addTo', ()=>{
+			o('.addTo(@newParent)', ()=>{
 				const child = new Class()
 				const parent = new Class.parent()
 
 				o(child.getParent()).equals(undefined)
-				o(child.addToParent(parent)).equals(child)
+				o(child.addTo(parent)).equals(child)
 				o(child.getParent()).equals(parent)
 
 				o(child.removeFromParent()).equals(child)
-				o(child.addToParent(parent)).equals(child)
+				o(child.addTo(parent)).equals(child)
 				o(child.getParent()).equals(parent)
 			})
-			o('.addToParent(@existingParent)', ()=>{
+			o('.addTo(@existingParent)', ()=>{
 				const parent = new Class.parent()
 				const child = parent.createChild()
 
-				o(child.addToParent(parent)).equals(child)
+				o(child.addTo(parent)).equals(child)
 				o(child.getParent()).equals(parent)
 			})
-			o('.addToParent()', ()=>{
+			o('.addTo()', ()=>{
 				const child = new Class()
 
-				o(thrownBy(n=>child.addToParent())).equals(Error)
+				o(thrownBy(n=>child.addTo())).equals(Error)
 			})
-			o('.addToParent(@wrongClass)', ()=>{
+			o('.addTo(@wrongClass)', ()=>{
 				const child = new Class()
 
-				o(thrownBy(n=>child.addToParent({}))).equals(Error)
+				o(thrownBy(n=>child.addTo({}))).equals(Error)
 			})
 		}),
 		createChild: ()=>o('.createChild()', ()=>{
@@ -126,7 +126,7 @@ Cafesheet.Spec = function(Class){
 
 			o(childA.getSiblings()).deepEquals([])
 
-			childA.addToParent(parent)
+			childA.addTo(parent)
 			o(childA.getSiblings()).deepEquals([childA])
 
 			parent.placeChild(childB)

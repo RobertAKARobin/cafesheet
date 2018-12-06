@@ -26,7 +26,7 @@ o.spec('Cell', ()=>{
 })
 o.spec('@cell', ()=>{
 	Cafesheet.Spec(Cell)
-		.addToParent()
+		.addTo()
 		.getParent()
 		.getPlace()
 		.getSiblings()

@@ -19,7 +19,7 @@ const Cafesheet = {
 		}
 	},
 	instance: {
-		addToParent(pvt){
+		addTo(pvt){
 			return function(targetParent){
 				const child = pvt.instance
 				const currentParent = pvt.parent
@@ -44,7 +44,7 @@ const Cafesheet = {
 			return function(input){
 				const parent = pvt.instance
 				const childClass = parent.constructor.child
-				const child = childClass.create(input).addToParent(parent)
+				const child = childClass.create(input).addTo(parent)
 				return child
 			}
 		},
@@ -72,7 +72,7 @@ const Cafesheet = {
 				if(child instanceof childClass){
 					if(!children.includes(child)){
 						children.insert(child, index)
-						child.addToParent(parent)
+						child.addTo(parent)
 					}else if(child.getPlace() !== index){
 						children.place(child, index)
 					}

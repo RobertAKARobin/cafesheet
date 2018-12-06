@@ -7,8 +7,8 @@ function Row(){
 	}
 
 	Object.defineProperties(instance, {
-		addToParent: {
-			value: Cafesheet.instance.addToParent(pvt)
+		addTo: {
+			value: Cafesheet.instance.addTo(pvt)
 		},
 		createChild: {
 			value: Cafesheet.instance.createChild(pvt)
