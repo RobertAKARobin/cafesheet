@@ -76,6 +76,12 @@ o.spec('@table', ()=>{
 		rowB.createChild()
 		rowB.createChild()
 		o(instance.getWidth()).equals(initialWidth + 2)
+
+		rowB.removeFromParent()
+		o(instance.getWidth()).equals(initialWidth + 1)
+
+		rowA.removeFromParent()
+		o(instance.getWidth()).equals(initialWidth)
 	})
 	o('.scanFor($Class)', ()=>{
 		const base = Base.create()
