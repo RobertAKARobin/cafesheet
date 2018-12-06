@@ -54,6 +54,15 @@ Object.defineProperties(TableColumn.prototype, {
 				return []
 			}
 		}
+	},
+	removeFromParent: {
+		value: function(){
+			const instance = this
+			instance.getCells().forEach(cell=>{
+				cell.removeFromParent()
+			})
+			return instance
+		}
 	}
 })
 Object.defineProperties(TableColumn, {

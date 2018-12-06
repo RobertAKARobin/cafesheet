@@ -6,7 +6,13 @@ Table.component = {
 				m('tr', [
 					m('th'),
 					table.getColumns().map(column => {
-						return m('th', column.place)
+						return m('th', [
+							m('button[action=removeColumn]', {
+								onclick: ()=>{
+									column.removeFromParent()
+								},
+							}, column.place)
+						])
 					})
 				])
 			]),
