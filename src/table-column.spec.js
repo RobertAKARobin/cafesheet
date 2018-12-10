@@ -72,6 +72,11 @@ o.spec('@tableColumn', ()=>{
 		o(columnACells.map(c=>c.place)).deepEquals(columnLength.map(n=>-1))
 		o(columnACells.map(c=>c.getParent())).deepEquals(columnLength.map(n=>undefined))
 		o(table.scanFor(Row).map(r=>r.getWidth())).deepEquals(columnLength.map(n=>Row.defaultNumberOfChildren - 1))
+		o(table.getWidth()).equals(Row.defaultNumberOfChildren - 1)
 		o(columnA.getCells()).deepEquals(columnBCells)
+
+		o(columnB.removeFromParent()).equals(columnB)
+		o(table.scanFor(Row).map(r=>r.getWidth())).deepEquals(columnLength.map(n=>Row.defaultNumberOfChildren - 2))
+		o(table.getWidth()).equals(Row.defaultNumberOfChildren - 2)
 	})
 })
