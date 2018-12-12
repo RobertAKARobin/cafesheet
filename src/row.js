@@ -75,7 +75,20 @@ Object.defineProperties(Row, {
 		value: Cell
 	},
 	create: {
-		value: Cafesheet.class.create(Row, 'cells')
+		value: function(input = {}){
+			const row = Row.new()
+			if(input.cells){
+				input.cells.forEach(row.createChild)
+			}else{
+				const table = row.scanFor(Table)
+				if(table){
+					table.getWidth().times(row.createChild)
+				}else{
+					(Row.defaultNumberOfChildren).times(row.createChild)
+				}
+			}
+			return row
+		}
 	},
 	defaultNumberOfChildren: {
 		value: 5

@@ -6,10 +6,31 @@ o.spec('Row', ()=>{
 		o(Row.parent).equals(Section)
 	})
 
-	o('.create()', ()=>{
-		const instance = Row.create()
-		o(instance.getChildren().length).equals(Row.defaultNumberOfChildren)
-		o(instance.getParent()).equals(undefined)
+	o.spec('.create()', ()=>{
+		o('parentless', ()=>{
+			const instance = Row.create()
+			o(instance.getChildren().length).equals(Row.defaultNumberOfChildren)
+			o(instance.getParent()).equals(undefined)
+		})
+		o('parented', ()=>{
+			const base = Base.create()
+			const table = base.scanFor(Table)[0]
+			const section = table.getChildren()[0]
+			const rowA = section.getChildren()[0]
+			o(table.getWidth()).equals(Row.defaultNumberOfChildren)
+			o(rowA.getWidth()).equals(table.getWidth())
+
+			const initialWidth = Row.defaultNumberOfChildren
+			table.getColumnAt(0).removeFromParent()
+			o(table.getWidth()).equals(initialWidth - 1)
+			o(rowA.getWidth()).equals(table.getWidth())
+
+			const rowB = section.createChild()
+			o(table.getWidth()).equals(initialWidth - 1)
+			o(rowA.getWidth()).equals(table.getWidth())
+			o(rowB.getWidth()).equals(table.getWidth())
+
+		})
 	})
 	o('.new()', ()=>{
 		const instance = Row.new()
