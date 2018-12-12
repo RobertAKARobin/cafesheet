@@ -14,7 +14,7 @@ const Cafesheet = {
 		}
 	},
 	instance: {
-		addTo(pvt){
+		addToParent(pvt){
 			return function(targetParent){
 				const child = pvt.instance
 				const currentParent = pvt.parent
