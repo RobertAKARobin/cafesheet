@@ -3,7 +3,7 @@ const Cafesheet = {
 	class: {
 		create(Class, children){
 			return function(input = {}){
-				const instance = new Class()
+				const instance = Class.new()
 				if(input[children]){
 					input[children].forEach(instance.createChild)
 				}else{

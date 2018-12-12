@@ -69,6 +69,7 @@ Object.defineProperties(TableColumn, {
 	get: {
 		value: function(input){
 			return new TableColumn(input)
+			// TODO: Add public .setPlace and .setParent methods
 		}
 	},
 	new: {

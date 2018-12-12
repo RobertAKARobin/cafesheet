@@ -2,8 +2,8 @@ Cafesheet.Spec = function(Class){
 	const specs = {
 		addTo: ()=>o.spec('.addTo', ()=>{
 			o('.addTo(@newParent)', ()=>{
-				const child = new Class()
-				const parent = new Class.parent()
+				const child = Class.new()
+				const parent = Class.parent.new()
 
 				o(child.getParent()).equals(undefined)
 				o(child.addTo(parent)).equals(child)
@@ -14,25 +14,25 @@ Cafesheet.Spec = function(Class){
 				o(child.getParent()).equals(parent)
 			})
 			o('.addTo(@existingParent)', ()=>{
-				const parent = new Class.parent()
+				const parent = Class.parent.new()
 				const child = parent.createChild()
 
 				o(child.addTo(parent)).equals(child)
 				o(child.getParent()).equals(parent)
 			})
 			o('.addTo()', ()=>{
-				const child = new Class()
+				const child = Class.new()
 
 				o(n=>child.addTo()).throws(Error)
 			})
 			o('.addTo(@wrongClass)', ()=>{
-				const child = new Class()
+				const child = Class.new()
 
 				o(n=>child.addTo({})).throws(Error)
 			})
 		}),
 		createChild: ()=>o('.createChild()', ()=>{
-			const instance = new Class()
+			const instance = Class.new()
 			const childA = instance.createChild()
 			const childB = instance.createChild()
 			const childC = instance.createChild()
@@ -42,7 +42,7 @@ Cafesheet.Spec = function(Class){
 			o(instance.getChildren()).deepEquals([childA, childB, childC])
 		}),
 		empty: ()=>o('.empty()', ()=>{
-			const instance = new Class()
+			const instance = Class.new()
 			const childA = instance.createChild()
 			const childB = instance.createChild()
 			const childC = instance.createChild()
@@ -52,7 +52,7 @@ Cafesheet.Spec = function(Class){
 		}),
 		getChildren: ()=>o.spec('.getChildren', ()=>{
 			o('.getChildren()', ()=>{
-				const instance = new Class()
+				const instance = Class.new()
 	
 				o(instance.getChildren()).deepEquals([])
 	
@@ -63,7 +63,7 @@ Cafesheet.Spec = function(Class){
 			})
 			o('JSON', ()=>{
 				const childrenName = Class.child.name.toLowerCase() + 's'
-				const instance = new Class()
+				const instance = Class.new()
 				instance.createChild()
 				instance.createChild()
 
@@ -73,8 +73,8 @@ Cafesheet.Spec = function(Class){
 			})
 		}),
 		getParent: ()=>o('.getParent()', ()=>{
-			const parent = new Class.parent()
-			const orphan = new Class()
+			const parent = Class.parent.new()
+			const orphan = Class.new()
 			const child = parent.createChild()
 
 			o(orphan.getParent()).equals(undefined)
@@ -85,10 +85,10 @@ Cafesheet.Spec = function(Class){
 		}),
 		getPlace: ()=>o.spec('.getPlace', ()=>{
 			o('.getPlace()', ()=>{
-				const childA = new Class()
+				const childA = Class.new()
 				o(childA.getPlace()).equals(-1)
 				
-				const parent = new Class.parent()
+				const parent = Class.parent.new()
 				const childB = parent.createChild()
 				o(childA.getPlace()).equals(-1)
 				o(childB.getPlace()).equals(0)
@@ -101,7 +101,7 @@ Cafesheet.Spec = function(Class){
 				o(parent.getChildren().map(c => c.getPlace())).deepEquals([0, 1, 2])
 			})
 			o('JSON', ()=>{
-				const parent = new Class.parent()
+				const parent = Class.parent.new()
 				const childA = parent.createChild()
 				const childB = parent.createChild()
 				const jsonA = JSON.parse(JSON.stringify(childA))
@@ -112,9 +112,9 @@ Cafesheet.Spec = function(Class){
 			})
 		}),
 		getSiblings: ()=>o('.getSiblings()', ()=>{
-			const parent = new Class.parent()
-			const childA = new Class()
-			const childB = new Class()
+			const parent = Class.parent.new()
+			const childA = Class.new()
+			const childB = Class.new()
 
 			o(childA.getSiblings()).deepEquals([])
 
@@ -131,7 +131,7 @@ Cafesheet.Spec = function(Class){
 		}),
 		placeAt: ()=>o.spec('.placeAt', ()=>{
 			o('.placeAt($number || empty)', ()=>{
-				const parent = new Class.parent()
+				const parent = Class.parent.new()
 				const childA = parent.createChild()
 				const childB = parent.createChild()
 				const childC = parent.createChild()
@@ -145,22 +145,22 @@ Cafesheet.Spec = function(Class){
 				o(parent.getChildren()).deepEquals([childB, childC, childA])
 			})
 			o('.placeAt($notNumber)', ()=>{
-				const parent = new Class.parent()
+				const parent = Class.parent.new()
 				const child = parent.createChild()
 	
 				o(n=>child.placeAt('x')).throws(TypeError)
 			})
 			o('no parent', ()=>{
-				const orphan = new Class()
+				const orphan = Class.new()
 
 				o(n=>orphan.placeAt()).throws(Error)
 			})
 		}),
 		placeChild: ()=>o.spec('.placeChild', ()=>{
 			o('.placeChild(@childClass)', ()=>{
-				const instance = new Class()
-				const childA = new Class.child()
-				const childB = new Class.child()
+				const instance = Class.new()
+				const childA = Class.child.new()
+				const childB = Class.child.new()
 
 				instance.placeChild(childA)
 				o(childA.getParent()).equals(instance)
@@ -169,10 +169,10 @@ Cafesheet.Spec = function(Class){
 				o(instance.getChildren()).deepEquals([childA, childB])
 			})
 			o('.placeChild(@childClass, $number)', ()=>{
-				const instance = new Class()
-				const childA = new Class.child()
-				const childB = new Class.child()
-				const childC = new Class.child()
+				const instance = Class.new()
+				const childA = Class.child.new()
+				const childB = Class.child.new()
+				const childC = Class.child.new()
 
 				instance.placeChild(childA, 1)
 				o(instance.getChildren()).deepEquals([childA])
@@ -186,25 +186,25 @@ Cafesheet.Spec = function(Class){
 				o(instance.getChildren()).deepEquals([childA, childC, childB])
 			})
 			o('.placeChild(@childClass, $notNumber)', ()=>{
-				const instance = new Class()
-				const childA = new Class.child()
+				const instance = Class.new()
+				const childA = Class.child.new()
 
 				o(n=>instance.placeChild(childA, 'x')).throws(TypeError)
 			})
 			o('.placeChild()', ()=>{
-				const instance = new Class()
+				const instance = Class.new()
 				
 				o(n=>instance.placeChild()).throws(Error)
 			})
 			o('.placeChild(@wrongClass)', ()=>{
-				const instance = new Class()
+				const instance = Class.new()
 				
 				o(n=>instance.placeChild({})).throws(Error)
 			})
 		}),
 		removeChild: ()=>o.spec('.removeChild', ()=>{
 			o('.removeChild(@child)', ()=>{
-				const instance = new Class()
+				const instance = Class.new()
 				const childA = instance.createChild()
 				const childB = instance.createChild()
 	
@@ -216,19 +216,19 @@ Cafesheet.Spec = function(Class){
 				o(instance.getChildren()).deepEquals([])
 			})
 			o('.removeChild(@notChild)', ()=>{
-				const instance = new Class()
+				const instance = Class.new()
 
 				o(instance.removeChild({})).equals(false)
 			})
 			o('.removeChild()', ()=>{
-				const instance = new Class()
+				const instance = Class.new()
 
 				o(instance.removeChild()).equals(false)
 			})
 		}),
 		removeFromParent: ()=>o('.removeFromParent()', ()=>{
-			const parent = new Class.parent()
-			const child = new Class()
+			const parent = Class.parent.new()
+			const child = Class.new()
 
 			o(child.getParent()).equals(undefined)
 			o(child.removeFromParent()).equals(child)
