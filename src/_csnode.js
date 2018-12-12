@@ -11,11 +11,6 @@ const Cafesheet = {
 				}
 				return instance
 			}
-		},
-		new(Class){
-			return function(){
-				return new Class()
-			}
 		}
 	},
 	instance: {

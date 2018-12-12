@@ -58,6 +58,6 @@ Object.defineProperties(Base, {
 		value: [Table, Section, Row, Cell]
 	},
 	new: {
-		value: Cafesheet.class.new(Base)
+		value: ()=>new Base()
 	}
 })

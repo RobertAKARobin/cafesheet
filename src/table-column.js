@@ -72,7 +72,7 @@ Object.defineProperties(TableColumn, {
 		}
 	},
 	new: {
-		value: Cafesheet.class.new(TableColumn)
+		value: ()=>new TableColumn()
 	},
 	parent: {
 		value: Table

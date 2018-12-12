@@ -84,7 +84,7 @@ Object.defineProperties(Section, {
 		value: [Row, Cell]
 	},
 	new: {
-		value: Cafesheet.class.new(Section)
+		value: ()=>new Section()
 	},
 	parent: {
 		value: Table
