@@ -23,6 +23,8 @@ o.spec('@cell', ()=>{
 		o(cell.datum).equals('banana')
 		o(cell.empty().datum).equals('')
 	})
-	// TODO JSON
-	// TODO create
+	o('.toJSON()', ()=>{
+		o(Cell.create({datum: 'banana'}).toJSON()).equals(JSON.stringify({datum: 'banana'}))
+		o(Cell.create().toJSON()).equals(JSON.stringify({}))
+	})
 })

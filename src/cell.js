@@ -4,7 +4,6 @@ Object.defineProperties(Cell, {
 		value: function(input = {}){
 			const cell = Object.create(Cell.proto, {
 				datum: {
-					enumerable: true,
 					value: input.datum,
 					writable: true
 				}
@@ -28,6 +27,14 @@ Object.defineProperties(Cell.proto, {
 			const instance = this
 			instance.datum = ''
 			return instance
+		}
+	},
+	toJSON: {
+		value: function(){
+			const instance = this
+			return JSON.stringify({
+				datum: instance.datum
+			})
 		}
 	}
 })
