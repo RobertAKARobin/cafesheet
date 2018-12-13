@@ -5,26 +5,26 @@ o.spec('Cell', ()=>{
 		o(Cell.foo).equals(undefined)
 		o(Cell.proto.foo).equals(undefined)
 	})
-	o.spec('.create', ()=>{
-		o('.create()', ()=>{
-			const instance = Cell.create()
+	o.spec('.from', ()=>{
+		o('.from()', ()=>{
+			const instance = Cell.from()
 			o(instance.datum).equals(undefined)
 		})
-		o('.create($value)', ()=>{
+		o('.from($value)', ()=>{
 			const value = 'banana'
-			const instance = Cell.create({datum: value})
+			const instance = Cell.from({datum: value})
 			o(instance.datum).equals(value)
 		})
 	})
 })
 o.spec('@cell', ()=>{	
 	o('.empty()', ()=>{
-		const cell = Cell.create({datum: 'banana'})
+		const cell = Cell.from({datum: 'banana'})
 		o(cell.datum).equals('banana')
 		o(cell.empty().datum).equals('')
 	})
 	o('.toJSON()', ()=>{
-		o(Cell.create({datum: 'banana'}).toJSON()).equals(JSON.stringify({datum: 'banana'}))
-		o(Cell.create().toJSON()).equals(JSON.stringify({}))
+		o(Cell.from({datum: 'banana'}).toJSON()).equals(JSON.stringify({datum: 'banana'}))
+		o(Cell.from().toJSON()).equals(JSON.stringify({}))
 	})
 })

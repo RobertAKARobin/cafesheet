@@ -1,6 +1,6 @@
 const Cell = {proto: {}}
 Object.defineProperties(Cell, {
-	create: {
+	from: {
 		value: function(input = {}){
 			const cell = Object.create(Cell.proto, {
 				datum: {
