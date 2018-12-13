@@ -8,23 +8,28 @@ o.spec('Cell', ()=>{
 	o.spec('.from', ()=>{
 		o('.from()', ()=>{
 			const instance = Cell.from()
-			o(instance.datum).equals(undefined)
+			o(instance.getData()).equals(undefined)
 		})
 		o('.from($value)', ()=>{
 			const value = 'banana'
-			const instance = Cell.from({datum: value})
-			o(instance.datum).equals(value)
+			const instance = Cell.from({data: value})
+			o(instance.getData()).equals(value)
 		})
 	})
 })
-o.spec('@cell', ()=>{	
+o.spec('@cell', ()=>{
+	o('is frozen', ()=>{
+		const cell = Cell.from()
+		cell.foo = 'foo'
+		o(cell.foo).equals(undefined)
+	})
 	o('.empty()', ()=>{
-		const cell = Cell.from({datum: 'banana'})
-		o(cell.datum).equals('banana')
-		o(cell.empty().datum).equals('')
+		const cell = Cell.from({data: 'banana'})
+		o(cell.getData()).equals('banana')
+		o(cell.empty().getData()).equals('')
 	})
 	o('.toJSON()', ()=>{
-		o(Cell.from({datum: 'banana'}).toJSON()).equals(JSON.stringify({datum: 'banana'}))
+		o(Cell.from({data: 'banana'}).toJSON()).equals(JSON.stringify({data: 'banana'}))
 		o(Cell.from().toJSON()).equals(JSON.stringify({}))
 	})
 })
