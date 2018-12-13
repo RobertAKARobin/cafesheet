@@ -76,6 +76,6 @@ Object.defineProperties(TableColumn, {
 		value: ()=>new TableColumn()
 	},
 	parent: {
-		value: Table
+		get: ()=>Table
 	}
 })

@@ -46,7 +46,7 @@ Object.defineProperties(Base.prototype, {
 })
 Object.defineProperties(Base, {
 	child: {
-		value: Table
+		get: ()=>Table
 	},
 	create: {
 		value: Cafesheet.class.create(Base)
@@ -55,7 +55,7 @@ Object.defineProperties(Base, {
 		value: 1
 	},
 	descendants: {
-		value: [Table, Section, Row, Cell]
+		get: ()=>[Table, Section, Row, Cell]
 	},
 	new: {
 		value: ()=>new Base()

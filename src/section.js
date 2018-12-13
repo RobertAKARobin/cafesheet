@@ -69,10 +69,10 @@ Object.defineProperties(Section.prototype, {
 })
 Object.defineProperties(Section, {
 	ancestors: {
-		value: [Table, Base]
+		get: ()=>[Table, Base]
 	},
 	child: {
-		value: Row
+		get: ()=>Row
 	},
 	create: {
 		value: Cafesheet.class.create(Section)
@@ -81,13 +81,13 @@ Object.defineProperties(Section, {
 		value: 3
 	},
 	descendants: {
-		value: [Row, Cell]
+		get: ()=>[Row, Cell]
 	},
 	new: {
 		value: ()=>new Section()
 	},
 	parent: {
-		value: Table
+		get: ()=>Table
 	},
 	pluralName: {
 		value: 'sections'

@@ -47,7 +47,7 @@ Object.defineProperties(Cell.prototype, {
 })
 Object.defineProperties(Cell, {
 	ancestors: {
-		value: [Row, Section, Table, Base]
+		get: ()=>[Row, Section, Table, Base]
 	},
 	create: {
 		value: function(input = {}){
@@ -60,7 +60,7 @@ Object.defineProperties(Cell, {
 		value: ()=>new Cell()
 	},
 	parent: {
-		value: Row
+		get: ()=>Row
 	},
 	pluralName: {
 		value: 'cells'

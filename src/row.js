@@ -69,10 +69,10 @@ Object.defineProperties(Row.prototype, {
 })
 Object.defineProperties(Row, {
 	ancestors: {
-		value: [Section, Table, Base]
+		get: ()=>[Section, Table, Base]
 	},
 	child: {
-		value: Cell
+		get: ()=>Cell
 	},
 	create: {
 		value: function(input = {}){
@@ -94,13 +94,13 @@ Object.defineProperties(Row, {
 		value: 5
 	},
 	descendants: {
-		value: [Cell]
+		get: ()=>[Cell]
 	},
 	new: {
 		value: ()=>new Row()
 	},
 	parent: {
-		value: Section
+		get: ()=>Section
 	},
 	pluralName: {
 		value: 'rows'
