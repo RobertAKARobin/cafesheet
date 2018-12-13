@@ -2,7 +2,7 @@ const Cell = {
 	name: 'Cell',
 	pluralName: 'cells',
 	
-	from: function(input = {}){
+	from(input = {}){
 		const cell = Object.create(Cell.proto, {
 			datum: {
 				value: input.datum,
@@ -14,13 +14,13 @@ const Cell = {
 }
 Cell.proto = {
 	class: Cell,
-	
-	empty: function(){
+
+	empty(){
 		const instance = this
 		instance.datum = ''
 		return instance
 	},
-	toJSON: function(){
+	toJSON(){
 		const instance = this
 		return JSON.stringify({
 			datum: instance.datum
