@@ -75,7 +75,7 @@ Object.defineProperties(Section, {
 		value: Row
 	},
 	create: {
-		value: Cafesheet.class.create(Section, 'rows')
+		value: Cafesheet.class.create(Section)
 	},
 	defaultNumberOfChildren: {
 		value: 3
@@ -88,5 +88,8 @@ Object.defineProperties(Section, {
 	},
 	parent: {
 		value: Table
+	},
+	pluralName: {
+		value: 'sections'
 	}
 })

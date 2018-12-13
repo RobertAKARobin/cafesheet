@@ -1,11 +1,12 @@
 const Cafesheet = {
 	state: {},
 	class: {
-		create(Class, children){
+		create(Class){
 			return function(input = {}){
 				const instance = Class.new()
-				if(input[children]){
-					input[children].forEach(instance.createChild)
+				const childrenName = Class.child.pluralName
+				if(input[childrenName]){
+					input[childrenName].forEach(instance.createChild)
 				}else{
 					(Class.defaultNumberOfChildren).times(instance.createChild)
 				}

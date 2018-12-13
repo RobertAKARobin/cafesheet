@@ -101,5 +101,8 @@ Object.defineProperties(Row, {
 	},
 	parent: {
 		value: Section
+	},
+	pluralName: {
+		value: 'rows'
 	}
 })

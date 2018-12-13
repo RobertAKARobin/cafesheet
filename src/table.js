@@ -88,11 +88,11 @@ Object.defineProperties(Table, {
 	child: {
 		value: Section
 	},
+	create: {
+		value: Cafesheet.class.create(Table)
+	},
 	defaultNumberOfChildren: {
 		value: 1
-	},
-	create: {
-		value: Cafesheet.class.create(Table, 'sections')
 	},
 	descendants: {
 		value: [Section, Row, Cell]
@@ -102,5 +102,8 @@ Object.defineProperties(Table, {
 	},
 	parent: {
 		value: Base
+	},
+	pluralName: {
+		value: 'tables'
 	}
 })

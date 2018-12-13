@@ -61,5 +61,8 @@ Object.defineProperties(Cell, {
 	},
 	parent: {
 		value: Row
+	},
+	pluralName: {
+		value: 'cells'
 	}
 })
