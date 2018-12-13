@@ -1,4 +1,10 @@
 o.spec('Cell', ()=>{
+	o('is frozen', ()=>{
+		Cell.foo = 'foo'
+		Cell.proto.foo = 'foo'
+		o(Cell.foo).equals(undefined)
+		o(Cell.proto.foo).equals(undefined)
+	})
 	o.spec('.create', ()=>{
 		o('.create()', ()=>{
 			const instance = Cell.create()

@@ -31,4 +31,5 @@ Object.defineProperties(Cell.proto, {
 		}
 	}
 })
-// TODO: Freeze Cell and Cell.proto
+Object.freeze(Cell)
+Object.freeze(Cell.proto)
