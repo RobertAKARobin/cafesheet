@@ -1,68 +1,34 @@
-function Cell(){
-	const instance = this
-	const pvt = {
-		instance,
-		parent: undefined
+const Cell = {proto: {}}
+Object.defineProperties(Cell, {
+	create: {
+		value: function(input = {}){
+			const cell = Object.create(Cell.proto, {
+				datum: {
+					enumerable: true,
+					value: input.datum,
+					writable: true
+				}
+			})
+			return cell
+		}
+	},
+	name: {
+		value: 'Cell'
+	},
+	pluralName: {
+		value: 'cells'
 	}
-
-	Object.defineProperties(instance, {
-		addTo: {
-			value: Cafesheet.instance.addToParent(pvt)
-		},
-		getParent: {
-			value: Cafesheet.instance.getParent(pvt)
-		},
-		removeFromParent: {
-			value: Cafesheet.instance.removeFromParent(pvt)
-		}
-	})
-
-	Object.defineProperties(instance, {
-		place: {
-			get: instance.getPlace,
-			enumerable: true
-		}
-	})
-}
-Object.defineProperties(Cell.prototype, {
+})
+Object.defineProperties(Cell.proto, {
+	class: {
+		value: Cell
+	},
 	empty: {
 		value: function(){
 			const instance = this
 			instance.datum = ''
 			return instance
 		}
-	},
-	getPlace: {
-		value: Cafesheet.proto.getPlace
-	},
-	getSiblings: {
-		value: Cafesheet.proto.getSiblings
-	},
-	placeAt: {
-		value: Cafesheet.proto.placeAt
-	},
-	scanFor: {
-		value: Cafesheet.proto.scanForFamily
 	}
 })
-Object.defineProperties(Cell, {
-	ancestors: {
-		get: ()=>[Row, Section, Table, Base]
-	},
-	create: {
-		value: function(input = {}){
-			const cell = new Cell()
-			cell.datum = input.datum
-			return cell
-		}
-	},
-	new: {
-		value: ()=>new Cell()
-	},
-	parent: {
-		get: ()=>Row
-	},
-	pluralName: {
-		value: 'cells'
-	}
-})
+// TODO: Freeze Cell and Cell.proto
