@@ -37,6 +37,9 @@ function Base(){
 	})
 }
 Object.defineProperties(Base.prototype, {
+	class: {
+		value: Base
+	},
 	empty: {
 		value: Cafesheet.proto.empty
 	},

@@ -106,11 +106,6 @@ const Cafesheet = {
 		}
 	},
 	proto: {
-		empty(){
-			const instance = this
-			instance.getChildren().forEach(instance.removeChild)
-			return instance
-		},
 		getPlace(){
 			const instance = this
 			const parent = instance.getParent()

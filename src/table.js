@@ -45,6 +45,9 @@ function Table(){
 	})
 }
 Object.defineProperties(Table.prototype, {
+	class: {
+		value: Table
+	},
 	empty: {
 		value: Cafesheet.proto.empty
 	},

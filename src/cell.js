@@ -3,21 +3,20 @@ const Cell = {
 	pluralName: 'cells',
 	
 	from(input = {}){
+		const cell = Object.create(Cell.proto)
 		const pvt = {
 			data: input.data
 		}
-		const cell = Object.create(Cell.proto)
-		Object.assign(cell, Cell.instance(pvt))
+		Object.assign(cell, Cell.generateInstanceMethods(pvt))
 		Object.freeze(cell)
 		return cell
 	}
 }
-Cell.instance = function(pvt){
+Cell.generateInstanceMethods = function(pvt){
 	return {
 		getData(){
 			return pvt.data
 		},
-
 		setData(data){
 			pvt.data = data
 			return this
@@ -32,9 +31,9 @@ Cell.proto = {
 		return this
 	},
 	toJSON(){
-		return JSON.stringify({
+		return {
 			data: this.getData()
-		})
+		}
 	}
 }
 Object.freeze(Cell)

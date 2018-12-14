@@ -1,108 +1,49 @@
-function Row(){
-	const instance = this
-	const pvt = {
-		children: [],
-		instance,
-		parent: undefined
+const Row = {
+	ancestors: [Section, Table, Base],
+	child: Cell,
+	descendants: [Cell],
+	name: 'Row',
+	parent: Section,
+	pluralName: 'rows',
+
+	create(input = {}){
+		const row = Object.create(Row.proto)
+		const pvt = {
+			children: [],
+			instance: row,
+			parent: undefined
+		}
+		if(input.cells instanceof Array){
+			pvt.children = input.cells.map(Cell.from)
+		}
+		if(input.parent && input.parent.constructor === Row.parent){
+			pvt.parent = input.parent
+		}
+		Object.assign(row, Row.generateInstanceMethods(pvt))
+		Object.freeze(row)
+		return row
 	}
-
-	Object.defineProperties(instance, {
-		addTo: {
-			value: Cafesheet.instance.addToParent(pvt)
-		},
-		createChild: {
-			value: Cafesheet.instance.createChild(pvt)
-		},
-		getChildren: {
-			value: Cafesheet.instance.getChildren(pvt)
-		},
-		getParent: {
-			value: Cafesheet.instance.getParent(pvt)
-		},
-		placeChild: {
-			value: Cafesheet.instance.placeChild(pvt)
-		},
-		removeChild: {
-			value: Cafesheet.instance.removeChild(pvt)
-		},
-		removeFromParent: {
-			value: Cafesheet.instance.removeFromParent(pvt)
-		}
-	})
-	Object.defineProperties(instance, {
-		place: {
-			get: instance.getPlace,
-			enumerable: true
-		},
-		cells: {
-			get: instance.getChildren,
-			enumerable: true
-		},
-
-		createCell: {
-			value: instance.createChild
-		}
-	})
 }
-Object.defineProperties(Row.prototype, {
-	empty: {
-		value: Cafesheet.proto.empty
-	},
-	getPlace: {
-		value: Cafesheet.proto.getPlace
-	},
-	getSiblings: {
-		value: Cafesheet.proto.getSiblings
-	},
-	getWidth: {
-		value: function(){
-			const instance = this
-			return instance.getChildren().length
-		}
-	},
-	placeAt: {
-		value: Cafesheet.proto.placeAt
-	},
-	scanFor: {
-		value: Cafesheet.proto.scanForFamily
+Row.generateInstanceMethods = function(pvt){
+	return {
+		getChildren: Cafesheet.instance.getChildren(pvt),
+		getParent: Cafesheet.instance.getParent(pvt)
 	}
-})
-Object.defineProperties(Row, {
-	ancestors: {
-		get: ()=>[Section, Table, Base]
+}
+Row.proto = {
+	class: Row,
+	empty(){
+		this.getChildren().forEach(c=>c.empty())
+		return this
 	},
-	child: {
-		get: ()=>Cell
+	getWidth(){
+		return this.getChildren().length
 	},
-	create: {
-		value: function(input = {}){
-			const row = Row.new()
-			if(input.cells){
-				input.cells.forEach(row.createChild)
-			}else{
-				const table = row.scanFor(Table)
-				if(table){
-					table.getWidth().times(row.createChild)
-				}else{
-					(Row.defaultNumberOfChildren).times(row.createChild)
-				}
-			}
-			return row
+	toJSON(){
+		return {
+			cells: this.getChildren()
 		}
-	},
-	defaultNumberOfChildren: {
-		value: 5
-	},
-	descendants: {
-		get: ()=>[Cell]
-	},
-	new: {
-		value: ()=>new Row()
-	},
-	parent: {
-		get: ()=>Section
-	},
-	pluralName: {
-		value: 'rows'
 	}
-})
+}
+Object.freeze(Row)
+Object.freeze(Row.proto)

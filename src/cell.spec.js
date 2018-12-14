@@ -29,7 +29,7 @@ o.spec('@cell', ()=>{
 		o(cell.empty().getData()).equals('')
 	})
 	o('.toJSON()', ()=>{
-		o(Cell.from({data: 'banana'}).toJSON()).equals(JSON.stringify({data: 'banana'}))
-		o(Cell.from().toJSON()).equals(JSON.stringify({}))
+		o(JSON.stringify(Cell.from({data: 'banana'}))).equals(JSON.stringify({data: 'banana'}))
+		o(JSON.stringify(Cell.from())).equals(JSON.stringify({}))
 	})
 })
