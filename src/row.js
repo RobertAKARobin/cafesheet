@@ -13,6 +13,7 @@ const Row = {
 		}
 		if(input.cells instanceof Array){
 			pvt.children = Array.from(input.cells)
+			// TODO: Detect if raw functions are passed as children
 		}
 		if(input.parent && input.parent.constructor === Row.parent){
 			pvt.parent = input.parent

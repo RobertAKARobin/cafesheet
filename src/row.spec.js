@@ -20,6 +20,9 @@ o.spec('Row', ()=>{
 			const instance = Row.create({cells: cells})
 			o(instance.getChildren()).notEquals(cells)
 			o(instance.getChildren()).deepEquals(cells)
+
+			o(Row.create({cells: 'banana'}).getChildren()).deepEquals([])
+			o(Row.create().getChildren()).deepEquals([])
 		})
 	})
 		// 	const base = Base.create()
@@ -69,10 +72,11 @@ o.spec('@row', ()=>{
 		o(instance.getWidth()).equals(cells.length)
 	})
 	o('.toJSON()', ()=>{
-		o(JSON.stringify(Row.create())).equals(JSON.stringify({cells: []}))
-
-		const cells = ['a', 'b', 'c']
-		o(JSON.stringify(Row.create({cells: cells}))).equals(JSON.stringify({cells: cells}))
+		o(JSON.stringify(Row.create())).equals(`{"cells":[]}`)
+		o(JSON.stringify(Row.create({cells: ['a', 'b', 'c']}))).equals(`{"cells":["a","b","c"]}`)
+		o(JSON.stringify(Row.create({cells: [{a: 'a'}, {b: 'b'}]}))).equals(`{"cells":[{"a":"a"},{"b":"b"}]}`)
+		o(JSON.stringify(Row.create({cells: [['a'], ['b']]}))).equals(`{"cells":[["a"],["b"]]}`)
+		o(JSON.stringify(Row.create({cells: [function(){'a'}, function(){'b'}]}))).equals(`{"cells":[null,null]}`)
 	})
 	// o('.scanFor($Class)', ()=>{
 	// 	const base = Base.create()
