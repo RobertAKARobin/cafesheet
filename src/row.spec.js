@@ -1,7 +1,5 @@
 o.spec('Row', ()=>{
 	o('family', ()=>{
-		o(Row.descendants).deepEquals([Cell])
-		o(Row.child).equals(Cell)
 		o(Row.ancestors).deepEquals([Section, Table, Base])
 		o(Row.parent).equals(Section)
 	})
@@ -18,12 +16,10 @@ o.spec('Row', ()=>{
 			o(instance.getParent()).equals(parent)
 		})
 		o('.create({cells: $children})', ()=>{
-			const cellA = {data: 'a'}
-			const cellB = {data: 'b'}
-			const cellC = {data: 'c'}
-			const instance = Row.create({cells: [cellA, cellB, cellC]})
-			o(instance.getChildren().map(c=>c.getData())).deepEquals([cellA, cellB, cellC].map(c=>c.data))
-			o(instance.getChildren().map(c=>c.class)).deepEquals([Cell, Cell, Cell])
+			const cells = ['a', 'b', 'c']
+			const instance = Row.create({cells: cells})
+			o(instance.getChildren()).notEquals(cells)
+			o(instance.getChildren()).deepEquals(cells)
 		})
 	})
 		// 	const base = Base.create()
@@ -53,36 +49,30 @@ o.spec('@row', ()=>{
 	// 	.removeFromParent()
 	// 	.scan()
 
-	o('.empty()', ()=>{
-		const cellA = {data: 'a'}
-		const cellB = {data: 'b'}
-		const cellC = {data: 'c'}
-		const instance = Row.create({cells: [cellA, cellB, cellC]})
-		o(instance.empty()).equals(instance)
-		o(instance.getChildren().map(c=>c.getData())).deepEquals(['', '', ''])
-	})
+	// o('.empty()', ()=>{
+	// 	const cells = ['a', 'b', 'c']
+	// 	const instance = Row.create({cells: cells})
+	// 	o(instance.empty()).equals(instance)
+	// 	o(instance.getChildren()).deepEquals(['', '', ''])
+	// })
 	o('.getChildren()', ()=>{
-		const cellA = {data: 'a'}
-		const cellB = {data: 'b'}
-		const cellC = {data: 'c'}
-		const instance = Row.create({cells: [cellA, cellB, cellC]})
-		o(instance.getChildren().map(c=>c.getData())).deepEquals([cellA, cellB, cellC].map(c=>c.data))
-		o(instance.getChildren().map(c=>c.class)).deepEquals([Cell, Cell, Cell])
+		const cells = ['a', 'b', 'c']
+		const instance = Row.create({cells: cells})
+		o(instance.getChildren()).notEquals(cells)
+		o(instance.getChildren()).deepEquals(cells)
 	})
 	o('.getWidth()', ()=>{
 		o(Row.create().getWidth()).equals(0)
 
-		const cells = [1, 2, 3]
+		const cells = ['a', 'b', 'c']
 		const instance = Row.create({cells: cells})
 		o(instance.getWidth()).equals(cells.length)
 	})
 	o('.toJSON()', ()=>{
 		o(JSON.stringify(Row.create())).equals(JSON.stringify({cells: []}))
 
-		const cellA = {data: 'a'}
-		const cellB = {data: 'b'}
-		const cellC = {data: 'c'}
-		o(JSON.stringify(Row.create({cells: [cellA, cellB, cellC]}))).equals(JSON.stringify({cells: [cellA, cellB, cellC]}))
+		const cells = ['a', 'b', 'c']
+		o(JSON.stringify(Row.create({cells: cells}))).equals(JSON.stringify({cells: cells}))
 	})
 	// o('.scanFor($Class)', ()=>{
 	// 	const base = Base.create()

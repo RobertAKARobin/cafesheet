@@ -1,7 +1,5 @@
 const Row = {
 	ancestors: [Section, Table, Base],
-	child: Cell,
-	descendants: [Cell],
 	name: 'Row',
 	parent: Section,
 	pluralName: 'rows',
@@ -14,11 +12,12 @@ const Row = {
 			parent: undefined
 		}
 		if(input.cells instanceof Array){
-			pvt.children = input.cells.map(Cell.from)
+			pvt.children = Array.from(input.cells)
 		}
 		if(input.parent && input.parent.constructor === Row.parent){
 			pvt.parent = input.parent
 		}
+
 		Object.assign(row, Row.generateInstanceMethods(pvt))
 		Object.freeze(row)
 		return row
@@ -32,10 +31,6 @@ Row.generateInstanceMethods = function(pvt){
 }
 Row.proto = {
 	class: Row,
-	empty(){
-		this.getChildren().forEach(c=>c.empty())
-		return this
-	},
 	getWidth(){
 		return this.getChildren().length
 	},
