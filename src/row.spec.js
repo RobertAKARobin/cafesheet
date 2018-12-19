@@ -64,6 +64,7 @@ o.spec('@row', ()=>{
 		o(instance.getChildren()).notEquals(cells)
 		o(instance.getChildren()).deepEquals(cells)
 	})
+	// TODO: .getParent()
 	o('.getWidth()', ()=>{
 		o(Row.create().getWidth()).equals(0)
 

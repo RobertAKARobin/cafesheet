@@ -1,112 +1,64 @@
-function Table(){
-	const instance = this
-	const pvt = {
-		children: [],
-		instance,
-		parent: undefined
-	}
-
-	Object.defineProperties(instance, {
-		addTo: {
-			value: Cafesheet.instance.addToParent(pvt)
-		},
-		createChild: {
-			value: Cafesheet.instance.createChild(pvt)
-		},
-		getChildren: {
-			value: Cafesheet.instance.getChildren(pvt)
-		},
-		getParent: {
-			value: Cafesheet.instance.getParent(pvt)
-		},
-		placeChild: {
-			value: Cafesheet.instance.placeChild(pvt)
-		},
-		removeChild: {
-			value: Cafesheet.instance.removeChild(pvt)
-		},
-		removeFromParent: {
-			value: Cafesheet.instance.removeFromParent(pvt)
-		}
-	})
-	Object.defineProperties(instance, {
-		place: {
-			get: instance.getPlace,
-			enumerable: true
-		},
-		sections: {
-			get: instance.getChildren,
-			enumerable: true
-		},
-
-		createSection: {
-			value: instance.createChild
-		}
-	})
-}
-Object.defineProperties(Table.prototype, {
-	class: {
-		value: Table
-	},
-	empty: {
-		value: Cafesheet.proto.empty
-	},
-	getColumnAt: {
-		value: function(place){
-			const instance = this
-			return TableColumn.get({
-				parent: instance,
-				place
-			})
-		}
-	},
-	getColumns: {
-		value: function(){
-			const instance = this
-			return instance.getWidth().map(place => {
-				return instance.getColumnAt(place)
-			})
-		}
-	},
-	getPlace: {
-		value: Cafesheet.proto.getPlace
-	},
-	getSiblings: {
-		value: Cafesheet.proto.getSiblings
-	},
-	getWidth: {
-		value: Cafesheet.proto.getWidthOfRows
-	},
-	placeAt: {
-		value: Cafesheet.proto.placeAt
-	},
-	scanFor: {
-		value: Cafesheet.proto.scanForFamily
-	}
-})
-Object.defineProperties(Table, {
+const Table = Object.defineProperties({}, {
 	ancestors: {
 		get: ()=>[Base]
 	},
 	child: {
 		get: ()=>Section
 	},
-	create: {
-		value: Cafesheet.class.create(Table)
-	},
 	defaultNumberOfChildren: {
-		value: 1
+		value: 2
 	},
 	descendants: {
-		get: ()=>[Section, Row, Cell]
+		get: ()=>[Section, Row]
 	},
-	new: {
-		value: ()=>new Table()
+	name: {
+		value: 'Table'
 	},
 	parent: {
 		get: ()=>Base
 	},
 	pluralName: {
 		value: 'tables'
+	},
+
+	proto: {
+		value: Object.defineProperties({}, {
+			class: {
+				get: ()=>Table
+			}
+		})
+	},
+
+	create: {
+		value: (input = {})=>{
+			const pvt = {
+				children: [],
+				parent: undefined
+			}
+			const table = pvt.instance = Object.create(Table.proto, {
+				getChildren: {
+					value: Cafesheet.instance.getChildren(pvt)
+				},
+				getParent: {
+					value: Cafesheet.instance.getParent(pvt)
+				}
+			})
+
+			if(input.sections instanceof Array){
+				input.sections.forEach(section=>{
+					if(section.class === Section){
+						pvt.children.push(section)
+					}
+				})
+			}else{
+				Table.defaultNumberOfChildren.times(n=>{
+					pvt.children.push(Section.create({parent: table}))
+				})
+			}
+			if(input.parent && input.parent.class === Table.parent){
+				pvt.parent = input.parent
+			}
+			return table
+		}
 	}
 })

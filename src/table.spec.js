@@ -1,22 +1,30 @@
-// o.spec('Table', ()=>{
-// 	o('family', ()=>{
-// 		o(Table.descendants).deepEquals([Section, Row, Cell])
-// 		o(Table.child).equals(Section)
-// 		o(Table.ancestors).deepEquals([Base])
-// 		o(Table.parent).equals(Base)
-// 	})
+o.spec('Table', ()=>{
+	o('family', ()=>{
+		o(Table.descendants).deepEquals([Section, Row])
+		o(Table.child).equals(Section)
+		o(Table.ancestors).deepEquals([Base])
+		o(Table.parent).equals(Base)
+	})
 
-// 	o('.create()', ()=>{
-// 		const instance = Table.create()
-// 		o(instance.getChildren().length).equals(Table.defaultNumberOfChildren)
-// 		o(instance.getParent()).equals(undefined)
-// 	})
-// 	o('.new()', ()=>{
-// 		const instance = Table.new()
-// 		o(instance.getChildren().length).equals(0)
-// 		o(instance.getParent()).equals(undefined)
-// 	})
-// })
+	o.spec('.create', ()=>{
+		o('.create()', ()=>{
+			const instance = Table.create()
+			o(instance.getChildren().length).equals(Table.defaultNumberOfChildren)
+			o(instance.getParent()).equals(undefined)
+		})
+		o('.create({parent: $parent})', ()=>{
+			const parent = Base.new()
+			const instance = Table.create({parent: parent})
+			o(instance.getParent()).equals(parent)
+		})
+		o('.create({rows: $children})', ()=>{
+			const children = [Section.create(), Section.create(), Section.create()]
+			const instance = Table.create({sections: children})
+			o(instance.getChildren()).notEquals(children)
+			o(instance.getChildren()).deepEquals(children)
+		})
+	})
+})
 // o.spec('@table', ()=>{
 // 	Cafesheet.Spec(Table)
 // 		.addTo()

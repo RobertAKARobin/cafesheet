@@ -27,27 +27,6 @@ const Section = Object.defineProperties({}, {
 		value: Object.defineProperties({}, {
 			class: {
 				get: ()=>Section
-			},
-			empty: {
-				value: Cafesheet.proto.empty
-			},
-			getColumns: {
-				value: Cafesheet.proto.getColumns
-			},
-			getPlace: {
-				value: Cafesheet.proto.getPlace
-			},
-			getSiblings: {
-				value: Cafesheet.proto.getSiblings
-			},
-			getWidth: {
-				value: Cafesheet.proto.getWidthOfRows
-			},
-			placeAt: {
-				value: Cafesheet.proto.placeAt
-			},
-			scanFor: {
-				value: Cafesheet.proto.scanForFamily
 			}
 		})
 	},
