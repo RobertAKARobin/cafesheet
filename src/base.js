@@ -1,12 +1,12 @@
-const Base = Object.defineProperties({}, {
+Object.defineProperties(Base, {
 	child: {
-		get: ()=>Table
+		value: Table
 	},
 	defaultNumberOfChildren: {
 		value: 1
 	},
 	descendants: {
-		get: ()=>[Table, Section, Row]
+		value: [Table, Section, Row]
 	},
 	name: {
 		value: 'Base'
@@ -18,7 +18,7 @@ const Base = Object.defineProperties({}, {
 	proto: {
 		value: Object.defineProperties({}, {
 			class: {
-				get: ()=>Base
+				value: Base
 			}
 		})
 	},

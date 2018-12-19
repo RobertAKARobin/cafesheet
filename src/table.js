@@ -1,21 +1,21 @@
-const Table = Object.defineProperties({}, {
+Object.defineProperties(Table, {
 	ancestors: {
-		get: ()=>[Base]
+		value: [Base]
 	},
 	child: {
-		get: ()=>Section
+		value: Section
 	},
 	defaultNumberOfChildren: {
 		value: 2
 	},
 	descendants: {
-		get: ()=>[Section, Row]
+		value: [Section, Row]
 	},
 	name: {
 		value: 'Table'
 	},
 	parent: {
-		get: ()=>Base
+		value: Base
 	},
 	pluralName: {
 		value: 'tables'
@@ -24,7 +24,7 @@ const Table = Object.defineProperties({}, {
 	proto: {
 		value: Object.defineProperties({}, {
 			class: {
-				get: ()=>Table
+				value: Table
 			}
 		})
 	},

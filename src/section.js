@@ -1,23 +1,21 @@
-// TODO: Declare all classes first, then object.defineProperties on each
-// to avoid having to use getters
-const Section = Object.defineProperties({}, {
+Object.defineProperties(Section, {
 	ancestors: {
-		get: ()=>[Table, Base]
+		value: [Table, Base]
 	},
 	child: {
-		get: ()=>Row
+		value: Row
 	},
 	defaultNumberOfChildren: {
 		value: 3
 	},
 	descendants: {
-		get: ()=>[Row]
+		value: [Row]
 	},
 	name: {
 		value: 'Section'
 	},
 	parent: {
-		get: ()=>Table
+		value: Table
 	},
 	pluralName: {
 		value: 'sections'
@@ -26,7 +24,7 @@ const Section = Object.defineProperties({}, {
 	proto: {
 		value: Object.defineProperties({}, {
 			class: {
-				get: ()=>Section
+				value: Section
 			}
 		})
 	},

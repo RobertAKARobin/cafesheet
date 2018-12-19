@@ -1,3 +1,7 @@
+const Base = {}
+const Table = {}
+const Section = {}
+const Row = {}
 const Cafesheet = {
 	state: {},
 	class: {

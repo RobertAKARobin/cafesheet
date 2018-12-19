@@ -1,12 +1,12 @@
-const Row = Object.defineProperties({}, {
+Object.defineProperties(Row, {
 	ancestors: {
-		get: ()=>[Section, Table, Base]
+		value: [Section, Table, Base]
 	},
 	name: {
 		value: 'Row'
 	},
 	parent: {
-		get: ()=>Section
+		value: Section
 	},
 	pluralName: {
 		value: 'rows'
@@ -15,7 +15,7 @@ const Row = Object.defineProperties({}, {
 	proto: {
 		value: Object.defineProperties({}, {
 			class: {
-				get: ()=>Row
+				value: Row
 			},
 			getWidth: {
 				value: function(){
