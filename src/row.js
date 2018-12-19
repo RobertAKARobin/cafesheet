@@ -51,7 +51,7 @@ const Row = Object.defineProperties({}, {
 				pvt.children = Array.from(input.cells)
 				// TODO: Detect if raw functions are passed as children
 			}
-			if(input.parent && input.parent.constructor === Row.parent){
+			if(input.parent && input.parent.class === Row.parent){
 				pvt.parent = input.parent
 			}
 			return row

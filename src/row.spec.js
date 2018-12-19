@@ -11,7 +11,7 @@ o.spec('Row', ()=>{
 			o(instance.getParent()).equals(undefined)
 		})
 		o('.create({parent: $parent})', ()=>{
-			const parent = Section.new()
+			const parent = Section.create()
 			const instance = Row.create({parent: parent})
 			o(instance.getParent()).equals(parent)
 		})

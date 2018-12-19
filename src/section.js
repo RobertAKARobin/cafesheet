@@ -1,98 +1,79 @@
-function Section(){
-	const instance = this
-	const pvt = {
-		children: [],
-		instance,
-		parent: undefined
-	}
-
-	Object.defineProperties(instance, {
-		addTo: {
-			value: Cafesheet.instance.addToParent(pvt)
-		},
-		createChild: {
-			value: Cafesheet.instance.createChild(pvt)
-		},
-		getChildren: {
-			value: Cafesheet.instance.getChildren(pvt)
-		},
-		getParent: {
-			value: Cafesheet.instance.getParent(pvt)
-		},
-		placeChild: {
-			value: Cafesheet.instance.placeChild(pvt)
-		},
-		removeChild: {
-			value: Cafesheet.instance.removeChild(pvt)
-		},
-		removeFromParent: {
-			value: Cafesheet.instance.removeFromParent(pvt)
-		}
-	})
-	Object.defineProperties(instance, {
-		place: {
-			get: instance.getPlace,
-			enumerable: true
-		},
-		rows: {
-			get: instance.getChildren,
-			enumerable: true
-		},
-
-		createRow: {
-			value: instance.createChild
-		}
-	})
-}
-Object.defineProperties(Section.prototype, {
-	class: {
-		value: Section
-	},
-	empty: {
-		value: Cafesheet.proto.empty
-	},
-	getColumns: {
-		value: Cafesheet.proto.getColumns
-	},
-	getPlace: {
-		value: Cafesheet.proto.getPlace
-	},
-	getSiblings: {
-		value: Cafesheet.proto.getSiblings
-	},
-	getWidth: {
-		value: Cafesheet.proto.getWidthOfRows
-	},
-	placeAt: {
-		value: Cafesheet.proto.placeAt
-	},
-	scanFor: {
-		value: Cafesheet.proto.scanForFamily
-	}
-})
-Object.defineProperties(Section, {
+// TODO: Declare all classes first, then object.defineProperties on each
+// to avoid having to use getters
+const Section = Object.defineProperties({}, {
 	ancestors: {
 		get: ()=>[Table, Base]
 	},
 	child: {
 		get: ()=>Row
 	},
-	create: {
-		value: Cafesheet.class.create(Section)
-	},
 	defaultNumberOfChildren: {
 		value: 3
 	},
 	descendants: {
-		get: ()=>[Row, Cell]
+		get: ()=>[Row]
 	},
-	new: {
-		value: ()=>new Section()
+	name: {
+		value: 'Section'
 	},
 	parent: {
 		get: ()=>Table
 	},
 	pluralName: {
 		value: 'sections'
+	},
+
+	proto: {
+		value: Object.defineProperties({}, {
+			class: {
+				get: ()=>Section
+			},
+			empty: {
+				value: Cafesheet.proto.empty
+			},
+			getColumns: {
+				value: Cafesheet.proto.getColumns
+			},
+			getPlace: {
+				value: Cafesheet.proto.getPlace
+			},
+			getSiblings: {
+				value: Cafesheet.proto.getSiblings
+			},
+			getWidth: {
+				value: Cafesheet.proto.getWidthOfRows
+			},
+			placeAt: {
+				value: Cafesheet.proto.placeAt
+			},
+			scanFor: {
+				value: Cafesheet.proto.scanForFamily
+			}
+		})
+	},
+
+	create: {
+		value: (input = {})=>{
+			const pvt = {
+				children: [],
+				parent: undefined
+			}
+			const section = pvt.instance = Object.create(Section.proto, {
+				getChildren: {
+					value: Cafesheet.instance.getChildren(pvt)
+				},
+				getParent: {
+					value: Cafesheet.instance.getParent(pvt)
+				}
+			})
+
+			// if(input.rows instanceof Array){
+			// 	pvt.children = Array.from(input.cells)
+			// }
+			if(input.parent && input.parent.class === Section.parent){
+				pvt.parent = input.parent
+			}
+			return section
+		}
 	}
 })
