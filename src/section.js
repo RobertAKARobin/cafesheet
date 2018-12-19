@@ -67,9 +67,17 @@ const Section = Object.defineProperties({}, {
 				}
 			})
 
-			// if(input.rows instanceof Array){
-			// 	pvt.children = Array.from(input.cells)
-			// }
+			if(input.rows instanceof Array){
+				input.rows.forEach(row=>{
+					if(row.class === Row){
+						pvt.children.push(row)
+					}
+				})
+			}else{
+				Section.defaultNumberOfChildren.times(n=>{
+					pvt.children.push(Row.create({parent: section}))
+				})
+			}
 			if(input.parent && input.parent.class === Section.parent){
 				pvt.parent = input.parent
 			}

@@ -1,22 +1,34 @@
-// o.spec('Section', ()=>{
-// 	o('family', ()=>{
-// 		o(Section.descendants).deepEquals([Row, Cell])
-// 		o(Section.child).equals(Row)
-// 		o(Section.ancestors).deepEquals([Table, Base])
-// 		o(Section.parent).equals(Table)
-// 	})
+o.spec('Section', ()=>{
+	o('family', ()=>{
+		o(Section.descendants).deepEquals([Row])
+		o(Section.child).equals(Row)
+		o(Section.ancestors).deepEquals([Table, Base])
+		o(Section.parent).equals(Table)
+	})
 
-// 	o('.create()', ()=>{
-// 		const instance = Section.create()
-// 		o(instance.getChildren().length).equals(Section.defaultNumberOfChildren)
-// 		o(instance.getParent()).equals(undefined)
-// 	})
-// 	o('.new()', ()=>{
-// 		const instance = Section.new()
-// 		o(instance.getChildren().length).equals(0)
-// 		o(instance.getParent()).equals(undefined)
-// 	})
-// })
+	o.spec('.create', ()=>{
+		o('.create()', ()=>{
+			const instance = Section.create()
+			o(instance.getChildren().length).equals(Section.defaultNumberOfChildren)
+			o(instance.getParent()).equals(undefined)
+		})
+		o('.create({parent: $parent})', ()=>{
+			const parent = Table.new()
+			const instance = Section.create({parent: parent})
+			o(instance.getParent()).equals(parent)
+
+			// TODO: Test for when wrong kind of parent
+		})
+		o('.create({rows: $children})', ()=>{
+			const children = [Row.create(), Row.create(), Row.create()]
+			const instance = Section.create({rows: children})
+			o(instance.getChildren()).notEquals(children)
+			o(instance.getChildren()).deepEquals(children)
+
+			// TODO: Test for when wrong kind of child
+		})
+	})
+})
 // o.spec('@section', ()=>{
 // 	Cafesheet.Spec(Section)
 // 		.addTo()
