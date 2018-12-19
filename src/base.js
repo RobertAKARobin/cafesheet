@@ -1,66 +1,51 @@
-function Base(){
-	const instance = this
-	const pvt = {
-		children: [],
-		instance
-	}
-
-	Object.defineProperties(instance, {
-		createChild: {
-			value: Cafesheet.instance.createChild(pvt)
-		},
-		getChildren: {
-			value: Cafesheet.instance.getChildren(pvt)
-		},
-		placeChild: {
-			value: Cafesheet.instance.placeChild(pvt)
-		},
-		removeChild: {
-			value: Cafesheet.instance.removeChild(pvt)
-		}
-	})
-	Object.defineProperties(instance, {
-		tables: {
-			get: instance.getChildren,
-			enumerable: true
-		},
-
-		addTable: {
-			value: instance.addChild
-		},
-		createTable: {
-			value: instance.createChild
-		},
-		removeTable: {
-			value: instance.removeChild
-		}
-	})
-}
-Object.defineProperties(Base.prototype, {
-	class: {
-		value: Base
-	},
-	empty: {
-		value: Cafesheet.proto.empty
-	},
-	scanFor: {
-		value: Cafesheet.proto.scanForFamily
-	}
-})
-Object.defineProperties(Base, {
+const Base = Object.defineProperties({}, {
 	child: {
 		get: ()=>Table
-	},
-	create: {
-		value: Cafesheet.class.create(Base)
 	},
 	defaultNumberOfChildren: {
 		value: 1
 	},
 	descendants: {
-		get: ()=>[Table, Section, Row, Cell]
+		get: ()=>[Table, Section, Row]
 	},
-	new: {
-		value: ()=>new Base()
+	name: {
+		value: 'Base'
+	},
+	pluralName: {
+		value: 'bases'
+	},
+
+	proto: {
+		value: Object.defineProperties({}, {
+			class: {
+				get: ()=>Base
+			}
+		})
+	},
+
+	create: {
+		value: (input = {})=>{
+			const pvt = {
+				children: []
+			}
+			const base = pvt.instance = Object.create(Base.proto, {
+				getChildren: {
+					value: Cafesheet.instance.getChildren(pvt)
+				}
+			})
+
+			if(input.tables instanceof Array){
+				input.tables.forEach(table=>{
+					if(table.class === Base.child){
+						pvt.children.push(table)
+					}
+				})
+			}else{
+				Base.defaultNumberOfChildren.times(n=>{
+					pvt.children.push(Table.create({parent: base}))
+				})
+			}
+			return base
+		}
 	}
 })

@@ -13,7 +13,7 @@ o.spec('Table', ()=>{
 			o(instance.getParent()).equals(undefined)
 		})
 		o('.create({parent: $parent})', ()=>{
-			const parent = Base.new()
+			const parent = Base.create()
 			const instance = Table.create({parent: parent})
 			o(instance.getParent()).equals(parent)
 		})

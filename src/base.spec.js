@@ -1,20 +1,24 @@
-// o.spec('Base', ()=>{
-// 	o('family', ()=>{
-// 		o(Base.descendants).deepEquals([Table, Section, Row, Cell])
-// 		o(Base.child).equals(Table)
-// 		o(Base.ancestors).equals(undefined)
-// 		o(Base.parent).equals(undefined)
-// 	})
+o.spec('Base', ()=>{
+	o('family', ()=>{
+		o(Base.descendants).deepEquals([Table, Section, Row])
+		o(Base.child).equals(Table)
+		o(Base.ancestors).equals(undefined)
+		o(Base.parent).equals(undefined)
+	})
 
-// 	o('.create()', ()=>{
-// 		const instance = Base.create()
-// 		o(instance.getChildren().length).equals(Base.defaultNumberOfChildren)
-// 	})
-// 	o('.new()', ()=>{
-// 		const instance = Base.new()
-// 		o(instance.getChildren().length).equals(0)
-// 	})
-// })
+	o.spec('.create', ()=>{
+		o('.create()', ()=>{
+			const instance = Base.create()
+			o(instance.getChildren().length).equals(Base.defaultNumberOfChildren)
+		})
+		o('.create({tables: $children})', ()=>{
+			const children = [Table.create(), Table.create(), Table.create()]
+			const instance = Base.create({tables: children})
+			o(instance.getChildren()).notEquals(children)
+			o(instance.getChildren()).deepEquals(children)
+		})
+	})
+})
 // o.spec('@base', ()=>{
 // 	Cafesheet.Spec(Base)
 // 		.createChild()
